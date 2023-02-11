@@ -1,5 +1,5 @@
 <!-- https://codepen.io/mr-t77/pen/jRzmMZ -->
-<div>
+<div class="centered">
   <form action="">
     <label class="statement">This HTML Likert scale is easy to use.</label>
     <ul class='likert'>
@@ -36,7 +36,13 @@
 </div>  
 
 <style>
+    .centered{
+        text-align: center;
+        width: 100%;
+        margin: 0 auto;
+    }
     .statement{
+        text-align: center;
         font-size: 16px;
     }
     .subh{
