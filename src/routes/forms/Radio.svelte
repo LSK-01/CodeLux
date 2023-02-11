@@ -29,30 +29,18 @@
     }
     .subh{
         font-size: 11px;
-<<<<<<< HEAD
         white-space: pre-wrap;
-=======
->>>>>>> c33660d (Fixed Likert scale centering)
     }
     form .likert:last-of-type {border-bottom:0;}
     form .likert:before {
     content: '';
     position:relative;
-<<<<<<< HEAD
     top:8px;
     left:20%;
     display:block;
     background-color:#000000;
     height:3px;
     width:60%;
-=======
-    top:11px;
-    left:18.5%;
-    display:block;
-    background-color:#000000;
-    height:4px;
-    width:63%;
->>>>>>> c33660d (Fixed Likert scale centering)
     }
     form .likert li {
     display:inline-block;
