@@ -1,16 +1,14 @@
 <!-- https://codepen.io/mr-t77/pen/jRzmMZ -->
 
 <script lang="ts">
-  export let options;
-  export let question: string;
-  export let userSelected = options[0].value;
+  export let options : any[number][string];
+  export let question : string;
+  export let userSelected : number;
 </script>  
 
 <div class="centered">
   <form action="">
-    <div class="padding">
-      <label class="statement">{question}</label>
-    </div>
+    <div class="padding">{question}</div>
     <ul class='likert'>
       {#each options as { value, label }}
         <li>
@@ -24,14 +22,10 @@
 
 <style>
     .padding{
-      padding-bottom: 5px;
+      padding-bottom: 20px;
     }
     .centered{
         margin: 0 auto;
-    }
-    .statement{
-        text-align: center;
-        font-size: 16px;
     }
     .subh{
         font-size: 11px;
@@ -60,16 +54,5 @@
     top:0;
     left:50%;
     margin-left:-6px;
-    
     }
-    form .buttons button {
-    padding: 5px 10px;
-    background-color: #67ab49;
-    border: 0;
-    border-radius: 3px;
-    }
-    form .buttons .clear {background-color: #e9e9e9;}
-    form .buttons .submit {background-color: #67ab49;} 
-    form .buttons .clear:hover {background-color: #ccc;}
-    form .buttons .submit:hover {background-color: #14892c;} 
 </style>
