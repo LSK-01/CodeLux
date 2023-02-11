@@ -8,6 +8,7 @@
 	"/forms": [
 		"src/routes/forms/+page.ts"
 	],
+	"/login": [],
 	"/sverdle": [
 		"src/routes/sverdle/+page.server.ts"
 	],
