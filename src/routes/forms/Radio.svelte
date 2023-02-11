@@ -25,10 +25,7 @@
 <style>
     .padding{
       padding-bottom: 5px;
-    }
     .centered{
-        text-align: center;
-        width: 100%;
         margin: 0 auto;
     }
     .statement{
