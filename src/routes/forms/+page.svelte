@@ -13,6 +13,8 @@
 	let currentActive : number = 1;
 	let progressBar : ProgressBar;
 
+    let radioValue;
+
     function getQuestions(){
         //will be different based on employee or manager
         const questions = [
@@ -68,7 +70,6 @@
     </div>		
 </div>
 
-<!-- <div class="vl"></div> -->
 
 <style>
     @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
