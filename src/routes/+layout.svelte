@@ -1,9 +1,24 @@
 <script>
 	import './styles.css';
+	import Sidebar from './sidebar.svelte';
+	import ProjectStatusesBox from './projectStatusesBox.svelte';
+	import ProjectTasksBox from './projectTasksBox.svelte';
+	import ProjectDeadlinesBox from './projectDeadlinesBox.svelte';
 </script>
 
 <div class="app">
-	
+	<!-- <Header> -->
+	<Sidebar/>
+	<div id="dashboard">
+		<h1>Hello, x!</h1>
+		<ProjectStatusesBox/>
+		<div id="lowerDashboard">
+			<ProjectTasksBox/>
+			<ProjectDeadlinesBox/>
+	</div>
+</div>
+
+	<!-- <Footer> -->
 </div>
 
 <style>
@@ -13,18 +28,20 @@
 		min-height: 100vh;
 	}
 
-	main {
+	#dashboard {
 		flex: 1;
 		display: flex;
 		flex-direction: column;
-		padding: 1rem;
-		width: 100%;
-		max-width: 64rem;
-		margin: 0 auto;
-		box-sizing: border-box;
+  		justify-content: center;
 	}
 
-	footer {
+	#lowerDashboard {
+		flex: 1;
+		display: flex;
+		flex-direction: row;
+	}
+
+	/* footer {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -34,11 +51,11 @@
 
 	footer a {
 		font-weight: bold;
-	}
+	} */
 
-	@media (min-width: 480px) {
+	/* @media (min-width: 480px) {
 		footer {
 			padding: 12px 0;
 		}
-	}
+	} */
 </style>
