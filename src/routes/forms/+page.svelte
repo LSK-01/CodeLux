@@ -68,6 +68,8 @@
     </div>		
 </div>
 
+<!-- <div class="vl"></div> -->
+
 <style>
     @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
     .container{
