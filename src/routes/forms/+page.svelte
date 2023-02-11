@@ -30,16 +30,31 @@
     <h1>
         Question 1
     </h1>
-    <Radio/>
+    <div class="form">
+        <Radio/>
+    </div>
     <p>
         {radioValue} is selected
     </p>
 </div>
 
+<!-- <div class="vl"></div> -->
+
 <style>
+    .form{
+        margin-left: -41px;
+    }
     .centered{
         text-align: center;
-        width: 50%;
+        width: 100%;
         margin: 0 auto;
+    }
+    .vl {
+        border-left: 6px solid green;
+        height: 500px;
+        position: absolute;
+        left: 50%;
+        margin-left: -3px;
+        top: 0;
     }
 </style>
