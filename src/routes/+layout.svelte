@@ -1,11 +1,13 @@
 <script>
 	import Header from './Header.svelte';
 	import './styles.css';
-
+	import { page } from '$app/stores';
+	let navItems = ['about', 'login', 'signup'];
 </script>
 
 <div class="app">
-	<Header />
+	<!--- add if statetment here to change the entire navbar once user is logged in-->
+	<Header navItems={navItems} />
 
 	<main>
 		<slot />

@@ -1,23 +1,22 @@
 <script>
 	import Input from '../Input.svelte';
 	import Button from '../Button.svelte';
-
 </script>
 
 <svelte:head>
-	<title>Login</title>
+	<title>Home</title>
 </svelte:head>
 
-<div class=" self-center pt-10 pb-48">	
+<div class=" self-center pt-10 pb-48">
 	<h1 class=" text-7xl">Pimp my Project</h1>
 </div>
 
 <form method="POST">
-<section class="flex flex-col justify-center items-center flex-1 gap-5">
-
-		<Input type="text" name="email" placeholder="Email" />
+	<section class="flex flex-col justify-center items-center flex-1 gap-5">
+		<Input type="email" name="email" placeholder="Email" />
 		<Input type="password" name="password" placeholder="Password" />
-		<Button>Login</Button>
+		<Button>Sign Up</Button>
+	</section>
 
-</section>
 </form>
+

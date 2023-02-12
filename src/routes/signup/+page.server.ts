@@ -1,6 +1,6 @@
 import type { Actions } from './$types';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import {app} from '../hooks.server'
+import {app} from '../../hooks.server'
 export const actions = {
   default: async ({cookies, request}) => {
 
