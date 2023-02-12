@@ -1,41 +1,31 @@
 <!-- https://codepen.io/mr-t77/pen/jRzmMZ -->
+
+<script lang="ts">
+  export let options;
+  export let question: string;
+  export let userSelected = options[0].value;
+</script>  
+
 <div class="centered">
   <form action="">
-    <label class="statement">This HTML Likert scale is easy to use.</label>
+    <div class="padding">
+      <label class="statement">{question}</label>
+    </div>
     <ul class='likert'>
-      <li>
-        <input type="radio" name="likert" value=-3>
-        <label class="subh">Strongly <br>disagree</label>
-      </li>
-      <li>
-        <input type="radio" name="likert" value=-2>
-        <label class="subh">Disagree</label>
-      </li>
-      <li>
-        <input type="radio" name="likert" value=-1>
-        <label class="subh">Somewhat <br>disagree</label>
-      </li>
-      <li>
-        <input type="radio" name="likert" value=0>
-        <label class="subh">Neither agree <br>nor disagree</label>
-      </li>
-      <li>
-        <input type="radio" name="likert" value=1>
-        <label class="subh">Somewhat <br>agree</label>
-      </li>
-      <li>
-        <input type="radio" name="likert" value=2>
-        <label class="subh">Agree</label>
-      </li>
-      <li>
-        <input type="radio" name="likert" value=3>
-        <label class="subh">Strongly <br>agree</label>
-      </li>
+      {#each options as { value, label }}
+        <li>
+          <input type="radio" name="likert" value={value} bind:group={userSelected}>
+          <label class="subh" for={label}>{label}</label>
+        </li>
+      {/each}
     </ul>
   </form>
 </div>  
 
 <style>
+    .padding{
+      padding-bottom: 5px;
+    }
     .centered{
         text-align: center;
         width: 100%;
@@ -47,17 +37,18 @@
     }
     .subh{
         font-size: 11px;
+        white-space: pre-wrap;
     }
     form .likert:last-of-type {border-bottom:0;}
     form .likert:before {
     content: '';
     position:relative;
-    top:11px;
-    left:18.5%;
+    top:8px;
+    left:20%;
     display:block;
     background-color:#000000;
-    height:4px;
-    width:63%;
+    height:3px;
+    width:60%;
     }
     form .likert li {
     display:inline-block;

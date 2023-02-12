@@ -6,6 +6,8 @@
 <script>
 	import Radio from './Radio.svelte'
 
+    let radioValue;
+
     function getQuestions(){
         //will be different based on employee or manager
         const questions = [
@@ -22,39 +24,53 @@
         return questions;
     }
 
-	let radioValue;
+    const options = [{
+		value: -3,
+		label: "Strongly\n disagree",
+	}, {
+		value: -2,
+		label: "Disagree",
+	}, {
+		value: -1,
+		label: "Somewhat\n disagree",
+	}, {
+        value: 0,
+        label: "Neither agree\n nor disagree",
+    }, {
+		value: 1,
+		label: "Somewhat\n agree",
+	}, {
+		value: 2,
+		label: "Agree",
+	}, {
+		value: 3,
+		label: "Strongly\n agree",
+	}]
+
 	
 </script>
 
 <div class="centered">
-    <h1>
+    <h1 class="qheading">
         Question 1
     </h1>
     <div class="form">
-        <Radio/>
+        <Radio {options} question={getQuestions()[0]} bind:userSelected={radioValue}/>
     </div>
     <p>
         {radioValue} is selected
     </p>
 </div>
 
-<!-- <div class="vl"></div> -->
 
 <style>
-    .form{
-        margin-left: -41px;
+    .qheading{
+        font-weight: bold;
+        padding-bottom: 5px;
     }
     .centered{
         text-align: center;
         width: 100%;
         margin: 0 auto;
-    }
-    .vl {
-        border-left: 6px solid green;
-        height: 500px;
-        position: absolute;
-        left: 50%;
-        margin-left: -3px;
-        top: 0;
     }
 </style>
