@@ -15,12 +15,6 @@
 
     let radioValue;
 
-    let radioValue;
-
-    let radioValue;
-
-    let radioValue;
-
     function getQuestions(){
         //will be different based on employee or manager
         const questions = [
@@ -76,6 +70,11 @@
     </div>		
 </div>
 
+    <div class="step-button">
+        <button class="btn" on:click={() => handleProgress(-1)} disabled={currentActive == 1}>Prev</button>
+        <button class="btn" on:click={() => handleProgress(+1)} disabled={currentActive == steps.length}>Next</button>
+    </div>		
+</div>
 
 <style>
     @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
