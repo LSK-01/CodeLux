@@ -4,9 +4,8 @@
 </svelte:head>
 
 <script>
-	import Radio from './Radio.svelte'
-
-    let radioValue;
+	import Form from './Form.svelte';
+	import ProgressBar from './ProgressBar.svelte';
 
     function getQuestions(){
         //will be different based on employee or manager
@@ -23,6 +22,13 @@
         ];
         return questions;
     }
+
+    let steps = Array.from({length: getQuestions().length}, (_, index) => index + 1).concat("Confirmation"), currentActive = 1, progressBar;
+	const handleProgress = (stepIncrement) => {
+		progressBar.handleProgress(stepIncrement)
+	}
+
+    let radioValue;
 
     const options = [{
 		value: -3,
@@ -50,20 +56,21 @@
 	
 </script>
 
-<div class="centered">
-    <h1 class="qheading">
-        Question 1
-    </h1>
-    <div class="form">
-        <Radio {options} question={getQuestions()[0]} bind:userSelected={radioValue}/>
-    </div>
-    <p>
-        {radioValue} is selected
-    </p>
+<!-- new bit -->
+<div class="container">
+    <ProgressBar {steps} bind:currentActive bind:this={progressBar}/>
+    
+    <Form {options} active_step={steps[currentActive-1]}/>
+
+    <div class="step-button">
+        <button class="btn" on:click={() => handleProgress(-1)} disabled={currentActive == 1}>Prev</button>
+        <button class="btn" on:click={() => handleProgress(+1)} disabled={currentActive == steps.length}>Next</button>
+    </div>		
 </div>
 
-
 <style>
+    @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+
     .qheading{
         font-weight: bold;
         padding-bottom: 5px;
@@ -73,4 +80,49 @@
         width: 100%;
         margin: 0 auto;
     }
+	
+	
+	* {
+		box-sizing: border-box;
+	}
+
+	main {
+		font-family: 'Muli', sans-serif;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 100vh;
+		overflow: hidden;
+		margin: 0;
+	}
+
+	.btn {
+		background-color: #3498db;
+		color: #fff;
+		border: 0;
+		border-radius: 6px;
+		cursor: pointer;
+		font-family: inherit;
+		padding: 8px 30px;
+		margin: 5px;
+		font-size: 14px;
+	}
+
+	.btn:active {
+		transform: scale(0.98);
+	}
+
+	.btn:focus {
+		outline: 0;
+	}
+
+	.btn:disabled {
+		background-color: #e0e0e0;
+		cursor: not-allowed;
+	}
+	
+	.step-button{
+		margin-top: 1rem;
+		text-align: center;
+	}
 </style>

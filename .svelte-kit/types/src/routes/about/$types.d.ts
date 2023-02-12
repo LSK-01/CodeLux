@@ -11,6 +11,4 @@ type OptionalUnion<U extends Record<string, any>, A extends keyof U = U extends 
 type PageParentData = EnsureDefined<import('../$types.js').LayoutData>;
 
 export type PageServerData = null;
-export type PageLoad<OutputData extends OutputDataShape<PageParentData> = OutputDataShape<PageParentData>> = Kit.Load<RouteParams, PageServerData, PageParentData, OutputData, RouteId>;
-export type PageLoadEvent = Parameters<PageLoad>[0];
-export type PageData = Expand<Omit<PageParentData, keyof PageParentData & EnsureDefined<PageServerData>> & OptionalUnion<EnsureDefined<PageParentData & EnsureDefined<PageServerData>>>>;
+export type PageData = Expand<PageParentData>;
