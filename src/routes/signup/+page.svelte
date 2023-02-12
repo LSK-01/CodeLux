@@ -1,6 +1,16 @@
-<script>
+<script lang="ts">
 	import Input from '../Input.svelte';
 	import Button from '../Button.svelte';
+	import type { PageData, ActionData } from './$types';
+	import { goto } from '$app/navigation';
+	import userStore from '../../userStore';
+
+/* 	userStore.subscribe( ({loggedIn, user}) => {
+        if(loggedIn){
+			console.log("logged in")
+             goto('/dashboard');
+        }
+    }) */
 </script>
 
 <svelte:head>

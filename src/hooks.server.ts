@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app';
-
+import userStore from './userStore';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 /**
  * @type {import("@firebase/firestore").Firestore}
  */
@@ -17,3 +18,11 @@ const firebaseConfig = {
 };
 
 export const app = initializeApp(firebaseConfig);
+
+const auth = getAuth();
+onAuthStateChanged(auth, (user) => {
+  userStore.set({
+	loggedIn: user !== null,
+	user: user ? user : undefined
+  })
+});
