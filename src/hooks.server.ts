@@ -1,7 +1,4 @@
-import { onMount } from 'svelte';
 import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
 
 /**
  * @type {import("@firebase/firestore").Firestore}
