@@ -1,18 +1,13 @@
 {
-	"/": [
-		"src/routes/+page.ts"
-	],
-	"/about": [
-		"src/routes/about/+page.ts"
-	],
+	"/": [],
+	"/about": [],
 	"/forms": [
 		"src/routes/forms/+page.ts"
 	],
-	"/login": [],
-	"/sverdle": [
-		"src/routes/sverdle/+page.server.ts"
+	"/login": [
+		"src/routes/login/+page.server.ts"
 	],
-	"/sverdle/how-to-play": [
-		"src/routes/sverdle/how-to-play/+page.ts"
+	"/signup": [
+		"src/routes/signup/+page.server.ts"
 	]
 }
