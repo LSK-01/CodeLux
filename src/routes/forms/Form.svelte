@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     //https://firebase.google.com/docs/web/setup
     // import { initializeApp } from 'firebase/app';
     // import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
