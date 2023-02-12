@@ -15,6 +15,8 @@
 
     let radioValue;
 
+    let radioValue;
+
     function getQuestions(){
         //will be different based on employee or manager
         const questions = [
