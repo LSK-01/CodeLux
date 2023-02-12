@@ -73,12 +73,4 @@
         width: 100%;
         margin: 0 auto;
     }
-    .vl {
-        border-left: 6px solid green;
-        height: 500px;
-        position: absolute;
-        left: 50%;
-        margin-left: -3px;
-        top: 0;
-    }
 </style>

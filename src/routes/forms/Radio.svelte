@@ -25,6 +25,7 @@
 <style>
     .padding{
       padding-bottom: 5px;
+    }
     .centered{
         margin: 0 auto;
     }
