@@ -1,68 +1,47 @@
 <!-- https://svelte.dev/repl/7b05d57dcdc04f49be72844e4b2825b3?version=3.44.0 -->
 <script>
     import Radio from './Radio.svelte';
-	export let active_step;
-	let formData = {
-		name: '',
-		surname: '',
-		email: '',
-		password: '',
-		address: '',
-		city: '',
-		country: '',
-		postcode: '',
-		account_name: '',
-		card_no: ''
-	}
 
-    function getQuestions(){
-        //will be different based on employee or manager
-        const questions = [
-            "I have received adequate training to help me complete the project", 
-            "My manager supports me in any training I want to undertake to help me perform my role better", 
-            "My team is easy to communicate with", 
-            "My team work well together", 
-            "I feel recognised and valued for my role and contribution to this project", 
-            "I enjoy being a part of my company’s culture", 
-            "I feel confident the project will be finished on time",
-            "My team have the resources and skills necessary to complete the project", 
-            "I feel satisfied with the frequency of feedback received from the customer" 
-        ];
-        return questions;
-    }
+	export let active_step;
+    export let options;    
+    export let questions;
+
+	let formData = Array(questions.length);
 	
+    //TODO: POST data back to database or however firebase works
 	const handleSubmit = () => {
 		console.log("Your form data => ",formData)
 	}
 
-    export let options;    
-    let radioValue;
-
 </script>
 
+<!-- TODO: redirect user to another page when complete -->
 <form class="form-container" on:submit={handleSubmit}>
 	{#if active_step != 'Confirmation'}
         <div class="centered">
             <h1 class="qheading">
                 Question {active_step}
             </h1>
-            <div class="form">
-                <Radio {options} question={getQuestions()[active_step-1]} bind:userSelected={radioValue}/>
+            <div class="padding">
+                <Radio {options} question={questions[active_step-1]} bind:userSelected={formData[active_step-1]}/>
             </div>
-            <p>
-                {radioValue} is selected
-            </p>
         </div>        
 	{:else}
 		<div class="message">
 			<h2>Thank you for completing the survey</h2>
-			<button class="btn submit">Submit</button>
+			<button class="btn submit" on:click={handleSubmit}>Submit</button>
 		</div>
 	{/if}
 </form>
 
 <style>
-	
+	.qheading {
+        font-weight: bold;
+        font-size: 24px;
+    }
+    .padding {
+        padding-top: 10px;
+    }
 	.form-container {
 		background-color: #fff;
 		border-radius: 10px;

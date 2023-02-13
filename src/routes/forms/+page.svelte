@@ -24,11 +24,10 @@
     }
 
     let steps = Array.from({length: getQuestions().length}, (_, index) => index + 1).concat("Confirmation"), currentActive = 1, progressBar;
+    
 	const handleProgress = (stepIncrement) => {
 		progressBar.handleProgress(stepIncrement)
 	}
-
-    let radioValue;
 
     const options = [{
 		value: -3,
@@ -56,11 +55,10 @@
 	
 </script>
 
-<!-- new bit -->
 <div class="container">
     <ProgressBar {steps} bind:currentActive bind:this={progressBar}/>
     
-    <Form {options} active_step={steps[currentActive-1]}/>
+    <Form {options} questions={getQuestions()} active_step={steps[currentActive-1]}/>
 
     <div class="step-button">
         <button class="btn" on:click={() => handleProgress(-1)} disabled={currentActive == 1}>Prev</button>
@@ -70,6 +68,9 @@
 
 <style>
     @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+    .container{
+        padding-top: 20px
+    }
 
     .qheading{
         font-weight: bold;

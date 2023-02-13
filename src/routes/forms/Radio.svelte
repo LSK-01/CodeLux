@@ -3,7 +3,8 @@
 <script lang="ts">
   export let options;
   export let question: string;
-  export let userSelected = options[0].value;
+  export let userSelected = undefined;
+  export let value;
 </script>  
 
 <div class="centered">
@@ -24,7 +25,7 @@
 
 <style>
     .padding{
-      padding-bottom: 5px;
+      padding-bottom: 20px;
     }
     .centered{
         margin: 0 auto;
