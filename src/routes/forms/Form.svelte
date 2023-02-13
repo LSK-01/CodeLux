@@ -32,7 +32,7 @@
                 Confirmation
             </h1>			
 			<h2>Thank you for completing the survey</h2>
-			<button class="btn submit">Submit</button>
+			<button class="btn submit" on:click={handleSubmit}>Submit</button>
 		</div>
 	{/if}
 </form>
