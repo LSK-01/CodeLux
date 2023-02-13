@@ -1,9 +1,11 @@
 <!-- https://svelte.dev/repl/7b05d57dcdc04f49be72844e4b2825b3?version=3.44.0 -->
-<script>
-	export let steps = [], currentActive = 1;
-	let circles, progress;
+<script lang="ts">
+	export let steps : any[] = [];
+    export let currentActive : number = 1;
+	let circles: NodeListOf<HTMLDivElement>;
+    let progress: HTMLDivElement;
 	
-	export const handleProgress = (stepIncrement) => {
+	export const handleProgress = (stepIncrement : number) => {
 		circles = document.querySelectorAll('.circle');
 		if(stepIncrement == 1){
 			currentActive++
@@ -20,7 +22,7 @@
 		}
 		
 
-    update()
+        update()
 	}
 	
 	function update() {
@@ -39,7 +41,7 @@
 	
 </script>
 
-<div class="progress-container" bind:this={circles}>
+<div class="progress-container">
 	<div class="progress" bind:this={progress}></div>
 	{#each steps as step, i}
         <div class="circle {i == 0 ? 'active' : ''}" >{i+1}</div>

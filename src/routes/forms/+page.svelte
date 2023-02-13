@@ -3,9 +3,15 @@
 	<meta name="description" content="survey" />
 </svelte:head>
 
-<script>
+<script lang="ts">
 	import Form from './Form.svelte';
 	import ProgressBar from './ProgressBar.svelte';
+
+    let steps : (string|number)[];
+	steps = Array.from({length: getQuestions().length}, (_, index) => index + 1);
+	steps = steps.concat("Confirmation");
+	let currentActive : number = 1;
+	let progressBar : ProgressBar;
 
     function getQuestions(){
         //will be different based on employee or manager
@@ -23,9 +29,7 @@
         return questions;
     }
 
-    let steps = Array.from({length: getQuestions().length}, (_, index) => index + 1).concat("Confirmation"), currentActive = 1, progressBar;
-    
-	const handleProgress = (stepIncrement) => {
+	const handleProgress = (stepIncrement : number) => {
 		progressBar.handleProgress(stepIncrement)
 	}
 
@@ -51,14 +55,12 @@
 		value: 3,
 		label: "Strongly\n agree",
 	}]
-
-	
 </script>
 
 <div class="container">
     <ProgressBar {steps} bind:currentActive bind:this={progressBar}/>
     
-    <Form {options} questions={getQuestions()} active_step={steps[currentActive-1]}/>
+    <Form {options} questions={getQuestions()} active_step={currentActive}/>
 
     <div class="step-button">
         <button class="btn" on:click={() => handleProgress(-1)} disabled={currentActive == 1}>Prev</button>
@@ -70,31 +72,10 @@
     @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
     .container{
         padding-top: 20px
-    }
-
-    .qheading{
-        font-weight: bold;
-        padding-bottom: 5px;
-    }
-    .centered{
-        text-align: center;
-        width: 100%;
-        margin: 0 auto;
-    }
-	
+    }	
 	
 	* {
 		box-sizing: border-box;
-	}
-
-	main {
-		font-family: 'Muli', sans-serif;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		height: 100vh;
-		overflow: hidden;
-		margin: 0;
 	}
 
 	.btn {

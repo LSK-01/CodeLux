@@ -1,10 +1,10 @@
 <!-- https://svelte.dev/repl/7b05d57dcdc04f49be72844e4b2825b3?version=3.44.0 -->
-<script>
+<script lang="ts">
     import Radio from './Radio.svelte';
-
-	export let active_step;
-    export let options;    
-    export let questions;
+	
+	export let active_step : number;
+	export let options : any[number][string];    
+	export let questions : string[];
 
 	let formData = Array(questions.length);
 	
@@ -17,7 +17,7 @@
 
 <!-- TODO: redirect user to another page when complete -->
 <form class="form-container" on:submit={handleSubmit}>
-	{#if active_step != 'Confirmation'}
+	{#if active_step != questions.length+1}
         <div class="centered">
             <h1 class="qheading">
                 Question {active_step}
@@ -28,8 +28,11 @@
         </div>        
 	{:else}
 		<div class="message">
+            <h1 class="qheading">
+                Confirmation
+            </h1>			
 			<h2>Thank you for completing the survey</h2>
-			<button class="btn submit" on:click={handleSubmit}>Submit</button>
+			<button class="btn submit">Submit</button>
 		</div>
 	{/if}
 </form>
