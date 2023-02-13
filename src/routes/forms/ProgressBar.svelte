@@ -42,7 +42,7 @@
 <div class="progress-container" bind:this={circles}>
 	<div class="progress" bind:this={progress}></div>
 	{#each steps as step, i}
-	<div class="circle {i == 0 ? 'active' : ''}" data-title={step} >{i+1}</div>
+        <div class="circle {i == 0 ? 'active' : ''}" >{i+1}</div>
 	{/each}
 </div>
 
