@@ -11,7 +11,7 @@
 		flex: 1;
 		height: 0%;
 		padding: 10px;
-		background-color: blue;
+		background-color:rgba(0, 0, 0, 0.5);
 		border-radius: 10px;
 		margin: 10px;
 	}
