@@ -5,7 +5,7 @@
 		Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 	--font-mono: 'Fira Mono', monospace;
 	--bg1: rgb(104, 197, 247);
-	--bg2: rgb(130, 116, 255);
+	--bg2: rgb(104, 135, 247);
 	--fg1: rgba(0, 0, 0, 0.5);
 	--fg2: rgb(0, 0, 0);
 	--text: rgb(255, 255, 255);
@@ -19,7 +19,7 @@ body {
 	min-height: 100vh;
 	margin: 0;
 	background-image: linear-gradient(var(--bg1), var(--bg2));
-	background-size: 100vw 100vh;
+	background-size: auto 100%;
 }
 
 h1,
