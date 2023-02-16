@@ -1,5 +1,11 @@
 {
-	"/": [
-		"src/routes/+page.ts"
+	"/": [],
+	"/about": [],
+	"/dashboard": [],
+	"/login": [
+		"src/routes/login/+page.server.ts"
+	],
+	"/signup": [
+		"src/routes/signup/+page.server.ts"
 	]
 }
