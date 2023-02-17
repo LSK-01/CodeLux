@@ -6,55 +6,70 @@
 <script lang="ts">
 	import Form from './Form.svelte';
 	import ProgressBar from './ProgressBar.svelte';
+	import { app } from '../../hooks.server';
+	import { getFirestore } from "firebase/firestore";
+	import { collection, getDocs, query, where } from 'firebase/firestore';
+
+	const db = getFirestore(app);
+
+	async function getQuestions(){
+    //will be different based on employee or manager
+    // const questions = [
+    //     "I have received adequate training to help me complete the project", 
+    //     "My manager supports me in any training I want to undertake to help me perform my role better", 
+    //     "My team is easy to communicate with", 
+    //     "My team work well together", 
+    //     "I feel recognised and valued for my role and contribution to this project", 
+    //     "I enjoy being a part of my company’s culture", 
+    //     "I feel confident the project will be finished on time",
+    //     "My team have the resources and skills necessary to complete the project", 
+    //     "I feel satisfied with the frequency of feedback received from the customer" 
+    // ];
+    // return questions;
+
+		let questions : string[] = [];
+		const questionsRef = collection(db, 'surveyquestions');
+		const q = query(questionsRef, where("qtype", "==", "employee"));
+		const querySnapshot = await getDocs(q);
+			querySnapshot.forEach((doc) => {
+				// doc.data() is never undefined for query doc snapshots
+				questions.push(doc.data().question);
+			});
+		return questions;
+	}	
+
+	const qs : string[] = getQuestions();
 
     let steps : (string|number)[];
-	steps = Array.from({length: getQuestions().length}, (_, index) => index + 1);
+	steps = Array.from({length: qs.length}, (_, index) => index + 1);
 	steps = steps.concat("Confirmation");
 	let currentActive : number = 1;
 	let progressBar : ProgressBar;
-
-    let radioValue;
-
-    function getQuestions(){
-        //will be different based on employee or manager
-        const questions = [
-            "I have received adequate training to help me complete the project", 
-            "My manager supports me in any training I want to undertake to help me perform my role better", 
-            "My team is easy to communicate with", 
-            "My team work well together", 
-            "I feel recognised and valued for my role and contribution to this project", 
-            "I enjoy being a part of my company’s culture", 
-            "I feel confident the project will be finished on time",
-            "My team have the resources and skills necessary to complete the project", 
-            "I feel satisfied with the frequency of feedback received from the customer" 
-        ];
-        return questions;
-    }
 
 	const handleProgress = (stepIncrement : number) => {
 		progressBar.handleProgress(stepIncrement)
 	}
 
     const options = [{
-		value: -3,
+		value: 0,
 		label: "Strongly\n disagree",
 	}, {
-		value: -2,
+		value: 1,
 		label: "Disagree",
 	}, {
-		value: -1,
+		value: 2,
 		label: "Somewhat\n disagree",
 	}, {
-        value: 0,
+        value: 3,
         label: "Neither agree\n nor disagree",
     }, {
-		value: 1,
+		value: 4,
 		label: "Somewhat\n agree",
 	}, {
-		value: 2,
+		value: 5,
 		label: "Agree",
 	}, {
-		value: 3,
+		value: 6,
 		label: "Strongly\n agree",
 	}]
 </script>
@@ -62,7 +77,7 @@
 <div class="container">
     <ProgressBar {steps} bind:currentActive bind:this={progressBar}/>
     
-    <Form {options} questions={getQuestions()} active_step={currentActive}/>
+    <Form {options} questions={qs} active_step={currentActive}/>
 
     <div class="step-button">
         <button class="btn" on:click={() => handleProgress(-1)} disabled={currentActive == 1}>Prev</button>
