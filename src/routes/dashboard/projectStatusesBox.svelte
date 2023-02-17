@@ -5,16 +5,19 @@
 <div id='projectStatusesBox'>
 	<h2>Projects</h2>
 	<div class='boxContents'>
-		<div class='overviewBox'>
-			<p>Projects at risk</p>
+		<div class='overviewBox' id='projectRiskBox'>
+			<span class="material-icons" id='riskIcon'>priority_high</span>
+			<h3>Projects at risk</h3>
 			<h2>projectsAtRiskCount</h2>
 		</div>
 		<div class='overviewBox'>
-			<p>Projects with surveys due</p>
+			<span class="material-icons" id='surveyIcon'>assignment</span>
+			<h3>Projects with surveys due</h3>
 			<h2>projectsAtSurveysCount</h2>
 		</div>
 		<div class='overviewBox'>
-			<p>Projects at tasks due</p>
+			<span class="material-icons" id='taskIcon'>task</span>
+			<h3>Projects with tasks due</h3>
 			<h2>projectsAtTaskCount</h2>
 		</div>
 	</div>
@@ -44,6 +47,10 @@
 		justify-content: space-evenly;
 	}
 
+	#projectRiskBox{
+		border: solid 5px rgb(160, 0, 0);
+	}
+
 	.overviewBox {
 		flex: 1 0;
 		display: flex;
@@ -55,5 +62,18 @@
 		align-items: center;
 		justify-content: center;
 	}
+
+	#riskIcon {
+		color: rgb(160, 0, 0);
+	}
+
+	#surveyIcon {
+		color: rgb(0, 61, 160);
+	}
+
+	#taskIcon {
+		color: rgb(0, 160, 61);
+	}
+
 
 </style>
