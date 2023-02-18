@@ -11,5 +11,3 @@ node_modules
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .svelte-kit
-*.config.js
-*.config.cjs

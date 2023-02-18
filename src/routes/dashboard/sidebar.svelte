@@ -8,7 +8,9 @@
 </svelte:head>
 
 <nav>
-	<h2>Hello, x!</h2>
+	<Button>
+		<a href="/"><span class="material-icons" id='userIcon'>account_circle</span><h2>username</h2></a>
+	</Button>
 	<Button><a href="/">Add project<span class="material-icons">add</span></a></Button>
 	<Button><a href="/">Surveys<span class="material-icons">assignment</span></a></Button>
 	<Button><a href="/settings">Settings<span class="material-icons">settings</span></a></Button>
@@ -23,7 +25,12 @@
 		justify-content: space-evenly;
 		align-items: center;
 		border-radius: 10px;
-		background-color:rgba(0, 0, 0, 0.5);;
+		background-color:rgba(0, 0, 0, 0.5);
+		padding: 10px;
+	}
+
+	#userIcon {
+		font-size: 50px;
 	}
 
 	nav a {
