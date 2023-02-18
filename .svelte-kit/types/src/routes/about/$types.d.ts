@@ -11,4 +11,8 @@ type OptionalUnion<U extends Record<string, any>, A extends keyof U = U extends 
 type PageParentData = EnsureDefined<import('../$types.js').LayoutData>;
 
 export type PageServerData = null;
+<<<<<<< HEAD
 export type PageData = Expand<PageParentData>;
+=======
+export type PageData = Expand<PageParentData>;
+>>>>>>> 242a57605c4637dfa68f9846c0057dbc313182a1

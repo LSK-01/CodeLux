@@ -18,4 +18,8 @@ export type PageServerData = null;
 export type PageData = Expand<PageParentData>;
 export type Action<OutputData extends Record<string, any> | void = Record<string, any> | void> = Kit.Action<RouteParams, OutputData, RouteId>
 export type Actions<OutputData extends Record<string, any> | void = Record<string, any> | void> = Kit.Actions<RouteParams, OutputData, RouteId>
+<<<<<<< HEAD
 export type RequestEvent = Kit.RequestEvent<RouteParams, RouteId>;
+=======
+export type RequestEvent = Kit.RequestEvent<RouteParams, RouteId>;
+>>>>>>> 242a57605c4637dfa68f9846c0057dbc313182a1
