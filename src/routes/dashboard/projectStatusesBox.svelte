@@ -21,10 +21,9 @@
 				pieSliceText: 'none',
 				colors: ['rgb(0, 160, 0)', 'rgb(160, 0, 0)'],
 				legend: {position: 'none'},
-				enableInteractivity: false,
 				chartArea: {
-					height: '100%',
-					width: '100%',
+					height: '90%',
+					width: '90%',
 				},
 			};
 
@@ -46,10 +45,9 @@
 				pieSliceText: 'none',
 				colors: ['rgb(0, 160, 0)', 'rgb(0, 60, 160)'],
 				legend: {position: 'none'},
-				enableInteractivity: false,
 				chartArea: {
-					height: '100%',
-					width: '100%',
+					height: '90%',
+					width: '90%',
 				},
 			};
 
@@ -71,10 +69,9 @@
 				pieSliceText: 'none',
 				colors: ['rgb(0, 160, 0)', 'rgb(160, 160, 0)'],
 				legend: {position: 'none'},
-				enableInteractivity: false,
 				chartArea: {
-					height: '100%',
-					width: '100%',
+					height: '90%',
+					width: '90%',
 				},
 			};
 
@@ -141,10 +138,6 @@
 		background-color: var(--fg2);
 		align-items: center;
 		justify-content: center;
-	}
-
-	#projectRiskBox{
-		border: solid 5px rgb(160, 0, 0);
 	}
 
 	#riskIcon {
