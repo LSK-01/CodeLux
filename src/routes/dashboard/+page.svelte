@@ -1,6 +1,6 @@
 <script>
 	import '../styles.css';
-	import Sidebar from './sidebar.svelte';
+	import Sidebar from '../sidebar/sidebar.svelte';
 	import ProjectStatusesBox from './projectStatusesBox.svelte';
 	import ProjectTasksBox from './projectTasksBox.svelte';
 	import ProjectDeadlinesBox from './projectDeadlinesBox.svelte';

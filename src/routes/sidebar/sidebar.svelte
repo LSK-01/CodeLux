@@ -9,13 +9,16 @@
 
 <nav>
 	<Button>
-		<a href="/"><span class="material-icons" id='userIcon'>account_circle</span><h2>username</h2></a>
+		<a href="/">
+			<span class="material-icons" id='userIcon'>account_circle</span>
+			<h2>username</h2>
+		</a>
 	</Button>
-	<Button><a href="/">Add project<span class="material-icons">add</span></a></Button>
-	<Button><a href="/">Surveys<span class="material-icons">assignment</span></a></Button>
-	<Button><a href="/settings">Settings<span class="material-icons">settings</span></a></Button>
-	<Button><a href="/about">About<span class="material-icons">info</span></a></Button>
-	<Button><a href="/home">Log out<span class="material-icons">logout</span></a></Button>
+	<Button><a href="/"><span class="material-icons">add</span>Add project</a></Button>
+	<Button><a href="/"><span class="material-icons">assignment</span>Surveys</a></Button>
+	<Button><a href="/settings"><span class="material-icons">settings</span>Settings</a></Button>
+	<Button><a href="/about"><span class="material-icons">info</span>About</a></Button>
+	<Button><a href="/home"><span class="material-icons">logout</span>Log out</a></Button>
 </nav>
 
 <style>
