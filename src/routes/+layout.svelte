@@ -2,7 +2,7 @@
 	import './styles.css';
 	import { page } from '$app/stores';
 	import Header from './Header.svelte';
-	let navItems = ['about', 'login', 'signup', 'dashboard'];
+	let navItems = ['about', 'login', 'signup', 'dashboard','projects'];
 </script>
 
 <div class="app">
