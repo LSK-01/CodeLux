@@ -4,6 +4,14 @@
 	import ProjectStatusesBox from './projectStatusesBox.svelte';
 	import ProjectTasksBox from './projectTasksBox.svelte';
 	import ProjectDeadlinesBox from './projectDeadlinesBox.svelte';
+  import userStore from "../../userStore";
+
+  let email;
+  let username;
+
+  userStore.subscribe(({ loggedIn, user }) => {
+      console.log("loggedin:", loggedIn, "user", user);   
+  });
 </script>
 
 <svelte:head>
