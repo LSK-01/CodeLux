@@ -1,4 +1,4 @@
-<script>
+<script lang='ts'>
 	import '../styles.css';
 	import Sidebar from '../sidebar/sidebar.svelte';
 	import ProjectStatusesBox from './projectStatusesBox.svelte';

@@ -1,6 +1,14 @@
-<script>
+<script lang='ts'>
 	import '../styles.css';
+	import userStore from "../../userStore";
 	import Button from '../Button.svelte';
+
+	let email: string;
+	let username: string;
+
+	userStore.subscribe(({ loggedIn, user }) => {
+		console.log("loggedin:", loggedIn, "user", user);   
+	});
 </script>
 
 <svelte:head>
@@ -11,7 +19,7 @@
 	<Button>
 		<a href="/">
 			<span class="material-icons" id='userIcon'>account_circle</span>
-			<h2>username</h2>
+			<h2>{username}</h2>
 		</a>
 	</Button>
 	<Button><a href="/"><span class="material-icons">add</span>Add project</a></Button>
