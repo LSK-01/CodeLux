@@ -15,7 +15,7 @@
 </script>
 
 <svelte:head>
-	<title>Dashboard</title>
+  <title>Dashboard</title>
 </svelte:head>
 
 <div id='wrapper'>
