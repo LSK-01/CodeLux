@@ -10,7 +10,9 @@
   let btnDisabled = true
   let min = 10
   let message
-  let questions =  ["Question 1", "Question 2"]
+  let questions =  ["Project Name","Project Description", "Manager Username","Developer Username(s)", "Project Time Frame", 
+                    "Github link to Source Code Files", "Satsfaction", "Confidence", "Customer Contact Frequency", "Customer Satsfaction",
+                    "Completion Percentage", "Budget", "Start Date", "Deadline"]
   let count = 0
 
   const handleSelect = e => rating = e.detail
@@ -46,10 +48,18 @@
       
     }
   }
+
+  function handleReset() {
+      count = 0
+      FeedbackStore.update((currentFeedback) => {
+        return []
+      })
+      
+  }
+  
 </script>
 
-
-<Card>
+<Card > 
   <header>
     <h2>{questions[count]}</h2>
   </header>
@@ -66,6 +76,10 @@
   {/if}
 </form>
 </Card>
+
+<!--<button on:click={() => ( FeedbackStore.update((currentFeedback) => { return []}) )}> Add New Project </button>-->
+<button on:click|once={handleReset}> Add New Project 2 </button>
+
 
 <style>
   header {
