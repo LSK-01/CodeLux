@@ -16,7 +16,11 @@
   </div>
   <!--<button class="close" on:click={() => handleDelete(item.id)}>X</button>-->
   <p class="text-display">
-    { item.question + " : " + item.text}
+    {#if item.text != ''}
+      {item.question + " : " + item.text}
+    {:else}
+      { item.question }
+    {/if}
   </p>
 </Card>
 

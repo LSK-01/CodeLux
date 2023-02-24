@@ -39,6 +39,9 @@
 
   const handleSubmit = () => {
     if(text.trim().length > -1) {
+      if(text != ''){
+        rating = -1
+      }
       const newFeedback = {
         id: uuidv4(),
         question : questions_new[count][0],
@@ -56,6 +59,7 @@
     count += 1
     if (count == questions.length){
       alert("All questions answered !")
+      handleReset()
       
     }
   }
@@ -92,7 +96,7 @@
   <header>
     <h2>{questions_new[count][0]}</h2>
   </header>
-<form on:submit|preventDefault={handleSubmit}>
+<form >
   {#if questions_new[count][1] == true}
     <div class="input-group">
       <input type="text" on:input={handleInput} bind:value = {text} placeholder="Answer here ">
@@ -101,7 +105,7 @@
     <RatingSelect on:rating-select={handleSelect} />
   {/if}
   <!--Button disabled={btnDisabled} type="submit">Send</Button-->
-  <button on:click|once={handleSubmit}>Send</button>
+  <button on:click={handleSubmit}>Send</button>
   {#if message}
     <div class="message">
       {message}
@@ -111,7 +115,7 @@
 </Card>
 
 <!--<button on:click={() => ( FeedbackStore.update((currentFeedback) => { return []}) )}> Add New Project </button>-->
-<button on:click|once={handleReset}> Add New Project 2 </button>
+<button on:click={handleReset}> Add New Project 2 </button>
 
 
 <style>
