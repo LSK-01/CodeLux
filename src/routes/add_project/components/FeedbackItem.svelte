@@ -11,15 +11,15 @@
 </script>
 
 <Card>
-  <div class="num-display">
-    {item.rating}
-  </div>
   <!--<button class="close" on:click={() => handleDelete(item.id)}>X</button>-->
   <p class="text-display">
     {#if item.text != ''}
       {item.question + " : " + item.text}
     {:else}
       { item.question }
+      <div class="num-display">
+        {item.rating}
+      </div>
     {/if}
   </p>
 </Card>
@@ -31,7 +31,7 @@
     left: -10px;
     width: 50px;
     height: 50px;
-    background: #ff6a95;
+    background: #ff6a8aea;
     color: #fff;
     border: 1px #eee solid;
     border-radius: 50%;

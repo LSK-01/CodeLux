@@ -88,7 +88,7 @@
   }
 
   .rating li:hover {
-    background: #ff6a95;
+    background: #ff6a8aea;
     color: #fff;
   }
 
@@ -99,7 +99,7 @@
 
   /* Use the sibling select */
   [type='radio']:checked ~ label {
-    background: #ff6a95;
+    background: #ff6a8aea;
     color: #fff;
   }
 </style>

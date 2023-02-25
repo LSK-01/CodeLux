@@ -19,6 +19,7 @@
                     ["Completion Percentage",true], ["Budget",true], ["Start Date",true],[ "Deadline",true]]                  
   let count = 0
 
+  handleReset()
   const handleSelect = (e) => {
     rating = e.detail
     message = null
@@ -74,24 +75,10 @@
   
 </script>
 
-<!--Card > 
-  <header>
-    <h2>{questions[count]}</h2>
-  </header>
-<form on:submit|preventDefault={handleSubmit}>
-  <RatingSelect on:rating-select={handleSelect} />
-  <div class="input-group">
-    <input type="text" on:input={handleInput} bind:value = {text} placeholder="Answer here ">
-    <Button disabled={btnDisabled} type="submit">Send</Button>
-  </div>
-  {#if message}
-    <div class="message">
-      {message}
-    </div>
-  {/if}
-</form>
-</Card-->
-
+<h1 on:load={handleReset}> 
+ 
+  Add Project
+</h1>
 <Card > 
   <header>
     <h2>{questions_new[count][0]}</h2>
@@ -115,7 +102,7 @@
 </Card>
 
 <!--<button on:click={() => ( FeedbackStore.update((currentFeedback) => { return []}) )}> Add New Project </button>-->
-<button on:click={handleReset}> Add New Project 2 </button>
+<button on:click={handleReset}> Add another project </button>
 
 
 <style>
