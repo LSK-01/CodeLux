@@ -8,7 +8,7 @@
   import RatingSelect from './RatingSelect.svelte'
 
   let text = ''
-  let rating = 0
+  let rating = -1
   let question_num = 0
   let questions_new = [["Project Name",true],["Project Description",true], ["Manager Username",true],
                       ["Developer Username(s)",true], ["Project Time Frame (in hours)",true], ["Github link to Source Code Files",true], 
