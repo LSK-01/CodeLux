@@ -2,8 +2,10 @@
 	import './styles.css';
 	import { page } from '$app/stores';
 	import Header from './Header.svelte';
-	console.log("poo", $page.url.pathname);
-	$: navItems = $page.url.pathname == '/dashboard' ? ['dashboard'] : ['about', 'login', 'signup'];
+	let landing = ['about', 'login', 'signup'];
+	let customized = ['dashboard', 'projects'];
+
+	$: navItems = customized.includes($page.url.pathname.slice(1)) ? customized : landing;
 </script>
 
 <div class="app">
