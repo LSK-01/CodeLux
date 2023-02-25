@@ -1,17 +1,15 @@
 <script lang='ts'>
 	import '../styles.css';
-	import Sidebar from '../sidebar/sidebar.svelte';
 	import ProjectStatusesBox from './projectStatuses/projectStatusesBox.svelte';
 	import ProjectTasksBox from './projectTasksBox.svelte';
 	import ProjectDeadlinesBox from './projectDeadlinesBox.svelte';
 </script>
 
 <svelte:head>
-  <title>Dashboard</title>
+  	<title>Dashboard</title>
 </svelte:head>
 
 <div id='wrapper'>
-	<Sidebar/>
 	<div id="dashboard">
 		<ProjectStatusesBox/>
 		<ProjectTasksBox/>

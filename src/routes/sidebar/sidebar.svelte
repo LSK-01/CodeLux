@@ -1,14 +1,8 @@
 <script lang='ts'>
 	import '../styles.css';
-	import userStore from "../../userStore";
 	import Button from '../Button.svelte';
-
-	let email: string;
-	let username: string;
-
-	userStore.subscribe(({ loggedIn, user }) => {
-		console.log("loggedin:", loggedIn, "user", user);   
-	});
+   	/** @type {import('../routes/$types').PageData["post"]} */
+	export let email: String;
 </script>
 
 <svelte:head>
@@ -16,28 +10,28 @@
 </svelte:head>
 
 <nav>
+	<h1>Pimp My Project</h1>
 	<Button>
 		<a href="/">
 			<span class="material-icons" id='userIcon'>account_circle</span>
-			<h2>{username}</h2>
+			<h2>{email}</h2>
 		</a>
 	</Button>
-	<Button><a href="/"><span class="material-icons">add</span>Add project</a></Button>
-	<Button><a href="/"><span class="material-icons">assignment</span>Surveys</a></Button>
+	<Button><a href="/add_project"><span class="material-icons">add</span>Add project</a></Button>
 	<Button><a href="/settings"><span class="material-icons">settings</span>Settings</a></Button>
 	<Button><a href="/about"><span class="material-icons">info</span>About</a></Button>
-	<Button><a href="/home"><span class="material-icons">logout</span>Log out</a></Button>
+	<Button><a href="/login"><span class="material-icons">logout</span>Log out</a></Button>
 </nav>
 
 <style>
 	nav {
 		display: flex;
 		flex: 0 1;
-		justify-content: space-evenly;
+		justify-content: space-between;
 		align-items: center;
-		border-radius: 10px;
+		border-radius: 0 0 10px 10px;
 		background-color:rgba(0, 0, 0, 0.5);
-		padding: 10px;
+		padding: 10px 10vw ;
 	}
 
 	#userIcon {

@@ -1,5 +1,5 @@
 <script>
-	import '../styles.css';
+	import '../../styles.css';
 </script>
 
 <svelte:head>
@@ -82,7 +82,7 @@
 </svelte:head>
 
 <div id='projectStatusesBox'>
-	<h2>Projects</h2>
+	<h2>Overview</h2>
 	<div class='boxContents'>
 		<div class='overviewBox' id='projectRiskBox'>
 			<span class="material-icons" id='riskIcon'>priority_high</span>
