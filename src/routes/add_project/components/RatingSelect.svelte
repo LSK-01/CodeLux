@@ -1,11 +1,13 @@
 <script>
+// @ts-nocheck
+
   import {createEventDispatcher} from 'svelte'
 
-  let selected = 10
+  let selected = 0
 
   const dispatch = createEventDispatcher()
 
-  const onChange = (e) => {
+  const onChange = (/** @type {{ currentTarget: { value: number; }; }} */ e) => {
     selected = e.currentTarget.value
     dispatch('rating-select', selected)
   }

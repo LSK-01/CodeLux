@@ -1,9 +1,9 @@
-<div class="card">
+<div class="tile">
   <slot></slot>
 </div>
 
 <style>
-  .card {
+  .tile {
     background-color: #fff;
     color: #333;
     border-radius: 15px;

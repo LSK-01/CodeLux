@@ -1,7 +1,10 @@
 <script>
+// @ts-nocheck
+
+  // @ts-ignore
   import {v4 as uuidv4} from 'uuid'
   import {FeedbackStore} from '../stores'
-  import Card from './Card.svelte'
+  import Tile from './Tile.svelte'
   import RatingSelect from './RatingSelect.svelte'
 
   let text = ''
@@ -13,7 +16,7 @@
                     ["Completion Percentage",true], ["Budget (in british pounds)",true], ["Start Date (in format Day/Month/Year)",true],[ "Deadline  (in format Day/Month/Year)",true]]     
   handleReset()
 
-  const handleSelect = (numb) => {
+  const handleSelect = (/** @type {{ detail: number; }} */ numb) => {
     rating = numb.detail
     text = ""
   }
@@ -30,6 +33,7 @@
         rating: +rating,
       }
 
+      // @ts-ignore
       FeedbackStore.update((currentFeedback) => {
         return [newFeedback, ...currentFeedback]
       })
@@ -37,7 +41,7 @@
       text = ''
 
     question_num += 1
-    if (question_num == questions.length){
+    if (question_num == questions_new.length){
       alert("All questions answered !")
       handleReset()
     }
@@ -52,26 +56,29 @@
   
 </script>
 
-<h1 on:load={handleReset}> 
-  Add Project
-</h1>
-<Card > 
-  <header>
-    <h2>{questions_new[question_num][0]}</h2>
-  </header>
-<form >
-  {#if questions_new[question_num][1] == true}
-    <div class="input-group">
-      <input type="text" on:input={handleInput} bind:value = {text} placeholder="Answer here ">
-    </div>
-  {:else}
-    <RatingSelect on:rating-select={handleSelect} />
-  {/if}
-  <br/>
-  <button on:click={handleSubmit} class=" bg-red-200 w-32 h-10 rounded-lg hover:bg-red-400 drop-shadow-md"><slot>Send</slot></button>
-  <button on:click={handleReset}  class=" bg-red-200 w-32 h-10 rounded-lg hover:bg-red-400 drop-shadow-md"><slot>Restart</slot> </button> 
-</form>
-</Card>
+<div id = "wrapper">
+  <h1 on:load={handleReset}> 
+    Add Project
+  </h1>
+  <Tile > 
+    <header>
+      <h2>{questions_new[question_num][0]}</h2>
+    </header>
+  <form >
+    {#if questions_new[question_num][1] == true}
+      <div class="input-group">
+        <input type="text" on:input={handleInput} bind:value = {text} placeholder="Answer here ">
+      </div>
+    {:else}
+      <RatingSelect on:rating-select={handleSelect} />
+    {/if}
+    <br/>
+    <button on:click={handleSubmit} class=" bg-red-200 w-32 h-10 rounded-lg hover:bg-red-400 drop-shadow-md"><slot>Send</slot></button>
+    <button on:click={handleReset}  class=" bg-red-200 w-32 h-10 rounded-lg hover:bg-red-400 drop-shadow-md"><slot>Restart</slot> </button> 
+  </form>
+
+</Tile>
+</div>
 
 <style>
 
@@ -88,5 +95,9 @@
   input:focus {
     outline: none;
   }
+
+  #wrapper {
+		margin: 10px 100px;
+	}
 
 </style>
