@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { dev } from '$app/environment';
 import { app } from '../../hooks.server';
 import { getFirestore, collection, getDocs, doc, setDoc, addDoc, query, where, serverTimestamp } from 'firebase/firestore';
@@ -10,7 +11,7 @@ export const csr = dev;
 // it so that it gets served as a static asset in production
 export const prerender = false;
 
-/** @type {import('./$types').PageLoad} */
+/** */
 export async function load() {
     let questions : string[] = [];
     const db = getFirestore(app);

@@ -16,7 +16,7 @@
 </script>
 
 <!-- TODO: redirect user to another page when complete -->
-<form class="form-container" on:submit={handleSubmit}>
+<form class="form-container"  on:submit={handleSubmit} method="POST" action="?/store">
 	{#if active_step != questions.length+1}
         <div class="centered">
             <h1 class="qheading">
@@ -24,6 +24,7 @@
             </h1>
             <div class="padding">
                 <Radio {options} question={questions[active_step-1]} bind:userSelected={formData[active_step-1]}/>
+				<input type="text" id="lname" name="lname"><br><br>
             </div>
         </div>        
 	{:else}
@@ -32,7 +33,7 @@
                 Confirmation
             </h1>			
 			<h2>Thank you for completing the survey</h2>
-			<button class="btn submit">Submit</button>
+			<button  type="submit" class="btn submit">Submit</button>
 		</div>
 	{/if}
 </form>
@@ -46,7 +47,7 @@
         padding-top: 10px;
     }
 	.form-container {
-		background-color: #fff;
+		background-color: #b8b8b8;
 		border-radius: 10px;
 		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);
 		padding: 50px 20px;

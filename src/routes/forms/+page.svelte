@@ -49,8 +49,8 @@
 		Project X : Survey
 	</div>
     <ProgressBar {steps} bind:currentActive bind:this={progressBar}/>
-    
-    <Form {options} questions={qs} active_step={currentActive}/>
+
+   	<Form {options} questions={qs} active_step={currentActive}/>
 
     <div class="step-button">
         <button class="btn" on:click={() => handleProgress(-1)} disabled={currentActive == 1}>Prev</button>
