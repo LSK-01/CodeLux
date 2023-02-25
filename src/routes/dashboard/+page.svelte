@@ -4,15 +4,12 @@
   import ProjectStatusesBox from "./projectStatusesBox.svelte";
   import ProjectTasksBox from "./projectTasksBox.svelte";
   import ProjectDeadlinesBox from "./projectDeadlinesBox.svelte";
-  import userStore from "../../userStore";
+  import type { PageData } from "./$types";
+  import type {user} from '../../user';
 
-  let email;
-  let username;
+  export let data: PageData;
 
-/*   userStore.subscribe(({ loggedIn, user }) => {
-    console.log("loggedin:", loggedIn, "user", user);
-    
-  }); */
+  let user = data.user;
 </script>
 
 <svelte:head>
@@ -21,7 +18,7 @@
 
 <div class="app">
   <div id="wrapper">
-    <Sidebar />
+    <Sidebar user={user} />
     <div id="dashboard">
       <ProjectStatusesBox />
       <ProjectTasksBox />
