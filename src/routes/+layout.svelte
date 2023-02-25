@@ -2,7 +2,8 @@
 	import './styles.css';
 	import { page } from '$app/stores';
 	import Header from './Header.svelte';
-	let navItems = ['about', 'login', 'signup', 'dashboard'];
+	console.log("poo", $page.url.pathname);
+	$: navItems = $page.url.pathname == '/dashboard' ? ['dashboard'] : ['about', 'login', 'signup'];
 </script>
 
 <div class="app">
