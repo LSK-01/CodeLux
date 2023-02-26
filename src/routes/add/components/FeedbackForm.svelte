@@ -1,8 +1,4 @@
-<script>
-// @ts-nocheck
-
-  // @ts-ignore
-  import {v4 as uuidv4} from 'uuid'
+<script lang="ts">
   import {FeedbackStore} from '../stores'
   import Tile from './Tile.svelte'
   import RatingSelect from './RatingSelect.svelte'
@@ -16,7 +12,7 @@
                     ["Completion Percentage",true], ["Budget (in british pounds)",true], ["Start Date (in format Day/Month/Year)",true],[ "Deadline  (in format Day/Month/Year)",true]]     
   handleReset()
 
-  const handleSelect = (/** @type {{ detail: number; }} */ numb) => {
+  const handleSelect = (numb: any) => {
     rating = numb.detail
     text = ""
   }
@@ -27,7 +23,6 @@
 
   const handleSubmit = () => {
       const newFeedback = {
-        id: uuidv4(),
         question : questions_new[question_num][0],
         text,
         rating: +rating,

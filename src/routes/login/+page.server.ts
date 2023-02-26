@@ -10,7 +10,7 @@ export const actions = {
         const data = await request.formData();
         let email: string = data.get('email') as string;
         let password: string = data.get('password') as string;
-
+        
         try {
             const res = await signInWithEmailAndPassword(auth, email, password)
 

@@ -4,7 +4,7 @@
 	import Header from './Header.svelte';
 
 	let landing = ['about', 'login', 'signup'];
-	let customized = ['dashboard', 'projects', 'add_project'];
+	let customized = ['dashboard', 'projects', 'add', 'forms'];
 
 	$: navItems = customized.includes($page.url.pathname.slice(1)) ? customized : landing;
 </script>
