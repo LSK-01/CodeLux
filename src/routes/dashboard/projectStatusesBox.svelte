@@ -12,7 +12,7 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script type="text/javascript">
-		google.charts.load("current", {packages:["corechart"]});
+      	google.charts.load("current", {packages:["corechart"]});
 		google.charts.setOnLoadCallback(drawRiskChart);
 		function drawRiskChart() {
 			var notAtRisk = Number(document.getElementById("riskDonutChart").getAttribute('data-notatrisk'));
@@ -35,8 +35,8 @@
 				},
 			};
 
-		var chart = new google.visualization.PieChart(document.getElementById('riskDonutChart'));
-		chart.draw(riskData, options);
+			var chart = new google.visualization.PieChart(document.getElementById('riskDonutChart'));
+			chart.draw(riskData, options);
 		}
 
 		google.charts.setOnLoadCallback(drawSurveyChart);
@@ -66,7 +66,7 @@
 		}
 
 		google.charts.setOnLoadCallback(drawTaskChart);
-			function drawTaskChart() {
+		function drawTaskChart() {
 			var withTasks = Number(document.getElementById("taskDonutChart").getAttribute('data-withtasks'));
 			var withoutTasks = Number(document.getElementById("taskDonutChart").getAttribute('data-withouttasks'));
 			var taskData = google.visualization.arrayToDataTable([
