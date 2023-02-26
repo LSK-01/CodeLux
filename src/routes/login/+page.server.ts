@@ -1,7 +1,8 @@
 import type { Actions } from './$types';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { app } from '../../hooks.server';
-import userStore from '../../userStore';
+import type { user } from '../../user';
+
 export const actions = {
 	default: async ({cookies, request}) => {
         const auth = getAuth(app);
@@ -12,8 +13,15 @@ export const actions = {
 
         try {
             const res = await signInWithEmailAndPassword(auth, email, password)
-            cookies.set('email', res.user.email ?? "");
-            cookies.set('uid', res.user.uid);
+
+            let user: user = {
+                email: email ?? "",
+                uid: res.user.uid,
+                username: res.user.displayName ?? email.substring(0, email.indexOf('@'))
+              }
+  
+              cookies.set('user', JSON.stringify(user));
+              
             return {success: true}
 
         } catch (err) {

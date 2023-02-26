@@ -1,8 +1,14 @@
-/** @type {import('./$types').LayoutServerLoad} */
-export async function load({cookies} : {cookies:any}) {
+import type { PageServerLoad } from "./login/$types";
+
+export const load: PageServerLoad = async ({cookies, params}) => {
+    const cookie = cookies.get('user')!;
+    if (cookie == null) {
+        return {
+            user: {},
+        }
+    }
+    const user = JSON.parse(cookie);
     return {
-        post: {
-            email: cookies.get('email'),
-        },
+        user: user,
     };
 }

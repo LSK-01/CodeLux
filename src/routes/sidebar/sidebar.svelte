@@ -1,8 +1,8 @@
 <script lang='ts'>
 	import '../styles.css';
 	import Button from '../Button.svelte';
-   	/** @type {import('../routes/$types').PageData["post"]} */
-	export let email: String;
+	import type { user } from '../../user';
+	export let user: user;
 </script>
 
 <svelte:head>
@@ -14,7 +14,7 @@
 	<Button>
 		<a href="/">
 			<span class="material-icons" id='userIcon'>account_circle</span>
-			<h2>{email}</h2>
+			<h2>{user.username}</h2>
 		</a>
 	</Button>
 	<Button><a href="/add_project"><span class="material-icons">add</span>Add project</a></Button>

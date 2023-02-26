@@ -1,8 +1,8 @@
 import { app } from '../../hooks.server';
 import { getFirestore, collection, getDocs, query, where, orderBy } from 'firebase/firestore';
+import type { PageServerLoad } from "../login/$types";
 
-/** @type {import('./$types').PageLoad} */
-export async function load() {
+export const load: PageServerLoad = async () => {
     let atRisk : number = 0;
     let notAtRisk : number = 0;
     const db = getFirestore(app);
