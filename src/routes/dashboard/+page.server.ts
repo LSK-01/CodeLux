@@ -16,17 +16,15 @@ export const load: PageServerLoad = async () => {
         }
     });
     return {
-        post: {
-            atRisk: atRisk,
-            notAtRisk: notAtRisk,
-            withSurveys: 2,
-            withoutSurveys: 5,
-            withTasks: 4,
-            withoutTasks: 4,
-            surveyList: await getSurveys(),
-            taskList: await getTasks(),
-            deadlineList: await getDeadlines(),
-        },
+        atRisk: atRisk,
+        notAtRisk: notAtRisk,
+        withSurveys: 2,
+        withoutSurveys: 5,
+        withTasks: 4,
+        withoutTasks: 4,
+        surveyList: await getSurveys(),
+        taskList: await getTasks(),
+        deadlineList: await getDeadlines(),
     };
 }
 

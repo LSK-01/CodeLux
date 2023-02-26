@@ -1,11 +1,12 @@
 <script lang='ts'>
 	import '../styles.css';
-	export let atRisk: number = 0;
-	export let notAtRisk: number = 1;
-	export let withSurveys: number = 0;
-	export let withoutSurveys: number = 1;
-	export let withTasks: number = 0;
-	export let withoutTasks: number = 1;
+	export let data;
+	let atRisk: number = data.atRisk;
+	let notAtRisk: number = data.notAtRisk;
+	let withSurveys: number = data.withSurveys;
+	let withoutSurveys: number = data.withoutSurveys;
+	let withTasks: number = data.withTasks;
+	let withoutTasks: number = data.withoutTasks;
 </script>
 
 <svelte:head>

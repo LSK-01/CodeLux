@@ -19,21 +19,16 @@
 <div id='wrapper'>
 	<div id="dashboard">
 		<ProjectStatusesBox 
-			atRisk={data.post.atRisk} 
-			notAtRisk={data.post.notAtRisk}
-			withSurveys={data.post.withSurveys} 
-			withoutSurveys={data.post.withoutSurveys}
-			withTasks={data.post.withTasks} 
-			withoutTasks={data.post.withoutTasks}
+			data={data}
 		/>
 		<ProjectDeadlinesBox
-			deadlineList={data.post.deadlineList} 
+			deadlineList={data.deadlineList} 
 		/>
 		<ProjectSurveysBox
-			surveyList={data.post.surveyList} 
+			surveyList={data.surveyList} 
 		/>
 		<ProjectTasksBox
-			taskList={data.post.taskList} 
+			taskList={data.taskList} 
 		/>
 	</div>
 </div>
