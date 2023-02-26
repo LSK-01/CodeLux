@@ -1,30 +1,30 @@
-<script lang='ts'>
-	import '../styles.css';
-	import Sidebar from '../sidebar/sidebar.svelte';
-	import ProjectStatusesBox from './projectStatusesBox.svelte';
-	import ProjectTasksBox from './projectTasksBox.svelte';
-	import ProjectDeadlinesBox from './projectDeadlinesBox.svelte';
-  import userStore from "../../userStore";
+<script lang="ts">
+  //import '../styles.css';
+  import Sidebar from "./sidebar.svelte";
+  import ProjectStatusesBox from "./projectStatusesBox.svelte";
+  import ProjectTasksBox from "./projectTasksBox.svelte";
+  import ProjectDeadlinesBox from "./projectDeadlinesBox.svelte";
+  import type { PageData } from "./$types";
+  import type {user} from '../../user';
 
-  let email;
-  let username;
+  export let data: PageData;
 
-  userStore.subscribe(({ loggedIn, user }) => {
-      console.log("loggedin:", loggedIn, "user", user);   
-  });
+  let user = data.user;
 </script>
 
 <svelte:head>
   <title>Dashboard</title>
 </svelte:head>
 
-<div id='wrapper'>
-	<Sidebar/>
-	<div id="dashboard">
-		<ProjectStatusesBox/>
-		<ProjectTasksBox/>
-		<ProjectDeadlinesBox/>
-	</div>
+<div class="app">
+  <div id="wrapper">
+    <Sidebar user={user} />
+    <div id="dashboard">
+      <ProjectStatusesBox />
+      <ProjectTasksBox />
+      <ProjectDeadlinesBox />
+    </div>
+  </div>
 </div>
 
 <style>
