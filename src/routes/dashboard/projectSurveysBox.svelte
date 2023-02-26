@@ -10,10 +10,11 @@
 		<div class='surveyBox'>
 			<h3>survey.projectName<h3>
 		</div>
-		{/each}
+		{:else}
 		<div class='surveyBox'>
-			<h3>projectName<h3>
+			<h3>No surveys due<h3>
 		</div>
+		{/each}
 	</div>
 </div>
 

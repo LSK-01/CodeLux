@@ -1,5 +1,5 @@
 import { app } from '../../hooks.server';
-import { getFirestore, collection, getDocs, query, where } from 'firebase/firestore';
+import { getFirestore, collection, getDocs, query, where, orderBy } from 'firebase/firestore';
 
 /** @type {import('./$types').PageLoad} */
 export async function load() {
@@ -25,7 +25,7 @@ export async function load() {
             withoutTasks: 4,
             surveyList: await getSurveys(),
             taskList: await getTasks(),
-
+            deadlineList: await getDeadlines(),
         },
     };
 }
@@ -36,20 +36,40 @@ async function getSurveys() {
     const surveys = collection(db, 'surveys');
     const querySnapshot = await getDocs(surveys);
     querySnapshot.forEach((survey) => {
-        surveyList.push("ProjectName")
+        surveyList.push("survey.data().projectName")
     });
     return surveyList;
 }
 
 async function getTasks() {
 	type TaskPair = {[key: string]: string };
-	let taskList: string[] = [];
+	let taskList: TaskPair[] = [];
     const db = getFirestore(app);
     const tasks = collection(db, 'tasks');
     const querySnapshot = await getDocs(tasks);
     querySnapshot.forEach((task) => {
-        taskList.push("");
+        let taskPair = {
+            prjectName: task.data().projectName,
+            text: task.data().text
+        };
+        taskList.push(taskPair);
     });
-    return taskList;
+    return JSON.stringify(taskList);
 }
 
+async function getDeadlines() {
+    type DeadlinePair = {[key: string]: string };
+	let deadlineList: DeadlinePair[] = [];
+    const db = getFirestore(app);
+    const ps = collection(db, 'projects');
+    const projects = query(ps, where("complete", "==", false), orderBy("deadline"));
+    const querySnapshot = await getDocs(projects);
+    querySnapshot.forEach((project) => {
+        let deadlinePair = {
+            name: project.data().name,
+            deadline: project.data().deadline.toDate().toLocaleString()
+        };
+        deadlineList.push(deadlinePair);
+    });
+    return JSON.stringify(deadlineList);
+}

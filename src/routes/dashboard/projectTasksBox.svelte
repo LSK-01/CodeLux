@@ -1,22 +1,21 @@
 <script lang='ts'>
-	import '../styles.css';
-	// type TaskPair = {[key: string]: string };
-	export let taskList: [];
+	import '../styles.css';;
+	export let taskList: string = "";
 </script>
 
 <div id='projectTasksBox'>
 	<h2>Tasks</h2>
 	<div class='boxContents'>
-		{#each taskList as task}
+		{#each JSON.parse(taskList) as task}
 		<div class='taskBox'>
 			<h3>task.projectName<h3>
 			<p>task.text<p>
 		</div>
-		{/each}
+		{:else}
 		<div class='taskBox'>
-			<h3>projectName<h3>
-			<p>taskText<p>
+			<h3>No tasks due<h3>
 		</div>
+		{/each}
 	</div>
 </div>
 

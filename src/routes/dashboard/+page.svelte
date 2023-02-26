@@ -22,7 +22,9 @@
 			withTasks={data.post.withTasks} 
 			withoutTasks={data.post.withoutTasks}
 		/>
-		<ProjectDeadlinesBox/>
+		<ProjectDeadlinesBox
+			deadlineList={data.post.deadlineList} 
+		/>
 		<ProjectSurveysBox
 			surveyList={data.post.surveyList} 
 		/>
