@@ -26,20 +26,26 @@ export async function load() {
     return { post: questions }
     }
 
-import type { Actions } from './$types';
-export const actions = {
-    store: async ({request}) => {
-        const data = await request.formData();
-        let email: string = data.get('lname') as string;
+import type { PageServerLoad, Actions } from './$types';
 
+export const actions = {
+    store: async ({ cookies, request}) => {
+        const data = await request.formData();
+        const userid = cookies.get('uid');
+        const email = cookies.get('email');
+        
         const db = getFirestore(app);
         console.log(data);
         for (const value of data.entries()) {
             console.log(value);
           }
         await addDoc(collection(db,"surveyanswers"), {
-            name: email,
             time: serverTimestamp(),
+            q1: data.get("q1"),
+            q2: data.get("q2"),
+            q3: data.get("q3"),
+            userid: userid,
+            email: email,
           });
 
     }
