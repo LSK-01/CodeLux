@@ -8,7 +8,7 @@
 	export let data: PageData;
 	let user = data.user;
 	let landing = ['about', 'login', 'signup'];
-	let customized = ['dashboard', 'projects'];
+	let customized = ['dashboard', 'projects', 'add', 'forms'];
 
 	$: navItems = customized.includes($page.url.pathname.slice(1)) ? customized : landing;
 </script>
