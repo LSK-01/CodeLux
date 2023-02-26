@@ -22,6 +22,8 @@ body {
 	background-size: auto 100%;
 }
 
+svg > g > g.google-visualization-tooltip { pointer-events: none } /*Fixes google charts flickering*/
+
 h1,
 h2,
 h3,
@@ -101,4 +103,8 @@ button:focus:not(:focus-visible) {
 	position: absolute;
 	width: 1px;
 	white-space: nowrap;
+}
+
+.material-icons{
+	display: block;
 }

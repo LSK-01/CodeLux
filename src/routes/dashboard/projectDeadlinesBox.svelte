@@ -1,18 +1,21 @@
-<script>
+<script lang='ts'>
 	import '../styles.css';
+	export let deadlineList: string = "";
 </script>
 
 <div id='projectDeadlinesBox'>
 	<h2>Upcoming Deadlines</h2>
 	<div class='boxContents'>
+		{#each JSON.parse(deadlineList) as project}
 		<div class='deadlineBox'>
-			<h3>projectName<h3>
-			<p>Due in timeRemaining<p>
+			<h3>{project.name}<h3>
+			<p>Due on {project.deadline}<p>
 		</div>
+		{:else}
 		<div class='deadlineBox'>
-			<h3>projectName<h3>
-			<p>Due in timeRemaining<p>
+			<h3>No projects due<h3>
 		</div>
+		{/each}
 	</div>
 </div>
 
