@@ -2,7 +2,11 @@
 	import './styles.css';
 	import { page } from '$app/stores';
 	import Header from './Header.svelte';
-	let navItems = ['about', 'login', 'signup', 'dashboard','add_project'];
+
+	let landing = ['about', 'login', 'signup'];
+	let customized = ['dashboard', 'projects', 'add_project'];
+
+	$: navItems = customized.includes($page.url.pathname.slice(1)) ? customized : landing;
 </script>
 
 <div class="app">

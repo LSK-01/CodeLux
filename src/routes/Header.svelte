@@ -9,7 +9,7 @@
 <header>
 	<div class=" flex flex-row gap-5 pt-5 pl-5">
 		{#each navItems as item}
-			<a href="/{item.toLowerCase()}" class="{$page.url.pathname == "/" + item.toLowerCase() ? "text-red-300": ""}">{item.toUpperCase()}</a>
+			<a href="/{item.toLowerCase()}" class="hover:text-red-400 {$page.url.pathname == "/" + item.toLowerCase() ? "text-red-300": ""}">{item.toUpperCase()}</a>
 		{/each}
 	</div>
 </header>

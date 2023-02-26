@@ -1,5 +1,8 @@
-<script>
+<script lang="ts">
 	import '../styles.css';
+	import type {user} from '../../user';
+
+	export let user: user;
 </script>
 
 <svelte:head>
@@ -8,7 +11,7 @@
 
 <nav id="sidebar">
 	<!-- <span class="material-icons">menu</span> -->
-	<h2>Hello, x!</h2>
+	<h2>Hello, {user.username}!</h2>
 	<a href="/">User <span class="material-icons">person</span></a>
 	<a href="/">Add project <span class="material-icons">add</span></a>
 	<a href="/">Surveys <span class="material-icons">assignment</span></a>
