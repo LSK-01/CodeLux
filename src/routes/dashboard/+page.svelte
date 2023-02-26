@@ -2,6 +2,7 @@
 	import '../styles.css';
 	import ProjectStatusesBox from './projectStatusesBox.svelte';
 	import ProjectTasksBox from './projectTasksBox.svelte';
+	import ProjectSurveysBox from './projectSurveysBox.svelte';
 	import ProjectDeadlinesBox from './projectDeadlinesBox.svelte';
 	/** @type {import('./$types').PageData} */
 	export let data;
@@ -14,15 +15,20 @@
 <div id='wrapper'>
 	<div id="dashboard">
 		<ProjectStatusesBox 
-		atRisk={data.post.atRisk} 
-		notAtRisk={data.post.notAtRisk}
-		withSurveys={data.post.withSurveys} 
-		withoutSurveys={data.post.withoutSurveys}
-		withTasks={data.post.withTasks} 
-		withoutTasks={data.post.withoutTasks}
+			atRisk={data.post.atRisk} 
+			notAtRisk={data.post.notAtRisk}
+			withSurveys={data.post.withSurveys} 
+			withoutSurveys={data.post.withoutSurveys}
+			withTasks={data.post.withTasks} 
+			withoutTasks={data.post.withoutTasks}
 		/>
-		<ProjectTasksBox/>
 		<ProjectDeadlinesBox/>
+		<ProjectSurveysBox
+			surveyList={data.post.surveyList} 
+		/>
+		<ProjectTasksBox
+			taskList={data.post.taskList} 
+		/>
 	</div>
 </div>
 

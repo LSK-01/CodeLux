@@ -1,34 +1,30 @@
 <script lang='ts'>
 	import '../styles.css';
-	// type TaskPair = {[key: string]: string };
-	export let taskList: [];
+	export let surveyList: string[] = [];
 </script>
 
-<div id='projectTasksBox'>
-	<h2>Tasks</h2>
+<div id='projectSurveysBox'>
+	<h2>Surveys</h2>
 	<div class='boxContents'>
-		{#each taskList as task}
-		<div class='taskBox'>
-			<h3>task.projectName<h3>
-			<p>task.text<p>
+		{#each surveyList as survey}
+		<div class='surveyBox'>
+			<h3>survey.projectName<h3>
 		</div>
 		{/each}
-		<div class='taskBox'>
+		<div class='surveyBox'>
 			<h3>projectName<h3>
-			<p>taskText<p>
 		</div>
 	</div>
 </div>
 
 <style>
-	#projectTasksBox {
+	#projectSurveysBox {
 		flex: 1;
 		display: flex;
 		flex-direction: column;
 		padding: 10px;
 		background-color: var(--fg1);
 		border-radius: 10px;
-		/* box-shadow: 0 10px 5px -5px var(--fg2); */
 	}
 
 	.boxContents {
@@ -41,14 +37,10 @@
 		box-shadow: inset 0 0 10px rgba(0, 0, 0);
 	}
 
-	.taskBox {
+	.surveyBox {
 		margin: 5px 0 ;
 		background-color:var(--fg2);
 		padding: 10px;
 		border-radius: 5px;
-	}
-
-	.taskBox p {
-		text-indent: 20px;
 	}
 </style>
