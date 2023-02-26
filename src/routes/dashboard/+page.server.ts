@@ -1,10 +1,28 @@
-import type { PageServerLoad } from "../login/$types";
+import { app } from '../../hooks.server';
+import { getFirestore, collection, getDocs, query, where } from 'firebase/firestore';
 
-export const load: PageServerLoad = async ({cookies, params}) => {
-    //youll want to query the database here for projects using the users id
-    const uid = cookies.get('uid');
-
+/** @type {import('./$types').PageLoad} */
+export async function load() {
+    let atRisk : number = 0;
+    let notAtRisk : number = 0;
+    const db = getFirestore(app);
+    const projects = collection(db, 'projects');
+    const querySnapshot = await getDocs(projects);
+    querySnapshot.forEach((doc) => {
+        if (doc.get('atRisk')) {
+            atRisk++;
+        } else {
+            notAtRisk++;
+        }
+    });
     return {
-        email: cookies.get('email')
-    }
-};
+        post: {
+            atRisk: atRisk,
+            notAtRisk: notAtRisk,
+            withSurveys: 2,
+            withoutSurveys: 5,
+            withTasks: 4,
+            withoutTasks: 4,
+        },
+    };
+}

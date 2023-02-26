@@ -13,7 +13,6 @@
 </svelte:head>
 
 <div class="app">
-	<!--- add if statetment here to change the entire navbar once user is logged in-->
 	{#if $page.url.pathname != '/dashboard'}
 		<Header navItems={navItems} />
 	{:else}

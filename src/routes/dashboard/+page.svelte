@@ -1,8 +1,10 @@
 <script lang='ts'>
 	import '../styles.css';
-	import ProjectStatusesBox from './projectStatuses/projectStatusesBox.svelte';
+	import ProjectStatusesBox from './projectStatusesBox.svelte';
 	import ProjectTasksBox from './projectTasksBox.svelte';
 	import ProjectDeadlinesBox from './projectDeadlinesBox.svelte';
+	/** @type {import('./$types').PageData} */
+	export let data;
 </script>
 
 <svelte:head>
@@ -11,7 +13,14 @@
 
 <div id='wrapper'>
 	<div id="dashboard">
-		<ProjectStatusesBox/>
+		<ProjectStatusesBox 
+		atRisk={data.post.atRisk} 
+		notAtRisk={data.post.notAtRisk}
+		withSurveys={data.post.withSurveys} 
+		withoutSurveys={data.post.withoutSurveys}
+		withTasks={data.post.withTasks} 
+		withoutTasks={data.post.withoutTasks}
+		/>
 		<ProjectTasksBox/>
 		<ProjectDeadlinesBox/>
 	</div>
