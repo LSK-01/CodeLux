@@ -1,11 +1,15 @@
-<script lang='ts'>
-	import '../styles.css';
-	import ProjectStatusesBox from './projectStatusesBox.svelte';
-	import ProjectTasksBox from './projectTasksBox.svelte';
-	import ProjectSurveysBox from './projectSurveysBox.svelte';
-	import ProjectDeadlinesBox from './projectDeadlinesBox.svelte';
-	/** @type {import('./$types').PageData} */
-	export let data;
+<script lang="ts">
+  import '../styles.css';
+  import Sidebar from '../sidebar/Sidebar.svelte';
+  import ProjectStatusesBox from "./projectStatusesBox.svelte";
+  import ProjectTasksBox from "./projectTasksBox.svelte";
+  import ProjectSurveysBox from "./projectSurveysBox.svelte";
+  import ProjectDeadlinesBox from "./projectDeadlinesBox.svelte";
+  import type { PageData } from "./$types";
+//   import type { user } from '../../user';
+
+  export let data: PageData;
+//   let user = data.user;
 </script>
 
 <svelte:head>

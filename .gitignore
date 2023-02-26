@@ -11,3 +11,9 @@ node_modules
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .svelte-kit
+node_modules
+svelte.config.js
+tailwind.config.cjs
+tsconfig.json
+vite.config.ts
+package-lock.json

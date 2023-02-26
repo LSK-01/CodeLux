@@ -1,11 +1,16 @@
-<script>
+<script lang='ts'>
 	import './styles.css';
 	import { page } from '$app/stores';
 	import Header from './Header.svelte';
 	import Sidebar from './sidebar/Sidebar.svelte';
-	let navItems = ['about', 'login', 'signup', 'dashboard'];
-	/** @type {import('./$types').PageData} */
-	export let data;
+	import type { PageData } from "./$types";
+	import type { user } from './../user';
+	export let data: PageData;
+	let user = data.user;
+	let landing = ['about', 'login', 'signup'];
+	let customized = ['dashboard', 'projects'];
+
+	$: navItems = customized.includes($page.url.pathname.slice(1)) ? customized : landing;
 </script>
 
 <svelte:head>
@@ -14,10 +19,10 @@
 
 <div class="app">
 	{#if $page.url.pathname != '/dashboard'}
-		<Header navItems={navItems} />
+	<Header navItems={navItems} />
 	{:else}
-		<Sidebar email={data.post.email}/>
-	{/if}
+	<Sidebar user={user}/>
+	{/if} 
 
 	<main>
 		<slot />
