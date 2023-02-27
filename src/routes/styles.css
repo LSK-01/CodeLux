@@ -6,9 +6,9 @@
 	--font-mono: 'Fira Mono', monospace;
 	--bg1: rgb(104, 197, 247);
 	--bg2: rgb(104, 135, 247);
-	--fg1: rgba(0, 0, 0, 0.5);
-	--fg2: rgb(0, 0, 0);
-	--text: rgb(255, 255, 255);
+	--fg1: rgba(255, 255, 255, 0.5);
+	--fg2: rgb(255, 255, 255);
+	--text: rgb(0, 0, 0);
 	--column-width: 42rem;
 	--column-margin-top: 4rem;
 	font-family: var(--font-body);

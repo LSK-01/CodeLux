@@ -30,8 +30,8 @@
 		justify-content: space-between;
 		align-items: center;
 		border-radius: 0 0 10px 10px;
-		background-color:rgba(0, 0, 0, 0.5);
-		padding: 10px 10vw ;
+		background-color: var(--fg1);
+		padding: 10px 10vw;
 	}
 
 	#userIcon {
@@ -39,7 +39,7 @@
 	}
 
 	nav a {
-		color: var(--color-text);
+		color: var(--text);
 		text-decoration: none;
 		display: flex;
 		align-items: center;
