@@ -1,6 +1,5 @@
 <script lang="ts">
   import '../styles.css';
-  import Sidebar from '../sidebar/Sidebar.svelte';
   import ProjectStatusesBox from "./OverviewsBox.svelte";
   import ProjectTasksBox from "./TasksBox.svelte";
   import ProjectSurveysBox from "./SurveysBox.svelte";
