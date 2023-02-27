@@ -1,12 +1,12 @@
 <script lang='ts'>
 	import '../styles.css';
 	export let deadlineList : any[number][string];
-	import ProjectBox from '../projects/projectBox.svelte';
+	import ProjectBoxSimple from './projectBoxSimple.svelte';
 </script>
 
 <svelte:head>
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />   
+	<!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />    -->
 </svelte:head>
 
 <div id='projectDeadlinesBox'>
@@ -14,7 +14,7 @@
 	<div class='boxContents'>
 		{#each deadlineList as { projectName, dueDate } }
 			<div class='ProjectBoxWrapper'>
-        		<ProjectBox name={projectName} date={dueDate}/>
+        		<ProjectBoxSimple name={projectName} date={dueDate}/>
 			</div>
       	{:else}
 		<div class='deadlineBox'>
@@ -33,6 +33,21 @@
 		background-color: var(--fg1);
 		border-radius: 10px;
 		/* box-shadow: 0 10px 5px -5px var(--fg2); */
+	}
+
+	.deadlineContents {
+        height: 75px;
+		flex: 1 0;
+		display: flex;
+		padding: 5px 0;
+		border-radius: 5px;
+		background-color: var(--fg1);
+		box-shadow: inset 0 0 10px rgba(0, 0, 0);
+		gap: 10px;
+		padding: 15px;
+        text-align: left;
+        align-items: center;
+		/* justify-content: space-evenly; */
 	}
 
 	.boxContents {
