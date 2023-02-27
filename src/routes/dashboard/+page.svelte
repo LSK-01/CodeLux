@@ -13,37 +13,26 @@
   	<title>Dashboard</title>
 </svelte:head>
 
-<div id='wrapper'>
-	<div id="dashboard">
-		<ProjectStatusesBox data={data}/>
-		<ProjectDeadlinesBox
-			deadlineList={data.deadlineList} 
-		/>
-		<ProjectSurveysBox
-			surveyList={data.surveyList} 
-		/>
-		<ProjectTasksBox
-			taskList={data.taskList} 
-		/>
-	</div>
+<div id="dashboard">
+	<ProjectStatusesBox data={data}/>
+	<ProjectDeadlinesBox
+		deadlineList={data.deadlineList} 
+	/>
+	<ProjectSurveysBox
+		surveyList={data.surveyList} 
+	/>
+	<ProjectTasksBox
+		taskList={data.taskList} 
+	/>
 </div>
 
 <style>
-	#wrapper {
+	#dashboard {
 		display: flex;
-		flex-direction: column;
 		min-height: 100vh;
 		justify-content: space-evenly;
-		padding: 0 10vw;
 		flex: 1;
-		margin: 10px 0;
-		gap: 10px;
-	}
-
-	#dashboard {
-		flex: 1;
-		display: flex;
-		justify-content: space-evenly;
+		margin: 10px 10vw;
 		gap: 10px;
 		flex-wrap: wrap;
 	}
