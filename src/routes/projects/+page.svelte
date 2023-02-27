@@ -1,14 +1,18 @@
 <svelte:head>
 	<title>Projects</title>
 	<meta name="description" content="Shows all projects for a user" />
+
+    
 </svelte:head>
 
 <script lang='ts'>
     import ProjectListBox from "./projectListBox.svelte";
+    import type {user} from '../../user';
+
+    export let user: user;
 
     export let data;
 	const projectData : any[] = data.post;
-
 </script>
 
 <div class="app">
