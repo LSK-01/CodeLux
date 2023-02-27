@@ -3,16 +3,16 @@
 	export let taskList: string = "";
 </script>
 
-<div id='projectTasksBox'>
+<div id='tasksBox'>
 	<h2>Tasks</h2>
 	<div class='boxContents'>
 		{#each JSON.parse(taskList) as task}
-		<div class='taskBox'>
+		<div class='taskItem'>
 			<h3>task.projectName<h3>
 			<p>task.text<p>
 		</div>
 		{:else}
-		<div class='taskBox'>
+		<div class='taskItem'>
 			<h3>No tasks due<h3>
 		</div>
 		{/each}
@@ -20,7 +20,7 @@
 </div>
 
 <style>
-	#projectTasksBox {
+	#tasksBox {
 		flex: 1;
 		display: flex;
 		flex-direction: column;
@@ -30,24 +30,14 @@
 		/* box-shadow: 0 10px 5px -5px var(--fg2); */
 	}
 
-	.boxContents {
-		flex: 1 0;
-		display: flex;
-		flex-direction: column;
-		padding: 5px 0;
-		border-radius: 5px;
-		background-color: var(--fg1);
-		box-shadow: inset 0 0 10px rgba(0, 0, 0);
-	}
-
-	.taskBox {
+	.taskItem {
 		margin: 5px 0 ;
 		background-color:var(--fg2);
 		padding: 10px;
 		border-radius: 5px;
 	}
 
-	.taskBox p {
+	.taskItem p {
 		text-indent: 20px;
 	}
 </style>

@@ -1,6 +1,7 @@
 <script lang='ts'>
 	import '../styles.css';
-	export let data;
+	import type { PageData } from "./$types";
+	export let data: PageData;
 	let atRisk: number = data.atRisk;
 	let notAtRisk: number = data.notAtRisk;
 	let withSurveys: number = data.withSurveys;
@@ -95,22 +96,22 @@
 	
 </svelte:head>
 
-<div id='projectStatusesBox'>
+<div id='overviewsBox'>
 	<h2>Overview</h2>
 	<div class='boxContents'>
-		<div class='overviewBox' id='projectRiskBox'>
+		<div class='overviewItem'>
 			<span class="material-icons" id='riskIcon'>priority_high</span>
 			<h3>Projects at risk</h3>
 			<h2>{atRisk}</h2>
 			<div class="donutChart" id="riskDonutChart" data-notatrisk={notAtRisk} data-atrisk={atRisk} ></div>
 		</div>
-		<div class='overviewBox'>
+		<div class='overviewItem'>
 			<span class="material-icons" id='surveyIcon'>assignment</span>
 			<h3>Projects with surveys due</h3>
 			<h2>{withSurveys}</h2>
 			<div class="donutChart" id="surveyDonutChart" data-withoutsurveys={withoutSurveys} data-withsurveys={withSurveys}></div>
 		</div>
-		<div class='overviewBox'>
+		<div class='overviewItem'>
 			<span class="material-icons" id='taskIcon'>task</span>
 			<h3>Projects with tasks due</h3>
 			<h2>{withTasks}</h2>
@@ -120,30 +121,22 @@
 </div>
 
 <style>
-	#projectStatusesBox {
+	#overviewsBox {
 		width: calc(100%);
 		display: flex;
 		flex-direction: column;
 		padding: 10px;
 		background-color:rgba(0, 0, 0, 0.5);
 		border-radius: 10px;
-		/* box-shadow: 0 10px 5px -5px var(--fg2); */
 	}
 
-	.boxContents {
-		flex: 1 0;
-		display: flex;
+	#overviewsBox .boxContents {
 		flex-direction: row;
-		padding: 5px 0;
-		border-radius: 5px;
-		background-color: var(--fg1);
-		box-shadow: inset 0 0 10px rgba(0, 0, 0);
 		gap: 10px;
 		padding: 10px;
-		justify-content: space-evenly;
 	}
 
-	.overviewBox {
+	.overviewItem {
 		flex: 1;
 		display: flex;
 		flex-direction: column;

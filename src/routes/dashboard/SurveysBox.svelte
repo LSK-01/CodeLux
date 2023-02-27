@@ -3,15 +3,15 @@
 	export let surveyList: string[] = [];
 </script>
 
-<div id='projectSurveysBox'>
+<div id='surveysBox'>
 	<h2>Surveys</h2>
 	<div class='boxContents'>
 		{#each surveyList as survey}
-		<div class='surveyBox'>
+		<div class='surveyItem'>
 			<h3>survey.projectName<h3>
 		</div>
 		{:else}
-		<div class='surveyBox'>
+		<div class='surveyItem'>
 			<h3>No surveys due<h3>
 		</div>
 		{/each}
@@ -19,7 +19,7 @@
 </div>
 
 <style>
-	#projectSurveysBox {
+	#surveysBox {
 		flex: 1;
 		display: flex;
 		flex-direction: column;
@@ -28,17 +28,7 @@
 		border-radius: 10px;
 	}
 
-	.boxContents {
-		flex: 1 0;
-		display: flex;
-		flex-direction: column;
-		padding: 5px 0;
-		border-radius: 5px;
-		background-color: var(--fg1);
-		box-shadow: inset 0 0 10px rgba(0, 0, 0);
-	}
-
-	.surveyBox {
+	.surveyItem {
 		margin: 5px 0 ;
 		background-color:var(--fg2);
 		padding: 10px;
