@@ -122,12 +122,13 @@
 
 <style>
 	#overviewsBox {
-		width: calc(100%);
+		width: 100%;
 		display: flex;
 		flex-direction: column;
 		padding: 10px;
-		background-color:rgba(0, 0, 0, 0.5);
+		background-color: var(--fg1);
 		border-radius: 10px;
+		box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 	}
 
 	#overviewsBox .boxContents {
