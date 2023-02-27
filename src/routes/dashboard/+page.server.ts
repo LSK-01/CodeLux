@@ -8,6 +8,7 @@ export const load: PageServerLoad = async () => {
     const db = getFirestore(app);
     const projects = collection(db, 'projects');
     const querySnapshot = await getDocs(projects);
+    
     querySnapshot.forEach((project) => {
         if (project.get('atRisk')) {
             atRisk++;
