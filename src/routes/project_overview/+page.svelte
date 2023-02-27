@@ -5,37 +5,42 @@
 </script>
 
 <svelte:head>
-    <title>Overview</title>
+    <title>Project Overview</title>
 </svelte:head>
 
 <div id="projectOverview">
-    <h1>{data.projectName}</h1>
+    <h1>{data.name}</h1>
+    <div class='projectOverviewItem'>
+        <p>Due: {data.deadline}</p>
+    </div>
+    <div class='projectOverviewItem'>
+        <p>Status: {data.status}</p>
+    </div>
+    <div class='projectOverviewItem'>
+        <p>Budget: £{data.budget}</p>
+    </div>
 </div>
 
 <style>
-    .app {
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-        justify-content: space-evenly;
-        flex: 1;
-        padding: 0 10vw;
-    }
-
-    #wrapper {
-        display: flex;
-        flex: 1;
-        margin: 10px 0;
-        flex-direction: column;
-        gap: 10px;
-    }
-
     #projectOverview {
         flex: 1;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: space-evenly;
         gap: 10px;
+        margin: 10px 10vw;
         flex-wrap: wrap;
     }
+
+    .projectOverviewItem {
+        margin: 5px 0;
+        
+        background-color:var(--fg2);
+        padding: 10px;
+        border-radius: 5px;
+	  }
+
+    .projectOverviewItem p{
+        text-align: center;
+	  }
 </style>
