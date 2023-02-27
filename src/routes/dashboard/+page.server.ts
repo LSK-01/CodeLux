@@ -66,7 +66,7 @@ async function getTasks() {
     const querySnapshot = await getDocs(tasks);
     querySnapshot.forEach((task) => {
         let taskPair = {
-            prjectName: task.data().projectName,
+            prjectName: task.data().projectname,
             text: task.data().text
         };
         taskList.push(taskPair);
@@ -75,27 +75,26 @@ async function getTasks() {
 }
 
 async function getDeadlines(user : user) {
-    type DeadlinePair = {[key: string]: string };
-	let deadlineList: DeadlinePair[] = [];
+    let deadlineList : any[] = [];
     const db = getFirestore(app);
     const ps = collection(db, 'projects');
     const q1 = query(ps, where("managerusername", "==", user.username), where("complete","==",false));
     const q2 = query(ps, where("developerusernames", "array-contains", user.username), where("complete","==",false));
     const querySnapshot1 = await getDocs(q2);
     querySnapshot1.forEach((project) => {
-        let deadlinePair = {
-            name: project.data().name,
-            deadline: project.data().deadline.toDate().toLocaleString()
-        };
-        deadlineList.push(deadlinePair);
+        deadlineList.push({projectName: project.data().projectname, dueDate: project.data().deadline.toDate().toLocaleString("en-GB",{
+            year: "numeric",
+            month: "numeric",
+            day: "numeric",
+            })})
     });
     const querySnapshot2 = await getDocs(q1);
     querySnapshot2.forEach((project) => {
-        let deadlinePair = {
-            name: project.data().name,
-            deadline: project.data().deadline.toDate().toLocaleString()
-        };
-        deadlineList.push(deadlinePair);
+        deadlineList.push({projectName: project.data().projectname, dueDate: project.data().deadline.toDate().toLocaleString("en-GB",{
+            year: "numeric",
+            month: "numeric",
+            day: "numeric",
+            })})
     });
-    return JSON.stringify(deadlineList);
+    return { deadlineList }
 }

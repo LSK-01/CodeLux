@@ -8,8 +8,8 @@
 <div id='projectListBox'>
     <h2>Projects</h2>
 	<div class='boxContents'>
-		{#each projectData as { projectName, dueDate, managerBool} }
-        	<ProjectBox name={projectName} date={dueDate} manager={managerBool} />
+		{#each projectData as { projectName, dueDate } }
+        	<ProjectBox name={projectName} date={dueDate} />
       	{/each}	
 	</div>
 </div>

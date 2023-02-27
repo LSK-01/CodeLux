@@ -3,7 +3,6 @@
 
     export let name : string;
     export let date : string;
-    export let manager : boolean;
 </script>
 
 <svelte:head>
@@ -15,7 +14,7 @@
         <div class="boxContents">
             <span class="material-symbols-outlined">
                 description
-                </span>     
+            </span>     
             <div class="projectInfo">
             <h3>{name}</h3>
             Due date: {date}
