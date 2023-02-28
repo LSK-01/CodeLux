@@ -55,7 +55,6 @@
 		justify-content: space-between;
 		position: relative;
 		margin-bottom: 30px;
-		max-width: 100%;
 		width: 100%;
 	}
 
@@ -72,7 +71,7 @@
 	}
 
 	.progress {
-		background-color: #3498db;
+		background-color: #f87171;
 		position: absolute;
 		top: 50%;
 		left: 0;
@@ -85,7 +84,7 @@
 
 	.circle {
 		background-color: #fff;
-		color: #999;
+		color: #2d3436;
 		border-radius: 50%;
 		height: 30px;
 		width: 30px;
@@ -106,10 +105,10 @@
 	}
 	
 	.circle.active::after {
-		color: #3498db;
+		color: #f87171;
 	}
 
 	.circle.active {
-		border-color: #3498db;
+		border-color: #f87171;
 	}
 </style>

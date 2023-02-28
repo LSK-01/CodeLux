@@ -10,6 +10,7 @@
 
 <svelte:head>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!-- https://sharepoint.stackexchange.com/questions/38445/google-charts-disappear-on-refresh-f5-of-a-browser -->
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script type="text/javascript">
 		google.charts.load("current", {packages:["corechart"]});
@@ -27,7 +28,7 @@
 				pieHole: 0.8,
 				backgroundColor: 'none',
 				pieSliceText: 'none',
-				colors: ['rgb(0, 160, 0)', 'rgb(160, 0, 0)'],
+				colors: ['#22c55e', '#ef4444'],
 				legend: {position: 'none'},
 				chartArea: {
 					height: '90%',
@@ -53,7 +54,7 @@
 				pieHole: 0.8,
 				backgroundColor: 'none',
 				pieSliceText: 'none',
-				colors: ['rgb(0, 160, 0)', 'rgb(0, 60, 160)'],
+				colors: ['#22c55e', '#3b82f6'],
 				legend: {position: 'none'},
 				chartArea: {
 					height: '90%',
@@ -79,7 +80,7 @@
 				pieHole: 0.8,
 				backgroundColor: 'none',
 				pieSliceText: 'none',
-				colors: ['rgb(0, 160, 0)', 'rgb(160, 160, 0)'],
+				colors: ['#22c55e', '#fde047'],
 				legend: {position: 'none'},
 				chartArea: {
 					height: '90%',
@@ -93,30 +94,6 @@
 	</script>
 	
 </svelte:head>
-
-<!-- <div id='projectStatusesBox'>
-	<h2>Overview</h2>
-	<div class='boxContents'>
-		<div class='overviewBox' id='projectRiskBox'>
-			<span class="material-icons" id='riskIcon'>priority_high</span>
-			<h3>Projects at risk</h3>
-			<h2>{atRisk}</h2>
-			<div class="donutChart" id="riskDonutChart" data-notatrisk={notAtRisk} data-atrisk={atRisk} ></div>
-		</div>
-		<div class='overviewBox'>
-			<span class="material-icons" id='surveyIcon'>assignment</span>
-			<h3>Projects with surveys due</h3>
-			<h2>{withSurveys}</h2>
-			<div class="donutChart" id="surveyDonutChart" data-withoutsurveys={withoutSurveys} data-withsurveys={withSurveys}></div>
-		</div>
-		<div class='overviewBox'>
-			<span class="material-icons" id='taskIcon'>task</span>
-			<h3>Projects with tasks due</h3>
-			<h2>{withTasks}</h2>
-			<div class="donutChart" id="taskDonutChart" data-withouttasks={withoutTasks} data-withtasks={withTasks}></div>
-		</div>
-	</div>
-</div> -->
 
 <div id='projectStatusesBox'>
 	<h2>Overview</h2>
@@ -160,7 +137,7 @@
 		display: flex;
 		flex-direction: column;
 		padding: 10px;
-		background-color:rgba(0, 0, 0, 0.5);
+		background-color: var(--fg1);
 		border-radius: 10px;
 		/* box-shadow: 0 10px 5px -5px var(--fg2); */
 	}
@@ -172,7 +149,7 @@
 		padding: 5px 0;
 		border-radius: 5px;
 		background-color: var(--fg1);
-		box-shadow: inset 0 0 10px rgba(0, 0, 0);
+		/* box-shadow: inset 0 0 10px rgba(255, 255, 255); */
 		gap: 10px;
 		padding: 10px;
 		justify-content: space-evenly;
@@ -184,21 +161,21 @@
 		flex-direction: column;
 		padding: 10px;
 		border-radius: 5px;
-		background-color: var(--fg2);
+		background-color: var(--fg3);
 		align-items: center;
 		justify-content: center;
 	}
 
 	#riskIcon {
-		color: rgb(160, 0, 0);
+		color: #ef4444;
 	}
 
 	#surveyIcon {
-		color: rgb(0, 60, 160);
+		color: #3b82f6;
 	}
 
 	#taskIcon {
-		color: rgb(160, 160, 0);
+		color: #fde047;
 	}
 
 	.donutCell
@@ -222,6 +199,6 @@
 		text-align: center;
 		font-family: Arial, Helvetica, sans-serif;
 		font-size: 18px;
-		color: white;
+		color: black;
 	}
 </style>

@@ -34,10 +34,9 @@
         height: 75px;
 		flex: 1 0;
 		display: flex;
-		padding: 5px 0;
+		padding: 5px;
 		border-radius: 5px;
-		background-color: var(--fg1);
-		box-shadow: inset 0 0 10px rgba(0, 0, 0);
+		background-color: var(--fg3);
 		gap: 10px;
 		padding: 15px;
         text-align: left;

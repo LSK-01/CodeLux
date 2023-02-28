@@ -35,60 +35,30 @@
 		/* box-shadow: 0 10px 5px -5px var(--fg2); */
 	}
 
-	.deadlineContents {
-        height: 75px;
-		flex: 1 0;
-		display: flex;
-		padding: 5px 0;
-		border-radius: 5px;
-		background-color: var(--fg1);
-		box-shadow: inset 0 0 10px rgba(0, 0, 0);
-		gap: 10px;
-		padding: 15px;
-        text-align: left;
-        align-items: center;
-		/* justify-content: space-evenly; */
-	}
-
 	.boxContents {
 		flex: 1 0;
 		display: flex;
 		flex-direction: column;
-		padding: 5px 0;
+		padding: 15px;
 		border-radius: 5px;
 		background-color: var(--fg1);
-		box-shadow: inset 0 0 10px rgba(0, 0, 0);
 	}
-
-	/* .deadlineBox {
-		margin: 5px 0 ;
-		background-color:var(--fg2);
-		padding: 10px;
-		border-radius: 5px;
-	} */
 
 	.ProjectBoxWrapper {
 		flex: 1 0;
 		display: flex;
 		flex-direction: column;
-		padding: 5px 0;
+		/* padding: 0px 10px 0px 10px; */
+		/* padding: 10px; */
 		border-radius: 5px;
-		gap: 10px;
-		padding: 10px;
-		justify-content: space-evenly;		
 	}
 
 	.deadlineBox {
 		flex: 1 0;
 		display: flex;
 		flex-direction: column;
-		/* padding: 5px 0;
-		border-radius: 5px; */
-		background-color: var(--fg1);
-		box-shadow: inset 0 0 10px rgba(0, 0, 0);
-		/* gap: 10px;
-		padding: 10px; */
-		justify-content: space-evenly;
+		/* box-shadow: inset 0 0 10px #FFFFFF; */
+		/* justify-content: space-evenly; */
 	}
 
 	.deadlineBox p {

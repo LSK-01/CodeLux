@@ -18,7 +18,7 @@
   <title>Login</title>
 </svelte:head>
 
-<div class=" self-center pt-10 pb-48">
+<div class="title">
   <h1 class=" text-7xl">Pimp my Project</h1>
 </div>
 
@@ -29,3 +29,9 @@
     <Button>Login</Button>
   </section>
 </form>
+
+<style>
+  .title{
+    padding: 50px;
+  }
+</style>
