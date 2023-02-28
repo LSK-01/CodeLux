@@ -7,7 +7,7 @@
 </script>  
 
 <div class="centered">
-  <form action="">
+  <form action="" >
     <div class="padding">{question}</div>
     <ul class='likert'>
       {#each options as { value, label }}
