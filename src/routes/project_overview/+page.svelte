@@ -57,7 +57,7 @@
         align-items: center;
         flex-wrap: nowrap;
         gap: 10px;
-        min-height: 90vh;
+        min-height: 95vh;
         margin: 10px 10vw;
         background-color: var(--fg1);
 		border-radius: 10px;
