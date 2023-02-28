@@ -1,11 +1,6 @@
 <script lang="ts">
-  import { FeedbackStore } from "../stores";
   import Tile from "./Tile.svelte";
-  import RatingSelect from "./RatingSelect.svelte";
   import Button from "../../Button.svelte";
-  import type { project } from "../project";
-  import { goto } from "$app/navigation";
-  import { browser } from "$app/environment";
 
   let text = "";
   let rating = -1;
