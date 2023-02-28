@@ -29,7 +29,7 @@
             <span class="material-symbols-outlined">terminal</span>
             <p>Code analysis score: {data.codeAnalysisScore}/100</p>
             <p>Last analysed: {data.codeAnalysisDate}</p>
-            <Button><a href={data.githubLink}>Run analysis</a></Button>
+            <Button><a href='/'>Run analysis</a></Button>
         </div>
         <div class='projectOverviewItem'>
             <span class="material-symbols-outlined">support_agent</span>
@@ -37,7 +37,9 @@
         </div>
         <div class='projectOverviewItem'>
             <span class="material-symbols-outlined">folder</span>
-            <Button><a href={data.githubLink}>Project Github link</a></Button>
+            <form action={data.githubLink}>
+                <Button><input type="submit" value="Project Github link" /></Button>
+            </form>
         </div>
         <div class='projectOverviewItem'>
             <span class="material-symbols-outlined">groups</span>
@@ -99,7 +101,7 @@
         flex-direction: column;
         background-color: var(--fg2);
         padding: 10px;
-        flex: 1 0;
+        flex: 1;
         align-items: center;
         justify-content: center;
         border-radius: 5px;
