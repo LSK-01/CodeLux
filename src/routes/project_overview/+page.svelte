@@ -1,6 +1,7 @@
 <script lang="ts">
     import "../styles.css";
     import type { PageData } from "./$types";
+	import Button from '../Button.svelte';
     export let data: PageData;
 </script>
 
@@ -23,6 +24,20 @@
         <div class='projectOverviewItem'>
             <span class="material-symbols-outlined">event</span>
             <p>Started on: {data.startDate}</p>
+        </div>
+        <div class='projectOverviewItem'>
+            <span class="material-symbols-outlined">terminal</span>
+            <p>Code analysis score: {data.codeAnalysisScore}/100</p>
+            <p>Last analysed: {data.codeAnalysisDate}</p>
+            <Button><a href={data.githubLink}>Run analysis</a></Button>
+        </div>
+        <div class='projectOverviewItem'>
+            <span class="material-symbols-outlined">support_agent</span>
+            <p>Manager: {data.managerUsername}</p>
+        </div>
+        <div class='projectOverviewItem'>
+            <span class="material-symbols-outlined">folder</span>
+            <Button><a href={data.githubLink}>Project Github link</a></Button>
         </div>
         <div class='projectOverviewItem'>
             <span class="material-symbols-outlined">groups</span>
