@@ -94,7 +94,7 @@
 	
 </svelte:head>
 
-<div id='projectStatusesBox'>
+<!-- <div id='projectStatusesBox'>
 	<h2>Overview</h2>
 	<div class='boxContents'>
 		<div class='overviewBox' id='projectRiskBox'>
@@ -114,6 +114,42 @@
 			<h3>Projects with tasks due</h3>
 			<h2>{withTasks}</h2>
 			<div class="donutChart" id="taskDonutChart" data-withouttasks={withoutTasks} data-withtasks={withTasks}></div>
+		</div>
+	</div>
+</div> -->
+
+<div id='projectStatusesBox'>
+	<h2>Overview</h2>
+	<div class='boxContents'>
+		<div class='overviewBox' id='projectRiskBox'>
+			<span class="material-icons" id='riskIcon'>priority_high</span>
+			<h3>Projects at risk</h3>
+			<table>
+				<td class='donutCell' id='projectRiskBox'>
+					<div class="donutDiv" id="riskDonutChart" data-notatrisk={notAtRisk} data-atrisk={atRisk} ></div>
+					<div class="centerLabel">{atRisk}/{atRisk+notAtRisk}</div>
+				</td>
+			</table>
+		</div>
+		<div class='overviewBox' id='projectRiskBox'>
+			<span class="material-icons" id='surveyIcon'>assignment</span>
+			<h3>Projects with surveys due</h3>
+			<table>
+				<td class='donutCell'>
+					<div class="donutDiv" id="surveyDonutChart" data-withoutsurveys={withoutSurveys} data-withsurveys={withSurveys}></div>
+					<div class="centerLabel">{withSurveys}/{withSurveys+withoutSurveys}</div>
+				</td>
+			</table>
+		</div>
+		<div class='overviewBox' id='projectRiskBox'>
+			<span class="material-icons" id='taskIcon'>task</span>
+			<h3>Projects with tasks due</h3>
+			<table>
+				<td class='donutCell'>
+					<div class="donutDiv" id="taskDonutChart" data-withouttasks={withoutTasks} data-withtasks={withTasks}></div>
+					<div class="centerLabel">{withTasks}/{withTasks+withoutTasks}</div>
+				</td>
+			</table>
 		</div>
 	</div>
 </div>
@@ -165,8 +201,27 @@
 		color: rgb(160, 160, 0);
 	}
 
-	.donutChart{
-		width: 200px; 
-		height: 200px;
+	.donutCell
+	{
+		position: relative;
+	}
+
+	.donutDiv
+	{
+		width: 100px;
+		height: 100px;
+	}
+
+	.centerLabel
+	{
+		position: absolute;
+		left: 2px;
+		top: 2px;
+		width: 100px;
+		line-height: 100px;
+		text-align: center;
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: 18px;
+		color: white;
 	}
 </style>
