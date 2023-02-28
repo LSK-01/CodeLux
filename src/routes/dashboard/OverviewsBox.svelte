@@ -11,7 +11,7 @@
 </script>
 
 <svelte:head>
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script type="text/javascript">
 		google.charts.load("current", {packages:["corechart"]});
@@ -93,26 +93,25 @@
 			chart.draw(taskData, options);
 		}
 	</script>
-	
 </svelte:head>
 
 <div id='overviewsBox'>
 	<h2>Overview</h2>
 	<div class='boxContents'>
 		<div class='overviewItem'>
-			<span class="material-icons" id='riskIcon'>priority_high</span>
+			<span class="material-symbols-outlined" id='riskIcon'>error</span>
 			<h3>Projects at risk</h3>
 			<h2>{atRisk}</h2>
 			<div class="donutChart" id="riskDonutChart" data-notatrisk={notAtRisk} data-atrisk={atRisk} ></div>
 		</div>
 		<div class='overviewItem'>
-			<span class="material-icons" id='surveyIcon'>assignment</span>
+			<span class="material-symbols-outlined" id='surveyIcon'>quiz</span>
 			<h3>Projects with surveys due</h3>
 			<h2>{withSurveys}</h2>
 			<div class="donutChart" id="surveyDonutChart" data-withoutsurveys={withoutSurveys} data-withsurveys={withSurveys}></div>
 		</div>
 		<div class='overviewItem'>
-			<span class="material-icons" id='taskIcon'>task</span>
+			<span class="material-symbols-outlined" id='taskIcon'>assignment</span>
 			<h3>Projects with tasks due</h3>
 			<h2>{withTasks}</h2>
 			<div class="donutChart" id="taskDonutChart" data-withouttasks={withoutTasks} data-withtasks={withTasks}></div>

@@ -6,21 +6,19 @@
 </script>
 
 <svelte:head>
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 </svelte:head>
 
 <nav>
 	<h1>Pimp My Project</h1>
-	<Button>
-		<a href="/">
-			<span class="material-icons" id='userIcon'>account_circle</span>
-			<h2>{user.username}</h2>
-		</a>
-	</Button>
-	<Button><a href="/add"><span class="material-icons">add</span>Add project</a></Button>
-	<Button><a href="/settings"><span class="material-icons">settings</span>Settings</a></Button>
-	<Button><a href="/about"><span class="material-icons">info</span>About</a></Button>
-	<Button><a href="/login"><span class="material-icons">logout</span>Log out</a></Button>
+	<div id="userBox">
+		<span class="material-symbols-outlined">account_circle</span>
+		<h2>{user.username}</h2>
+	</div>
+	<Button><a href="/add"><span class="material-symbols-outlined">add_circle</span>Add project</a></Button>
+	<Button><a href="/settings"><span class="material-symbols-outlined">settings</span>Settings</a></Button>
+	<Button><a href="/about"><span class="material-symbols-outlined">info</span>About</a></Button>
+	<Button><a href="/login"><span class="material-symbols-outlined">logout</span>Log out</a></Button>
 </nav>
 
 <style>
@@ -34,7 +32,24 @@
 		padding: 10px 10vw;
 	}
 
-	#userIcon {
+	#userBox{
+		display: flex;
+		border-radius: 10px;
+		background-color: var(--fg1);
+		align-items: center;
+		justify-content: center;
+		height: max-content;
+		flex:  0 1;
+		gap: 10px;
+		padding: 10px;
+	}
+
+	#userBox h2 {
+		margin: 0;
+	}
+
+	
+	#userBox span {
 		font-size: 50px;
 	}
 
