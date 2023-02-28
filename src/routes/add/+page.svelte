@@ -5,5 +5,5 @@
 
 <main class="container">
 	<FeedbackForm />
-	<FeedbackList />
+	<!--<FeedbackList />-->
 </main>
