@@ -11,6 +11,7 @@ export const load: PageServerLoad = async () => {
     let codeAnalysisScore = 0;
     let codeAnalysisDate = "";
     let managerUsername = "";
+    let githubLink = "";
     let devUsernames: string[] = []
     let status = "Not at risk";
     const db = getFirestore(app);
@@ -24,6 +25,7 @@ export const load: PageServerLoad = async () => {
     // codeAnalysisScore = projectDoc.get("codeAnalysisScore")*100;
     // codeAnalysisDate = projectDoc.get("codeAnalysisDate").toDate().toLocaleString();
     managerUsername = projectDoc.get("managerusername");
+    githubLink = projectDoc.get("githublink");
     for (const developer of projectDoc.get("developerusernames")){
         devUsernames.push(developer);
     }
@@ -39,6 +41,7 @@ export const load: PageServerLoad = async () => {
         codeAnalysisScore: codeAnalysisScore,
         codeAnalysisDate: codeAnalysisDate,
         managerUsername: managerUsername,
+        githubLink: githubLink,
         devUsernames: devUsernames,
         status: status
     };
