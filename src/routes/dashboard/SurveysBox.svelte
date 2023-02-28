@@ -30,7 +30,6 @@
 	}
 
 	.surveyItem {
-		margin: 5px 0 ;
 		background-color:var(--fg2);
 		padding: 10px;
 		border-radius: 5px;

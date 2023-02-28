@@ -47,7 +47,7 @@ async function getTasks() {
     const querySnapshot = await getDocs(tasks);
     querySnapshot.forEach((task) => {
         let taskPair = {
-            prjectName: task.data().projectName,
+            projectName: task.data().projectName,
             text: task.data().text
         };
         taskList.push(taskPair);
@@ -64,7 +64,7 @@ async function getDeadlines() {
     const querySnapshot = await getDocs(projects);
     querySnapshot.forEach((project) => {
         let deadlinePair = {
-            name: project.data().name,
+            name: project.data().projectName,
             deadline: project.data().deadline.toDate().toLocaleString()
         };
         deadlineList.push(deadlinePair);
