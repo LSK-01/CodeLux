@@ -45,10 +45,12 @@
             <span class="material-symbols-outlined">groups</span>
             <p>Developers:</p>
             {#each data.devUsernames as devUsername}
-            <div class="userBox">
+                <div class="userBox">
                 <span class="material-symbols-outlined">person</span>
                 <p>{devUsername}</p>
-                </div>
+                </div>            
+                {:else}
+                <p>No developers</p>
             {/each}
         </div>
         <div class='projectOverviewItem'>

@@ -2,7 +2,7 @@ import { app } from '../../hooks.server';
 import { getFirestore, collection, getDocs, query, doc, getDoc } from 'firebase/firestore';
 import type { PageServerLoad } from "../login/$types";
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async ({params}) => {
     let name = "";
     let desc = "";
     let deadline = "";
