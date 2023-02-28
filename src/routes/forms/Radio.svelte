@@ -3,22 +3,23 @@
 <script lang="ts">
   export let options : any[number][string];
   export let question : string;
+  export let name : string;
   export let userSelected : number;
 </script>  
 
+<fieldset id={name}>
 <div class="centered">
-  <form action="" >
     <div class="padding">{question}</div>
     <ul class='likert'>
       {#each options as { value, label }}
         <li>
-          <input type="radio" name="likert" value={value} bind:group={userSelected}>
+          <input type="radio" name={name} value={value} bind:group={userSelected}>
           <label class="subh" for={label}>{label}</label>
         </li>
       {/each}
     </ul>
-  </form>
-</div>  
+</div> 
+</fieldset> 
 
 <style>
     .padding{

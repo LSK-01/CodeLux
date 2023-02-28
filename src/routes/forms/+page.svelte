@@ -8,7 +8,9 @@
 	import ProgressBar from './ProgressBar.svelte';
 
 	export let data;
-	const qs : string[] = data.post;
+	const questionData : any[] = data.post;
+
+	const qs = questionData.map(a => a.question);
 
     let steps : (string|number)[];
 	steps = Array.from({length: qs.length}, (_, index) => index + 1);
@@ -50,7 +52,7 @@
 	</div>
     <ProgressBar {steps} bind:currentActive bind:this={progressBar}/>
 	
-   	<Form {options} questions={qs} active_step={currentActive}/>
+   	<Form {options} questionData={questionData} active_step={currentActive}/>
     <div class="step-button">
         <button class="btn" on:click={() => handleProgress(-1)} disabled={currentActive == 1}>Prev</button>
         <button class="btn" on:click={() => handleProgress(+1)} disabled={currentActive == steps.length}>Next</button>

@@ -12,17 +12,16 @@ export const prerender = false;
 
 /** @type {import('./$types').PageLoad} */
 export async function load() {
-    let questions : string[] = [];
+    let returnArray : any[] = [];
     const db = getFirestore(app);
     const questionsRef = collection(db, 'surveyquestions');
     const q = query(questionsRef, where("qtype", "==", "employee"));
     const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
-            questions.push(doc.data().question);
+            returnArray.push({ question: doc.data().question, qid: doc.data().id });
         });
-    
-    return { post: questions }
+    return { post: returnArray }
     }
 
 import type { PageServerLoad, Actions } from './$types';
