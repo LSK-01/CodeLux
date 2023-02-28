@@ -1,12 +1,13 @@
 <script lang="ts">
-	import '../styles.css';
+	import '../../styles.css';
 	import ProjectBox from './projectBox.svelte';
 
 	export let projectData : any[number][string];
+	export let title : string;
 </script>
 
 <div id='projectListBox'>
-    <h2>Projects</h2>
+    <h2>{title}</h2>
 	<div class='boxContents'>
 		{#each projectData as { projectName, dueDate } }
         	<ProjectBox name={projectName} date={dueDate} />

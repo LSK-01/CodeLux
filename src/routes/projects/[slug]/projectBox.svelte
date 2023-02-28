@@ -1,5 +1,5 @@
 <script lang="ts">
-	import '../styles.css';
+	import '../../styles.css';
 
     export let name : string;
     export let date : string;

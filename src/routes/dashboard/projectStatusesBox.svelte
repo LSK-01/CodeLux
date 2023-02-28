@@ -1,5 +1,7 @@
 <script lang='ts'>
 	import '../styles.css';
+	import { goto } from '$app/navigation';
+
 	export let atRisk: number = 0;
 	export let notAtRisk: number = 1;
 	export let withSurveys: number = 0;
@@ -98,7 +100,7 @@
 <div id='projectStatusesBox'>
 	<h2>Overview</h2>
 	<div class='boxContents'>
-		<div class='overviewBox' id='projectRiskBox'>
+		<button on:click={() => goto('/projects/atrisk')} class='overviewBox' id='projectRiskBox'>
 			<span class="material-icons" id='riskIcon'>priority_high</span>
 			<h3>Projects at risk</h3>
 			<table>
@@ -107,8 +109,8 @@
 					<div class="centerLabel">{atRisk}/{atRisk+notAtRisk}</div>
 				</td>
 			</table>
-		</div>
-		<div class='overviewBox' id='projectRiskBox'>
+		</button>
+		<button class='overviewBox' id='projectRiskBox'>
 			<span class="material-icons" id='surveyIcon'>assignment</span>
 			<h3>Projects with surveys due</h3>
 			<table>
@@ -117,8 +119,8 @@
 					<div class="centerLabel">{withSurveys}/{withSurveys+withoutSurveys}</div>
 				</td>
 			</table>
-		</div>
-		<div class='overviewBox' id='projectRiskBox'>
+		</button>
+		<button class='overviewBox' id='projectRiskBox'>
 			<span class="material-icons" id='taskIcon'>task</span>
 			<h3>Projects with tasks due</h3>
 			<table>
@@ -127,7 +129,7 @@
 					<div class="centerLabel">{withTasks}/{withTasks+withoutTasks}</div>
 				</td>
 			</table>
-		</div>
+		</button>
 	</div>
 </div>
 
