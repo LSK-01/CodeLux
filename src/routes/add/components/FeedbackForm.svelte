@@ -42,7 +42,7 @@
 
     if (question_num == questions_new.length) {
       const response = await fetch("/addProj", {
-        method: "GET",
+        method: "POST",
         body: JSON.stringify(answers),
         headers: {
           "content-type": "application/json",
