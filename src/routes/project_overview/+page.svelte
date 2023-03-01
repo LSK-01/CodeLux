@@ -1,8 +1,38 @@
 <script lang="ts">
-    import "../styles.css";
+  import { browser } from "$app/environment";
+  import { goto } from "$app/navigation";
     import type { PageData } from "./$types";
 	import Button from '../Button.svelte';
     export let data: PageData;
+
+    //if the user has arleady authenticated with github
+    const handleGetGit = async () => {
+        const response = await fetch("/githubAPI", {
+        method: "POST",
+        body: JSON.stringify({link: data.githubLink, id: data.id}),
+        headers: {
+          "content-type": "application/json",
+        },
+      });
+
+      const resJson = await response.json();
+    }
+
+    //redirects to dashboard - we then redirect back to the proj overview page in dashboard backend using state.
+    const getToken = () => {
+    if (browser) {
+      //get the OAuth token for the user
+      goto(
+        "https://github.com/login/oauth/authorize?" +
+          new URLSearchParams({
+            client_id: "741e0c0a106d7fdd57f2",
+            scope: "read:project",
+            state: data.id,
+          })
+      );
+    }
+  };
+
 </script>
 
 <svelte:head>
@@ -67,9 +97,13 @@
         </div>
     </div>
 </div>
-<form action="?/github" method="POST">
-    <Button >get git</Button>
-</form>
+
+{#if data.user.githubToken === "" || data.user.githubToken === undefined}
+<Button click={() => getToken()}>Authorize github access</Button>
+
+{:else}
+<Button click={() => handleGetGit()}>Get repo code</Button>
+{/if}
 
 <style>
     #projectOverview {

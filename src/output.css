@@ -547,6 +547,10 @@ video {
   }
 }
 
+.invisible {
+  visibility: hidden;
+}
+
 .absolute {
   position: absolute;
 }
@@ -555,8 +559,16 @@ video {
   position: relative;
 }
 
+.block {
+  display: block;
+}
+
 .flex {
   display: flex;
+}
+
+.table {
+  display: table;
 }
 
 .h-10 {
@@ -607,10 +619,6 @@ video {
   gap: 1.25rem;
 }
 
-.self-center {
-  align-self: center;
-}
-
 .rounded-lg {
   border-radius: 0.5rem;
 }
@@ -629,20 +637,12 @@ video {
   background-color: rgb(254 202 202 / var(--tw-bg-opacity));
 }
 
-.pb-48 {
-  padding-bottom: 12rem;
-}
-
 .pl-3 {
   padding-left: 0.75rem;
 }
 
 .pl-5 {
   padding-left: 1.25rem;
-}
-
-.pt-10 {
-  padding-top: 2.5rem;
 }
 
 .pt-5 {

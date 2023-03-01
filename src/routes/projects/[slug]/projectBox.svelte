@@ -1,56 +1,66 @@
 <script lang="ts">
-	import '../../styles.css';
+  import { goto } from "$app/navigation";
 
-    export let name : string;
-    export let date : string;
+  export let name: string;
+  export let date: string;
+  export let id: string;
+
+  function boxClick() {
+    goto(`/project_overview?id=${id}`);
+  }
 </script>
 
 <svelte:head>
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />   
+  <link
+    href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+  />
 </svelte:head>
 
-<div id='projectBox'>
-        <div class="boxContents">
-            <span class="material-symbols-outlined">
-                description
-            </span>     
-            <div class="projectInfo">
-            <h3>{name}</h3>
-            Due date: {date}
-            </div>
-            <div class="righticon">
-                <span class="material-symbols-outlined">chevron_right</span>
-            </div>
-        </div>
+<div id="projectBox">
+
+  <div class="boxContents" on:click={() => boxClick()}>
+    <span class="material-symbols-outlined"> description </span>
+    <div class="projectInfo">
+      <h3>{name}</h3>
+      Due date: {date}
+    </div>
+    <div class="righticon">
+      <span class="material-symbols-outlined">chevron_right</span>
+    </div>
+  </div>
 </div>
 
 <style>
+/*   a.fill-div {
+    display: block;
+    height: 100%;
+    width: 100%;
+    text-decoration: none;
+  } */
+  .material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
+  }
+  .boxContents {
+    height: 75px;
+    flex: 1 0;
+    display: flex;
+    padding: 5px 0;
+    border-radius: 5px;
+    background-color: var(--fg1);
+    gap: 10px;
+    padding: 15px;
+    text-align: left;
+    align-items: center;
+    /* justify-content: space-evenly; */
+  }
 
-    .material-symbols-outlined {
-    font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 48
-    }
-	.boxContents {
-        height: 75px;
-		flex: 1 0;
-		display: flex;
-		padding: 5px 0;
-		border-radius: 5px;
-		background-color: var(--fg1);
-		gap: 10px;
-		padding: 15px;
-        text-align: left;
-        align-items: center;
-		/* justify-content: space-evenly; */
-	}
-
-    .righticon{
-        position: absolute;
-        right: 13%
-    }
-
+  .righticon {
+    position: absolute;
+    right: 13%;
+  }
 </style>
