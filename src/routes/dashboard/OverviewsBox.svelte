@@ -2,6 +2,7 @@
 	import '../styles.css';
 	import type { PageData } from "./$types";
 	import { goto } from '$app/navigation';
+    import { onMount } from 'svelte';
 	export let data: PageData;
 	let atRisk: number = data.atRisk;
 	let notAtRisk: number = data.notAtRisk;
@@ -18,10 +19,13 @@
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script type="text/javascript">
 		google.charts.load("current", {packages:["corechart"]});
-		google.charts.setOnLoadCallback(drawRiskChart);
+		google.charts.setOnLoadCallback(setTimeout(drawRiskChart, 250));
 		function drawRiskChart() {
 			var notAtRisk = Number(document.getElementById("riskDonutChart").getAttribute('data-notatrisk'));
 			var atRisk = Number(document.getElementById("riskDonutChart").getAttribute('data-atrisk'));
+			if (atRisk==0) {
+				notAtRisk = Math.max(notAtRisk, 1);
+			}
 			var riskData = google.visualization.arrayToDataTable([
 				['Risk', 'Count'],
 				['Not at risk', notAtRisk],
@@ -37,17 +41,19 @@
 				chartArea: {
 					height: '90%',
 					width: '90%',
-				},
+				}
 			};
-
-		var chart = new google.visualization.PieChart(document.getElementById('riskDonutChart'));
-		chart.draw(riskData, options);
+			var chart = new google.visualization.PieChart(document.getElementById('riskDonutChart'));
+			chart.draw(riskData, options);
 		}
 
-		google.charts.setOnLoadCallback(drawSurveyChart);
+		google.charts.setOnLoadCallback(setTimeout(drawSurveyChart, 250));
 		function drawSurveyChart() {
 			var withSurveys = Number(document.getElementById("surveyDonutChart").getAttribute('data-withsurveys'));
 			var withoutSurveys = Number(document.getElementById("surveyDonutChart").getAttribute('data-withoutsurveys'));
+			if (withSurveys==0) {
+				withoutSurveys = Math.max(withoutSurveys, 1);
+			}
 			var surveyData = google.visualization.arrayToDataTable([
 				['Surveys', 'Count'],
 				['Without surveys', withoutSurveys],
@@ -65,15 +71,17 @@
 					width: '90%',
 				},
 			};
-
-			var chart = new google.visualization.PieChart(document.getElementById('surveyDonutChart'));
-			chart.draw(surveyData, options);
+			
+			var chart = new google.visualization.PieChart(document.getElementById('surveyDonutChart'))
+			chart.draw(surveyData, options)
 		}
-
-		google.charts.setOnLoadCallback(drawTaskChart);
-			function drawTaskChart() {
+		google.charts.setOnLoadCallback(setTimeout(drawTaskChart, 250));
+		function drawTaskChart() {
 			var withTasks = Number(document.getElementById("taskDonutChart").getAttribute('data-withtasks'));
 			var withoutTasks = Number(document.getElementById("taskDonutChart").getAttribute('data-withouttasks'));
+			if (withTasks==0) {
+				withoutTasks = Math.max(withoutTasks, 1);
+			}
 			var taskData = google.visualization.arrayToDataTable([
 				['Tasks', 'Count'],
 				['without tasks', withoutTasks],
