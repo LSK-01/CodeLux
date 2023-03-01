@@ -4,7 +4,7 @@
   export let options : any[number][string];
   export let question : string;
   export let name : string;
-  export let userSelected : number;
+  // export let userSelected : number;
 </script>  
 
 <fieldset id={name}>
@@ -14,7 +14,8 @@
     <ul class='likert'>
       {#each options as { value, label }}
         <li>
-          <input type="radio" name={name} value={value} bind:group={userSelected}>
+          <!-- <input type="radio" name={name} value={value} bind:group={userSelected}> -->
+          <input type="radio" name={name} value={value}>
           <label class="subh" for={label}>{label}</label>
         </li>
       {/each}

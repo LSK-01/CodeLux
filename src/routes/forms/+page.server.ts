@@ -24,3 +24,34 @@ export async function load() {
         });
     return { post: returnArray }
     }
+
+import type { PageServerLoad, Actions } from './$types';
+
+export const actions = {
+    store: async ({ cookies, request}) => {
+        const data = await request.formData();
+        const cookie = cookies.get('user')!;
+
+        const user = JSON.parse(cookie);
+        const answers : any[] = [];
+        
+        const db = getFirestore(app);
+        console.log("chweck");
+        console.log(data);
+        for (const element of data.entries()) {
+            answers.push({ qid: element[0], answer: element[1]});
+          }
+        await addDoc(collection(db,"surveyanswers"), {
+            time: serverTimestamp(),
+            answers: data,
+            // q1: data.get("q1"),
+            // q2: data.get("q2"),
+            // q3: data.get("q3"),
+            userid: user.uid,
+            username: user.username,
+          });
+
+    }
+  } satisfies Actions;
+
+

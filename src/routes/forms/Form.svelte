@@ -21,7 +21,7 @@
 </script>
 
 <!-- TODO: redirect user to another page when complete -->
-<form class="form-container"  on:submit={handleSubmit} method="POST" action="?/store">
+<!-- <form class="form-container"  on:submit={handleSubmit} method="POST" action="?/store">
 	{#if active_step != questions.length+1}
         <div class="centered">
             <h1 class="qheading">
@@ -36,27 +36,27 @@
 			<button type="submit" class="btn submit">Submit</button>
 		</div>
 	{/if}
-</form>
+</form> -->
 
-<!-- <form class="form-container" on:submit={handleSubmit} method="POST" action="?/store">
-	{#each questionData as { question, qid }}
+<form class="form-container" on:submit={handleSubmit} method="POST" action="?/store">
+	{#each questionData as { question, qid }, i}
         <div class="centered">
             <h1 class="qheading">
-                Question {active_step}
+                Question {i+1}
             </h1>
             <div class="padding">
                 <Radio {options} name={qid} question={question} />
             </div>
         </div>   
 	{/each}     
-		<div class="message">
-            <h1 class="qheading">
-                Confirmation
-            </h1>			
-			<h2>Thank you for completing the survey</h2>
-			<button  type="submit" class="btn submit">Submit</button>
-		</div>
-</form> -->
+	<div class="message">
+		<!-- <h1 class="qheading">
+			Confirmation
+		</h1>			
+		<h2>Thank you for completing the survey</h2> -->
+		<button  type="submit" class="btn submit">Submit survey</button>
+	</div>
+</form>
 
 <!-- <form class="form-container"  on:submit={handleSubmit} method="POST" action="?/store">
 	 
@@ -120,6 +120,13 @@
     .padding {
         padding-top: 10px;
     }
+
+	.centered{
+		border-radius: 10px;
+		background-color: var(--fg1);
+		padding: 20px;
+		margin: 10px;
+	}
 	.form-container {
 		background-color: var(--fg3);
 		border-radius: 10px;
@@ -127,6 +134,7 @@
 		padding: 20px 10px;
 		text-align: center;
 		width: 100%;
+		gap: 5px;
 	}
 	.btn{
 		color: #2d3436;
