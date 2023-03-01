@@ -1,6 +1,7 @@
 <script lang="ts">
     import "../styles.css";
     import type { PageData } from "./$types";
+	import Button from '../Button.svelte';
     export let data: PageData;
 </script>
 
@@ -25,13 +26,31 @@
             <p>Started on: {data.startDate}</p>
         </div>
         <div class='projectOverviewItem'>
+            <span class="material-symbols-outlined">terminal</span>
+            <p>Code analysis score: {data.codeAnalysisScore}/100</p>
+            <p>Last analysed: {data.codeAnalysisDate}</p>
+            <Button><a href='/'>Run analysis</a></Button>
+        </div>
+        <div class='projectOverviewItem'>
+            <span class="material-symbols-outlined">support_agent</span>
+            <p>Manager: {data.managerUsername}</p>
+        </div>
+        <div class='projectOverviewItem'>
+            <span class="material-symbols-outlined">folder</span>
+            <form action={data.githubLink}>
+                <Button><input type="submit" value="Project Github link" /></Button>
+            </form>
+        </div>
+        <div class='projectOverviewItem'>
             <span class="material-symbols-outlined">groups</span>
             <p>Developers:</p>
             {#each data.devUsernames as devUsername}
-            <div class="userBox">
+                <div class="userBox">
                 <span class="material-symbols-outlined">person</span>
                 <p>{devUsername}</p>
-                </div>
+                </div>            
+                {:else}
+                <p>No developers</p>
             {/each}
         </div>
         <div class='projectOverviewItem'>
@@ -84,7 +103,7 @@
         flex-direction: column;
         background-color: var(--fg2);
         padding: 10px;
-        flex: 1 0;
+        flex: 1;
         align-items: center;
         justify-content: center;
         border-radius: 5px;

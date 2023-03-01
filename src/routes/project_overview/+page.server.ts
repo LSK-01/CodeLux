@@ -2,12 +2,16 @@ import { app } from '../../hooks.server';
 import { getFirestore, collection, getDocs, query, doc, getDoc } from 'firebase/firestore';
 import type { PageServerLoad } from "../login/$types";
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async ({params}) => {
     let name = "";
     let desc = "";
     let deadline = "";
     let startDate = "";
     let budget = 0;
+    let codeAnalysisScore = 0;
+    let codeAnalysisDate = "";
+    let managerUsername = "";
+    let githubLink = "";
     let devUsernames: string[] = []
     let status = "Not at risk";
     const db = getFirestore(app);
@@ -18,6 +22,10 @@ export const load: PageServerLoad = async () => {
     deadline = projectDoc.get("deadline").toDate().toLocaleString();
     startDate = projectDoc.get("startdate").toDate().toLocaleString();
     budget = Math.round(projectDoc.get("budget") * 100) / 100;
+    // codeAnalysisScore = projectDoc.get("codeAnalysisScore")*100;
+    // codeAnalysisDate = projectDoc.get("codeAnalysisDate").toDate().toLocaleString();
+    managerUsername = projectDoc.get("managerusername");
+    githubLink = projectDoc.get("githublink");
     for (const developer of projectDoc.get("developerusernames")){
         devUsernames.push(developer);
     }
@@ -30,6 +38,10 @@ export const load: PageServerLoad = async () => {
         deadline: deadline,
         startDate: startDate,
         budget: budget,
+        codeAnalysisScore: codeAnalysisScore,
+        codeAnalysisDate: codeAnalysisDate,
+        managerUsername: managerUsername,
+        githubLink: githubLink,
         devUsernames: devUsernames,
         status: status
     };
