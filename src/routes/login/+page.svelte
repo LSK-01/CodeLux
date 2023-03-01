@@ -15,9 +15,6 @@
   else if (form?.success == false) {
     console.log('error when logging in');
   }
-  else{
-    console.log('response, ', form?.success)
-  }
 
 </script>
 
