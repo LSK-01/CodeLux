@@ -1,6 +1,6 @@
 import { dev } from '$app/environment';
 import { app } from '../../hooks.server';
-import { getFirestore,collection, getDocs, query, where } from 'firebase/firestore';
+import { getFirestore, collection, getDocs, doc, setDoc, addDoc, query, where, serverTimestamp } from 'firebase/firestore';
 
 
 // we don't need any JS on this page, though we'll load
