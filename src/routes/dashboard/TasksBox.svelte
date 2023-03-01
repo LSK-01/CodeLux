@@ -1,15 +1,15 @@
 <script lang='ts'>
-	import '../styles.css';;
-	export let taskList: string = "";
+	import '../styles.css';
+	export let taskList : any[number][string];
 </script>
 
 <div id='tasksBox'>
 	<h2>Tasks</h2>
 	<div class='boxContents'>
-		{#each JSON.parse(taskList) as task}
+		{#each taskList as {projectName, text}}
 		<div class='taskItem'>
-			<h3>task.projectName<h3>
-			<p>task.text<p>
+			<h3>{projectName}<h3>
+			<p>{text}<p>
 		</div>
 		{:else}
 		<div class='taskItem'>
@@ -27,14 +27,14 @@
 		padding: 10px;
 		background-color: var(--fg1);
 		border-radius: 10px;
-		box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+		box-shadow: var(--outset);
 	}
 
 	.taskItem {
 		background-color:var(--fg2);
 		padding: 10px;
 		border-radius: 5px;
-		box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+		box-shadow: var(--outset);
 	}
 
 	.taskItem p {

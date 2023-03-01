@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
   import {FeedbackStore} from '../stores'
   import { fade, scale } from 'svelte/transition'
   import FeedbackItem from './FeedbackItem.svelte'
@@ -20,4 +20,4 @@
 		flex-direction: column;
 		gap: 10px;
 	}
-</style>
+</style> -->
