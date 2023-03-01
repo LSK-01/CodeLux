@@ -95,21 +95,47 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
       withoutSurveys: 5,
       withTasks: 4,
       withoutTasks: 4,
-      surveyList: await getSurveys(),
+      surveyList: await getSurveys(user),
       taskList: await getTasks(),
       deadlineList: await getDeadlines(user),
     },
   };
 };
 
-async function getSurveys() {
+async function getSurveys(user : user) {
   let surveyList: string[] = [];
+  let userProjects : any[] = [];
+
   const db = getFirestore(app);
-  const surveys = collection(db, "surveys");
-  const querySnapshot = await getDocs(surveys);
-  querySnapshot.forEach((survey) => {
-    surveyList.push("survey.data().projectName");
-  });
+  const ps = collection(db, "projects");
+  const q1 = query(
+    ps,
+    where("managerusername", "==", user.username),
+    where("complete", "==", false)
+  );
+  const q2 = query(
+    ps,
+    where("developerusernames", "array-contains", user.username),
+    where("complete", "==", false)
+  );
+  const querySnapshot1 = await getDocs(q1);
+  querySnapshot1.forEach((project) => {
+    userProjects.push({
+      projectName: project.data().projectname,
+      manager: true
+      })});
+  const querySnapshot2 = await getDocs(q1);
+  querySnapshot2.forEach((project) => {
+    userProjects.push({
+      projectName: project.data().projectname,
+      manager: false
+      })});
+
+  
+  // const querySnapshot = await getDocs(surveys);
+  // querySnapshot.forEach((survey) => {
+  //   surveyList.push("survey.data().projectName");
+  // });
   return surveyList;
 }
 
