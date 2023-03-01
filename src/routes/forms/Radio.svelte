@@ -14,7 +14,7 @@
       {#each options as { value, label }}
         <li>
           <!-- <input type="radio" name={name} value={value} bind:group={userSelected}> -->
-          <input type="radio" name={name} value={value}>
+          <input type="radio" class="likert" name={name} value={value}>
           <label class="subh" for={label}>{label}</label>
         </li>
       {/each}
@@ -33,24 +33,25 @@
       font-size: 11px;
       white-space: pre-wrap;
   }
-  form .likert:last-of-type {border-bottom:0;}
-  form .likert:before {
-  content: '';
-  position:relative;
-  top:8px;
-  left:20%;
-  display:block;
-  background-color:#000000;
-  height:3px;
-  width:60%;
+  .likert:last-of-type {border-bottom:0;}
+  .likert:before {
+    z-index: -1;
+    content: '';
+    position:relative;
+    top:8px;
+    left:20%;
+    display:block;
+    background-color:#000000;
+    height:3px;
+    width:60%;
   }
-  form .likert li {
+  .likert li {
   display:inline-block;
   width:10%;
   text-align:center;
   vertical-align: top;
   }
-  form .likert li input[type=radio] {
+  .likert li input[type=radio] {
   display:block;
   position:relative;
   top:0;
