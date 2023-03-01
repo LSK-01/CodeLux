@@ -66,49 +66,76 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
         throw redirect(303, "/project_overview?id=" + state);
     }
 
-    const db = getFirestore(app);
-    const projects = collection(db, "projects");
-    const q1 = query(
-        projects,
-        where("managerusername", "==", user.username),
-        where("atRisk", "==", true),
-        where("complete", "==", false)
-    );
-    const querySnapshot1 = await getCountFromServer(q1);
-    let atRisk = querySnapshot1.data().count;
-    const q2 = query(
-        projects,
-        where("managerusername", "==", user.username),
-        where("atRisk", "==", false),
-        where("complete", "==", false)
-    );
-    const querySnapshot2 = await getCountFromServer(q2);
-    let notAtRisk = querySnapshot2.data().count;
-    return {
-        atRisk: atRisk,
-        notAtRisk: notAtRisk,
-        withSurveys: 2,
-        withoutSurveys: 5,
-        withTasks: 4,
-        withoutTasks: 4,
-        surveyList: await getSurveys(),
-        taskList: await getTasks(),
-        deadlineList: await getDeadlines(user),
-    };
+  let atRisk: number = 0;
+  let notAtRisk: number = 0;
+  const db = getFirestore(app);
+  const projects = collection(db, "projects");
+  const q1 = query(
+    projects,
+    where("managerusername", "==", user.username),
+    where("atRisk", "==", true),
+    where("complete", "==", false)
+  );
+  const querySnapshot1 = await getCountFromServer(q1);
+  atRisk = querySnapshot1.data().count;
+  const q2 = query(
+    projects,
+    where("managerusername", "==", user.username),
+    where("atRisk", "==", false),
+    where("complete", "==", false)
+  );
+  const querySnapshot2 = await getCountFromServer(q2);
+  notAtRisk = querySnapshot2.data().count;
+  return {
+    post: {
+      atRisk: atRisk,
+      notAtRisk: notAtRisk,
+      withSurveys: 2,
+      withoutSurveys: 5,
+      withTasks: 4,
+      withoutTasks: 4,
+      surveyList: await getSurveys(user),
+      taskList: await getTasks(),
+      deadlineList: await getDeadlines(user),
+    },
+  };
 };
 
-async function getSurveys() {
-    let surveyList: any[] = [];
-    const db = getFirestore(app);
-    const surveys = collection(db, "surveys");
-    const querySnapshot = await getDocs(surveys);
-    querySnapshot.forEach((survey) => {
-        surveyList.push({
-            projectID: survey.data().projectID,
-            projectName: survey.data().projectName,
-        });
-    });
-    return surveyList;
+async function getSurveys(user : user) {
+  let surveyList: string[] = [];
+  let userProjects : any[] = [];
+
+  const db = getFirestore(app);
+  const ps = collection(db, "projects");
+  const q1 = query(
+    ps,
+    where("managerusername", "==", user.username),
+    where("complete", "==", false)
+  );
+  const q2 = query(
+    ps,
+    where("developerusernames", "array-contains", user.username),
+    where("complete", "==", false)
+  );
+  const querySnapshot1 = await getDocs(q1);
+  querySnapshot1.forEach((project) => {
+    userProjects.push({
+      projectName: project.data().projectname,
+      manager: true
+      })});
+  const querySnapshot2 = await getDocs(q1);
+  querySnapshot2.forEach((project) => {
+    userProjects.push({
+      projectName: project.data().projectname,
+      manager: false
+      })});
+
+  
+  // const querySnapshot = await getDocs(surveys);
+  // querySnapshot.forEach((survey) => {
+  //   surveyList.push("survey.data().projectName");
+  // });
+  return surveyList;
 }
 
 async function getTasks() {
