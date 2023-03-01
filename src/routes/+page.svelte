@@ -7,12 +7,16 @@ import { goto } from '$app/navigation';
 	<title>Home</title>
 </svelte:head>
 
-<div class=" self-center pt-10 pb-48">
+<div class="title">
 	<h1 class=" text-7xl">Pimp my Project</h1>
 </div>
-<section class=" flex justify-center items-center flex-col">
-    <p>homepage shit</p>
-
+<section class=" flex justify-center items-center flex-col gap-5">
+    <Button click={() => goto('/login')}>Log in</Button>
     <Button click={() => goto('/signup')}>Sign Up</Button>
 </section>
 
+<style>
+    .title{
+    padding: 50px;
+  }
+</style>

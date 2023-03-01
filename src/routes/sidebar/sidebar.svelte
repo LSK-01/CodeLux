@@ -13,7 +13,7 @@
 	<h1>Pimp My Project</h1>
 	<Button>
 		<a href="/">
-			<span class="material-icons" id='userIcon'>account_circle</span>
+			<span class="material-icons">account_circle</span>
 			<h2>{user.username}</h2>
 		</a>
 	</Button>
@@ -30,12 +30,13 @@
 		justify-content: space-between;
 		align-items: center;
 		border-radius: 0 0 10px 10px;
-		background-color:rgba(0, 0, 0, 0.5);
+		/* background-color: var(--fg1); */
+		background-color: var(--fg1);
 		padding: 10px 10vw ;
 	}
 
 	#userIcon {
-		font-size: 50px;
+		font-size: 18px;
 	}
 
 	nav a {

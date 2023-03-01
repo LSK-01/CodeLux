@@ -60,9 +60,21 @@
 
 <style>
     @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
-    .container{
-        padding-bottom: 20px
-    }	
+    /* .container{
+		width: calc(80%);
+        padding-bottom: 20px;
+    }	 */
+
+	.container {
+		display: flex;
+		flex-direction: column;
+		min-height: 90vh;
+		/* justify-content: space-evenly; */
+		padding: 0 10vw;
+		flex: 1;
+		margin: 5px 0;
+		gap: 5px;
+	}
 	.pheading{
 		padding: 15px;
 		font-weight: bold;
@@ -74,8 +86,8 @@
 	}
 
 	.btn {
-		background-color: #3498db;
-		color: #fff;
+		background-color: #fca5a5;
+		color: #2d3436;
 		border: 0;
 		border-radius: 6px;
 		cursor: pointer;

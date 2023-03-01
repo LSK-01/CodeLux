@@ -5,6 +5,7 @@
   import { goto } from "$app/navigation";
   import { redirect } from "@sveltejs/kit";
   import { browser } from "$app/environment";
+  import "../styles.css";
 
   export let form: ActionData;
 
@@ -20,7 +21,7 @@
   <title>Home</title>
 </svelte:head>
 
-<div class=" self-center pt-10 pb-48">
+<div class="title">
   <h1 class=" text-7xl">Pimp my Project</h1>
 </div>
 
@@ -31,3 +32,15 @@
     <Button on:click={()=>{goto("/dashboard")}}>Sign Up</Button>
   </section>
 </form>
+
+<style>
+  .title{
+    padding: 50px;
+  }
+
+  .entryWrapper{
+    background-color: var(--fg2);
+    text-align: center;
+    border-radius: 10px;
+  }
+</style>
