@@ -1,7 +1,6 @@
 import { dev } from '$app/environment';
 import { app } from '../../../hooks.server';
 import { getFirestore,collection, getDocs, query, orderBy, where } from 'firebase/firestore';
-import type { user } from '../../../user';
 import type { PageServerLoad } from "../../login/$types";
 
 // we don't need any JS on this page, though we'll load
