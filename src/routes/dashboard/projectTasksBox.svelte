@@ -34,15 +34,14 @@
 		flex: 1 0;
 		display: flex;
 		flex-direction: column;
-		padding: 5px 0;
+		padding: 10px;
 		border-radius: 5px;
 		background-color: var(--fg1);
-		box-shadow: inset 0 0 10px rgba(0, 0, 0);
 	}
 
 	.taskBox {
 		margin: 5px 0 ;
-		background-color:var(--fg2);
+		background-color:var(--fg3);
 		padding: 10px;
 		border-radius: 5px;
 	}

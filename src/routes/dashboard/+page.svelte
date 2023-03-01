@@ -6,10 +6,11 @@
   import ProjectSurveysBox from "./projectSurveysBox.svelte";
   import ProjectDeadlinesBox from "./projectDeadlinesBox.svelte";
   import type { PageData } from "./$types";
-//   import type { user } from '../../user';
+  import type { user } from '../../user';
 
   export let data: PageData;
-//   let user = data.user;
+  let user = data.user;
+  
 </script>
 
 <svelte:head>
@@ -27,7 +28,7 @@
 			withoutTasks={data.post.withoutTasks}
 		/>
 		<ProjectDeadlinesBox
-			deadlineList={data.post.deadlineList} 
+			deadlineList={data.post.deadlineList.deadlineList} 
 		/>
 		<ProjectSurveysBox
 			surveyList={data.post.surveyList} 

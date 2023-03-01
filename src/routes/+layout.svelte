@@ -4,7 +4,6 @@
 	import Header from './Header.svelte';
 	import Sidebar from './sidebar/Sidebar.svelte';
 	import type { PageData } from "./$types";
-	import type { user } from './../user';
 	export let data: PageData;
 	let user = data.user;
 	let landing = ['about', 'login', 'signup'];

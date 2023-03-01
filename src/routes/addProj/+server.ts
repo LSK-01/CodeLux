@@ -2,7 +2,6 @@ import { error, json } from "@sveltejs/kit";
 import type { RequestHandler } from "./$types";
 import { collection, addDoc, getFirestore } from "firebase/firestore";
 import { app } from "../../hooks.server";
-import type { project } from "../add/project";
 
 export const POST = (async ({ request }) => {
   const answers = await request.json();

@@ -6,9 +6,13 @@
 	--font-mono: 'Fira Mono', monospace;
 	--bg1: rgb(104, 197, 247);
 	--bg2: rgb(104, 135, 247);
-	--fg1: rgba(0, 0, 0, 0.5);
-	--fg2: rgb(0, 0, 0);
-	--text: rgb(255, 255, 255);
+	/* --fg1: rgba(0, 0, 0, 0.5); */
+	--fg1: rgba(255, 255, 255, 0.3);
+	/* --fg2: rgb(0, 0, 0); */
+	--fg2: #FFFFFF;
+	--fg3: rgba(255, 255, 255, 0.7);
+	/* --text: rgb(255, 255, 255); */
+	--text: #2d3436;
 	--column-width: 42rem;
 	--column-margin-top: 4rem;
 	font-family: var(--font-body);
@@ -38,18 +42,19 @@ p {
 }
 
 h1 {
-	font-size: 25px;
+	font-size: 22px;
 	text-align: center;
 }
 
 h2 {
 	margin: 10px 0;
-	font-size: 25px;
+	font-weight: bold;
+	font-size: 18px;
 }
 
 h3 {
 	margin: 0;
-	font-size: 20px;
+	font-size: 16px;
 }
 
 a {
@@ -103,8 +108,4 @@ button:focus:not(:focus-visible) {
 	position: absolute;
 	width: 1px;
 	white-space: nowrap;
-}
-
-.material-icons{
-	display: block;
 }

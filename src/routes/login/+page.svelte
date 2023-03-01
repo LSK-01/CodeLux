@@ -4,20 +4,18 @@
   import { browser } from "$app/environment";
   import { goto } from "$app/navigation";
   import type { ActionData } from "./$types";
-  
+  import { getIdToken } from "firebase/auth";
+
   export let form: ActionData;
 
   if (form?.success == true) {
     if (browser) {
       goto("/dashboard");
     }
+  } else if (form?.success == false) {
+    console.log("error when logging in");
   }
-  else if (form?.success == false) {
-    console.log('error when logging in');
-  }
-  else{
-    console.log('response, ', form?.success)
-  }
+
 
 </script>
 
@@ -25,7 +23,7 @@
   <title>Login</title>
 </svelte:head>
 
-<div class=" self-center pt-10 pb-48">
+<div class="title">
   <h1 class=" text-7xl">Pimp my Project</h1>
 </div>
 
@@ -37,6 +35,8 @@
   </section>
 </form>
 
-<form  method="POST" action="?/github">
-  <Button>get git</Button>
-</form>
+<style>
+  .title {
+    padding: 50px;
+  }
+</style>
