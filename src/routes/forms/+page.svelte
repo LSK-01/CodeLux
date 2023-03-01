@@ -50,13 +50,13 @@
 	<div class="pheading">
 		Project X : Survey
 	</div>
-    <ProgressBar {steps} bind:currentActive bind:this={progressBar}/>
+    <!-- <ProgressBar {steps} bind:currentActive bind:this={progressBar}/> -->
 	
    	<Form {options} questionData={questionData} active_step={currentActive}/>
-    <div class="step-button">
+    <!-- <div class="step-button">
         <button class="btn" on:click={() => handleProgress(-1)} disabled={currentActive == 1}>Prev</button>
         <button class="btn" on:click={() => handleProgress(+1)} disabled={currentActive == steps.length}>Next</button>
-    </div>		
+    </div>		 -->
 </div>
 
 <style>

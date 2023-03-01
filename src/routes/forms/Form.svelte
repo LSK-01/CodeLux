@@ -1,6 +1,7 @@
 <!-- https://svelte.dev/repl/7b05d57dcdc04f49be72844e4b2825b3?version=3.44.0 -->
 <script lang="ts">
     import Radio from './Radio.svelte';
+	import "../styles.css";
 	
 	export let active_step : number;
 	export let options : any[number][string];    
@@ -20,16 +21,16 @@
 </script>
 
 <!-- TODO: redirect user to another page when complete -->
-<form class="form-container"  on:submit={handleSubmit} method="POST" action="?/store">
+<!-- <form class="form-container"  on:submit={handleSubmit} method="POST" action="?/store">
 	{#if active_step != questions.length+1}
-        <div class="centered">
-            <h1 class="qheading">
-                Question {active_step}
-            </h1>
-            <div class="padding">
-                <Radio {options} name={qid[active_step-1]} question={questions[active_step-1]} bind:userSelected={formData[active_step-1]} />
-            </div>
-        </div>        
+		<div class="centered">
+			<h1 class="qheading">
+				Question {active_step}
+			</h1>
+			<div class="padding">
+				<Radio {options} name={qid[active_step-1]} question={questions[active_step-1]} />
+			</div>
+		</div>  
 	{:else}
 		<div class="message">
             <h1 class="qheading">
@@ -39,27 +40,27 @@
 			<button type="submit" class="btn submit">Submit</button>
 		</div>
 	{/if}
-</form>
+</form> -->
 
-<!-- <form class="form-container" on:submit={handleSubmit} method="POST" action="?/store">
-	{#each questionData as { question, qid }}
+<form class="form-container" on:submit={handleSubmit} method="POST" action="?/store">
+	{#each questionData as { question, qid }, i}
         <div class="centered">
             <h1 class="qheading">
-                Question {active_step}
+                Question {i+1}
             </h1>
             <div class="padding">
                 <Radio {options} name={qid} question={question} />
             </div>
         </div>   
 	{/each}     
-		<div class="message">
-            <h1 class="qheading">
-                Confirmation
-            </h1>			
-			<h2>Thank you for completing the survey</h2>
-			<button  type="submit" class="btn submit">Submit</button>
-		</div>
-</form> -->
+	<div class="message">
+		<!-- <h1 class="qheading">
+			Confirmation
+		</h1>			
+		<h2>Thank you for completing the survey</h2> -->
+		<button  type="submit" class="btn submit">Submit survey</button>
+	</div>
+</form>
 
 <!-- <form class="form-container"  on:submit={handleSubmit} method="POST" action="?/store">
 	 
@@ -123,6 +124,13 @@
     .padding {
         padding-top: 10px;
     }
+
+	.centered{
+		border-radius: 10px;
+		background-color: var(--fg1);
+		padding: 20px;
+		margin: 10px;
+	}
 	.form-container {
 		background-color: rgba(255, 255, 255, 0.1);
 		border-radius: 10px;
@@ -131,6 +139,7 @@
 		text-align: center;
 		max-width: 100%;
 		width: 100%;
+		gap: 5px;
 	}
 	.btn{
 		color: white;

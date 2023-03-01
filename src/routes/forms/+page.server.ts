@@ -29,21 +29,25 @@ import type { PageServerLoad, Actions } from './$types';
 export const actions = {
     store: async ({ cookies, request}) => {
         const data = await request.formData();
-        const userid = cookies.get('uid');
-        const email = cookies.get('email');
+        const cookie = cookies.get('user')!;
+
+        const user = JSON.parse(cookie);
+        const answers : any[] = [];
         
         const db = getFirestore(app);
+        console.log("chweck");
         console.log(data);
-        for (const value of data.entries()) {
-            console.log(value);
+        for (const element of data.entries()) {
+            answers.push({ qid: element[0], answer: element[1]});
           }
         await addDoc(collection(db,"surveyanswers"), {
             time: serverTimestamp(),
-            q1: data.get("q1"),
-            q2: data.get("q2"),
-            q3: data.get("q3"),
-            userid: userid,
-            email: email,
+            answers: data,
+            // q1: data.get("q1"),
+            // q2: data.get("q2"),
+            // q3: data.get("q3"),
+            userid: user.uid,
+            username: user.username,
           });
 
     }
