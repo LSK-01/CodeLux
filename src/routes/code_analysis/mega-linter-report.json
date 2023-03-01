@@ -1,0 +1,770 @@
+{
+    "file_extensions": [
+        ".py",
+        ".yml",
+        ".yaml",
+        ".json",
+        ".sh",
+        ".bash",
+        ".dash",
+        ".ksh",
+        ".bicep",
+        ".c",
+        ".h",
+        ".clj",
+        ".cljs",
+        ".cljc",
+        ".edn",
+        ".coffee",
+        ".cpp",
+        ".cc",
+        ".hpp",
+        ".cxx",
+        ".cu",
+        ".hxx",
+        ".c++",
+        ".hh",
+        ".h++",
+        ".cuh",
+        ".cs",
+        ".css",
+        ".scss",
+        ".saas",
+        ".dart",
+        ".env",
+        ".feature",
+        ".go",
+        ".graphql",
+        ".groovy",
+        ".gvy",
+        ".gradle",
+        ".nf",
+        ".html",
+        ".htm",
+        ".java",
+        ".js",
+        ".json5",
+        ".jsonc",
+        ".kt",
+        ".kts",
+        ".tex",
+        ".lua",
+        ".md",
+        ".pl",
+        ".pm",
+        ".t",
+        "",
+        ".php",
+        ".ps1",
+        ".psm1",
+        ".psd1",
+        ".ps1xml",
+        ".pssc",
+        ".psrc",
+        ".cdxml",
+        ".proto",
+        ".pp",
+        ".r",
+        ".R",
+        ".Rmd",
+        ".RMD",
+        ".raku",
+        ".rakumod",
+        ".rakutest",
+        ".pm6",
+        ".pl6",
+        ".p6",
+        ".rst",
+        ".rb",
+        ".rs",
+        ".scala",
+        ".smk",
+        ".sql",
+        ".tf",
+        ".hcl",
+        ".ts",
+        ".vb",
+        ".xml"
+    ],
+    "file_names_regex": [
+        "Dockerfile",
+        "Jenkinsfile",
+        "Makefile",
+        "Snakefile"
+    ],
+    "has_updated_sources": 0,
+    "linters": [
+        {
+            "descriptor_id": "ACTION",
+            "descriptor_type": "tooling_format",
+            "elapsed_time_s": 0.12501198699965244,
+            "files": [
+                "/tmp/lint/.github/workflows/mega-linter.yml"
+            ],
+            "files_lint_results": [
+                {
+                    "errors_number": null,
+                    "file": "/tmp/lint/.github/workflows/mega-linter.yml",
+                    "fixed": false,
+                    "status": null,
+                    "status_code": null,
+                    "stdout": null
+                }
+            ],
+            "files_number": 1,
+            "is_active": true,
+            "linter_name": "actionlint",
+            "name": "ACTION_ACTIONLINT",
+            "number_errors": 0,
+            "number_fixed": 0,
+            "return_code": 0,
+            "status": "success",
+            "total_number_errors": 0
+        },
+        {
+            "descriptor_id": "COPYPASTE",
+            "descriptor_type": "other",
+            "elapsed_time_s": 2.226613126000302,
+            "files": [],
+            "files_lint_results": [],
+            "files_number": 0,
+            "is_active": true,
+            "linter_name": "jscpd",
+            "name": "COPYPASTE_JSCPD",
+            "number_errors": 0,
+            "number_fixed": 0,
+            "return_code": 0,
+            "status": "success",
+            "total_number_errors": 0
+        },
+        {
+            "descriptor_id": "JSON",
+            "descriptor_type": "format",
+            "elapsed_time_s": 1.7772001089997502,
+            "files": [
+                "/tmp/lint/.cspell.json",
+                "/tmp/lint/.jscpd.json"
+            ],
+            "files_lint_results": [
+                {
+                    "errors_number": null,
+                    "file": "/tmp/lint/.cspell.json",
+                    "fixed": false,
+                    "status": null,
+                    "status_code": null,
+                    "stdout": null
+                },
+                {
+                    "errors_number": null,
+                    "file": "/tmp/lint/.jscpd.json",
+                    "fixed": false,
+                    "status": null,
+                    "status_code": null,
+                    "stdout": null
+                }
+            ],
+            "files_number": 2,
+            "is_active": true,
+            "linter_name": "eslint-plugin-jsonc",
+            "name": "JSON_ESLINT_PLUGIN_JSONC",
+            "number_errors": 0,
+            "number_fixed": 0,
+            "return_code": 0,
+            "status": "success",
+            "total_number_errors": 0
+        },
+        {
+            "descriptor_id": "JSON",
+            "descriptor_type": "format",
+            "elapsed_time_s": 0.48674187300002814,
+            "files": [
+                "/tmp/lint/.cspell.json",
+                "/tmp/lint/.jscpd.json"
+            ],
+            "files_lint_results": [
+                {
+                    "errors_number": null,
+                    "file": "/tmp/lint/.cspell.json",
+                    "fixed": false,
+                    "status": null,
+                    "status_code": null,
+                    "stdout": null
+                },
+                {
+                    "errors_number": null,
+                    "file": "/tmp/lint/.jscpd.json",
+                    "fixed": false,
+                    "status": null,
+                    "status_code": null,
+                    "stdout": null
+                }
+            ],
+            "files_number": 2,
+            "is_active": true,
+            "linter_name": "jsonlint",
+            "name": "JSON_JSONLINT",
+            "number_errors": 0,
+            "number_fixed": 0,
+            "return_code": 0,
+            "status": "success",
+            "total_number_errors": 0
+        },
+        {
+            "descriptor_id": "JSON",
+            "descriptor_type": "format",
+            "elapsed_time_s": 0.9942754280000372,
+            "files": [
+                "/tmp/lint/.cspell.json",
+                "/tmp/lint/.jscpd.json"
+            ],
+            "files_lint_results": [
+                {
+                    "errors_number": null,
+                    "file": "/tmp/lint/.cspell.json",
+                    "fixed": false,
+                    "status": null,
+                    "status_code": null,
+                    "stdout": null
+                },
+                {
+                    "errors_number": null,
+                    "file": "/tmp/lint/.jscpd.json",
+                    "fixed": false,
+                    "status": null,
+                    "status_code": null,
+                    "stdout": null
+                }
+            ],
+            "files_number": 2,
+            "is_active": true,
+            "linter_name": "prettier",
+            "name": "JSON_PRETTIER",
+            "number_errors": 0,
+            "number_fixed": 0,
+            "return_code": 0,
+            "status": "success",
+            "total_number_errors": 0
+        },
+        {
+            "descriptor_id": "JSON",
+            "descriptor_type": "format",
+            "elapsed_time_s": 5.979106557999785,
+            "files": [
+                "/tmp/lint/.cspell.json",
+                "/tmp/lint/.jscpd.json"
+            ],
+            "files_lint_results": [
+                {
+                    "errors_number": null,
+                    "file": "/tmp/lint/.cspell.json",
+                    "fixed": false,
+                    "status": null,
+                    "status_code": null,
+                    "stdout": null
+                },
+                {
+                    "errors_number": null,
+                    "file": "/tmp/lint/.jscpd.json",
+                    "fixed": false,
+                    "status": null,
+                    "status_code": null,
+                    "stdout": null
+                }
+            ],
+            "files_number": 2,
+            "is_active": true,
+            "linter_name": "v8r",
+            "name": "JSON_V8R",
+            "number_errors": 0,
+            "number_fixed": 0,
+            "return_code": 0,
+            "status": "success",
+            "total_number_errors": 0
+        },
+        {
+            "descriptor_id": "MARKDOWN",
+            "descriptor_type": "format",
+            "elapsed_time_s": 0.8096967110000151,
+            "files": [
+                "/tmp/lint/README.md"
+            ],
+            "files_lint_results": [
+                {
+                    "errors_number": null,
+                    "file": "/tmp/lint/README.md",
+                    "fixed": false,
+                    "status": null,
+                    "status_code": null,
+                    "stdout": null
+                }
+            ],
+            "files_number": 1,
+            "is_active": true,
+            "linter_name": "markdownlint",
+            "name": "MARKDOWN_MARKDOWNLINT",
+            "number_errors": 1,
+            "number_fixed": 0,
+            "return_code": 0,
+            "status": "warning",
+            "total_number_errors": 1
+        },
+        {
+            "descriptor_id": "MARKDOWN",
+            "descriptor_type": "format",
+            "elapsed_time_s": 0.8376777749999746,
+            "files": [
+                "/tmp/lint/README.md"
+            ],
+            "files_lint_results": [
+                {
+                    "errors_number": null,
+                    "file": "/tmp/lint/README.md",
+                    "fixed": false,
+                    "status": null,
+                    "status_code": null,
+                    "stdout": null
+                }
+            ],
+            "files_number": 1,
+            "is_active": true,
+            "linter_name": "markdown-link-check",
+            "name": "MARKDOWN_MARKDOWN_LINK_CHECK",
+            "number_errors": 0,
+            "number_fixed": 0,
+            "return_code": 0,
+            "status": "success",
+            "total_number_errors": 0
+        },
+        {
+            "descriptor_id": "MARKDOWN",
+            "descriptor_type": "format",
+            "elapsed_time_s": 0.4038247000003139,
+            "files": [
+                "/tmp/lint/README.md"
+            ],
+            "files_lint_results": [
+                {
+                    "errors_number": null,
+                    "file": "/tmp/lint/README.md",
+                    "fixed": false,
+                    "status": null,
+                    "status_code": null,
+                    "stdout": null
+                }
+            ],
+            "files_number": 1,
+            "is_active": true,
+            "linter_name": "markdown-table-formatter",
+            "name": "MARKDOWN_MARKDOWN_TABLE_FORMATTER",
+            "number_errors": 0,
+            "number_fixed": 0,
+            "return_code": 0,
+            "status": "success",
+            "total_number_errors": 0
+        },
+        {
+            "descriptor_id": "REPOSITORY",
+            "descriptor_type": "other",
+            "elapsed_time_s": 13.636424882000028,
+            "files": [],
+            "files_lint_results": [],
+            "files_number": 0,
+            "is_active": true,
+            "linter_name": "checkov",
+            "name": "REPOSITORY_CHECKOV",
+            "number_errors": 0,
+            "number_fixed": 0,
+            "return_code": 0,
+            "status": "success",
+            "total_number_errors": 0
+        },
+        {
+            "descriptor_id": "REPOSITORY",
+            "descriptor_type": "other",
+            "elapsed_time_s": 0.7340185640000527,
+            "files": [],
+            "files_lint_results": [],
+            "files_number": 0,
+            "is_active": true,
+            "linter_name": "gitleaks",
+            "name": "REPOSITORY_GITLEAKS",
+            "number_errors": 0,
+            "number_fixed": 0,
+            "return_code": 0,
+            "status": "success",
+            "total_number_errors": 0
+        },
+        {
+            "descriptor_id": "REPOSITORY",
+            "descriptor_type": "other",
+            "elapsed_time_s": 0.05513953799982119,
+            "files": [],
+            "files_lint_results": [],
+            "files_number": 0,
+            "is_active": true,
+            "linter_name": "git_diff",
+            "name": "REPOSITORY_GIT_DIFF",
+            "number_errors": 0,
+            "number_fixed": 0,
+            "return_code": 0,
+            "status": "success",
+            "total_number_errors": 0
+        },
+        {
+            "descriptor_id": "REPOSITORY",
+            "descriptor_type": "other",
+            "elapsed_time_s": 1.2966306430002987,
+            "files": [],
+            "files_lint_results": [],
+            "files_number": 0,
+            "is_active": true,
+            "linter_name": "secretlint",
+            "name": "REPOSITORY_SECRETLINT",
+            "number_errors": 0,
+            "number_fixed": 0,
+            "return_code": 0,
+            "status": "success",
+            "total_number_errors": 0
+        },
+        {
+            "descriptor_id": "REPOSITORY",
+            "descriptor_type": "other",
+            "elapsed_time_s": 10.707139017999907,
+            "files": [],
+            "files_lint_results": [],
+            "files_number": 0,
+            "is_active": true,
+            "linter_name": "trivy",
+            "name": "REPOSITORY_TRIVY",
+            "number_errors": 0,
+            "number_fixed": 0,
+            "return_code": 0,
+            "status": "success",
+            "total_number_errors": 0
+        },
+        {
+            "descriptor_id": "SPELL",
+            "descriptor_type": "other",
+            "elapsed_time_s": 4.059257786000217,
+            "files": [
+                "/tmp/lint/.cspell.json",
+                "/tmp/lint/.github/workflows/mega-linter.yml",
+                "/tmp/lint/.gitignore",
+                "/tmp/lint/.jscpd.json",
+                "/tmp/lint/.mega-linter.yml",
+                "/tmp/lint/README.md",
+                "/tmp/lint/0fc99947-1c1b-4454-b81c-13e4b89d24f2-megalinter_file_names_cspell.txt"
+            ],
+            "files_lint_results": [
+                {
+                    "errors_number": null,
+                    "file": "/tmp/lint/.cspell.json",
+                    "fixed": false,
+                    "status": null,
+                    "status_code": null,
+                    "stdout": null
+                },
+                {
+                    "errors_number": null,
+                    "file": "/tmp/lint/.github/workflows/mega-linter.yml",
+                    "fixed": false,
+                    "status": null,
+                    "status_code": null,
+                    "stdout": null
+                },
+                {
+                    "errors_number": null,
+                    "file": "/tmp/lint/.gitignore",
+                    "fixed": false,
+                    "status": null,
+                    "status_code": null,
+                    "stdout": null
+                },
+                {
+                    "errors_number": null,
+                    "file": "/tmp/lint/.jscpd.json",
+                    "fixed": false,
+                    "status": null,
+                    "status_code": null,
+                    "stdout": null
+                },
+                {
+                    "errors_number": null,
+                    "file": "/tmp/lint/.mega-linter.yml",
+                    "fixed": false,
+                    "status": null,
+                    "status_code": null,
+                    "stdout": null
+                },
+                {
+                    "errors_number": null,
+                    "file": "/tmp/lint/README.md",
+                    "fixed": false,
+                    "status": null,
+                    "status_code": null,
+                    "stdout": null
+                },
+                {
+                    "errors_number": null,
+                    "file": "/tmp/lint/0fc99947-1c1b-4454-b81c-13e4b89d24f2-megalinter_file_names_cspell.txt",
+                    "fixed": false,
+                    "status": null,
+                    "status_code": null,
+                    "stdout": null
+                }
+            ],
+            "files_number": 6,
+            "is_active": true,
+            "linter_name": "cspell",
+            "name": "SPELL_CSPELL",
+            "number_errors": 1,
+            "number_fixed": 0,
+            "return_code": 1,
+            "status": "error",
+            "total_number_errors": 4
+        },
+        {
+            "descriptor_id": "SPELL",
+            "descriptor_type": "other",
+            "elapsed_time_s": 0.38297185300007186,
+            "files": [
+                "/tmp/lint/.cspell.json",
+                "/tmp/lint/.github/workflows/mega-linter.yml",
+                "/tmp/lint/.gitignore",
+                "/tmp/lint/.jscpd.json",
+                "/tmp/lint/.mega-linter.yml",
+                "/tmp/lint/README.md"
+            ],
+            "files_lint_results": [
+                {
+                    "errors_number": null,
+                    "file": "/tmp/lint/.cspell.json",
+                    "fixed": false,
+                    "status": null,
+                    "status_code": null,
+                    "stdout": null
+                },
+                {
+                    "errors_number": null,
+                    "file": "/tmp/lint/.github/workflows/mega-linter.yml",
+                    "fixed": false,
+                    "status": null,
+                    "status_code": null,
+                    "stdout": null
+                },
+                {
+                    "errors_number": null,
+                    "file": "/tmp/lint/.gitignore",
+                    "fixed": false,
+                    "status": null,
+                    "status_code": null,
+                    "stdout": null
+                },
+                {
+                    "errors_number": null,
+                    "file": "/tmp/lint/.jscpd.json",
+                    "fixed": false,
+                    "status": null,
+                    "status_code": null,
+                    "stdout": null
+                },
+                {
+                    "errors_number": null,
+                    "file": "/tmp/lint/.mega-linter.yml",
+                    "fixed": false,
+                    "status": null,
+                    "status_code": null,
+                    "stdout": null
+                },
+                {
+                    "errors_number": null,
+                    "file": "/tmp/lint/README.md",
+                    "fixed": false,
+                    "status": null,
+                    "status_code": null,
+                    "stdout": null
+                }
+            ],
+            "files_number": 6,
+            "is_active": true,
+            "linter_name": "misspell",
+            "name": "SPELL_MISSPELL",
+            "number_errors": 0,
+            "number_fixed": 0,
+            "return_code": 0,
+            "status": "success",
+            "total_number_errors": 0
+        },
+        {
+            "descriptor_id": "YAML",
+            "descriptor_type": "format",
+            "elapsed_time_s": 1.387650350000058,
+            "files": [
+                "/tmp/lint/.github/workflows/mega-linter.yml",
+                "/tmp/lint/.mega-linter.yml"
+            ],
+            "files_lint_results": [
+                {
+                    "errors_number": null,
+                    "file": "/tmp/lint/.github/workflows/mega-linter.yml",
+                    "fixed": false,
+                    "status": null,
+                    "status_code": null,
+                    "stdout": null
+                },
+                {
+                    "errors_number": null,
+                    "file": "/tmp/lint/.mega-linter.yml",
+                    "fixed": false,
+                    "status": null,
+                    "status_code": null,
+                    "stdout": null
+                }
+            ],
+            "files_number": 2,
+            "is_active": true,
+            "linter_name": "prettier",
+            "name": "YAML_PRETTIER",
+            "number_errors": 0,
+            "number_fixed": 0,
+            "return_code": 0,
+            "status": "success",
+            "total_number_errors": 0
+        },
+        {
+            "descriptor_id": "YAML",
+            "descriptor_type": "format",
+            "elapsed_time_s": 8.500039970000216,
+            "files": [
+                "/tmp/lint/.github/workflows/mega-linter.yml",
+                "/tmp/lint/.mega-linter.yml"
+            ],
+            "files_lint_results": [
+                {
+                    "errors_number": null,
+                    "file": "/tmp/lint/.github/workflows/mega-linter.yml",
+                    "fixed": false,
+                    "status": null,
+                    "status_code": null,
+                    "stdout": null
+                },
+                {
+                    "errors_number": null,
+                    "file": "/tmp/lint/.mega-linter.yml",
+                    "fixed": false,
+                    "status": null,
+                    "status_code": null,
+                    "stdout": null
+                }
+            ],
+            "files_number": 2,
+            "is_active": true,
+            "linter_name": "v8r",
+            "name": "YAML_V8R",
+            "number_errors": 0,
+            "number_fixed": 0,
+            "return_code": 0,
+            "status": "success",
+            "total_number_errors": 0
+        },
+        {
+            "descriptor_id": "YAML",
+            "descriptor_type": "format",
+            "elapsed_time_s": 0.44975553899985243,
+            "files": [
+                "/tmp/lint/.github/workflows/mega-linter.yml",
+                "/tmp/lint/.mega-linter.yml"
+            ],
+            "files_lint_results": [
+                {
+                    "errors_number": null,
+                    "file": "/tmp/lint/.github/workflows/mega-linter.yml",
+                    "fixed": false,
+                    "status": null,
+                    "status_code": null,
+                    "stdout": null
+                },
+                {
+                    "errors_number": null,
+                    "file": "/tmp/lint/.mega-linter.yml",
+                    "fixed": false,
+                    "status": null,
+                    "status_code": null,
+                    "stdout": null
+                }
+            ],
+            "files_number": 2,
+            "is_active": true,
+            "linter_name": "yamllint",
+            "name": "YAML_YAMLLINT",
+            "number_errors": 0,
+            "number_fixed": 0,
+            "return_code": 0,
+            "status": "success",
+            "total_number_errors": 0
+        }
+    ],
+    "post_commands_results": [],
+    "pre_commands_results": [],
+    "report_folder": "/tmp/lint/megalinter-reports",
+    "reporters": [
+        {
+            "is_active": true,
+            "master": null,
+            "name": "AZURE_COMMENT",
+            "processing_order": 0,
+            "report_folder": "/tmp/lint/megalinter-reports",
+            "report_items": []
+        },
+        {
+            "is_active": true,
+            "master": null,
+            "name": "CONFIG",
+            "processing_order": 0,
+            "report_folder": "/tmp/lint/megalinter-reports",
+            "report_items": []
+        },
+        {
+            "is_active": true,
+            "master": null,
+            "name": "CONSOLE",
+            "processing_order": 0,
+            "report_folder": "/tmp/lint/megalinter-reports",
+            "report_items": []
+        },
+        {
+            "is_active": true,
+            "master": null,
+            "name": "GITHUB_COMMENT",
+            "processing_order": 0,
+            "report_folder": "/tmp/lint/megalinter-reports",
+            "report_items": []
+        },
+        {
+            "is_active": true,
+            "master": null,
+            "name": "GITLAB_COMMENT",
+            "processing_order": 0,
+            "report_folder": "/tmp/lint/megalinter-reports",
+            "report_items": []
+        },
+        {
+            "is_active": true,
+            "master": null,
+            "name": "JSON",
+            "processing_order": 0,
+            "report_folder": "/tmp/lint/megalinter-reports",
+            "report_items": []
+        },
+        {
+            "is_active": true,
+            "master": null,
+            "name": "UPDATED_SOURCES",
+            "processing_order": 0,
+            "report_folder": "/tmp/lint/megalinter-reports",
+            "report_items": []
+        }
+    ],
+    "return_code": 1,
+    "status": "error"
+}

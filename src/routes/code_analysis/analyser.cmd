@@ -1,0 +1,1 @@
+mega-linter-runner -f documentation -e 'JSON_REPORTER=true’ -e 'PRINT_ALPACA=false’
