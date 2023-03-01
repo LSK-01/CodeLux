@@ -1,17 +1,22 @@
 <script lang='ts'>
 	import '../styles.css';
-	export let deadlineList: string = "";
+	export let deadlineList : any[number][string];
+	// import ProjectBoxSimple from './projectBoxSimple.svelte';
 </script>
 
 <div id='deadlinesBox'>
 	<h2>Upcoming Deadlines</h2>
 	<div class='boxContents'>
-		{#each JSON.parse(deadlineList) as project}
+		{#each deadlineList as { projectName, dueDate } }
 		<div class='deadlineItem'>
-			<h3>{project.name}<h3>
-			<p>Due on {project.deadline}<p>
+			<span class="material-symbols-outlined">description</span> 
+			<div>
+				<h3>{projectName}</h3>
+				Due date: {dueDate}
+			</div>
+			<!-- <ProjectBoxSimple name={projectName} date={dueDate}/> -->
 		</div>
-		{:else}
+      	{:else}
 		<div class='deadlineItem'>
 			<h3>No projects due<h3>
 		</div>
@@ -27,17 +32,26 @@
 		padding: 10px;
 		background-color: var(--fg1);
 		border-radius: 10px;
-		box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+		box-shadow: var(--outset);
 	}
 
 	.deadlineItem {
-		background-color:var(--fg2);
+		flex: 1 0;
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		background-color: var(--fg2);
 		padding: 10px;
 		border-radius: 5px;
-		box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+		box-shadow: var(--outset);
 	}
-
-	.deadlineItem p {
-		text-indent: 20px;
-	}
+	
+	/* .ProjectBoxWrapper {
+		flex: 1 0;
+		display: flex;
+		flex-direction: column;
+		padding: 0px 10px 0px 10px; 
+		padding: 10px; 
+		border-radius: 5px;
+	} */
 </style>

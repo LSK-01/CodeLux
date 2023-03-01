@@ -6,9 +6,9 @@
 <div id='surveysBox'>
 	<h2>Surveys</h2>
 	<div class='boxContents'>
-		{#each surveyList as survey}
+		{#each surveyList as projectName}
 		<div class='surveyItem'>
-			<h3>survey.projectName<h3>
+			<h3>{projectName}<h3>
 		</div>
 		{:else}
 		<div class='surveyItem'>
@@ -26,13 +26,13 @@
 		padding: 10px;
 		background-color: var(--fg1);
 		border-radius: 10px;
-		box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+		box-shadow: var(--outset);
 	}
 
 	.surveyItem {
 		background-color:var(--fg2);
 		padding: 10px;
 		border-radius: 5px;
-		box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+		box-shadow: var(--outset);
 	}
 </style>

@@ -1,9 +1,8 @@
 <script lang="ts">
-	import '../styles.css';
+	import '../../styles.css';
 
     export let name : string;
     export let date : string;
-    export let manager : boolean;
 </script>
 
 <svelte:head>
@@ -15,7 +14,7 @@
         <div class="boxContents">
             <span class="material-symbols-outlined">
                 description
-                </span>     
+            </span>     
             <div class="projectInfo">
             <h3>{name}</h3>
             Due date: {date}
@@ -42,7 +41,6 @@
 		padding: 5px 0;
 		border-radius: 5px;
 		background-color: var(--fg1);
-		box-shadow: inset 0 0 10px rgba(0, 0, 0);
 		gap: 10px;
 		padding: 15px;
         text-align: left;

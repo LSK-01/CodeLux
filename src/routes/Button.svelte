@@ -12,6 +12,6 @@
         padding: 10px;
         align-items: center;
 		border-radius: 10px;
-		background-color:var(--fg2);
+		background-color:var(--fg3);
 	}
 </style>

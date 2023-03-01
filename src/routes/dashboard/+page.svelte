@@ -1,9 +1,9 @@
 <script lang="ts">
   import '../styles.css';
-  import ProjectStatusesBox from "./OverviewsBox.svelte";
-  import ProjectTasksBox from "./TasksBox.svelte";
-  import ProjectSurveysBox from "./SurveysBox.svelte";
-  import ProjectDeadlinesBox from "./DeadlinesBox.svelte";
+  import OverviewsBox from "./OverviewsBox.svelte";
+  import TasksBox from "./TasksBox.svelte";
+  import SurveysBox from "./SurveysBox.svelte";
+  import DeadlinesBox from "./DeadlinesBox.svelte";
   import type { PageData } from "./$types";
   export let data: PageData;
 </script>
@@ -13,16 +13,10 @@
 </svelte:head>
 
 <div id="dashboard">
-	<ProjectStatusesBox data={data}/>
-	<ProjectDeadlinesBox
-		deadlineList={data.deadlineList} 
-	/>
-	<ProjectSurveysBox
-		surveyList={data.surveyList} 
-	/>
-	<ProjectTasksBox
-		taskList={data.taskList} 
-	/>
+	<OverviewsBox data={data} />
+	<DeadlinesBox deadlineList={data.deadlineList} />
+	<SurveysBox surveyList={data.surveyList} />
+	<TasksBox taskList={data.taskList} />
 </div>
 
 <style>
