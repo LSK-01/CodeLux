@@ -32,7 +32,7 @@
 		padding: 10px 10vw;
 	}
 
-	#userBox{
+	#userBox {
 		display: flex;
 		border-radius: 10px;
 		background-color: var(--fg1);
@@ -48,7 +48,6 @@
 		margin: 0;
 	}
 
-	
 	#userBox span {
 		font-size: 50px;
 	}

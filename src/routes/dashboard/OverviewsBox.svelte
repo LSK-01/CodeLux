@@ -2,7 +2,6 @@
 	import '../styles.css';
 	import type { PageData } from "./$types";
 	import { goto } from '$app/navigation';
-    import { onMount } from 'svelte';
 	export let data: PageData;
 	let atRisk: number = data.atRisk;
 	let notAtRisk: number = data.notAtRisk;

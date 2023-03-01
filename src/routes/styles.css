@@ -12,9 +12,9 @@
 	--text: rgb(45, 52, 54);
 	--column-width: 42rem;
 	--column-margin-top: 4rem;
-	--outset: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-	--inset: inset 0 0 10px rgba(0, 0, 0);
-	/* --outset: none; */
+	/* --outset: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+	--inset: inset 0 0 10px rgba(0, 0, 0); */
+	--outset: none;
 	--inset: none;
 	font-family: var(--font-body);
 	color: var(--text);
