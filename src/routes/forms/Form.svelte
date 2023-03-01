@@ -3,7 +3,7 @@
     import Radio from './Radio.svelte';
 	import "../styles.css";
 	
-	export let active_step : number;
+	// export let active_step : number;
 	export let options : any[number][string];    
 	export let questionData : any[];
 
@@ -23,12 +23,16 @@
 <!-- TODO: redirect user to another page when complete -->
 <!-- <form class="form-container"  on:submit={handleSubmit} method="POST" action="?/store">
 	{#if active_step != questions.length+1}
-        <div class="centered">
-            <h1 class="qheading">
-                Question {active_step}
-            </h1>
-            <div class="padding">
-                <Radio {options} question={questions[active_step-1]} bind:userSelected={formData[active_step-1]}/>
+		<div class="centered">
+			<h1 class="qheading">
+				Question {active_step}
+			</h1>
+			<div class="padding">
+				<Radio {options} name={qid[active_step-1]} question={questions[active_step-1]} />
+			</div>
+		</div>  
+	{:else}
+		<div class="message">
             <h1 class="qheading">
                 Confirmation
             </h1>			
@@ -128,16 +132,17 @@
 		margin: 10px;
 	}
 	.form-container {
-		background-color: var(--fg3);
+		background-color: rgba(255, 255, 255, 0.1);
 		border-radius: 10px;
 		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);
-		padding: 20px 10px;
+		padding: 50px 20px;
 		text-align: center;
+		max-width: 100%;
 		width: 100%;
 		gap: 5px;
 	}
 	.btn{
-		color: #2d3436;
+		color: white;
 		padding: 0.5rem 0;
 		margin-top: 0.5rem;
 		display: inline-block;
@@ -146,12 +151,12 @@
 		cursor:pointer;
 	}
 	.submit{
-		background:linear-gradient(to bottom, #4ade80 5%, #4ade80 100%);
-		background-color:#4ade80;
+		background:linear-gradient(to bottom, #44c767 5%, #50b01c 100%);
+		background-color:#44c767;
 	}
 	.submit:hover {
-		background:linear-gradient(to bottom, #4ade80 5%, #4ade80 100%);
-		background-color:#4ade80;
+		background:linear-gradient(to bottom, #50b01c 5%, #44c767 100%);
+		background-color:#50b01c;
 	}
 	.message{
 		text-align: center;

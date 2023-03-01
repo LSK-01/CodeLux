@@ -7,9 +7,7 @@ import { getFirestore, collection, getDocs, doc, setDoc, addDoc, query, where, s
 // it in dev so that we get hot module replacement
 export const csr = dev;
 
-// since there's no dynamic data here, we can prerender
-// it so that it gets served as a static asset in production
-export const prerender = true;
+export const prerender = false;
 
 /** @type {import('./$types').PageLoad} */
 export async function load() {
@@ -36,14 +34,13 @@ export const actions = {
         const answers : any[] = [];
         
         const db = getFirestore(app);
-        console.log("chweck");
-        console.log(data);
         for (const element of data.entries()) {
             answers.push({ qid: element[0], answer: element[1]});
-          }
+        }
+        console.log(answers);
         await addDoc(collection(db,"surveyanswers"), {
             time: serverTimestamp(),
-            answers: data,
+            answers: answers,
             // q1: data.get("q1"),
             // q2: data.get("q2"),
             // q3: data.get("q3"),

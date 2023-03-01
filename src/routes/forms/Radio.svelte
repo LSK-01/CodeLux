@@ -9,7 +9,6 @@
 
 <fieldset id={name}>
 <div class="centered">
-  <form action="">
     <div class="padding">{question}</div>
     <ul class='likert'>
       {#each options as { value, label }}
@@ -24,38 +23,38 @@
 </fieldset> 
 
 <style>
-    .padding{
-      padding-bottom: 20px;
-    }
-    .centered{
-        margin: 0 auto;
-    }
-    .subh{
-        font-size: 11px;
-        white-space: pre-wrap;
-    }
-    form .likert:last-of-type {border-bottom:0;}
-    form .likert:before {
-    content: '';
-    position:relative;
-    top:8px;
-    left:20%;
-    display:block;
-    background-color:#000000;
-    height:3px;
-    width:60%;
-    }
-    form .likert li {
-    display:inline-block;
-    width:10%;
-    text-align:center;
-    vertical-align: top;
-    }
-    form .likert li input[type=radio] {
-    display:block;
-    position:relative;
-    top:0;
-    left:50%;
-    margin-left:-6px;
-    }
+  .padding{
+    padding-bottom: 20px;
+  }
+  .centered{
+      margin: 0 auto;
+  }
+  .subh{
+      font-size: 11px;
+      white-space: pre-wrap;
+  }
+  form .likert:last-of-type {border-bottom:0;}
+  form .likert:before {
+  content: '';
+  position:relative;
+  top:8px;
+  left:20%;
+  display:block;
+  background-color:#000000;
+  height:3px;
+  width:60%;
+  }
+  form .likert li {
+  display:inline-block;
+  width:10%;
+  text-align:center;
+  vertical-align: top;
+  }
+  form .likert li input[type=radio] {
+  display:block;
+  position:relative;
+  top:0;
+  left:50%;
+  margin-left:-6px;
+  }
 </style>
