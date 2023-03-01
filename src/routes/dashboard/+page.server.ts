@@ -44,12 +44,15 @@ export const load: PageServerLoad = async ({cookies}) => {
 }
 
 async function getSurveys() {
-	let surveyList: string[] = [];
+	let surveyList: any[] = [];
     const db = getFirestore(app);
     const surveys = collection(db, 'surveys');
     const querySnapshot = await getDocs(surveys);
     querySnapshot.forEach((survey) => {
-        surveyList.push(survey.data().projectName);
+        surveyList.push({
+            projectID: survey.data().projectID,
+            projectName: survey.data().projectName
+        });
     });
     return surveyList;
 }
@@ -60,9 +63,11 @@ async function getTasks() {
     const tasks = collection(db, 'tasks');
     const querySnapshot = await getDocs(tasks);
     querySnapshot.forEach((task) => {
-        let projectName = task.data().projectName;
-        let text = task.data().text;
-        taskList.push({projectName: projectName, text: text});
+        taskList.push({
+            projectID: task.data().projectID,
+            projectName: task.data().projectName, 
+            text: task.data().text
+        });
     });
     return taskList;
 }
@@ -77,7 +82,11 @@ async function getDeadlines(user : user) {
     const q2 = query(ps, where("complete","==",false), orderBy("deadline"));
     const querySnapshot1 = await getDocs(q2);
     querySnapshot1.forEach((project) => {
-        deadlineList.push({projectName: project.data().projectname, dueDate: project.data().deadline.toDate().toLocaleDateString()});
+        deadlineList.push({
+            projectID: project.id,
+            projectName: project.data().projectname, 
+            dueDate: project.data().deadline.toDate().toLocaleDateString()
+        });
     });
     const querySnapshot2 = await getDocs(q1);
     querySnapshot2.forEach((project) => {

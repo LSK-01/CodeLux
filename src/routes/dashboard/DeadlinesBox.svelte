@@ -7,15 +7,15 @@
 <div id='deadlinesBox'>
 	<h2>Upcoming Deadlines</h2>
 	<div class='boxContents'>
-		{#each deadlineList as { projectName, dueDate } }
-		<div class='deadlineItem'>
+		{#each deadlineList as entry}
+		<a class='deadlineItem' href='/project_overview/{entry.projectID}'>
 			<span class="material-symbols-outlined">description</span> 
 			<div>
-				<h3>{projectName}</h3>
-				Due date: {dueDate}
+				<h3>{entry.projectName}</h3>
+				Due date: {entry.dueDate}
 			</div>
 			<!-- <ProjectBoxSimple name={projectName} date={dueDate}/> -->
-		</div>
+		</a>
       	{:else}
 		<div class='deadlineItem'>
 			<h3>No projects due<h3>
@@ -36,14 +36,17 @@
 	}
 
 	.deadlineItem {
-		flex: 1 0;
 		display: flex;
 		align-items: center;
 		gap: 10px;
-		background-color: var(--fg2);
+		background-color: var(--fg3);
 		padding: 10px;
 		border-radius: 5px;
 		box-shadow: var(--outset);
+	}
+
+	a:hover {
+		background-color: var(--fg2);
 	}
 	
 	/* .ProjectBoxWrapper {

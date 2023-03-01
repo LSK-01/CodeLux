@@ -1,6 +1,6 @@
-import { app } from '../../hooks.server';
+import { app } from '../../../hooks.server';
 import { getFirestore, collection, getDocs, query, doc, getDoc } from 'firebase/firestore';
-import type { PageServerLoad } from "../login/$types";
+import type { PageServerLoad } from "../../login/$types";
 
 export const load: PageServerLoad = async ({params}) => {
     let name = "";
@@ -9,13 +9,13 @@ export const load: PageServerLoad = async ({params}) => {
     let startDate = "";
     let budget = 0;
     let codeAnalysisScore = 0;
-    let codeAnalysisDate = "";
+    let codeAnalysisDate = "Never";
     let managerUsername = "";
     let githubLink = "";
     let devUsernames: string[] = []
     let status = "Not at risk";
     const db = getFirestore(app);
-    const project = doc(db, "projects", "jbyYPtjz82qsybRuVYlb");
+    const project = doc(db, "projects", params.slug);
     const projectDoc = await getDoc(project);
     name = projectDoc.get("projectname");
     desc = projectDoc.get("projectdescription");

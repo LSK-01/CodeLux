@@ -6,11 +6,11 @@
 <div id='tasksBox'>
 	<h2>Tasks</h2>
 	<div class='boxContents'>
-		{#each taskList as {projectName, text}}
-		<div class='taskItem'>
-			<h3>{projectName}<h3>
-			<p>{text}<p>
-		</div>
+		{#each taskList as task}
+		<a class='taskItem' href='/forms/{task.projectID}'>
+			<h3>{task.projectName}<h3>
+			<p>{task.text}<p>
+		</a>
 		{:else}
 		<div class='taskItem'>
 			<h3>No tasks due<h3>
@@ -31,10 +31,14 @@
 	}
 
 	.taskItem {
-		background-color:var(--fg2);
+		background-color:var(--fg3);
 		padding: 10px;
 		border-radius: 5px;
 		box-shadow: var(--outset);
+	}
+
+	a:hover {
+		background-color: var(--fg2);
 	}
 
 	.taskItem p {
