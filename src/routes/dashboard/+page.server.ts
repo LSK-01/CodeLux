@@ -9,6 +9,7 @@ import {
     setDoc,
     doc,
     orderBy,
+    Timestamp
 } from "firebase/firestore";
 import type { PageServerLoad } from "../login/$types";
 import type { user } from "../../user";
@@ -91,25 +92,73 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
         withoutSurveys: 5,
         withTasks: 4,
         withoutTasks: 4,
-        surveyList: await getSurveys(),
+        surveyList: await getSurveys(user),
         taskList: await getTasks(),
         deadlineList: await getDeadlines(user),
     };
 };
 
-async function getSurveys() {
+async function getSurveys(user : user) {
     let surveyList: any[] = [];
+  
     const db = getFirestore(app);
-    const surveys = collection(db, "surveys");
-    const querySnapshot = await getDocs(surveys);
-    querySnapshot.forEach((survey) => {
+    const ps = collection(db, "projects");
+    const q1 = query(
+      ps,
+      where("managerusername", "==", user.username),
+      where("complete", "==", false)
+    );
+    const q2 = query(
+      ps,
+      where("developerusernames", "array-contains", user.username),
+      where("complete", "==", false)
+    );
+    const querySnapshot1 = await getDocs(q1);
+    const querySnapshot2 = await getDocs(q2);
+  
+    const surveyAnswers = collection(db,"surveyanswers");
+  
+    const currentTime = Timestamp.now();
+    const weekOldTimestamp = Timestamp.fromMillis(currentTime.toMillis() - 604800000);
+  
+    querySnapshot1.forEach(async (project) => {
+      const q3 = query(
+        surveyAnswers,
+        where("userid","==", user.uid),
+        where("projectid","==", project.id),
+        where("time",">", weekOldTimestamp),
+      ); //if this is not empty a survey has been taken in the last seven days so DON'T generate survey for it
+      const querySnapshot3 = await getDocs(q3);
+  
+      if (querySnapshot3.empty) {
         surveyList.push({
-            projectID: survey.data().projectID,
-            projectName: survey.data().projectName,
-        });
+          projectName: project.data().projectname,
+          projectID: project.id,
+          manager: true
+        })
+      }
     });
+  
+    
+    querySnapshot2.forEach(async (project) => {
+      const q3 = query(
+        surveyAnswers,
+        where("userid","==", user.uid),
+        where("projectid","==", project.id),
+        where("time",">", weekOldTimestamp),
+      ); //if this is not empty a survey has been taken in the last seven days so DON'T generate survey for it
+      const querySnapshot3 = await getDocs(q3);
+  
+      if (querySnapshot3.empty) {
+        surveyList.push({
+          projectID: project.id,
+          manager: false
+        })
+      }
+    });
+  
     return surveyList;
-}
+  }
 
 async function getTasks() {
     let taskList: any[] = [];
