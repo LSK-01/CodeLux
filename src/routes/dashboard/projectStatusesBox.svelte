@@ -110,7 +110,7 @@
 				</td>
 			</table>
 		</button>
-		<button class='overviewBox' id='projectRiskBox'>
+		<button on:click={() => goto('/projects/surveysdue')} class='overviewBox' id='projectRiskBox'>
 			<span class="material-icons" id='surveyIcon'>assignment</span>
 			<h3>Projects with surveys due</h3>
 			<table>

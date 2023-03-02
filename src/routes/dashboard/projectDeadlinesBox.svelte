@@ -2,6 +2,8 @@
 	import '../styles.css';
 	export let deadlineList : any[number][string];
 	import ProjectBoxSimple from './projectBoxSimple.svelte';
+
+	const str : string = "Due Date: ";
 </script>
 
 <svelte:head>
@@ -14,7 +16,7 @@
 	<div class='boxContents'>
 		{#each deadlineList as { projectName, dueDate } }
 			<div class='ProjectBoxWrapper'>
-        		<ProjectBoxSimple name={projectName} date={dueDate}/>
+        		<ProjectBoxSimple name={projectName} extraInfo={str.concat(dueDate)} icon={"description"}/>
 			</div>
       	{:else}
 		<div class='deadlineBox'>

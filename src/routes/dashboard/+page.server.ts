@@ -8,6 +8,9 @@ import {
   getCountFromServer,
   setDoc,
   doc,
+  limit,
+  orderBy,
+  Timestamp
 } from "firebase/firestore";
 import type { PageServerLoad } from "../login/$types";
 import type { user } from "../../user";
@@ -103,8 +106,7 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
 };
 
 async function getSurveys(user : user) {
-  let surveyList: string[] = [];
-  let userProjects : any[] = [];
+  let surveyList: any[] = [];
 
   const db = getFirestore(app);
   const ps = collection(db, "projects");
@@ -119,23 +121,49 @@ async function getSurveys(user : user) {
     where("complete", "==", false)
   );
   const querySnapshot1 = await getDocs(q1);
-  querySnapshot1.forEach((project) => {
-    userProjects.push({
-      projectName: project.id,
-      manager: true
-      })});
   const querySnapshot2 = await getDocs(q2);
-  querySnapshot2.forEach((project) => {
-    userProjects.push({
-      projectName: project.id,
-      manager: false
-      })});
 
-  // for (let proj in userProjects)
-  // const querySnapshot = await getDocs(surveys);
-  // querySnapshot.forEach((survey) => {
-  //   surveyList.push("survey.data().projectName");
-  // });
+  const surveyAnswers = collection(db,"surveyanswers");
+
+  const currentTime = Timestamp.now();
+  const weekOldTimestamp = Timestamp.fromMillis(currentTime.toMillis() - 604800000);
+
+  querySnapshot1.forEach(async (project) => {
+    const q3 = query(
+      surveyAnswers,
+      where("userid","==", user.uid),
+      where("projectid","==", project.id),
+      where("time",">", weekOldTimestamp),
+    ); //if this is not empty a survey has been taken in the last seven days so DON'T generate survey for it
+    const querySnapshot3 = await getDocs(q3);
+
+    if (querySnapshot3.empty) {
+      surveyList.push({
+        projectName: project.data().projectname,
+        projectID: project.id,
+        manager: true
+      })
+    }
+  });
+
+  
+  querySnapshot2.forEach(async (project) => {
+    const q3 = query(
+      surveyAnswers,
+      where("userid","==", user.uid),
+      where("projectid","==", project.id),
+      where("time",">", weekOldTimestamp),
+    ); //if this is not empty a survey has been taken in the last seven days so DON'T generate survey for it
+    const querySnapshot3 = await getDocs(q3);
+
+    if (querySnapshot3.empty) {
+      surveyList.push({
+        projectID: project.id,
+        manager: false
+      })
+    }
+  });
+
   return surveyList;
 }
 

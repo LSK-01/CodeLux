@@ -2,7 +2,8 @@
 	import '../styles.css';
 
     export let name : string;
-    export let date : string;
+    export let extraInfo : string;
+    export let icon : string;
 </script>
 
 <svelte:head>
@@ -12,11 +13,11 @@
 <div id='projectBox'>
         <div class="boxContents">
             <span class="material-symbols-outlined">
-                description
+                {icon}
             </span>     
             <div class="projectInfo">
             <h3>{name}</h3>
-            Due date: {date}
+            {extraInfo}
             </div>
         </div>
 </div>
