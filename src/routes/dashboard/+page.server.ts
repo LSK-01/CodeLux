@@ -120,17 +120,17 @@ async function getSurveys(user : user) {
   const querySnapshot1 = await getDocs(q1);
   querySnapshot1.forEach((project) => {
     userProjects.push({
-      projectName: project.data().projectname,
+      projectName: project.id,
       manager: true
       })});
-  const querySnapshot2 = await getDocs(q1);
+  const querySnapshot2 = await getDocs(q2);
   querySnapshot2.forEach((project) => {
     userProjects.push({
-      projectName: project.data().projectname,
+      projectName: project.id,
       manager: false
       })});
 
-  
+  // for (let proj in userProjects)
   // const querySnapshot = await getDocs(surveys);
   // querySnapshot.forEach((survey) => {
   //   surveyList.push("survey.data().projectName");
