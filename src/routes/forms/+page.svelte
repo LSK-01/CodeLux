@@ -5,20 +5,22 @@
 
 <script lang="ts">
 	import Form from './Form.svelte';
-	import ProgressBar from './ProgressBar.svelte';
+	// import ProgressBar from './ProgressBar.svelte';
 
 	export let data;
-	const qs : string[] = data.post;
+	const questionData : any[] = data.post;
 
-    let steps : (string|number)[];
-	steps = Array.from({length: qs.length}, (_, index) => index + 1);
-	steps = steps.concat("Confirmation");
-	let currentActive : number = 1;
-	let progressBar : ProgressBar;
+	const qs = questionData.map(a => a.question);
 
-	const handleProgress = (stepIncrement : number) => {
-		progressBar.handleProgress(stepIncrement)
-	}
+    // let steps : (string|number)[];
+	// steps = Array.from({length: qs.length}, (_, index) => index + 1);
+	// steps = steps.concat("Confirmation");
+	// let currentActive : number = 1;
+	// let progressBar : ProgressBar;
+
+	// const handleProgress = (stepIncrement : number) => {
+	// 	progressBar.handleProgress(stepIncrement)
+	// }
 
     const options = [{
 		value: 0,
@@ -48,21 +50,32 @@
 	<div class="pheading">
 		Project X : Survey
 	</div>
-    <ProgressBar {steps} bind:currentActive bind:this={progressBar}/>
-    
-    <Form {options} questions={qs} active_step={currentActive}/>
-
-    <div class="step-button">
+    <!-- <ProgressBar {steps} bind:currentActive bind:this={progressBar}/> -->
+	
+   	<Form {options} questionData={questionData}/>
+    <!-- <div class="step-button">
         <button class="btn" on:click={() => handleProgress(-1)} disabled={currentActive == 1}>Prev</button>
         <button class="btn" on:click={() => handleProgress(+1)} disabled={currentActive == steps.length}>Next</button>
-    </div>		
+    </div>		 -->
 </div>
 
 <style>
     @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
-    .container{
-        padding-bottom: 20px
-    }	
+    /* .container{
+		width: calc(80%);
+        padding-bottom: 20px;
+    }	 */
+
+	.container {
+		display: flex;
+		flex-direction: column;
+		min-height: 90vh;
+		/* justify-content: space-evenly; */
+		padding: 0 10vw;
+		flex: 1;
+		margin: 5px 0;
+		gap: 5px;
+	}
 	.pheading{
 		padding: 15px;
 		font-weight: bold;
@@ -74,8 +87,8 @@
 	}
 
 	.btn {
-		background-color: #3498db;
-		color: #fff;
+		background-color: #fca5a5;
+		color: #2d3436;
 		border: 0;
 		border-radius: 6px;
 		cursor: pointer;
