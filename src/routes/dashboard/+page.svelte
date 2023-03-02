@@ -1,61 +1,41 @@
 <script lang="ts">
   import '../styles.css';
-  import Sidebar from '../sidebar/Sidebar.svelte';
-  import ProjectStatusesBox from "./projectStatusesBox.svelte";
-  import ProjectTasksBox from "./projectTasksBox.svelte";
-  import ProjectSurveysBox from "./projectSurveysBox.svelte";
-  import ProjectDeadlinesBox from "./projectDeadlinesBox.svelte";
+  import OverviewsBox from "./OverviewsBox.svelte";
+  import TasksBox from "./TasksBox.svelte";
+  import SurveysBox from "./SurveysBox.svelte";
+  import DeadlinesBox from "./DeadlinesBox.svelte";
   import type { PageData } from "./$types";
-  import type { user } from '../../user';
-
   export let data: PageData;
-  let user = data.user;
-  
 </script>
 
 <svelte:head>
   	<title>Dashboard</title>
 </svelte:head>
 
-<div id='wrapper'>
-	<div id="dashboard">
-		<ProjectStatusesBox 
-			atRisk={data.post.atRisk} 
-			notAtRisk={data.post.notAtRisk}
-			withSurveys={data.post.withSurveys} 
-			withoutSurveys={data.post.withoutSurveys}
-			withTasks={data.post.withTasks} 
-			withoutTasks={data.post.withoutTasks}
-		/>
-		<ProjectDeadlinesBox
-			deadlineList={data.post.deadlineList.deadlineList} 
-		/>
-		<ProjectSurveysBox
-			surveyList={data.post.surveyList} 
-		/>
-		<ProjectTasksBox
-			taskList={data.post.taskList} 
-		/>
+<div id="dashboard">
+	<OverviewsBox data={data} />
+	<div>
+	<DeadlinesBox deadlineList={data.deadlineList} />
+	<SurveysBox surveyList={data.surveyList} />
+	<TasksBox taskList={data.taskList} />
 	</div>
 </div>
 
 <style>
-	#wrapper {
+	#dashboard {
 		display: flex;
-		flex-direction: column;
 		min-height: 100vh;
 		justify-content: space-evenly;
-		padding: 0 10vw;
-		flex: 1;
-		margin: 10px 0;
-		gap: 10px;
-	}
-
-	#dashboard {
-		flex: 1;
-		display: flex;
-		justify-content: space-evenly;
+		margin: 10px 10vw;
 		gap: 10px;
 		flex-wrap: wrap;
+	}
+
+	#dashboard div{
+		display: flex;
+		width: 100%;
+		justify-content: space-evenly;
+		gap: 10px;
+		height: 70vh;
 	}
 </style>
