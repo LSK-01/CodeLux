@@ -71,7 +71,7 @@ export const POST = (async ({ request }) => {
     })
   );
   console.log("poo");
-  fs.mkdirSync( __dirname +"/projectCode/" + data.id);
+  fs.mkdirSync( __dirname +"/projectCode/" + data.id, { recursive: true });
   for (let i = 0; i < filesBase64.length; i++) {
     fs.writeFile(
       __dirname + "/projectCode/" + data.id + "/" + filenames[i],
