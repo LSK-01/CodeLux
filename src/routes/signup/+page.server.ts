@@ -2,7 +2,7 @@ import type { Actions } from './$types';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { app } from '../../hooks.server'
 import type { user } from '../../user';
-import { addDoc, collection, getFirestore } from 'firebase/firestore';
+import type { PageServerLoad } from "./$types";
 
 export const actions = {
   default: async ({cookies, request}) => {

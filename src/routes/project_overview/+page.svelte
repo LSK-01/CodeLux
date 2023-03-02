@@ -182,12 +182,4 @@
     gap: 5px;
     width: max-content;
   }
-
-  span {
-    font-size: 50px;
-  }
-
-  .userBox span {
-    font-size: 20px;
-  }
 </style>
