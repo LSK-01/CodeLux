@@ -8,6 +8,9 @@ import {
   getCountFromServer,
   setDoc,
   doc,
+  limit,
+  orderBy,
+  Timestamp
 } from "firebase/firestore";
 import type { PageServerLoad } from "../login/$types";
 import type { user } from "../../user";
@@ -93,6 +96,7 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
       withoutSurveys: 5,
       withTasks: 4,
       withoutTasks: 4,
+      surveyList: await getSurveys(user),
       surveyList: await getSurveys(user),
       taskList: await getTasks(),
       deadlineList: await getDeadlines(user),
