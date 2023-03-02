@@ -3,9 +3,10 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { app } from "../../hooks.server";
 import type { user } from "../../user";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
+import type { PageServerLoad } from "./$types";
 
 export const actions = {
-  login: async ({ cookies, request }) => {
+  default: async ({ cookies, request }) => {
     const auth = getAuth(app);
 
     const data = await request.formData();
