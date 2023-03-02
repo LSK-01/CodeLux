@@ -3,9 +3,10 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { app } from "../../hooks.server";
 import type { user } from "../../user";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
+import type { PageServerLoad } from "./$types";
 
 export const actions = {
-  login: async ({ cookies, request }) => {
+  default: async ({ cookies, request }) => {
     const auth = getAuth(app);
 
     const data = await request.formData();
@@ -19,9 +20,9 @@ export const actions = {
       const userDocRef = doc(db, "users", res.user.uid);
       const userDoc = await getDoc(userDocRef);
 
-      let githubToken:string = "";
+      let githubToken: string = "";
       //they have a github API token - add to the cookie
-      if(userDoc.exists()){
+      if (userDoc.exists()) {
         githubToken = userDoc.data().githubToken;
       }
 
@@ -30,7 +31,7 @@ export const actions = {
         uid: res.user.uid,
         username:
           res.user.displayName ?? email.substring(0, email.indexOf("@")),
-        githubToken: githubToken
+        githubToken: githubToken,
       };
 
       cookies.set("user", JSON.stringify(user));

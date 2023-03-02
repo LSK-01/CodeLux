@@ -7,7 +7,7 @@
 	const str : string = "Survey for ";
 </script>
 
-<div id='projectSurveysBox'>
+<div id='surveysBox'>
 	<h2>Surveys</h2>
 	<div class='boxContents'>
 		{#each surveyList as survey}
@@ -15,7 +15,7 @@
 			<ProjectBoxSimple name={str.concat(survey.projectName)} extraInfo={""} icon={"assignment"}/>
 		</div>
 		{:else}
-		<div class='surveyBox'>
+		<div class='surveyItem'>
 			<h3>No surveys due<h3>
 		</div>
 		{/each}
@@ -23,13 +23,14 @@
 </div>
 
 <style>
-	#projectSurveysBox {
+	#surveysBox {
 		flex: 1;
 		display: flex;
 		flex-direction: column;
 		padding: 10px;
 		background-color: var(--fg1);
 		border-radius: 10px;
+		box-shadow: var(--outset);
 	}
 
 	.ProjectBoxWrapper {
@@ -47,13 +48,10 @@
 		flex-direction: column;
 		padding: 15px;
 		border-radius: 5px;
-		background-color: var(--fg1);
+		box-shadow: var(--outset);
 	}
 
-	.surveyBox {
-		margin: 5px 0 ;
-		background-color:var(--fg3);
-		padding: 10px;
-		border-radius: 5px;
+	a:hover {
+		background-color: var(--fg2);
 	}
 </style>

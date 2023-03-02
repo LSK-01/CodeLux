@@ -6,15 +6,16 @@
 	--font-mono: 'Fira Mono', monospace;
 	--bg1: rgb(104, 197, 247);
 	--bg2: rgb(104, 135, 247);
-	/* --fg1: rgba(0, 0, 0, 0.5); */
 	--fg1: rgba(255, 255, 255, 0.3);
-	/* --fg2: rgb(0, 0, 0); */
-	--fg2: #FFFFFF;
+	--fg2: rgb(255, 255, 255);
 	--fg3: rgba(255, 255, 255, 0.7);
-	/* --text: rgb(255, 255, 255); */
-	--text: #2d3436;
+	--text: rgb(45, 52, 54);
 	--column-width: 42rem;
 	--column-margin-top: 4rem;
+	/* --outset: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+	--inset: inset 0 0 10px rgba(0, 0, 0); */
+	--outset: none;
+	--inset: none;
 	font-family: var(--font-body);
 	color: var(--text);
 }
@@ -108,4 +109,15 @@ button:focus:not(:focus-visible) {
 	position: absolute;
 	width: 1px;
 	white-space: nowrap;
+}
+
+.boxContents {
+	flex: 1 0;
+	display: flex;
+	flex-direction: column;
+	padding: 10px;
+	gap: 10px;
+	border-radius: 5px;
+	background-color: var(--fg1);
+	box-shadow: var(--inset);
 }

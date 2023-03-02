@@ -8,6 +8,7 @@
 	button {
 		display: flex;
 		justify-content: space-evenly;
+		height: fit-content;
         width: fit-content;
         padding: 10px;
         align-items: center;
