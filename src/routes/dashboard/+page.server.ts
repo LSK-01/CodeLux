@@ -130,10 +130,10 @@ async function getDeadlines(user: user) {
     let deadlineList: any[] = [];
     const db = getFirestore(app);
     const ps = collection(db, "projects");
-    // const q1 = query(ps, where("managerusername", "==", user.username), where("complete","==",false), orderBy("deadline"));
-    // const q2 = query(ps, where("developerusernames", "array-contains", user.username), where("complete","==",false), orderBy("deadline"));
-    const q1 = query(ps, where("complete", "==", false), orderBy("deadline"));
-    const q2 = query(ps, where("complete", "==", false), orderBy("deadline"));
+    const q1 = query(ps, where("managerusername", "==", user.username), where("complete","==",false), orderBy("deadline"));
+    const q2 = query(ps, where("developerusernames", "array-contains", user.username), where("complete","==",false), orderBy("deadline"));
+    // const q1 = query(ps, where("complete", "==", false), orderBy("deadline"));
+    // const q2 = query(ps, where("complete", "==", false), orderBy("deadline"));
     const querySnapshot1 = await getDocs(q2);
     querySnapshot1.forEach((project) => {
         deadlineList.push({

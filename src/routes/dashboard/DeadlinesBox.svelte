@@ -13,7 +13,7 @@
 			<span class="material-symbols-outlined">description</span> 
 			<div>
 				<h3>{entry.projectName}</h3>
-				Due date: {entry.dueDate}
+				<p>Due date: {entry.dueDate}</p>
 			</div>
 			<!-- <ProjectBoxSimple name={projectName} date={dueDate}/> -->
 		</button>
@@ -39,10 +39,12 @@
 	.deadlineItem {
 		display: flex;
 		align-items: center;
+		justify-content: flex-start;
 		gap: 10px;
 		background-color: var(--fg3);
 		padding: 10px;
 		border-radius: 5px;
+		text-align: left;
 		box-shadow: var(--outset);
 	}
 

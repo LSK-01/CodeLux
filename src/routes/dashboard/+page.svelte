@@ -14,9 +14,11 @@
 
 <div id="dashboard">
 	<OverviewsBox data={data} />
+	<div>
 	<DeadlinesBox deadlineList={data.deadlineList} />
 	<SurveysBox surveyList={data.surveyList} />
 	<TasksBox taskList={data.taskList} />
+	</div>
 </div>
 
 <style>
@@ -24,9 +26,16 @@
 		display: flex;
 		min-height: 100vh;
 		justify-content: space-evenly;
-		flex: 1;
 		margin: 10px 10vw;
 		gap: 10px;
 		flex-wrap: wrap;
+	}
+
+	#dashboard div{
+		display: flex;
+		width: 100%;
+		justify-content: space-evenly;
+		gap: 10px;
+		height: 70vh;
 	}
 </style>

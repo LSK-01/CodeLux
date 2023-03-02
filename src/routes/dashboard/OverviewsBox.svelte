@@ -109,34 +109,28 @@
 	<h2>Overview</h2>
 	<div class='boxContents'>
 		<button on:click={() => goto('/projects/atrisk')} class='overviewItem'>
-			<span class="material-icons" id='riskIcon'>error</span>
+			<span class="material-symbols-outlined" id='riskIcon'>error</span>
 			<h3>Projects at risk</h3>
-			<table>
-				<td class='donutCell'>
-					<div class="donutDiv" id="riskDonutChart" data-notatrisk={notAtRisk} data-atrisk={atRisk} ></div>
-					<div class="centerLabel">{atRisk}/{atRisk+notAtRisk}</div>
-				</td>
-			</table>
+			<div class='donutCell'>
+				<div class="donutDiv" id="riskDonutChart" data-notatrisk={notAtRisk} data-atrisk={atRisk} ></div>
+				<p class="centerLabel">{atRisk}/{atRisk+notAtRisk}</p>
+			</div>
 		</button>
 		<button class='overviewItem'>
-			<span class="material-icons" id='surveyIcon'>quiz</span>
+			<span class="material-symbols-outlined" id='surveyIcon'>quiz</span>
 			<h3>Projects with surveys due</h3>
-			<table>
-				<td class='donutCell'>
-					<div class="donutDiv" id="surveyDonutChart" data-withoutsurveys={withoutSurveys} data-withsurveys={withSurveys}></div>
-					<div class="centerLabel">{withSurveys}/{withSurveys+withoutSurveys}</div>
-				</td>
-			</table>
+			<div class='donutCell'>
+				<div class="donutDiv" id="surveyDonutChart" data-withoutsurveys={withoutSurveys} data-withsurveys={withSurveys}></div>
+				<p class="centerLabel">{withSurveys}/{withSurveys+withoutSurveys}</p>
+			</div>
 		</button>
 		<button class='overviewItem'>
-			<span class="material-icons" id='taskIcon'>assignment</span>
+			<span class="material-symbols-outlined" id='taskIcon'>assignment</span>
 			<h3>Projects with tasks due</h3>
-			<table>
-				<td class='donutCell'>
+			<div class='donutCell'>
 					<div class="donutDiv" id="taskDonutChart" data-withouttasks={withoutTasks} data-withtasks={withTasks}></div>
-					<div class="centerLabel">{withTasks}/{withTasks+withoutTasks}</div>
-				</td>
-			</table>
+					<p class="centerLabel">{withTasks}/{withTasks+withoutTasks}</p>
+		</div>
 		</button>
 	</div>
 </div>
@@ -146,6 +140,7 @@
 		width: 100%;
 		display: flex;
 		flex-direction: column;
+		height: fit-content;
 		padding: 10px;
 		background-color: var(--fg1);
 		border-radius: 10px;
@@ -154,6 +149,7 @@
 
 	.boxContents {
 		flex-direction: row;
+		flex: 0 1;
 	}
 
 	.overviewItem {
@@ -182,6 +178,10 @@
 
 	.donutCell {
 		position: relative;
+		display: flex;
+		justify-content: center;
+  		align-items: center;
+		text-align: center;
 	}
 
 	.donutDiv {
@@ -191,14 +191,6 @@
 
 	.centerLabel {
 		position: absolute;
-		left: 2px;
-		top: 2px;
-		width: 100px;
-		line-height: 100px;
-		text-align: center;
-		font-family: Arial, Helvetica, sans-serif;
 		font-size: 18px;
-		color: black;
-		z-index: -1;
 	}
 </style>
