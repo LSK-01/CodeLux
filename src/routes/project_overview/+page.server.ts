@@ -3,32 +3,28 @@ import { getFirestore, collection, getDocs, query, doc, getDoc } from 'firebase/
 import type { PageServerLoad } from "../login/$types";
 
 export const load: PageServerLoad = async ({params}) => {
-    let name = "";
-    let desc = "";
-    let deadline = "";
-    let startDate = "";
-    let budget = 0;
     let codeAnalysisScore = 0;
     let codeAnalysisDate = "";
-    let managerUsername = "";
-    let githubLink = "";
-    let devUsernames: string[] = []
+    let outcome = "";
+    let completion = "";
     let status = "Not at risk";
     const db = getFirestore(app);
     const project = doc(db, "projects", "jbyYPtjz82qsybRuVYlb");
     const projectDoc = await getDoc(project);
-    name = projectDoc.get("projectname");
-    desc = projectDoc.get("projectdescription");
-    deadline = projectDoc.get("deadline").toDate().toLocaleString();
-    startDate = projectDoc.get("startdate").toDate().toLocaleString();
-    budget = Math.round(projectDoc.get("budget") * 100) / 100;
+    let name = projectDoc.get("projectname");
+    let desc = projectDoc.get("projectdescription");
+    let deadline = projectDoc.get("deadline").toDate().toLocaleString();
+    let startDate = projectDoc.get("startdate").toDate().toLocaleString();
+    let budget = Math.round(projectDoc.get("budget") * 100) / 100;
     // codeAnalysisScore = projectDoc.get("codeAnalysisScore")*100;
     // codeAnalysisDate = projectDoc.get("codeAnalysisDate").toDate().toLocaleString();
-    managerUsername = projectDoc.get("managerusername");
-    githubLink = projectDoc.get("githublink");
+    let managerUsername = projectDoc.get("managerusername");
+    let githubLink = projectDoc.get("githublink");
+    let devUsernames: string[] = []
     for (const developer of projectDoc.get("developerusernames")){
         devUsernames.push(developer);
     }
+    let status = "Not at Risk";
     if (projectDoc.get("atRisk")){
         status = "At risk";
     };
