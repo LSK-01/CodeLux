@@ -10,7 +10,7 @@ export const csr = dev;
 
 // since there's no dynamic data here, we can prerender
 // it so that it gets served as a static asset in production
-export const prerender = false;
+export const prerender = true;
 
 export const load: PageServerLoad = async ({cookies, params}) => {
     const cookie = cookies.get('user')!;
@@ -39,7 +39,7 @@ export const load: PageServerLoad = async ({cookies, params}) => {
             return { post : getAtRiskProjects(user)};
         }
     }
-    if (params.slug === 'surveysdue'){
+    if (params.slug === 'projectswithsurveysdue'){
         if (cookie == null) {
             return {
                 post : ["Projects with surveys due",[]],
@@ -150,6 +150,7 @@ async function getProjectsWithSurveysDue(user: user){
       where("complete", "==", false)
     );
     const querySnapshot6 = await getDocs(q6);
+    const querySnapshot7 = await getDocs(q7);
   
     const surveyAnswers = collection(db,"surveyanswers");
   
@@ -176,8 +177,6 @@ async function getProjectsWithSurveysDue(user: user){
         };
     });
 
-    const querySnapshot7 = await getDocs(q7);
-
     querySnapshot7.forEach(async (project) => {
         const q9 = query(
           surveyAnswers,
@@ -198,5 +197,7 @@ async function getProjectsWithSurveysDue(user: user){
           };
       });
     returnArray.push(projects);
+    console.log("HELLO????")
+    console.log(returnArray);
     return returnArray;
 }
