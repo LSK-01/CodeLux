@@ -145,6 +145,7 @@ async function getDeadlines(user: user) {
     const querySnapshot2 = await getDocs(q1);
     querySnapshot2.forEach((project) => {
         deadlineList.push({
+            projectID: project.id,
             projectName: project.data().projectname,
             dueDate: project.data().deadline.toDate().toLocaleDateString(),
         });

@@ -31,7 +31,7 @@
 		flex-wrap: wrap;
 	}
 
-	#dashboard div{
+	#dashboard div {
 		display: flex;
 		width: 100%;
 		justify-content: space-evenly;
