@@ -85,14 +85,16 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
     );
     const querySnapshot2 = await getCountFromServer(q2);
     let notAtRisk = querySnapshot2.data().count;
+
+    const surveys = await getSurveys(user);
     return {
         atRisk: atRisk,
         notAtRisk: notAtRisk,
-        withSurveys: 2,
-        withoutSurveys: 5,
+        withSurveys: surveys.length,
+        withoutSurveys: (atRisk+notAtRisk) - surveys.length,
         withTasks: 4,
         withoutTasks: 4,
-        surveyList: await getSurveys(user),
+        surveyList: surveys,
         taskList: await getTasks(),
         deadlineList: await getDeadlines(user),
     };
@@ -114,7 +116,6 @@ async function getSurveys(user : user) {
       where("complete", "==", false)
     );
     const querySnapshot1 = await getDocs(q1);
-    const querySnapshot2 = await getDocs(q2);
   
     const surveyAnswers = collection(db,"surveyanswers");
   
@@ -139,7 +140,8 @@ async function getSurveys(user : user) {
       }
     });
   
-    
+    const querySnapshot2 = await getDocs(q2);
+
     querySnapshot2.forEach(async (project) => {
       const q3 = query(
         surveyAnswers,
@@ -156,7 +158,6 @@ async function getSurveys(user : user) {
         })
       }
     });
-  
     return surveyList;
   }
 

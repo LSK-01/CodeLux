@@ -158,7 +158,7 @@
 		flex-direction: column;
 		padding: 10px;
 		border-radius: 5px;
-		background-color: var(--fg2);
+		background-color: var(--fg3);
 		align-items: center;
 		justify-content: center;
 		box-shadow: var(--outset);
