@@ -1,6 +1,6 @@
 <script lang='ts'>
 	import '../styles.css';
-	export let surveyList: data[] = [];
+	export let surveyList: any[number][string];
 </script>
 
 <div id='surveysBox'>

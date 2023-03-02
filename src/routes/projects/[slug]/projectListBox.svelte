@@ -1,5 +1,4 @@
 <script lang="ts">
-	import '../../styles.css';
 	import ProjectBox from './projectBox.svelte';
 
 	export let projectData : any[number][string];
@@ -9,8 +8,8 @@
 <div id='projectListBox'>
     <h2>{title}</h2>
 	<div class='boxContents'>
-		{#each projectData as { projectName, dueDate } }
-        	<ProjectBox name={projectName} date={dueDate} />
+		{#each projectData as { id, projectName, dueDate } }
+        	<ProjectBox name={projectName} date={dueDate} id={id} />
 		{:else}
 			No projects found
       	{/each}	

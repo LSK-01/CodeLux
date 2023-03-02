@@ -1,7 +1,6 @@
 import { dev } from '$app/environment';
 import { app } from '../../../hooks.server';
 import { getFirestore,collection, getDocs, query, orderBy, where } from 'firebase/firestore';
-import type { user } from '../../../user';
 import type { PageServerLoad } from "../../login/$types";
 
 // we don't need any JS on this page, though we'll load
@@ -32,7 +31,7 @@ export const load: PageServerLoad = async ({cookies, params}) => {
         const querySnapshot1 = await getDocs(q1);
         querySnapshot1.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
-            projects.push({projectName: doc.data().projectname, dueDate: doc.data().deadline.toDate().toLocaleString("en-GB",{
+            projects.push({id: doc.id, projectName: doc.data().projectname, dueDate: doc.data().deadline.toDate().toLocaleString("en-GB",{
                 year: "numeric",
                 month: "numeric",
                 day: "numeric",
@@ -41,7 +40,7 @@ export const load: PageServerLoad = async ({cookies, params}) => {
         const querySnapshot2 = await getDocs(q2);
         querySnapshot2.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
-            projects.push({projectName: doc.data().projectname, dueDate: doc.data().deadline.toDate().toLocaleString("en-GB",{
+            projects.push({id: doc.id, projectName: doc.data().projectname, dueDate: doc.data().deadline.toDate().toLocaleString("en-GB",{
                 year: "numeric",
                 month: "numeric",
                 day: "numeric",
@@ -50,7 +49,7 @@ export const load: PageServerLoad = async ({cookies, params}) => {
         const querySnapshot3 = await getDocs(q3);
         querySnapshot3.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
-            projects.push({projectName: doc.data().projectname, dueDate: doc.data().deadline.toDate().toLocaleString("en-GB",{
+            projects.push({id: doc.id, projectName: doc.data().projectname, dueDate: doc.data().deadline.toDate().toLocaleString("en-GB",{
                 year: "numeric",
                 month: "numeric",
                 day: "numeric",
@@ -59,7 +58,7 @@ export const load: PageServerLoad = async ({cookies, params}) => {
         const querySnapshot4 = await getDocs(q4);
         querySnapshot4.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
-            projects.push({projectName: doc.data().projectname, dueDate: doc.data().deadline.toDate().toLocaleString("en-GB",{
+            projects.push({id: doc.id, projectName: doc.data().projectname, dueDate: doc.data().deadline.toDate().toLocaleString("en-GB",{
                 year: "numeric",
                 month: "numeric",
                 day: "numeric",
