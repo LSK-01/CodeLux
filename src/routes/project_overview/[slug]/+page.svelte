@@ -1,72 +1,122 @@
 <script lang="ts">
     import "../../styles.css";
+    import { browser } from "$app/environment";
+    import { goto } from "$app/navigation";
     import type { PageData } from "../$types";
-	import Button from '../../Button.svelte';
+    import Button from "../../Button.svelte";
     export let data: PageData;
+
+    //if the user has arleady authenticated with github
+    const handleGetGit = async () => {
+        if (data.githubLink === "") {
+            alert("You did not add a GitHub link when adding this project.");
+            return;
+        }
+
+        const response = await fetch("/githubAPI", {
+            method: "POST",
+            body: JSON.stringify({
+                link: data.githubLink,
+                id: data.id,
+                githubToken: data.user.githubToken,
+            }),
+            headers: {
+                "content-type": "application/json",
+            },
+        });
+
+        const resJson = await response.json();
+    };
+
+    //redirects to dashboard - we then redirect back to the proj overview page in dashboard backend using state.
+    const getToken = () => {
+        if (browser) {
+            //get the OAuth token for the user
+            goto(
+                "https://github.com/login/oauth/authorize?" +
+                    new URLSearchParams({
+                        client_id: "741e0c0a106d7fdd57f2",
+                        scope: "repo",
+                        state: data.id,
+                    })
+            );
+        }
+    };
 </script>
 
 <svelte:head>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+    />
     <title>Project Overview</title>
 </svelte:head>
 
 <div id="projectOverview">
     <h1>{data.name}</h1>
-    <div class='boxContents' id='descBox'>
+    <div class="boxContents" id="descBox">
         <span class="material-symbols-outlined">info</span>
         <h3>{data.desc}</h3>
     </div>
-    <div class='boxContents'>
-        <div class='projectOverviewItem'>
+    <div class="boxContents">
+        <div class="projectOverviewItem">
             <span class="material-symbols-outlined">pending_actions</span>
-            <p>Due on: {data.deadline}</p>
+            <p>Due date: {data.deadline}</p>
         </div>
-        <div class='projectOverviewItem'>
+        <div class="projectOverviewItem">
             <span class="material-symbols-outlined">event</span>
-            <p>Started on: {data.startDate}</p>
+            <p>Start date: {data.startDate}</p>
         </div>
-        <div class='projectOverviewItem'>
+        <div class="projectOverviewItem">
             <span class="material-symbols-outlined">terminal</span>
             <p>Code analysis score: {data.codeAnalysisScore}/100</p>
             <p>Last analysed: {data.codeAnalysisDate}</p>
-            <Button><a href='/'>Run analysis</a></Button>
+            <Button><a href="/">Run analysis</a></Button>
         </div>
-        <div class='projectOverviewItem'>
+        <div class="projectOverviewItem">
             <span class="material-symbols-outlined">support_agent</span>
             <p>Manager: {data.managerUsername}</p>
         </div>
-        <div class='projectOverviewItem'>
+        <div class="projectOverviewItem">
             <span class="material-symbols-outlined">folder</span>
             <form action={data.githubLink}>
-                <Button><input type="submit" value="Project Github link" /></Button>
+                <Button
+                    ><input type="submit" value="Project Github link" /></Button
+                >
             </form>
         </div>
-        <div class='projectOverviewItem'>
+        <div class="projectOverviewItem">
             <span class="material-symbols-outlined">groups</span>
             <p>Developers:</p>
             {#each data.devUsernames as devUsername}
-            <div class="userBox">
-                <span class="material-symbols-outlined">person</span>
-                <p>{devUsername}</p>
-            </div>            
+                <div class="userBox">
+                    <span class="material-symbols-outlined">person</span>
+                    <p>{devUsername}</p>
+                </div>
             {:else}
-            <p>No developers</p>
+                <p>No developers</p>
             {/each}
         </div>
-        <div class='projectOverviewItem'>
+        <div class="projectOverviewItem">
             <span class="material-symbols-outlined">payments</span>
             <p>Budget: £{data.budget}</p>
         </div>
-        <div class='projectOverviewItem'>
-            {#if data.status == 'At risk'}
-			<span class="material-symbols-outlined">error</span>
+        <div class="projectOverviewItem">
+            {#if data.status == "At risk"}
+                <span class="material-symbols-outlined">error</span>
             {:else}
-            <span class="material-symbols-outlined">check_circle</span>
-            {/if} 
+                <span class="material-symbols-outlined">check_circle</span>
+            {/if}
             <p>Status: {data.status}</p>
         </div>
     </div>
 </div>
+
+{#if data.user.githubToken === "" || data.user.githubToken === undefined}
+    <Button click={() => getToken()}>Authorize github access</Button>
+{:else}
+    <Button click={() => handleGetGit()}>Get repo code</Button>
+{/if}
 
 <style>
     #projectOverview {
@@ -79,7 +129,7 @@
         min-height: 95vh;
         margin: 10px 10vw;
         background-color: var(--fg1);
-		border-radius: 10px;
+        border-radius: 10px;
         padding: 10px;
     }
 
@@ -88,15 +138,15 @@
         flex-direction: column;
         flex-wrap: wrap;
         width: 100%;
-		padding: 10px;
+        padding: 10px;
         height: 0;
         flex: 1;
         gap: 10px;
         align-items: stretch;
-		border-radius: 5px;
-		background-color: var(--fg1);
-		box-shadow: inset 0 0 10px rgba(0, 0, 0);
-	}
+        border-radius: 5px;
+        background-color: var(--fg1);
+        box-shadow: inset 0 0 10px rgba(0, 0, 0);
+    }
 
     .projectOverviewItem {
         display: flex;
@@ -107,12 +157,12 @@
         align-items: center;
         justify-content: center;
         border-radius: 5px;
-	}
+    }
 
     .projectOverviewItem p {
         display: flex;
         text-align: center;
-	}
+    }
 
     #descBox {
         flex: 0;

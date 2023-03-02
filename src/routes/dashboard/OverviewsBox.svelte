@@ -199,5 +199,6 @@
 		font-family: Arial, Helvetica, sans-serif;
 		font-size: 18px;
 		color: black;
+		z-index: -1;
 	}
 </style>

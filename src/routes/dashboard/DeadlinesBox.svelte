@@ -1,6 +1,7 @@
 <script lang='ts'>
 	import '../styles.css';
 	export let deadlineList : any[number][string];
+	import { goto } from "$app/navigation";
 	// import ProjectBoxSimple from './projectBoxSimple.svelte';
 </script>
 
@@ -8,14 +9,14 @@
 	<h2>Upcoming Deadlines</h2>
 	<div class='boxContents'>
 		{#each deadlineList as entry}
-		<a class='deadlineItem' href='/project_overview/{entry.projectID}'>
+		<button class='deadlineItem' on:click={()=>{goto(`/project_overview?id=${entry.projectID}`)}}>
 			<span class="material-symbols-outlined">description</span> 
 			<div>
 				<h3>{entry.projectName}</h3>
 				Due date: {entry.dueDate}
 			</div>
 			<!-- <ProjectBoxSimple name={projectName} date={dueDate}/> -->
-		</a>
+		</button>
       	{:else}
 		<div class='deadlineItem'>
 			<h3>No projects due<h3>
@@ -45,7 +46,7 @@
 		box-shadow: var(--outset);
 	}
 
-	a:hover {
+	button:hover {
 		background-color: var(--fg2);
 	}
 	

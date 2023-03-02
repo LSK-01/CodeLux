@@ -1,4 +1,4 @@
-import { app } from "../../../hooks.server";
+import { app } from "../../hooks.server";
 import {
     getFirestore,
     collection,
@@ -7,16 +7,15 @@ import {
     doc,
     getDoc
 } from "firebase/firestore";
-import type { PageServerLoad } from "../../login/$types";
-import type { user } from "../../../user";
+import type { PageServerLoad } from "../login/$types";
+import type { user } from "../../user";
 
-export const load: PageServerLoad = async ({ cookies, url, params }) => {
+export const load: PageServerLoad = async ({cookies, url}) => {
     const cookie = cookies.get("user")!;
     const user: user = JSON.parse(cookie);
     const db = getFirestore(app);
 
-    // const projID = url.searchParams.get("id")!;
-    const projID = params.slug;
+    const projID = url.searchParams.get("id")!;
     const project = doc(db, "projects", projID);
     const projectDoc = await getDoc(project);
 
