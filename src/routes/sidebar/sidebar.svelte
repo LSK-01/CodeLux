@@ -16,8 +16,8 @@
 		<h2>{user.username}</h2>
 	</div>
 	<Button><a href="/add"><span class="material-symbols-outlined">add_circle</span>Add project</a></Button>
-	<Button><a href="/settings"><span class="material-symbols-outlined">settings</span>Settings</a></Button>
-	<Button><a href="/about"><span class="material-symbols-outlined">info</span>About</a></Button>
+	<!-- <Button><a href="/settings"><span class="material-symbols-outlined">settings</span>Settings</a></Button>
+	<Button><a href="/about"><span class="material-symbols-outlined">info</span>About</a></Button> -->
 	<Button><a href="/login"><span class="material-symbols-outlined">logout</span>Log out</a></Button>
 </nav>
 
@@ -30,6 +30,12 @@
 		border-radius: 0 0 10px 10px;
 		background-color: var(--fg1);
 		padding: 10px 10vw;
+		gap: 10px;
+	}
+
+	nav h1{
+		flex: 1;
+		text-align: left;
 	}
 
 	#userBox {
