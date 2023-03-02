@@ -1,15 +1,19 @@
 <script lang='ts'>
 	import '../styles.css';
-	export let surveyList: any[number][string];
+	export let surveyList: any[] = [];
+
+	import ProjectBoxSimple from './projectBoxSimple.svelte';
+
+	const str : string = "Survey for ";
 </script>
 
 <div id='surveysBox'>
 	<h2>Surveys</h2>
 	<div class='boxContents'>
 		{#each surveyList as survey}
-		<a class='surveyItem' href='/forms/{survey.projectID}'>
-			<h3>{survey.projectName}<h3>
-		</a>
+		<div class='ProjectBoxWrapper'>
+			<ProjectBoxSimple name={str.concat(survey.projectName)} extraInfo={""} icon={"assignment"}/>
+		</div>
 		{:else}
 		<div class='surveyItem'>
 			<h3>No surveys due<h3>
@@ -29,9 +33,20 @@
 		box-shadow: var(--outset);
 	}
 
-	.surveyItem {
-		background-color:var(--fg3);
-		padding: 10px;
+	.ProjectBoxWrapper {
+		flex: 1 0;
+		display: flex;
+		flex-direction: column;
+		/* padding: 0px 10px 0px 10px; */
+		/* padding: 10px; */
+		border-radius: 5px;
+	}
+
+	.boxContents {
+		flex: 1 0;
+		display: flex;
+		flex-direction: column;
+		padding: 15px;
 		border-radius: 5px;
 		box-shadow: var(--outset);
 	}
