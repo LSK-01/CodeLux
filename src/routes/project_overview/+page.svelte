@@ -85,9 +85,7 @@
             <Button click={() => handleGetGit()}>Get repo code</Button>
             {/if}
             <form action={data.githubLink}>
-                <Button
-                    ><input type="submit" value="Project Github link" /></Button
-                >
+                <Button><input type="submit" value="Go to project on Github" /></Button>
             </form>
         </div>
         <div class="projectOverviewItem">
@@ -176,7 +174,7 @@
     }
 
     #descBox span {
-        float: left;
+        font-size: 20px;
     }
 
     .bad {

@@ -6,9 +6,12 @@
 <div id='surveysBox'>
 	<h2>Surveys</h2>
 	<div class='boxContents'>
-		{#each surveyList as survey}
+		{#each surveyList as survey} 
 		<a class='surveyItem' href='/forms/{survey.projectID}'>
-			<h3>{survey.projectName}<h3>
+			<span class="material-symbols-outlined">
+				quiz
+			</span>  
+			<h3>Take survey for {survey.projectName}<h3>
 		</a>
 		{:else}
 		<div class='surveyItem'>
@@ -30,6 +33,9 @@
 	}
 
 	.surveyItem {
+		display: flex;
+		flex-direction: row;
+		gap: 10px;
 		background-color:var(--fg3);
 		padding: 10px;
 		border-radius: 5px;
