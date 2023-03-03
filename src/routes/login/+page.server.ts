@@ -20,9 +20,9 @@ export const actions = {
       const userDocRef = doc(db, "users", res.user.uid);
       const userDoc = await getDoc(userDocRef);
 
-      let githubToken:string = "";
+      let githubToken: string = "";
       //they have a github API token - add to the cookie
-      if(userDoc.exists()){
+      if (userDoc.exists()) {
         githubToken = userDoc.data().githubToken;
       }
 
@@ -31,7 +31,7 @@ export const actions = {
         uid: res.user.uid,
         username:
           res.user.displayName ?? email.substring(0, email.indexOf("@")),
-        githubToken: githubToken
+        githubToken: githubToken,
       };
 
       cookies.set("user", JSON.stringify(user));

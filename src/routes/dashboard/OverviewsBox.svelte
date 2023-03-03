@@ -116,7 +116,7 @@
 				<p class="centerLabel">{atRisk}/{atRisk+notAtRisk}</p>
 			</div>
 		</button>
-		<button class='overviewItem'>
+		<button on:click={() => goto('/projects/surveysdue')} class='overviewItem'>
 			<span class="material-symbols-outlined" id='surveyIcon'>quiz</span>
 			<h3>Projects with surveys due</h3>
 			<div class='donutCell'>
@@ -147,6 +147,10 @@
 		box-shadow: var(--outset);
 	}
 
+	.overviewItem:hover{
+		background-color: var(--fg2);
+	}
+
 	.boxContents {
 		flex-direction: row;
 		flex: 0 1;
@@ -158,7 +162,7 @@
 		flex-direction: column;
 		padding: 10px;
 		border-radius: 5px;
-		background-color: var(--fg2);
+		background-color: var(--fg3);
 		align-items: center;
 		justify-content: center;
 		box-shadow: var(--outset);
