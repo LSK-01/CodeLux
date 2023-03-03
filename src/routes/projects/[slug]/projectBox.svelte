@@ -45,13 +45,15 @@
   .material-symbols-outlined {
     font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
   }
+
   .boxContents {
-    height: 75px;
+    /* height: 75px; */
     flex: 1 0;
     display: flex;
+    flex-direction: row;
     padding: 5px 0;
     border-radius: 5px;
-    background-color: var(--fg1);
+    background-color: var(--fg3);
     gap: 10px;
     padding: 15px;
     text-align: left;
