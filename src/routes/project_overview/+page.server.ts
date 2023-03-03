@@ -5,9 +5,12 @@ import {
     getDocs,
     query,
     doc,
-    getDoc
+    getDoc,
+    updateDoc
 } from "firebase/firestore";
 import type { PageServerLoad } from "../login/$types";
+import type { Actions } from './$types';
+import { runAnalysis } from '../code_analysis/+server.js'
 import type { user } from "../../user";
 
 export const load: PageServerLoad = async ({cookies, url}) => {
@@ -15,8 +18,8 @@ export const load: PageServerLoad = async ({cookies, url}) => {
     const user: user = JSON.parse(cookie);
     const db = getFirestore(app);
 
-    const projID = url.searchParams.get("id")!;
-    const project = doc(db, "projects", projID);
+    const projectID = url.searchParams.get("id")!;
+    const project = doc(db, "projects", projectID);
     const projectDoc = await getDoc(project);
 
     let name = projectDoc.get("projectname");
@@ -24,15 +27,14 @@ export const load: PageServerLoad = async ({cookies, url}) => {
     let deadline = projectDoc.get("deadline").toDate().toLocaleString();
     let startDate = projectDoc.get("startdate").toDate().toLocaleString();
     let budget = Math.round(projectDoc.get("budget") * 100) / 100;
-    let codeAnalysisScore = 0;
-    let codeAnalysisDate = "Never";
-    // let codeAnalysisScore = projectDoc.get("codeAnalysisScore") * 100;
-    // let codeAnalysisDate = projectDoc
-    //     .get("codeAnalysisDate")
-    //     .toDate()
-    //     .toLocaleString();
+    let codeAnalysisScore = projectDoc.get("codeAnalysisScore") * 100;
+    let codeAnalysisDate = projectDoc
+        .get("codeAnalysisDate")
+        .toDate()
+        .toLocaleString();
     let managerUsername = projectDoc.get("managerusername");
     let githubLink = projectDoc.get("githublink");
+    let projectType = projectDoc.get("projecttype");
     let devUsernames: string[] = [];
     for (const developer of projectDoc.get("developerusernames")) {
         devUsernames.push(developer);
@@ -55,6 +57,19 @@ export const load: PageServerLoad = async ({cookies, url}) => {
         devUsernames: devUsernames,
         status: status,
         user: user,
-        id: projID,
+        projectType: projectType,
+        id: projectID,
     };
 };
+
+export const actions = {
+    default: async ({request}) => {
+        const data = await request.formData();
+        const projectID = data.get('projectID')!.toString();
+        const projectType = data.get('projectType')!.toString();
+        const analysisScore = await runAnalysis(projectID, projectType);
+        const db = getFirestore(app);
+        const project = doc(db, "projects", projectID);
+        await updateDoc(project, {"codeAnalysisScore": analysisScore, "codeAnalysisDate": new Date()}) 
+    }
+} satisfies Actions;
