@@ -151,6 +151,7 @@
         flex-direction: column;
         background-color: var(--fg2);
         padding: 10px;
+        gap: 5px;
         flex: 1;
         align-items: center;
         justify-content: center;
