@@ -7,7 +7,7 @@
 	<h2>Tasks</h2>
 	<div class='boxContents'>
 		{#each taskList as task}
-		<a class='taskItem' href='/forms/{task.projectID}'>
+		<a class='taskItem' href='/surveys/{task.projectID}'>
 			<h3>{task.projectName}<h3>
 			<p>{task.text}<p>
 		</a>

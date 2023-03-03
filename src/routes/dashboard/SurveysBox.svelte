@@ -7,7 +7,7 @@
 	<h2>Surveys</h2>
 	<div class='boxContents'>
 		{#each surveyList as survey} 
-		<a class='surveyItem' href='/forms/{survey.projectID}'>
+		<a class='surveyItem' href='/surveys/{survey.projectID}'>
 			<span class="material-symbols-outlined">
 				quiz
 			</span>  
