@@ -2,47 +2,23 @@
 <script lang="ts">
     import Radio from './Radio.svelte';
 	import "../styles.css";
+	import { goto } from "$app/navigation";
 	
-	// export let active_step : number;
 	export let options : any[number][string];    
 	export let questionData : any[];
 
 	let questions : string[] = questionData.map(a => a.question);
-	let qid : string[] = questionData.map(a => a.id);
 
 	let formData = Array(questions.length);
-	
+
     //TODO: POST data back to database or however firebase works
 	const handleSubmit = () => {
-		console.log("hello");
-		console.log("Your form data => ",formData)
+		console.log("Your form data => ",formData);
 	}
 
 </script>
 
-<!-- TODO: redirect user to another page when complete -->
-<!-- <form class="form-container"  on:submit={handleSubmit} method="POST" action="?/store">
-	{#if active_step != questions.length+1}
-		<div class="centered">
-			<h1 class="qheading">
-				Question {active_step}
-			</h1>
-			<div class="padding">
-				<Radio {options} name={qid[active_step-1]} question={questions[active_step-1]} />
-			</div>
-		</div>  
-	{:else}
-		<div class="message">
-            <h1 class="qheading">
-                Confirmation
-            </h1>			
-			<h2>Thank you for completing the survey</h2>
-			<button type="submit" class="btn submit">Submit</button>
-		</div>
-	{/if}
-</form> -->
-
-<form class="form-container" on:submit={handleSubmit} method="POST" action="?/store">
+<form class="form-container" on:submit={handleSubmit} method="POST">
 	{#each questionData as { question, qid }, i}
         <div class="centered">
             <h1 class="qheading">
@@ -54,67 +30,9 @@
         </div>   
 	{/each}     
 	<div class="message">
-		<!-- <h1 class="qheading">
-			Confirmation
-		</h1>			
-		<h2>Thank you for completing the survey</h2> -->
 		<button  type="submit" class="btn submit">Submit survey</button>
 	</div>
 </form>
-
-<!-- <form class="form-container"  on:submit={handleSubmit} method="POST" action="?/store">
-	 
-		<div class="centered">
-            <h1 class="qheading">
-                Question 1
-            </h1>
-			My manager supports me in any training I want to undertake to help me perform my role better<br>
-			<input type="radio" name="q1" value=0>Strongly disagree
-			<input type="radio" name="q1" value=1>Disagree
-			<input type="radio" name="q1" value=2>Somewhat disagree
-			<input type="radio" name="q1" value=3>Neither agree nor disagree
-			<input type="radio" name="q1" value=4>Somewhat agree
-			<input type="radio" name="q1" value=5>Agree   
-			<input type="radio" name="q1" value=6>Strongly agree
-		</div> 
-	  </fieldset>
-
-	<div class="padding"></div>
-	<fieldset id="group2">
-		<div class="centered">
-            <h1 class="qheading">
-                Question 2
-            </h1>
-			I enjoy being a part of my company’s culture<br>
-			<input type="radio" name="q2" value=0>Strongly disagree
-			<input type="radio" name="q2"value=1>Disagree
-			<input type="radio" name="q2"value=2>Somewhat disagree
-			<input type="radio" name="q2"value=3>Neither agree nor disagree
-			<input type="radio" name="q2"value=4>Somewhat agree
-			<input type="radio" name="q2"value=5>agree   
-			<input type="radio" name="q2"value=6>Strongly agree
-		</div> 
-	  </fieldset>
-
-	  <div class="padding"></div>
-	  <fieldset id="group3">
-		  <div class="centered">
-			  <h1 class="qheading">
-				  Question 3
-			  </h1>
-			  My team work well together<br>
-			  <input type="radio" name="q3" value=0>Strongly disagree
-			  <input type="radio" name="q3"value=1>Disagree
-			  <input type="radio" name="q3"value=2>Somewhat disagree
-			  <input type="radio" name="q3"value=3>Neither agree nor disagree
-			  <input type="radio" name="q3"value=4>Somewhat agree
-			  <input type="radio" name="q3"value=5>agree   
-			  <input type="radio" name="q3"value=6>Strongly agree
-		  </div> 
-		</fieldset>
-
-	  <button  type="submit" class="btn submit">Submit</button>
-</form> -->
 
 <style>
 	.qheading {
@@ -142,21 +60,16 @@
 		gap: 5px;
 	}
 	.btn{
-		color: white;
-		padding: 0.5rem 0;
+		background-color: #fca5a5;
+		padding: 10px;
 		margin-top: 0.5rem;
 		display: inline-block;
-		width: 100%;
-		border-radius: 0.25rem;
+		width: 200px;
+		font-weight: bold;
+		font-size: 20px;
+		border-radius: 10px;
 		cursor:pointer;
-	}
-	.submit{
-		background:linear-gradient(to bottom, #44c767 5%, #50b01c 100%);
-		background-color:#44c767;
-	}
-	.submit:hover {
-		background:linear-gradient(to bottom, #50b01c 5%, #44c767 100%);
-		background-color:#50b01c;
+		box-shadow: 0 10px 10px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.05);
 	}
 	.message{
 		text-align: center;
