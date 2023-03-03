@@ -5,22 +5,11 @@
 
 <script lang="ts">
 	import Form from './Form.svelte';
-	// import ProgressBar from './ProgressBar.svelte';
-
 	export let data;
-	const questionData : any[] = data.post;
 
-	const qs = questionData.map(a => a.question);
+	const projectName : string = data.post[0];
 
-    // let steps : (string|number)[];
-	// steps = Array.from({length: qs.length}, (_, index) => index + 1);
-	// steps = steps.concat("Confirmation");
-	// let currentActive : number = 1;
-	// let progressBar : ProgressBar;
-
-	// const handleProgress = (stepIncrement : number) => {
-	// 	progressBar.handleProgress(stepIncrement)
-	// }
+	const questionData : any[] = data.post[1];
 
     const options = [{
 		value: 0,
@@ -48,15 +37,9 @@
 
 <div class="container">
 	<div class="pheading">
-		Project X : Survey
+		Project {projectName} : Survey
 	</div>
-    <!-- <ProgressBar {steps} bind:currentActive bind:this={progressBar}/> -->
-	
    	<Form {options} questionData={questionData}/>
-    <!-- <div class="step-button">
-        <button class="btn" on:click={() => handleProgress(-1)} disabled={currentActive == 1}>Prev</button>
-        <button class="btn" on:click={() => handleProgress(+1)} disabled={currentActive == steps.length}>Next</button>
-    </div>		 -->
 </div>
 
 <style>
