@@ -34,7 +34,7 @@ export const load: PageServerLoad = async ({cookies, url}) => {
         .toLocaleString();
     let managerUsername = projectDoc.get("managerusername");
     let githubLink = projectDoc.get("githublink");
-    let type = projectDoc.get("type");
+    let projectType = projectDoc.get("projecttype");
     let devUsernames: string[] = [];
     for (const developer of projectDoc.get("developerusernames")) {
         devUsernames.push(developer);
@@ -57,7 +57,7 @@ export const load: PageServerLoad = async ({cookies, url}) => {
         devUsernames: devUsernames,
         status: status,
         user: user,
-        type: type,
+        projectType: projectType,
         id: projectID,
     };
 };
