@@ -3,7 +3,7 @@ import {exec} from 'child_process';
 
 async function processResults(projectID) {
     projectID = "testrepo";
-    const fName = "./+"+projectID+"/megalinter-reports/mega-linter-report.json’";
+    const fName = "./projectCode/+"+projectID+"/megalinter-reports/mega-linter-report.json’";
     var errorCount = 0
     var linterCount = 0;
 
@@ -23,7 +23,7 @@ async function processResults(projectID) {
 async function runAnalysis(projectID, type) {
     projectID = "testrepo";
     type = "documentation";
-    const cmds = "cd ./src/routes/code_analysis/"+projectID+" & mega-linter-runner -f "+type+" -e 'JSON_REPORTER=true’ -e 'PRINT_ALPACA=false’ -e 'LOG_FILE=none' -e 'DISABLE_ERRORS=true'";
+    const cmds = "cd ./src/routes/code_analysis/projectCode/"+projectID+" & mega-linter-runner -f "+type+" -e 'JSON_REPORTER=true’ -e 'PRINT_ALPACA=false’ -e 'LOG_FILE=none' -e 'DISABLE_ERRORS=true'";
     exec(cmds,
         (error, stdout, stderr) => {
             // console.log(stdout);
