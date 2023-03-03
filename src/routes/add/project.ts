@@ -11,4 +11,6 @@ export interface project {
   type: string;
   atRisk?: boolean;
   complete?: boolean;
+  codeAnalysisScore: number;
+  codeAnalysisDate: string;
 }
