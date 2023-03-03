@@ -67,8 +67,6 @@ export const actions = {
         const data = await request.formData();
         const projectID = data.get('projectID')!.toString();
         const projectType = data.get('projectType')!.toString();
-        console.log(projectID);
-        console.log(projectType);
         const analysisScore = await runAnalysis(projectID, projectType);
         const db = getFirestore(app);
         const project = doc(db, "projects", projectID);
