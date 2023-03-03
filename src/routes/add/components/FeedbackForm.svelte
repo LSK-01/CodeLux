@@ -1,112 +1,159 @@
 <script lang="ts">
-  import Tile from "./Tile.svelte";
-  import Button from "../../Button.svelte";
-  import type { project } from "../project";
-  import { goto } from "$app/navigation";
-  import { browser } from "$app/environment";
-  import "../../styles.css";
+    import Tile from "./Tile.svelte";
+    import Button from "../../Button.svelte";
+    import type { project } from "../project";
+    import { goto } from "$app/navigation";
+    import { browser } from "$app/environment";
+    import "../../styles.css";
 
-  let text = "";
-  let rating = -1;
-  let question_num = 0;
-  let questions_new = [
-    "Project Name",
-    "Project Description",
-    "Manager Username",
-    "Developer Usernames",
-    "Github link",
-    "Customer Contact Frequency",
-    "Budget",
-    "Start Date",
-    "Deadline",
-  ];
-  handleReset();
+    let text = "";
+    let rating = -1;
+    let question_num = 0;
+    let questions_new = [
+        "Project Name",
+        "Project Description",
+        "Project Type",
+        "Manager Username",
+        "Developer Usernames",
+        "Github Link",
+        "Customer Contact Frequency",
+        "Budget",
+        "Start Date",
+        "Deadline",
+    ];
+    let projectTypes = [
+        "All",
+        "Ci_light",
+        "Cupcake",
+        "Documentation",
+        "Dotnet",
+        "Go",
+        "Java",
+        "PHP",
+        "Python",
+        "Ruby",
+        "Rust",
+        "Salesforce",
+        "Security",
+        "Swift",
+        "Terraform",
+    ];
 
-  let answers: string[][] = [];
+    handleReset();
 
-  const handleSelect = (numb: any) => {
-    rating = numb.detail;
-    text = "";
-  };
+    let answers: string[][] = [];
 
-  const handleSubmit = async () => {
-    answers.push([
-      questions_new[question_num].toLowerCase().replace(/\s/g, ""),
-      text,
-    ]);
+    const handleSelect = (numb: any) => {
+        rating = numb.detail;
+        text = "";
+    };
 
-    text = "";
-    
-    question_num += 1;
+    const handleSubmit = async () => {
+        answers.push([
+            questions_new[question_num].toLowerCase().replace(/\s/g, ""),
+            text,
+        ]);
 
-    if (question_num == questions_new.length) {
-      const response = await fetch("/addProj", {
-        method: "POST",
-        body: JSON.stringify(answers),
-        headers: {
-          "content-type": "application/json",
-        },
-      });
+        text = "";
 
-      const res = await response.json();
-      if (!res) {
-        alert("Issue adding the project");
-      }
-      handleReset();
+        question_num += 1;
+
+        if (question_num == questions_new.length) {
+            const response = await fetch("/addProj", {
+                method: "POST",
+                body: JSON.stringify(answers),
+                headers: {
+                    "content-type": "application/json",
+                },
+            });
+
+            const res = await response.json();
+            if (!res) {
+                alert("Issue adding the project");
+            }
+            handleReset();
+        }
+    };
+
+    function handleReset() {
+        question_num = 0;
     }
-  };
-
-  function handleReset() {
-    question_num = 0;
-  }
 </script>
 
 <div id="wrapper">
-  <!-- <h1 on:load={handleReset}>Add Project</h1> -->
-  <Tile>
-    <h1 on:load={handleReset}>Add Project</h1>
-    <header>
-      <h2>{questions_new[question_num]}</h2>
-      <p>Please write dates in YYYY-MM-DD form</p>
-    </header>
+    <!-- <h1 on:load={handleReset}>Add Project</h1> -->
+    <Tile>
+        <h1 on:load={handleReset}>Add Project</h1>
+        <header>
+            <h2>{questions_new[question_num]}</h2>
+        </header>
 
-    <form>
-      <div class="input-group">
-        <input type="text" bind:value={text} placeholder="Answer here " />
-      </div>
-      <br />
-      <div class="buttonContainer">
-        <Button click={handleSubmit}>Send</Button>
-        <Button click={handleReset}>Restart</Button>
-      </div>
-    </form>
-  </Tile>
+        <form>
+            {#if questions_new[question_num] == "Project Type"}
+                <select bind:value={text}>
+                    {#each projectTypes as type}
+                        <option value={type}>{type}</option>
+                    {/each}
+                </select>
+            {:else if questions_new[question_num] == "Start Date" || questions_new[question_num] == "Deadline"}
+                <input type="date" bind:value={text}>
+            {:else if questions_new[question_num] == "Budget" || questions_new[question_num] == "Customer Contact Frequency"}
+                <input type="number" min="0" step="0.01" bind:value={text} placeholder="Answer here"/>
+            {:else if questions_new[question_num] == "Github Link"}
+                <input type="url" bind:value={text} placeholder="Answer here"/>
+            {:else}
+                <!-- <div class="input-group"> -->
+                <input type="text" bind:value={text} placeholder="Answer here"/>
+                <!-- </div> -->
+            {/if}
+            <br />
+            <div class="buttonContainer">
+                <Button click={handleSubmit}>Send</Button>
+                <Button click={handleReset}>Restart</Button>
+            </div>
+        </form>
+    </Tile>
 </div>
 
 <style>
-  .input-group {
-    display: flex;
-    flex-direction: row;
-    border: 1px solid #ccc;
-    background-color: #FFFFFF;
-    padding: 8px 10px;
-    border-radius: 8px;
-    margin-top: 15px;
-  }
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
 
-  input:focus {
-    outline: none;
-  }
+    /* .input-group {
+        display: flex;
+        flex-direction: row;
+        border: 1px solid #ccc;
+        background-color: #FFFFFF;
+        padding: 8px 10px;
+        border-radius: 8px;
+        margin-top: 15px;
+    } */
 
-  .buttonContainer {
-		display: flex;
-		flex: 0 1;
-    gap: 10px;   
-  }
+    input, select {
+        width: 100%;
+        border: 1px solid var(--fg3);;
+        background-color: var(--fg3);
+        padding: 10px;
+        border-radius: 10px;
+    }
 
-  #wrapper {
-    margin: 10px 100px;
-    padding: 15px;
-    border-radius: 10px;
-  }
+    input:focus, select:focus {
+        outline: none;
+        background-color: var(--fg2);
+    }
+
+    .buttonContainer {
+        display: flex;
+        flex: 0 1;
+        gap: 10px;
+    }
+
+    #wrapper {
+        margin: 10px 10vw;
+        padding: 15px;
+        border-radius: 10px;
+    }
 </style>

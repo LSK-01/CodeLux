@@ -17,8 +17,8 @@ export const load: PageServerLoad = async ({cookies, url}) => {
     const user: user = JSON.parse(cookie);
     const db = getFirestore(app);
 
-    const projID = url.searchParams.get("id")!;
-    const project = doc(db, "projects", projID);
+    const projectID = url.searchParams.get("id")!;
+    const project = doc(db, "projects", projectID);
     const projectDoc = await getDoc(project);
 
     let name = projectDoc.get("projectname");
@@ -35,6 +35,7 @@ export const load: PageServerLoad = async ({cookies, url}) => {
     //     .toLocaleString();
     let managerUsername = projectDoc.get("managerusername");
     let githubLink = projectDoc.get("githublink");
+    let type = projectDoc.get("type");
     let devUsernames: string[] = [];
     for (const developer of projectDoc.get("developerusernames")) {
         devUsernames.push(developer);
@@ -57,13 +58,19 @@ export const load: PageServerLoad = async ({cookies, url}) => {
         devUsernames: devUsernames,
         status: status,
         user: user,
-        id: projID,
+        type: type,
+        id: projectID,
     };
 };
 
 
 export const actions = {
-    default: async (event) => {
-        runAnalysis("", "");
+    default: async ({request}) => {
+        const data = await request.formData();
+        const projectID = data.get('projectID');
+        const projectType = data.get('projectType');
+        console.log(projectID);
+        console.log(projectType);
+        runAnalysis(projectID, projectType);
     }
 } satisfies Actions;
