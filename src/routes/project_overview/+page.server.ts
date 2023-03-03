@@ -8,6 +8,8 @@ import {
     getDoc
 } from "firebase/firestore";
 import type { PageServerLoad } from "../login/$types";
+import type { Actions } from './$types';
+import { runAnalysis } from '../code_analysis/+server.js'
 import type { user } from "../../user";
 
 export const load: PageServerLoad = async ({cookies, url}) => {
@@ -58,3 +60,10 @@ export const load: PageServerLoad = async ({cookies, url}) => {
         id: projID,
     };
 };
+
+
+export const actions = {
+    default: async (event) => {
+        runAnalysis("", "");
+    }
+} satisfies Actions;
