@@ -71,10 +71,11 @@
             <p>Code analysis score: {data.codeAnalysisScore}/100</p>
             <p>Last analysed: {data.codeAnalysisDate}</p>
             <form method="POST">
-                <Button>
-                    <button>Run analysis</button>
-                </Button>
+                <input type='hidden' value={data.id} name="projectID"/>
+                <input type='hidden' value={data.type} name="projectType"/>
+                <Button>Run analysis</Button>
             </form>
+
         </div>
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined">support_agent</span>
@@ -83,9 +84,7 @@
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined">folder</span>
             <form action={data.githubLink}>
-                <Button
-                    ><input type="submit" value="Project Github link" /></Button
-                >
+                <Button><input type="submit" value="Project Github link" /></Button>
             </form>
         </div>
         <div class="projectOverviewItem">

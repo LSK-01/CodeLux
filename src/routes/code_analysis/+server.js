@@ -1,7 +1,7 @@
 export {runAnalysis}
 import { exec } from 'child_process';
 
-async function processResults(projectID){
+async function processResults(projectID) {
     projectID = "testrepo";
     let fName = "./+"+projectID+"/megalinter-reports/mega-linter-report.json’";
     let errorCount = 0
@@ -20,23 +20,6 @@ async function processResults(projectID){
     return score;
 }
 
-// async function runAnalysis(projectID, type){
-//     console.log(projectID);
-//     console.log(type);
-//     projectID = "testrepo";
-//     type = "documentation";
-//     var cmds = "cd ./"+projectID+" & mega-linter-runner -f "+type+" -e 'JSON_REPORTER=true’ -e 'PRINT_ALPACA=false’ -e 'LOG_FILE=none'";
-//     exec(cmds,
-//         (error, stdout, stderr) => {
-//             console.log(stdout);
-//             console.log(stderr);
-//             if (error !== null) {
-//                 console.log(`exec error: ${error}`);
-//             }
-//     });
-//     // processResults(projectID);
-// }
-
 async function runAnalysis(projectID, type) {
     projectID = "testrepo";
     type = "documentation";
@@ -46,7 +29,7 @@ async function runAnalysis(projectID, type) {
             // console.log(stdout);
             // console.log(stderr);
             if (error !== null) {
-                console.log(`Error: ${error}`);
+                console.log(`${error}`);
             }
         }
     );

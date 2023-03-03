@@ -8,6 +8,7 @@ export interface project {
   budget: number;
   start: string;
   deadline: string;
+  type: string;
   atRisk?: boolean;
   complete?: boolean;
 }
