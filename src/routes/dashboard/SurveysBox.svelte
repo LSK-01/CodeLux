@@ -1,18 +1,24 @@
 <script lang='ts'>
 	import '../styles.css';
+	import { goto } from "$app/navigation";
+
 	export let surveyList: any[number][string];
+
+	function boxClick(id : string) {
+    	goto(`/surveys?id=${id}`);
+  	}
 </script>
 
 <div id='surveysBox'>
 	<h2>Surveys</h2>
 	<div class='boxContents'>
 		{#each surveyList as survey} 
-		<a class='surveyItem' href='/forms/{survey.projectID}'>
+			<div class='surveyItem' on:click={() => boxClick(survey.projectID)}>
 			<span class="material-symbols-outlined">
 				quiz
 			</span>  
 			<h3>Take survey for {survey.projectName}<h3>
-		</a>
+			</div>
 		{:else}
 		<div class='surveyItem'>
 			<h3>No surveys due<h3>

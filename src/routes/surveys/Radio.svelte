@@ -13,7 +13,6 @@
     <ul class='likert'>
       {#each options as { value, label }}
         <li>
-          <!-- <input type="radio" name={name} value={value} bind:group={userSelected}> -->
           <input type="radio" class="likert" name={name} value={value}>
           <label class="subh" for={label}>{label}</label>
         </li>

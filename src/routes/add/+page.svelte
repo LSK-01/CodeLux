@@ -3,7 +3,7 @@
 	import FeedbackList from './components/FeedbackList.svelte'
 </script>
 
-<main class="container">
+<main>
 	<FeedbackForm />
 	<!--<FeedbackList />-->
 </main>

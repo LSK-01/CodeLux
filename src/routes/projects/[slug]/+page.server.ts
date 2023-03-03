@@ -114,7 +114,7 @@ async function getAtRiskProjects(user: user){
     const querySnapshot1 = await getDocs(q1);
     querySnapshot1.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
-        projects.push({projectName: doc.data().projectname, dueDate: doc.data().deadline.toDate().toLocaleString("en-GB",{
+        projects.push({id: doc.id, projectName: doc.data().projectname, dueDate: doc.data().deadline.toDate().toLocaleString("en-GB",{
             year: "numeric",
             month: "numeric",
             day: "numeric",
@@ -123,7 +123,7 @@ async function getAtRiskProjects(user: user){
     const querySnapshot2 = await getDocs(q2);
     querySnapshot2.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
-        projects.push({projectName: doc.data().projectname, dueDate: doc.data().deadline.toDate().toLocaleString("en-GB",{
+        projects.push({id: doc.id, projectName: doc.data().projectname, dueDate: doc.data().deadline.toDate().toLocaleString("en-GB",{
             year: "numeric",
             month: "numeric",
             day: "numeric",
@@ -167,6 +167,7 @@ async function getProjectsWithSurveysDue(user: user){
   
       if (querySnapshot8.empty) {
         projects.push({
+            id: project.id,
             projectName: project.data().projectname, 
             dueDate: project.data().deadline.toDate().toLocaleString("en-GB",{
             year: "numeric",
@@ -189,6 +190,7 @@ async function getProjectsWithSurveysDue(user: user){
     
         if (querySnapshot9.empty) {
           projects.push({
+              id: project.id,
               projectName: project.data().projectname, 
               dueDate: project.data().deadline.toDate().toLocaleString("en-GB",{
               year: "numeric",

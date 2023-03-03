@@ -38,9 +38,9 @@
     padding: 50px;
   }
 
-  .entryWrapper{
+  /* .entryWrapper{
     background-color: var(--fg2);
     text-align: center;
     border-radius: 10px;
-  }
+  } */
 </style>
