@@ -68,6 +68,7 @@
         </div>
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined">terminal</span>
+            <p>Project type: {data.projectType}</p>
             <p>Code analysis score: {data.codeAnalysisScore}/100</p>
             <p>Last analysed: {data.codeAnalysisDate}</p>
             <Button><a href="/">Run analysis</a></Button>

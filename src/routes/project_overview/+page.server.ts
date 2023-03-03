@@ -48,6 +48,7 @@ export const load: PageServerLoad = async ({cookies, url}) => {
     } else if (projectDoc.get("atRisk")) {
         status = "At risk";
     }
+    let projectType = projectDoc.get("projecttype");
 
     return {
         name: name,
@@ -64,5 +65,6 @@ export const load: PageServerLoad = async ({cookies, url}) => {
         status: status,
         user: user,
         id: projID,
+        projectType: projectType
     };
 };
