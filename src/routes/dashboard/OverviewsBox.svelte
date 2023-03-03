@@ -147,6 +147,10 @@
 		box-shadow: var(--outset);
 	}
 
+	.overviewItem:hover{
+		background-color: var(--fg2);
+	}
+
 	.boxContents {
 		flex-direction: row;
 		flex: 0 1;
