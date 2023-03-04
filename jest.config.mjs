@@ -28,6 +28,7 @@ export default {
   // Configure support for SvelteKit path aliases
   moduleNameMapper: {
     "^\\$lib/(.*)": "<rootDir>/src/lib/$1",
+    "^\\$app(.*)$": "<rootDir>/jest/stubs$1"
   },
 
   // Set a setup file to include common test setup code
@@ -102,7 +103,7 @@ export default {
   // ],
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
-  // moduleNameMapper: {},
+  // moduleNameMapper: {"^\\$app(.*)$": "<rootDir>/jest/stubs/$1"},
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],
