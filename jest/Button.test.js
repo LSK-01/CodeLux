@@ -1,6 +1,28 @@
 import { fireEvent, render, screen } from "@testing-library/svelte";
 import userEvent from "@testing-library/user-event";
 import Button from "../src/routes/Button.svelte";
+import { compile } from "svelte/compiler";
+
+function svelte(strings) {
+  return eval(
+    compile(
+      strings.join(""),
+      { format: "cjs", dev: true, accessors: true }
+    ).js.code
+  );
+}
+
+test("uses a slot for button contents", async () => {
+    render(svelte`
+      <script>
+        import Button from "../src/routes/Button.svelte";
+      </script>
+  
+      <Button>Click me</Button>
+    `);
+  
+    expect(screen.getByRole("button")).toHaveTextContent("Click me");
+  });
 
 test("renders a button", async () => {
   render(Button);
