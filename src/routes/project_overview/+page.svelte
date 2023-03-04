@@ -68,6 +68,7 @@
         </div>
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined">terminal</span>
+            <p>Project type: {data.projectType}</p>
             <p>Code analysis score: {data.codeAnalysisScore}/100</p>
             <p>Last analysed: {data.codeAnalysisDate}</p>
             <form method="POST">
@@ -83,8 +84,14 @@
         </div>
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined">folder</span>
+            {#if data.user.githubToken === "" || data.user.githubToken === undefined}
+            <Button click={() => getToken()}>Authorize Github access</Button
+                >
+            {:else}
+            <Button click={() => handleGetGit()}>Get repo code</Button>
+            {/if}
             <form action={data.githubLink}>
-                <Button><input type="submit" value="Project Github link" /></Button>
+                <Button><input type="submit" value="Go to project on Github" /></Button>
             </form>
         </div>
         <div class="projectOverviewItem">
@@ -104,21 +111,16 @@
             <p>Budget: £{data.budget}</p>
         </div>
         <div class="projectOverviewItem">
-            {#if data.status == "At risk"}
-                <span class="material-symbols-outlined">error</span>
+            {#if data.status == "At risk" || data.status == "Failed"}
+                <span class="material-symbols-outlined bad">error</span>
             {:else}
-                <span class="material-symbols-outlined">check_circle</span>
+                <span class="material-symbols-outlined good">check_circle</span>
             {/if}
+            <p>Complete: {data.complete}</p>
             <p>Status: {data.status}</p>
         </div>
     </div>
 </div>
-
-{#if data.user.githubToken === "" || data.user.githubToken === undefined}
-    <Button click={() => getToken()}>Authorize github access</Button>
-{:else}
-    <Button click={() => handleGetGit()}>Get repo code</Button>
-{/if}
 
 <style>
     #projectOverview {
@@ -147,7 +149,7 @@
         align-items: stretch;
         border-radius: 5px;
         background-color: var(--fg1);
-        box-shadow: inset 0 0 10px rgba(0, 0, 0);
+        box-shadow: var(--inset);
     }
 
     .projectOverviewItem {
@@ -155,6 +157,7 @@
         flex-direction: column;
         background-color: var(--fg2);
         padding: 10px;
+        gap: 5px;
         flex: 1;
         align-items: center;
         justify-content: center;
@@ -178,7 +181,15 @@
     }
 
     #descBox span {
-        float: left;
+        font-size: 20px;
+    }
+
+    .bad {
+        color: #ef4444;
+    }
+
+    .good {
+        color: #22c55e;
     }
 
     .userBox {
@@ -186,5 +197,13 @@
         display: flex;
         gap: 5px;
         width: max-content;
+    }
+
+    span {
+        font-size: 50px;
+    }
+
+    .userBox span {
+        font-size: 20px;
     }
 </style>

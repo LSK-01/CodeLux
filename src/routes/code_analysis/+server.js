@@ -20,10 +20,10 @@ async function processResults(projectID) {
     return 0.43;
 }
 
-async function runAnalysis(projectID, type) {
+async function runAnalysis(projectID, projectType) {
     projectID = "testrepo";
-    type = "documentation";
-    const cmds = "cd ./src/routes/code_analysis/projectCode/"+projectID+" & mega-linter-runner -f "+type+" -e 'JSON_REPORTER=true’ -e 'PRINT_ALPACA=false’ -e 'LOG_FILE=none' -e 'DISABLE_ERRORS=true'";
+    projectType = "documentation";
+    const cmds = "cd ./src/routes/code_analysis/projectCode/"+projectID+" & mega-linter-runner -f "+projectType+" -e 'JSON_REPORTER=true’ -e 'PRINT_ALPACA=false’ -e 'LOG_FILE=none' -e 'DISABLE_ERRORS=true'";
     exec(cmds,
         (error, stdout, stderr) => {
             // console.log(stdout);
