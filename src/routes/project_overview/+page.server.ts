@@ -2,16 +2,11 @@ import { app } from "../../hooks.server";
 import {
     getFirestore,
     collection,
-    getDocs,
     query,
     doc,
     getDoc,
-    updateDoc
 } from "firebase/firestore";
 import type { PageServerLoad } from "../login/$types";
-import type { Actions } from './$types';
-import { runAnalysis } from '../code_analysis/+server'
-// import { handleGetGit } from "./handler";
 import type { user } from "../../user";
 
 export const load: PageServerLoad = async ({cookies, url}) => {
@@ -72,18 +67,3 @@ export const load: PageServerLoad = async ({cookies, url}) => {
         }
     };
 };
-
-export const actions = {
-    default: async ({request}) => {
-        const data = await request.formData();
-        const projectID = data.get("projectID")!.toString();
-        const projectType = data.get("projectType")!.toString();
-        const githubLink = data.get("githubLink")!.toString();
-        const githubToken = data.get("githubToken")!.toString();
-        await handleGetGit(projectID, githubLink, githubToken);
-        const analysisScore = await runAnalysis(projectID, projectType);
-        const db = getFirestore(app);
-        const project = doc(db, "projects", projectID);
-        await updateDoc(project, {"codeAnalysisScore": analysisScore, "codeAnalysisDate": new Date()}) 
-    }
-} satisfies Actions;

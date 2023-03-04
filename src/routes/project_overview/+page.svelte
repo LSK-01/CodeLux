@@ -1,8 +1,72 @@
 <script lang="ts">
-    import { getToken } from "./handler";
+    import { browser } from "$app/environment";
+    import { goto } from "$app/navigation";
     import type { PageData } from "./$types";
     import Button from "../Button.svelte";
     export let data: PageData;
+
+    //redirects to dashboard - we then redirect back to the proj overview page in dashboard backend using state.
+    const getToken = () => {
+        if (browser) {
+            //get the OAuth token for the user
+            goto(
+                "https://github.com/login/oauth/authorize?" +
+                    new URLSearchParams({
+                        client_id: "741e0c0a106d7fdd57f2",
+                        scope: "repo",
+                        state: data.project.id
+                    })
+            );
+        }
+    };
+
+    const handleGetGit = async () => {
+        if (data.project.githubLink === "") {
+            alert("You did not add a GitHub link when adding this project.");
+            return;
+        }
+        const response = await fetch('/githubAPI', {
+            method: "POST",
+            body: JSON.stringify({
+                link: data.project.githubLink,
+                id: data.project.id,
+                githubToken: data.user.githubToken
+            }),
+            headers: {
+                "content-type": "application/json",
+            },
+        });
+        // const resJson = await response.json();
+        runAnalyser();
+    };
+
+    const runAnalyser = async () => {
+        const response = await fetch('/code_analysis', {
+            method: "POST",
+            body: JSON.stringify({
+                projectID: data.project.id,
+                projectType: data.project.projectType
+            }),
+            headers: {
+                "content-type": "application/json",
+            },
+        });
+        const analysisScore:number = (await response.json()).analysisScore;
+        updateScore(analysisScore);
+    };
+
+    const updateScore = (analysisScore:number) => {
+        fetch('/project_overview', {
+            method: "POST",
+            body: JSON.stringify({
+                projectID: data.project.id,
+                analysisScore: analysisScore
+            }),
+            headers: {
+                "content-type": "application/json",
+            },
+        });
+    };
 </script>
 
 <svelte:head>
@@ -25,7 +89,7 @@
             <p>Due on: {data.project.deadline}</p>
         </div>
         <div class="projectOverviewItem">
-            <span class="material-symbols-outlined">event</span>
+            <span class="material-symbols-outlined"> calendar_add_on</span>
             <p>Started on: {data.project.startDate}</p>
         </div>
         <div class="projectOverviewItem">
@@ -33,13 +97,7 @@
             <p>Project type: {data.project.projectType}</p>
             <p>Code analysis score: {data.project.codeAnalysisScore}/100</p>
             <p>Last analysed: {data.project.codeAnalysisDate}</p>
-            <form method="POST">
-                <input type='hidden' value={data.project.id} name="projectID"/>
-                <input type='hidden' value={data.project.projectType} name="projectType"/>
-                <input type='hidden' value={data.project.githubLink} name="githubLink"/>
-                <input type='hidden' value={data.user.githubToken} name="githubToken"/>
-                <Button>Run analysis</Button>
-            </form>
+            <Button click={() => handleGetGit()}>Run analysis</Button>
 
         </div>
         <div class="projectOverviewItem">
@@ -49,7 +107,7 @@
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined">folder</span>
             {#if data.user.githubToken === "" || data.user.githubToken === undefined}
-                <Button click={() => getToken(data.project.id)}>Authorize github access</Button>
+                <Button click={() => getToken()}>Authorize github access</Button>
             {/if}
             <form action={data.project.githubLink}>
                 <Button><input type="submit" value="Project Github link" /></Button>
