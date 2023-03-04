@@ -16,10 +16,10 @@ export const POST = (async ({ request }) => {
   const githubInfo = data.link.split("/").slice(-2);
   const username = githubInfo[0];
   const repo = githubInfo[1];
-  console.log("username and repo ", username, repo, data.user.githubToken);
+  console.log("username and repo ", username, repo, data.githubToken);
 
   const octokit = new Octokit({
-    auth: String(data.user.githubToken),
+    auth: String(data.githubToken),
   });
 
   console.log("poo");
