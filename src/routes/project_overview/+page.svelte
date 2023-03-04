@@ -32,6 +32,7 @@
         </div>
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined">terminal</span>
+            <p>Project type: {data.project.projectType}</p>
             <p>Code analysis score: {data.project.codeAnalysisScore}/100</p>
             <p>Last analysed: {data.project.codeAnalysisDate}</p>
             <form method="POST">
@@ -70,12 +71,13 @@
             <p>Budget: £{data.project.budget}</p>
         </div>
         <div class="projectOverviewItem">
-            {#if data.project.status == "At risk"}
-                <span class="material-symbols-outlined">error</span>
+            {#if data.status == "At risk" || data.status == "Failed"}
+                <span class="material-symbols-outlined bad">error</span>
             {:else}
-                <span class="material-symbols-outlined">check_circle</span>
+                <span class="material-symbols-outlined good">check_circle</span>
             {/if}
-            <p>Status: {data.project.status}</p>
+            <p>Complete: {data.complete}</p>
+            <p>Status: {data.status}</p>
         </div>
     </div>
 </div>
@@ -107,7 +109,7 @@
         align-items: stretch;
         border-radius: 5px;
         background-color: var(--fg1);
-        box-shadow: inset 0 0 10px rgba(0, 0, 0);
+        box-shadow: var(--inset);
     }
 
     .projectOverviewItem {
@@ -115,6 +117,7 @@
         flex-direction: column;
         background-color: var(--fg2);
         padding: 10px;
+        gap: 5px;
         flex: 1;
         align-items: center;
         justify-content: center;
@@ -138,7 +141,15 @@
     }
 
     #descBox span {
-        float: left;
+        font-size: 20px;
+    }
+
+    .bad {
+        color: #ef4444;
+    }
+
+    .good {
+        color: #22c55e;
     }
 
     .userBox {
@@ -146,5 +157,13 @@
         display: flex;
         gap: 5px;
         width: max-content;
+    }
+
+    span {
+        font-size: 50px;
+    }
+
+    .userBox span {
+        font-size: 20px;
     }
 </style>
