@@ -10,14 +10,15 @@ import {
 } from "firebase/firestore";
 import type { PageServerLoad } from "../login/$types";
 import type { Actions } from './$types';
-import { runAnalysis } from '../code_analysis/+server.js'
+import { runAnalysis } from '../code_analysis/+server'
+import { handleGetGit } from "../githubAPI/handler";
 import type { user } from "../../user";
 
 export const load: PageServerLoad = async ({cookies, url}) => {
     const cookie = cookies.get("user")!;
     const user: user = JSON.parse(cookie);
     const db = getFirestore(app);
-
+    
     const projectID = url.searchParams.get("id")!;
     const project = doc(db, "projects", projectID);
     const projectDoc = await getDoc(project);
@@ -45,28 +46,35 @@ export const load: PageServerLoad = async ({cookies, url}) => {
     }
 
     return {
-        name: name,
-        desc: desc,
-        deadline: deadline,
-        startDate: startDate,
-        budget: budget,
-        codeAnalysisScore: codeAnalysisScore,
-        codeAnalysisDate: codeAnalysisDate,
-        managerUsername: managerUsername,
-        githubLink: githubLink,
-        devUsernames: devUsernames,
-        status: status,
         user: user,
-        projectType: projectType,
-        id: projectID,
+        project: {
+            name: name,
+            desc: desc,
+            deadline: deadline,
+            startDate: startDate,
+            budget: budget,
+            codeAnalysisScore: codeAnalysisScore,
+            codeAnalysisDate: codeAnalysisDate,
+            managerUsername: managerUsername,
+            githubLink: githubLink,
+            devUsernames: devUsernames,
+            status: status,
+            projectType: projectType,
+            id: projectID
+        }
     };
 };
 
 export const actions = {
     default: async ({request}) => {
-        const data = await request.formData();
-        const projectID = data.get('projectID')!.toString();
-        const projectType = data.get('projectType')!.toString();
+        // const data = Object.fromEntries((await request.formData()).get("data"));
+        const data = Object.fromEntries((await (request.formData())).entries());
+        console.log(data);
+        const projectID = data.project.id;
+        const projectType = data.project.projectType;
+        const githubLink = data.project.githubLink;
+        const githubToken = data.user.githubToken;
+        await handleGetGit(projectID, githubLink, githubToken);
         const analysisScore = await runAnalysis(projectID, projectType);
         const db = getFirestore(app);
         const project = doc(db, "projects", projectID);
