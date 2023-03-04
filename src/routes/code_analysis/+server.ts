@@ -22,7 +22,7 @@ async function processResults(projectID:string) {
 export async function runAnalysis(projectID:string, projectType:string) {
     projectID = "testrepo";
     projectType = "documentation";
-    const cmds:string = "cd ./src/routes/code_analysis/projectCode/"+projectID+" & mega-linter-runner -f "+projectType+" -e 'JSON_REPORTER=true’ -e 'PRINT_ALPACA=false’ -e 'LOG_FILE=none' -e 'DISABLE_ERRORS=true'";
+    const cmds:string = "cd ./src/routes/githubapi/projectCode/"+projectID+" & mega-linter-runner -f "+projectType+" -e 'JSON_REPORTER=true’ -e 'PRINT_ALPACA=false’ -e 'LOG_FILE=none' -e 'DISABLE_ERRORS=true'";
     exec(cmds,
         (error, stdout, stderr) => {
             // console.log(stdout);

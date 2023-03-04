@@ -1,7 +1,5 @@
 <script lang="ts">
-    import { browser } from "$app/environment";
-    import { goto } from "$app/navigation";
-    import { getToken } from "../githubAPI/handler";
+    import { getToken } from "./handler";
     import type { PageData } from "./$types";
     import Button from "../Button.svelte";
     export let data: PageData;
@@ -36,7 +34,10 @@
             <p>Code analysis score: {data.project.codeAnalysisScore}/100</p>
             <p>Last analysed: {data.project.codeAnalysisDate}</p>
             <form method="POST">
-                <input type='hidden' value={data} name="data"/>
+                <input type='hidden' value={data.project.id} name="projectID"/>
+                <input type='hidden' value={data.project.projectType} name="projectType"/>
+                <input type='hidden' value={data.project.githubLink} name="githubLink"/>
+                <input type='hidden' value={data.user.githubToken} name="githubToken"/>
                 <Button>Run analysis</Button>
             </form>
 
@@ -48,7 +49,7 @@
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined">folder</span>
             {#if data.user.githubToken === "" || data.user.githubToken === undefined}
-                <Button click={() => getToken(data.project.ID)}>Authorize github access</Button>
+                <Button click={() => getToken(data.project.id)}>Authorize github access</Button>
             {/if}
             <form action={data.project.githubLink}>
                 <Button><input type="submit" value="Project Github link" /></Button>

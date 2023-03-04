@@ -11,7 +11,7 @@ import {
 import type { PageServerLoad } from "../login/$types";
 import type { Actions } from './$types';
 import { runAnalysis } from '../code_analysis/+server'
-import { handleGetGit } from "../githubAPI/handler";
+// import { handleGetGit } from "./handler";
 import type { user } from "../../user";
 
 export const load: PageServerLoad = async ({cookies, url}) => {
@@ -75,13 +75,11 @@ export const load: PageServerLoad = async ({cookies, url}) => {
 
 export const actions = {
     default: async ({request}) => {
-        // const data = Object.fromEntries((await request.formData()).get("data"));
-        const data = Object.fromEntries((await (request.formData())).entries());
-        console.log(data);
-        const projectID = data.project.id;
-        const projectType = data.project.projectType;
-        const githubLink = data.project.githubLink;
-        const githubToken = data.user.githubToken;
+        const data = await request.formData();
+        const projectID = data.get("projectID")!.toString();
+        const projectType = data.get("projectType")!.toString();
+        const githubLink = data.get("githubLink")!.toString();
+        const githubToken = data.get("githubToken")!.toString();
         await handleGetGit(projectID, githubLink, githubToken);
         const analysisScore = await runAnalysis(projectID, projectType);
         const db = getFirestore(app);
