@@ -12,8 +12,7 @@ async function processResults(projectID:string) {
         linterCount += 1;
         errorCount += linter.total_number_errors;
     }
-    console.log(errorCount);
-    const analysisScore = errorCount / linterCount;
+    const analysisScore = linterCount / errorCount;
     console.log("Processed results");
     return (Math.round(analysisScore * 100) / 100);
 }
