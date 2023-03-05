@@ -10,7 +10,7 @@ async function processResults(projectID:string) {
     var linterCount = 0;
     for (const linter of results.linters){   
         linterCount += 1;
-        errorCount += linter.total_number_errors;
+        errorCount += 1 + linter.total_number_errors;
     }
     const analysisScore = linterCount / errorCount;
     console.log("Processed results");
@@ -29,13 +29,11 @@ export const POST = ( async ({ request }) => {
     console.log("Completed analysis");
     const analysisScore = await processResults(data.projectID);
     const cmd2 = "rd /S /Q .\\src\\routes\\githubAPI\\projectCode\\"+data.projectID;
-    // exec(cmd2, (error, stdout, stderr) => {
-    //     // console.log('stdout: ' +stdout);
-    //     // console.log('stderr: ' +stderr);
-    //     if (error !== null) {
-    //          console.log(error);
-    //     }
-    // });
+    exec(cmd2, (error, stdout, stderr) => {
+        if (error !== null) {
+             console.log(error);
+        }
+    });
     console.log("Deleted project files");
     return json({  success: true, analysisScore: analysisScore });
 }) satisfies RequestHandler;
