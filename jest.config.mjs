@@ -23,12 +23,14 @@ export default {
   transform: {
     "^.+\\.js$": "babel-jest",
     "^.+\\.svelte$": ["svelte-jester", { preprocess: true }],
+    "^.+\\.(ts|tsx)$": "ts-jest"
   },
 
   // Configure support for SvelteKit path aliases
   moduleNameMapper: {
     "^\\$lib/(.*)": "<rootDir>/src/lib/$1",
-    "^\\$app(.*)$": "<rootDir>/jest/stubs$1"
+    "^\\$app(.*)$": "<rootDir>/jest/stubs$1",
+    '^.+\\.(css|less)$': '<rootDir>/jest/stubs/CSSstub.js'
   },
 
   // Set a setup file to include common test setup code
@@ -115,7 +117,7 @@ export default {
   // notifyMode: "failure-change",
 
   // A preset that is used as a base for Jest's configuration
-  // preset: undefined,
+  preset: "ts-jest",
 
   // Run tests from one or more projects
   // projects: undefined,

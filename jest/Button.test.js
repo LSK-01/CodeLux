@@ -37,13 +37,13 @@ test("exports click", async () => {
 })
 
 test("triggers an event when clicked", () => {
-    const mock = jest.fn();
+  const mock = jest.fn();
 
 	render(Button, { props: { click: mock } });
 
 	const button = screen.getByRole("button");
 
-    fireEvent.click(button);
+  fireEvent.click(button);
 
 	expect(mock).toHaveBeenCalled();
 });
