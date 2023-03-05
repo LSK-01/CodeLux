@@ -13,12 +13,12 @@
 	<h2>Surveys</h2>
 	<div class='boxContents'>
 		{#each surveyList as survey} 
-			<div class='surveyItem' on:click={() => boxClick(survey.projectID)}>
+			<button class='surveyItem' on:click={() => boxClick(survey.projectID)}>
 			<span class="material-symbols-outlined">
 				quiz
 			</span>  
 			<h3>Take survey for {survey.projectName}<h3>
-			</div>
+			</button>
 		{:else}
 		<div class='surveyItem'>
 			<h3>No surveys due<h3>
@@ -48,7 +48,7 @@
 		box-shadow: var(--outset);
 	}
 
-	a:hover {
+	button:hover {
 		background-color: var(--fg2);
 	}
 </style>

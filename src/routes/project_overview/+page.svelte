@@ -5,28 +5,6 @@
     import Button from "../Button.svelte";
     export let data: PageData;
 
-    //if the user has arleady authenticated with github
-    const handleGetGit = async () => {
-        if (data.githubLink === "") {
-            alert("You did not add a GitHub link when adding this project.");
-            return;
-        }
-
-        const response = await fetch("/githubAPI", {
-            method: "POST",
-            body: JSON.stringify({
-                link: data.githubLink,
-                id: data.id,
-                githubToken: data.user.githubToken,
-            }),
-            headers: {
-                "content-type": "application/json",
-            },
-        });
-
-        const resJson = await response.json();
-    };
-
     //redirects to dashboard - we then redirect back to the proj overview page in dashboard backend using state.
     const getToken = () => {
         if (browser) {
@@ -36,10 +14,58 @@
                     new URLSearchParams({
                         client_id: "741e0c0a106d7fdd57f2",
                         scope: "repo",
-                        state: data.id,
+                        state: data.project.id
                     })
             );
         }
+    };
+
+    const handleGetGit = async () => {
+        if (data.project.githubLink === "") {
+            alert("You did not add a GitHub link when adding this project.");
+            return;
+        }
+        const response = await fetch('/githubAPI', {
+            method: "POST",
+            body: JSON.stringify({
+                link: data.project.githubLink,
+                id: data.project.id,
+                githubToken: data.user.githubToken
+            }),
+            headers: {
+                "content-type": "application/json",
+            },
+        });
+        // const resJson = await response.json();
+        runAnalyser();
+    };
+
+    const runAnalyser = async () => {
+        const response = await fetch('/code_analysis', {
+            method: "POST",
+            body: JSON.stringify({
+                projectID: data.project.id,
+                projectType: data.project.projectType
+            }),
+            headers: {
+                "content-type": "application/json",
+            },
+        });
+        const analysisScore:number = (await response.json()).analysisScore;
+        updateScore(analysisScore);
+    };
+
+    const updateScore = (analysisScore:number) => {
+        fetch('/project_overview', {
+            method: "POST",
+            body: JSON.stringify({
+                projectID: data.project.id,
+                analysisScore: analysisScore
+            }),
+            headers: {
+                "content-type": "application/json",
+            },
+        });
     };
 </script>
 
@@ -52,45 +78,45 @@
 </svelte:head>
 
 <div id="projectOverview">
-    <h1>{data.name}</h1>
+    <h1>{data.project.name}</h1>
     <div class="boxContents" id="descBox">
         <span class="material-symbols-outlined">info</span>
-        <h3>{data.desc}</h3>
+        <h3>{data.project.desc}</h3>
     </div>
     <div class="boxContents">
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined">pending_actions</span>
-            <p>Due on: {data.deadline}</p>
+            <p>Due on: {data.project.deadline}</p>
         </div>
         <div class="projectOverviewItem">
-            <span class="material-symbols-outlined">event</span>
-            <p>Started on: {data.startDate}</p>
+            <span class="material-symbols-outlined"> calendar_add_on</span>
+            <p>Started on: {data.project.startDate}</p>
         </div>
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined">terminal</span>
-            <p>Code analysis score: {data.codeAnalysisScore}/100</p>
-            <p>Last analysed: {data.codeAnalysisDate}</p>
-            <form method="POST">
-                <input type='hidden' value={data.id} name="projectID"/>
-                <input type='hidden' value={data.type} name="projectType"/>
-                <Button>Run analysis</Button>
-            </form>
+            <p>Project type: {data.project.projectType}</p>
+            <p>Code analysis score: {data.project.codeAnalysisScore}/100</p>
+            <p>Last analysed: {data.project.codeAnalysisDate}</p>
+            <Button click={() => handleGetGit()}>Run analysis</Button>
 
         </div>
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined">support_agent</span>
-            <p>Manager: {data.managerUsername}</p>
+            <p>Manager: {data.project.managerUsername}</p>
         </div>
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined">folder</span>
-            <form action={data.githubLink}>
+            {#if data.user.githubToken === "" || data.user.githubToken === undefined}
+                <Button click={() => getToken()}>Authorize github access</Button>
+            {/if}
+            <form action={data.project.githubLink}>
                 <Button><input type="submit" value="Project Github link" /></Button>
             </form>
         </div>
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined">groups</span>
             <p>Developers:</p>
-            {#each data.devUsernames as devUsername}
+            {#each data.project.devUsernames as devUsername}
                 <div class="userBox">
                     <span class="material-symbols-outlined">person</span>
                     <p>{devUsername}</p>
@@ -101,24 +127,19 @@
         </div>
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined">payments</span>
-            <p>Budget: £{data.budget}</p>
+            <p>Budget: £{data.project.budget}</p>
         </div>
         <div class="projectOverviewItem">
-            {#if data.status == "At risk"}
-                <span class="material-symbols-outlined">error</span>
+            {#if data.status == "At risk" || data.status == "Failed"}
+                <span class="material-symbols-outlined bad">error</span>
             {:else}
-                <span class="material-symbols-outlined">check_circle</span>
+                <span class="material-symbols-outlined good">check_circle</span>
             {/if}
+            <p>Complete: {data.complete}</p>
             <p>Status: {data.status}</p>
         </div>
     </div>
 </div>
-
-{#if data.user.githubToken === "" || data.user.githubToken === undefined}
-    <Button click={() => getToken()}>Authorize github access</Button>
-{:else}
-    <Button click={() => handleGetGit()}>Get repo code</Button>
-{/if}
 
 <style>
     #projectOverview {
@@ -147,7 +168,7 @@
         align-items: stretch;
         border-radius: 5px;
         background-color: var(--fg1);
-        box-shadow: inset 0 0 10px rgba(0, 0, 0);
+        box-shadow: var(--inset);
     }
 
     .projectOverviewItem {
@@ -155,6 +176,7 @@
         flex-direction: column;
         background-color: var(--fg2);
         padding: 10px;
+        gap: 5px;
         flex: 1;
         align-items: center;
         justify-content: center;
@@ -178,7 +200,15 @@
     }
 
     #descBox span {
-        float: left;
+        font-size: 20px;
+    }
+
+    .bad {
+        color: #ef4444;
+    }
+
+    .good {
+        color: #22c55e;
     }
 
     .userBox {
@@ -186,5 +216,13 @@
         display: flex;
         gap: 5px;
         width: max-content;
+    }
+
+    span {
+        font-size: 50px;
+    }
+
+    .userBox span {
+        font-size: 20px;
     }
 </style>
