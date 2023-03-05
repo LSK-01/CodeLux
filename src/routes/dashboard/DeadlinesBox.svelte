@@ -10,7 +10,7 @@
 	<div class='boxContents'>
 		{#each deadlineList as entry}
 		<button class='deadlineItem' on:click={()=>{goto(`/project_overview?id=${entry.projectID}`)}}>
-			<span class="material-symbols-outlined">description</span> 
+			<span class="material-symbols-outlined">pending_actions</span> 
 			<div>
 				<h3>{entry.projectName}</h3>
 				<p>Due date: {entry.dueDate}</p>

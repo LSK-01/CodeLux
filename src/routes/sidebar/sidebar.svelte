@@ -2,6 +2,7 @@
 	import '../styles.css';
 	import Button from '../Button.svelte';
 	import type { user } from '../../user';
+    import ProjectListBox from '../projects/[slug]/projectListBox.svelte';
 	export let user: user;
 </script>
 
@@ -15,6 +16,7 @@
 		<span class="material-symbols-outlined">account_circle</span>
 		<h2>{user.username}</h2>
 	</div>
+	<Button><a href="/projects"><span class="material-symbols-outlined">format_list_bulleted</span>View projects</a></Button>
 	<Button><a href="/add"><span class="material-symbols-outlined">add_circle</span>Add project</a></Button>
 	<!-- <Button><a href="/settings"><span class="material-symbols-outlined">settings</span>Settings</a></Button>
 	<Button><a href="/about"><span class="material-symbols-outlined">info</span>About</a></Button> -->
@@ -33,7 +35,7 @@
 		gap: 10px;
 	}
 
-	nav h1{
+	nav h1 {
 		flex: 1;
 		text-align: left;
 	}

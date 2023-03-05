@@ -3,6 +3,7 @@
 	import { page } from '$app/stores';
 	import Header from './Header.svelte';
 	import Sidebar from './sidebar/Sidebar.svelte';
+	import Footer from './Footer.svelte';
 	import type { PageData } from "./$types";
 	export let data: PageData;
 	let user = data.user;
@@ -24,11 +25,15 @@
 	{/if} 
 
 	<main>
-		<slot />
+		<slot/>
 	</main>
 
-	<footer>
-		<p>Pimp My Project</p>
-	</footer>
+	<Footer/>
 </div>
+
+<style>
+	main {
+		min-height: 90vh;
+	}
+</style>
 
