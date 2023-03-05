@@ -135,8 +135,8 @@
             {:else}
                 <span class="material-symbols-outlined good">check_circle</span>
             {/if}
-            <p>Complete: {data.complete}</p>
-            <p>Status: {data.status}</p>
+            <p>Progress: {data.project.progress}</p>
+            <p>Status: {data.project.status}</p>
         </div>
     </div>
 </div>
