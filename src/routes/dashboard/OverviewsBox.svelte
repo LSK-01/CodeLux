@@ -189,8 +189,8 @@
 	}
 
 	.donutDiv {
-		width: 100px;
-		height: 100px;
+		width: 150px;
+		height: 150px;
 	}
 
 	.centerLabel {

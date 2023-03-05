@@ -2,22 +2,18 @@ import { app } from "../../hooks.server";
 import {
     getFirestore,
     collection,
-    getDocs,
     query,
     doc,
     getDoc,
-    updateDoc
 } from "firebase/firestore";
 import type { PageServerLoad } from "../login/$types";
-import type { Actions } from './$types';
-import { runAnalysis } from '../code_analysis/+server.js'
 import type { user } from "../../user";
 
 export const load: PageServerLoad = async ({cookies, url}) => {
     const cookie = cookies.get("user")!;
     const user: user = JSON.parse(cookie);
     const db = getFirestore(app);
-
+    
     const projectID = url.searchParams.get("id")!;
     const project = doc(db, "projects", projectID);
     const projectDoc = await getDoc(project);
@@ -53,32 +49,21 @@ export const load: PageServerLoad = async ({cookies, url}) => {
     }
 
     return {
-        name: name,
-        desc: desc,
-        deadline: deadline,
-        startDate: startDate,
-        budget: budget,
-        codeAnalysisScore: codeAnalysisScore,
-        codeAnalysisDate: codeAnalysisDate,
-        managerUsername: managerUsername,
-        githubLink: githubLink,
-        devUsernames: devUsernames,
-        complete: complete,
-        status: status,
         user: user,
-        projectType: projectType,
-        id: projectID,
+        project: {
+            name: name,
+            desc: desc,
+            deadline: deadline,
+            startDate: startDate,
+            budget: budget,
+            codeAnalysisScore: codeAnalysisScore,
+            codeAnalysisDate: codeAnalysisDate,
+            managerUsername: managerUsername,
+            githubLink: githubLink,
+            devUsernames: devUsernames,
+            status: status,
+            projectType: projectType,
+            id: projectID
+        }
     };
 };
-
-export const actions = {
-    default: async ({request}) => {
-        const data = await request.formData();
-        const projectID = data.get('projectID')!.toString();
-        const projectType = data.get('projectType')!.toString();
-        const analysisScore = await runAnalysis(projectID, projectType);
-        const db = getFirestore(app);
-        const project = doc(db, "projects", projectID);
-        await updateDoc(project, {"codeAnalysisScore": analysisScore, "codeAnalysisDate": new Date()}) 
-    }
-} satisfies Actions;
