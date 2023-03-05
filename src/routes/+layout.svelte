@@ -2,7 +2,7 @@
 	import './styles.css';
 	import { page } from '$app/stores';
 	import Header from './Header.svelte';
-	import Sidebar from './sidebar/Sidebar.svelte';
+	import Navbar from './navbar/Navbar.svelte';
 	import Footer from './Footer.svelte';
 	import type { PageData } from "./$types";
 	export let data: PageData;
@@ -21,7 +21,7 @@
 	{#if $page.url.pathname != '/dashboard'}
 	<Header navItems={navItems} />
 	{:else}
-	<Sidebar user={user}/>
+	<Navbar user={user}/>
 	{/if} 
 
 	<main>
