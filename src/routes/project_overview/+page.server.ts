@@ -35,10 +35,10 @@ export const load: PageServerLoad = async ({cookies, url}) => {
     for (const developer of projectDoc.get("developerusernames")) {
         devUsernames.push(developer);
     }
-    var complete = "Not complete";
+    var progress = "Not complete";
     var status = "Not at risk";
     if (projectDoc.get("complete")) {
-        complete = "Complete";
+        progress = "Complete";
         if (projectDoc.get("atRisk")) {
             status = "Success";
         } else {
@@ -61,6 +61,7 @@ export const load: PageServerLoad = async ({cookies, url}) => {
             managerUsername: managerUsername,
             githubLink: githubLink,
             devUsernames: devUsernames,
+            progress: progress,
             status: status,
             projectType: projectType,
             id: projectID

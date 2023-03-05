@@ -55,7 +55,7 @@
         updateScore(analysisScore);
     };
 
-    const updateScore = (analysisScore:number) => {
+    const updateScore = async (analysisScore:number) => {
         fetch('/project_overview', {
             method: "POST",
             body: JSON.stringify({
@@ -97,7 +97,7 @@
             <p>Project type: {data.project.projectType}</p>
             <p>Code analysis score: {data.project.codeAnalysisScore}/100</p>
             <p>Last analysed: {data.project.codeAnalysisDate}</p>
-            <Button click={() => handleGetGit()}>Run analysis</Button>
+            <Button click={() => handleGetGit()}>Run code analysis</Button>
 
         </div>
         <div class="projectOverviewItem">
@@ -135,8 +135,8 @@
             {:else}
                 <span class="material-symbols-outlined good">check_circle</span>
             {/if}
-            <p>Complete: {data.complete}</p>
-            <p>Status: {data.status}</p>
+            <p>Progress: {data.project.progress}</p>
+            <p>Status: {data.project.status}</p>
         </div>
     </div>
 </div>
