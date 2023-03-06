@@ -3,6 +3,8 @@
     import { goto } from "$app/navigation";
     import type { PageData } from "./$types";
     import Button from "../Button.svelte";
+    import { invalidate } from "$app/navigation";
+    import { page } from '$app/stores'
     export let data: PageData;
 
     //redirects to dashboard - we then redirect back to the proj overview page in dashboard backend using state.
@@ -66,6 +68,21 @@
                 "content-type": "application/json",
             },
         });
+        invalidate("/project_overview?id="+data.project.id);
+    };
+
+    const toggleProgress = async () => {
+        fetch('/project_overview', {
+            method: "POST",
+            body: JSON.stringify({
+                projectID: data.project.id,
+                progress: data.project.progress
+            }),
+            headers: {
+                "content-type": "application/json",
+            },
+        });
+        invalidate("/project_overview?id="+data.project.id);
     };
 </script>
 
@@ -130,13 +147,20 @@
             <p>Budget: £{data.project.budget}</p>
         </div>
         <div class="projectOverviewItem">
-            {#if data.status == "At risk" || data.status == "Failed"}
+            {#if data.project.status == "At risk" || data.project.status == "Failure"}
                 <span class="material-symbols-outlined bad">error</span>
             {:else}
                 <span class="material-symbols-outlined good">check_circle</span>
             {/if}
             <p>Progress: {data.project.progress}</p>
             <p>Status: {data.project.status}</p>
+            <Button click={() => toggleProgress()}>
+                {#if data.project.progress == "Complete"}
+                Mark as not complete
+                {:else}
+                Mark as complete
+                {/if}
+            </Button>
         </div>
     </div>
 </div>
