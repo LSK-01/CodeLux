@@ -11,6 +11,7 @@
 
 	const questionData : any[] = data.post[1];
 
+
     const options = [{
 		value: 0,
 		label: "Strongly\n disagree",
