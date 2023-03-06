@@ -30,7 +30,7 @@ export default {
   moduleNameMapper: {
     "^\\$lib/(.*)": "<rootDir>/src/lib/$1",
     "^\\$app(.*)$": "<rootDir>/jest/stubs$1",
-    '^.+\\.(css|less)$': '<rootDir>/jest/stubs/CSSstub.js'
+    '^.+\\.(css|less)$': '<rootDir>/jest/stubs/CSSstub.js',
   },
 
   // Set a setup file to include common test setup code
