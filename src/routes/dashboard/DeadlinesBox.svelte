@@ -2,7 +2,6 @@
 	import '../styles.css';
 	export let deadlineList : any[number][string];
 	import { goto } from "$app/navigation";
-	// import ProjectBoxSimple from './projectBoxSimple.svelte';
 </script>
 
 <div id='deadlinesBox'>
@@ -15,7 +14,6 @@
 				<h3>{entry.projectName}</h3>
 				<p>Due date: {entry.dueDate}</p>
 			</div>
-			<!-- <ProjectBoxSimple name={projectName} date={dueDate}/> -->
 		</button>
       	{:else}
 		<div class='deadlineItem'>
@@ -51,13 +49,5 @@
 	button:hover {
 		background-color: var(--fg2);
 	}
-	
-	/* .ProjectBoxWrapper {
-		flex: 1 0;
-		display: flex;
-		flex-direction: column;
-		padding: 0px 10px 0px 10px; 
-		padding: 10px; 
-		border-radius: 5px;
-	} */
+
 </style>
