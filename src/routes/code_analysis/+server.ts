@@ -23,8 +23,8 @@ export const POST = ( async ({ request }) => {
     const projectType = "documentation";
     console.log("Starting analysis");
     const cmd1 = "cd ./src/routes/githubAPI/projectCode/"+data.projectID+" & copy ..\\..\\..\\code_analysis\\.mega-linter.yml . & mega-linter-runner -f "+projectType+" --remove-container";
-    // execSync(cmd1, {stdio: 'inherit'});
-    execSync(cmd1);
+    execSync(cmd1, {stdio: 'inherit'});
+    // execSync(cmd1);
     console.log("Completed analysis");
     const analysisScore = await processResults(data.projectID);
     const cmd2 = "rd /S /Q .\\src\\routes\\githubAPI\\projectCode\\"+data.projectID;

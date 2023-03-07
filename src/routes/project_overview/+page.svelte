@@ -58,7 +58,7 @@
     };
 
     const updateScore = async (analysisScore:number) => {
-        fetch('/project_overview', {
+        fetch('/project_overview/updateScore', {
             method: "POST",
             body: JSON.stringify({
                 projectID: data.project.id,
@@ -72,7 +72,7 @@
     };
 
     const toggleProgress = async () => {
-        fetch('/project_overview', {
+        fetch('/project_overview/toggleProgress', {
             method: "POST",
             body: JSON.stringify({
                 projectID: data.project.id,
@@ -102,12 +102,18 @@
     </div>
     <div class="boxContents">
         <div class="projectOverviewItem">
-            <span class="material-symbols-outlined">pending_actions</span>
-            <p>Due on: {data.project.deadline}</p>
+            {#if data.project.deadline < new Date()}
+			<span class="material-symbols-outlined bad">pending_actions</span> 
+            <p class="bad">Overdue by {Math.round((new Date().valueOf() - data.project.deadline)/86400000)} days</p> 
+			{:else}
+			<span class="material-symbols-outlined">pending_actions</span> 
+            <p>Due in {Math.round((data.project.deadline - new Date().valueOf())/86400000)} days</p> 
+			{/if}
+            <p>Due on {(data.project.deadline).toLocaleString()}</p>
         </div>
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined"> calendar_add_on</span>
-            <p>Started on: {data.project.startDate}</p>
+            <p>Started on {data.project.startDate}</p>
         </div>
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined">terminal</span>
