@@ -184,10 +184,11 @@ async function getAnalysisTasks(user: user) {
     const q = query(ps, where("managerusername", "==", user.username), where("complete","==",false), where("codeAnalysisDate", "<", cutoff), orderBy("codeAnalysisDate"));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((project) => {
+        const analysisAge = Math.round((new Date().valueOf() - project.data().codeAnalysisDate.toDate())/86400000)
         analysisTaskList.push({
             projectID: project.id,
-            projectName: project.data().projectname,
-            text: "Run code analysis - Over a week since last analysis",
+            title: "Run code analysis for "+project.data().projectname,
+            text: analysisAge+" days since last analysis",
         });
     });
     return analysisTaskList;

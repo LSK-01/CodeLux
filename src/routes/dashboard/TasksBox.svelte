@@ -11,7 +11,7 @@
 		<button class='taskItem' on:click={()=>{goto(`/project_overview?id=${task.projectID}`)}}>
 			<span class="material-symbols-outlined">assignment</span> 
 			<div>
-				<h3>{task.projectName}<h3>
+				<h3>{task.title}<h3>
 				<p>{task.text}</p>
 			</div>
 		</button>
