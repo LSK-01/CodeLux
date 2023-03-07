@@ -48,7 +48,7 @@
 		box-shadow: var(--outset);
 	}
 
-	a:hover {
+	button:hover {
 		background-color: var(--fg2);
 	}
 </style>
