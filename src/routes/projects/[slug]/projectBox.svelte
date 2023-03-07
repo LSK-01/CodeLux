@@ -23,7 +23,7 @@
 
 <div id="projectBox">
 
-  <div class="boxContents" on:click={() => boxClick()}>
+  <button class="boxContents" on:click={() => boxClick()}>
     <span class="material-symbols-outlined"> description </span>
     <div class="projectInfo">
       <h3>{name}</h3>
@@ -32,7 +32,7 @@
     <div class="righticon">
       <span class="material-symbols-outlined">chevron_right</span>
     </div>
-  </div>
+  </button>
 </div>
 
 <style>

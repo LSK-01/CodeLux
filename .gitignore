@@ -18,5 +18,8 @@ tsconfig.json
 vite.config.ts
 package-lock.json
 .vscode
+clover.xml
+coverage-final.json
 src/routes/githubAPI/projectCode
 src/routes/githubAPI/projectCode/*
+/coverage

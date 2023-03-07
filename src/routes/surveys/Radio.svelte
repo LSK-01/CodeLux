@@ -7,7 +7,7 @@
   // export let userSelected : number;
 </script>  
 
-<fieldset id={name}>
+<fieldset>
 <div class="centered">
     <div class="padding">{question}</div>
     <ul class='likert'>

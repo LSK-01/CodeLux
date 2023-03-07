@@ -12,12 +12,28 @@
 	--text: rgb(45, 52, 54);
 	--column-width: 42rem;
 	--column-margin-top: 4rem;
-	/* --outset: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-	--inset: inset 0 0 10px rgba(0, 0, 0); */
 	--outset: none;
 	--inset: none;
 	font-family: var(--font-body);
 	color: var(--text);
+}
+
+::-webkit-scrollbar {
+    width: 15px;
+    height: 15px;
+	background-color: none;
+
+}
+
+::-webkit-scrollbar-thumb {
+	border-radius: 8px;
+	background: var(--fg3);
+	background-clip: padding-box;
+	border: solid 3px transparent;
+}
+
+body {
+    overflow: overlay;
 }
 
 body {

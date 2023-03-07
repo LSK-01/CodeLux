@@ -5,9 +5,12 @@ import {
     query,
     doc,
     getDoc,
+    updateDoc
 } from "firebase/firestore";
 import type { PageServerLoad } from "../login/$types";
 import type { user } from "../../user";
+import { json } from "@sveltejs/kit";
+import type { Actions, RequestHandler } from "./$types";
 
 export const load: PageServerLoad = async ({cookies, url}) => {
     const cookie = cookies.get("user")!;
@@ -35,14 +38,14 @@ export const load: PageServerLoad = async ({cookies, url}) => {
     for (const developer of projectDoc.get("developerusernames")) {
         devUsernames.push(developer);
     }
-    var complete = "Not complete";
+    var progress = "Not complete";
     var status = "Not at risk";
     if (projectDoc.get("complete")) {
-        complete = "Complete";
+        progress = "Complete";
         if (projectDoc.get("atRisk")) {
-            status = "Success";
+            status = "Failure";
         } else {
-            status = "Failed";
+            status = "Success";
         }
     } else if (projectDoc.get("atRisk")) {
         status = "At risk";
@@ -61,9 +64,33 @@ export const load: PageServerLoad = async ({cookies, url}) => {
             managerUsername: managerUsername,
             githubLink: githubLink,
             devUsernames: devUsernames,
+            progress: progress,
             status: status,
             projectType: projectType,
             id: projectID
         }
     };
 };
+
+export const actions = {
+    default: async ({ request }) => {
+        const data = await request.json();
+        const db = getFirestore(app);
+        const project = doc(db, "projects", data.projectID);
+        updateDoc(project, {"codeAnalysisScore": data.analysisScore, "codeAnalysisDate": new Date()}) 
+        console.log("Updated analysis score");
+        return json({ success: true });
+    },
+    
+    toggleProgress: async ({ request }) => {
+        const data = await request.json();
+        const db = getFirestore(app);
+        const project = doc(db, "projects", data.projectID);
+        var complete = true
+        if (data.progress == "Complete"){
+            complete = false;
+        }
+        updateDoc(project, {"complete": complete}) 
+        return json({ success: true });
+    }
+} satisfies Actions;

@@ -17,7 +17,7 @@
 			<span class="material-symbols-outlined">
 				quiz
 			</span>  
-			<h3>Take survey for {survey.projectName}<h3>
+			<h3>Take survey for {survey.projectName}</h3>
 			</button>
 		{:else}
 		<div class='surveyItem'>
