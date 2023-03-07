@@ -1,13 +1,9 @@
 <script lang="ts">
     import Tile from "./Tile.svelte";
     import Button from "../../Button.svelte";
-    import type { project } from "../project";
-    import { goto } from "$app/navigation";
-    import { browser } from "$app/environment";
     import "../../styles.css";
 
     let text = "";
-    let rating = -1;
     let question_num = 0;
     let questions_new = [
         "Project Name",
@@ -43,11 +39,6 @@
 
     let answers: string[][] = [];
 
-    const handleSelect = (numb: any) => {
-        rating = numb.detail;
-        text = "";
-    };
-
     const handleSubmit = async () => {
         answers.push([
             questions_new[question_num].toLowerCase().replace(/\s/g, ""),
@@ -81,7 +72,6 @@
 </script>
 
 <div id="wrapper">
-    <!-- <h1 on:load={handleReset}>Add Project</h1> -->
     <Tile>
         <h1 on:load={handleReset}>Add Project</h1>
         <header>
@@ -102,9 +92,7 @@
             {:else if questions_new[question_num] == "Github Link"}
                 <input type="url" bind:value={text} placeholder="Answer here"/>
             {:else}
-                <!-- <div class="input-group"> -->
                 <input type="text" bind:value={text} placeholder="Answer here"/>
-                <!-- </div> -->
             {/if}
             <br />
             <div class="buttonContainer">
