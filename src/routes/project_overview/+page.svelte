@@ -102,7 +102,11 @@
     </div>
     <div class="boxContents">
         <div class="projectOverviewItem">
-            <span class="material-symbols-outlined">pending_actions</span>
+            {#if data.project.deadline < new Date()}
+			<span class="material-symbols-outlined bad">pending_actions</span> 
+			{:else}
+			<span class="material-symbols-outlined">pending_actions</span> 
+			{/if}
             <p>Due on: {data.project.deadline}</p>
         </div>
         <div class="projectOverviewItem">
