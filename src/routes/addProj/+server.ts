@@ -20,6 +20,8 @@ export const POST = (async ({ request }) => {
   obj.complete = false;
   obj.atRisk = false;
   obj.numCommits = 0;
+  obj.codeAnalysisScore = 0;
+  obj.codeAnalysisDate = new Date();
   await addDoc(collection(db, "projects"), obj);
 
   return json({ success: true });
