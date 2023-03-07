@@ -1,23 +1,23 @@
 <script lang='ts'>
-	import type { PageData } from "./$types";
+	import type { PageData } from "../$types";
     import Chart from 'chart.js/auto'
     import { onMount } from 'svelte';
 	export let data: PageData;
 
-    function drawTaskChart() {
-        const chartElement = document.getElementById('taskChart')!;
+    function drawSurveyChart() {
+        const chartElement = document.getElementById('surveyChart')!;
         new Chart(chartElement, {
             type: 'doughnut',
             data: {
-                labels: ["With tasks", "Without tasks"],
+                labels: ["With surveys", "Without surveys"],
                 datasets: [{
-                    data: [data.withTasks, data.withoutTasks],
+                    data: [data.withSurveys, data.withoutSurveys],
                     borderWidth: 1,
                     backgroundColor: [
-                        '#fde047',
+                        '#3b82f6',
                         '#22c55e'
                     ],
-                    hoverOffset: 4
+                    hoverOffset: 4 
                 }]
             },
             options: {
@@ -45,10 +45,10 @@
     }
 
     onMount(() => {
-        drawTaskChart();
+        drawSurveyChart();
     });
 </script>
 
 <div>
-    <canvas id="taskChart" width="150"></canvas>
+    <canvas id="surveyChart" width="150"></canvas>
 </div>

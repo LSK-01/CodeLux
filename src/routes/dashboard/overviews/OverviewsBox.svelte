@@ -1,6 +1,6 @@
 <script lang='ts'>
-	import '../styles.css';
-	import type { PageData } from "./$types";
+	import '../../styles.css';
+	import type { PageData } from "../$types";
 	import { goto } from '$app/navigation';
 	import RiskChart from './RiskChart.svelte';
 	import SurveyChart from './SurveyChart.svelte';

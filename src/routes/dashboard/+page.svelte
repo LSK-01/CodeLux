@@ -1,6 +1,6 @@
 <script lang="ts">
   import "../styles.css";
-  import OverviewsBox from "./OverviewsBox.svelte";
+  import OverviewsBox from "./overviews/OverviewsBox.svelte";
   import TasksBox from "./TasksBox.svelte";
   import SurveysBox from "./SurveysBox.svelte";
   import DeadlinesBox from "./DeadlinesBox.svelte";

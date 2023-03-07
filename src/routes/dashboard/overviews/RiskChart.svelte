@@ -1,5 +1,5 @@
 <script lang='ts'>
-	import type { PageData } from "./$types";
+	import type { PageData } from "../$types";
     import Chart from 'chart.js/auto'
     import { onMount } from 'svelte';
 	export let data: PageData;
