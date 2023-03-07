@@ -1,6 +1,7 @@
 import { dev } from '$app/environment';
 import { app } from '../../../hooks.server';
 import { getFirestore,collection, getDocs, query, orderBy, where, Timestamp } from 'firebase/firestore';
+import { _getTasks } from '../../dashboard/+page.server';
 import type { PageServerLoad } from "../../login/$types";
 import type { user } from "../../../user";
 
@@ -49,6 +50,15 @@ export const load: PageServerLoad = async ({cookies, params}) => {
             const user = JSON.parse(cookie);
 
             return { post : getProjectsWithSurveysDue(user)};
+        }
+    }
+    if (params.slug == 'tasksdue'){
+        if (cookie == null) {
+            return ["Projects with tasks due", []]
+        }
+        else{
+            const user = JSON.parse(cookie);
+            return { post:getProjectsWithTasksDue(user) };
         }
     }
 }
@@ -199,6 +209,23 @@ async function getProjectsWithSurveysDue(user: user){
               }), managerBool: true})
           };
       });
+    returnArray.push(projects);
+    return returnArray;
+}
+
+async function getProjectsWithTasksDue(user: user){
+    let returnArray : any[] = ["Projects with Tasks Due"];  
+    let projects : any[] = [];
+    const taskList = await _getTasks(user);
+    for (let task of taskList) {
+        if (!projects.some(project => project.name == task.projectName)){
+            projects.push({
+                id: task.projectID,
+                projectName: task.projectName, 
+                dueDate: task.projectDeadline.toLocaleDateString()
+            });
+        }
+    }
     returnArray.push(projects);
     return returnArray;
 }

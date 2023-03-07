@@ -94,7 +94,7 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
     const notManaging = querySnapshot3.data().count;
 
     const surveys = await getSurveys(user);
-    const tasks = await getTasks(user);
+    const tasks = await _getTasks(user);
     return {
         atRisk: atRisk,
         notAtRisk: notAtRisk,
@@ -170,9 +170,9 @@ async function getSurveys(user : user) {
     return surveyList;
   }
 
-async function getTasks(user:user) {
-    let taskList: any[] = [];
-    return taskList.concat(await getAnalysisTasks(user));
+export async function _getTasks(user:user) {
+    let taskList: any[] = [await getAnalysisTasks(user)];
+    return taskList.flat(1);
 }
 
 async function getAnalysisTasks(user: user) {
@@ -187,8 +187,10 @@ async function getAnalysisTasks(user: user) {
         const analysisAge = Math.round((new Date().valueOf() - project.data().codeAnalysisDate.toDate())/86400000)
         analysisTaskList.push({
             projectID: project.id,
+            projectName: project.data().projectname,
             title: "Run code analysis for "+project.data().projectname,
             text: analysisAge+" days since last analysis",
+            projectDeadline: project.data().deadline.toDate()
         });
     });
     return analysisTaskList;

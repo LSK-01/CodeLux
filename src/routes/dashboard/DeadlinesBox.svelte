@@ -16,7 +16,7 @@
 			{/if}
 			<div>
 				<h3>{entry.projectName}</h3>
-				<p>Due on: {(entry.deadline).toLocaleString()}</p>
+				<p>Due on {(entry.deadline).toLocaleString()}</p>
 			</div>
 		</button>
       	{:else}
