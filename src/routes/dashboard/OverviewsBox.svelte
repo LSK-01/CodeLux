@@ -2,9 +2,9 @@
 	import '../styles.css';
 	import type { PageData } from "./$types";
 	import { goto } from '$app/navigation';
-	import RiskChart from './charts/RiskChart.svelte';
-	import SurveyChart from './charts/SurveyChart.svelte';
-	import TaskChart from './charts/TaskChart.svelte';
+	import RiskChart from './overviews/RiskChart.svelte';
+	import SurveyChart from './overviews/SurveyChart.svelte';
+	import TaskChart from './overviews/TaskChart.svelte';
 	export let data: PageData;
 </script>
 

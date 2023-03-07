@@ -76,7 +76,7 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
         where("complete", "==", false)
     );
     const querySnapshot1 = await getCountFromServer(q1);
-    let atRisk = querySnapshot1.data().count;
+    const atRisk = querySnapshot1.data().count;
     const q2 = query(
         projects,
         where("managerusername", "==", user.username),
@@ -84,14 +84,14 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
         where("complete", "==", false)
     );
     const querySnapshot2 = await getCountFromServer(q2);
-    let notAtRisk = querySnapshot2.data().count;
+    const notAtRisk = querySnapshot2.data().count;
     const q3 = query(
         projects,
         where("developerusernames", "array-contains", user.username), 
         where("complete", "==", false)
     );
     const querySnapshot3 = await getCountFromServer(q3);
-    let notManaging = querySnapshot3.data().count;
+    const notManaging = querySnapshot3.data().count;
 
     const surveys = await getSurveys(user);
     const tasks = await getTasks(user);

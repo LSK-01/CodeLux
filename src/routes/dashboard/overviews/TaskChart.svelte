@@ -4,17 +4,17 @@
     import { onMount } from 'svelte';
 	export let data: PageData;
 
-    function drawRiskChart() {
-        const chartElement = document.getElementById('riskChart')!;
+    function drawTaskChart() {
+        const chartElement = document.getElementById('taskChart')!;
         new Chart(chartElement, {
             type: 'doughnut',
             data: {
-                labels: ["At risk", "Not at risk"],
+                labels: ["With tasks", "Without tasks"],
                 datasets: [{
-                    data: [data.atRisk, data.notAtRisk],
+                    data: [data.withTasks, data.withoutTasks],
                     borderWidth: 1,
                     backgroundColor: [
-                        '#ef4444',
+                        '#fde047',
                         '#22c55e'
                     ],
                     hoverOffset: 4
@@ -22,16 +22,12 @@
             },
             options: {
                 scales: {
-                    xAxes: [{
-                        gridLines: {
-                            display:false
-                        }
-                    }],
-                    yAxes: [{
-                        gridLines: {
-                            display:false
-                        }   
-                    }]
+                    x: {
+                        display: false
+                    },
+                    y: {
+                        display: false
+                    }
                 },
                 plugins: {
                     legend: {
@@ -45,10 +41,10 @@
     }
 
     onMount(() => {
-        drawRiskChart();
+        drawTaskChart();
     });
 </script>
 
 <div>
-    <canvas id="riskChart" width="150"></canvas>
+    <canvas id="taskChart" width="150"></canvas>
 </div>
