@@ -57,6 +57,7 @@
     gap: 10px;
     padding: 15px;
     text-align: left;
+    width: 100%;
     align-items: center;
     /* justify-content: space-evenly; */
   }

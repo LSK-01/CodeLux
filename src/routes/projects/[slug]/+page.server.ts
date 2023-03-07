@@ -214,7 +214,7 @@ async function getProjectsWithSurveysDue(user: user){
 }
 
 async function getProjectsWithTasksDue(user: user){
-    let returnArray : any[] = ["Projects with Tasks Due"];  
+    let returnArray : any[] = ["Projects with tasks due"];  
     let projects : any[] = [];
     const taskList = await _getTasks(user);
     for (let task of taskList) {
