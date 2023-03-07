@@ -1,6 +1,5 @@
-import { json } from "@sveltejs/kit";
+import { json, RequestHandler } from "@sveltejs/kit";
 import { app } from "../../../hooks.server";
-import type { RequestHandler } from "./$types";
 import {
     getFirestore,
     doc,
@@ -11,8 +10,10 @@ export const POST = (async ({ request }) => {
     const data = await request.json();
     const db = getFirestore(app);
     const project = doc(db, "projects", data.projectID);
-    if 
-    updateDoc(project, {"codeAnalysisScore": data.analysisScore}) 
-    console.log("Updated analysis score");
+    var complete = true;
+    if (data.progress == 'Complete') {
+        complete = false;
+    }
+    updateDoc(project, {"complete": complete}) 
     return json({ success: true });
 }) satisfies RequestHandler;

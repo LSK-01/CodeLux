@@ -58,7 +58,7 @@
     };
 
     const updateScore = (analysisScore:number) => {
-        fetch('/project_overview/toggleProgress', {
+        fetch('/project_overview', {
             method: "POST",
             body: JSON.stringify({
                 projectID: data.project.id,
@@ -72,21 +72,7 @@
     };
 
     const toggleProgress = async () => {
-        fetch('/project_overview', {
-            method: "POST",
-            body: JSON.stringify({
-                projectID: data.project.id,
-                progress: data.project.progress
-            }),
-            headers: {
-                "content-type": "application/json",
-            },
-        });
-        invalidate("/project_overview?id="+data.project.id);
-    };
-
-    const toggleProgress = async () => {
-        fetch('/project_overview', {
+        fetch('/project_overview/toggleProgress', {
             method: "POST",
             body: JSON.stringify({
                 projectID: data.project.id,
