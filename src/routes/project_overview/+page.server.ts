@@ -2,15 +2,11 @@ import { app } from "../../hooks.server";
 import {
     getFirestore,
     collection,
-    query,
     doc,
     getDoc,
-    updateDoc
 } from "firebase/firestore";
 import type { PageServerLoad } from "../login/$types";
 import type { user } from "../../user";
-import { json } from "@sveltejs/kit";
-import type { Actions, RequestHandler } from "./$types";
 
 export const load: PageServerLoad = async ({cookies, url}) => {
     const cookie = cookies.get("user")!;
