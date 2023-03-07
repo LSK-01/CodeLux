@@ -76,7 +76,7 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
         where("complete", "==", false)
     );
     const querySnapshot1 = await getCountFromServer(q1);
-    let atRisk = querySnapshot1.data().count;
+    const atRisk = querySnapshot1.data().count;
     const q2 = query(
         projects,
         where("managerusername", "==", user.username),
@@ -84,7 +84,14 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
         where("complete", "==", false)
     );
     const querySnapshot2 = await getCountFromServer(q2);
-    let notAtRisk = querySnapshot2.data().count;
+    const notAtRisk = querySnapshot2.data().count;
+    const q3 = query(
+        projects,
+        where("developerusernames", "array-contains", user.username), 
+        where("complete", "==", false)
+    );
+    const querySnapshot3 = await getCountFromServer(q3);
+    const notManaging = querySnapshot3.data().count;
 
     const surveys = await getSurveys(user);
     const tasks = await getTasks(user);
@@ -92,12 +99,13 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
         atRisk: atRisk,
         notAtRisk: notAtRisk,
         withSurveys: surveys.length,
-        withoutSurveys: (atRisk+notAtRisk) - surveys.length,
+        withoutSurveys: (atRisk+notAtRisk+notManaging) - surveys.length,
         withTasks: tasks.length,
-        withoutTasks: (atRisk+notAtRisk) - tasks.length,
+        withoutTasks: (atRisk+notAtRisk+notManaging) - tasks.length,
         surveyList: surveys,
         taskList: tasks,
         deadlineList: await getDeadlines(user),
+        totalProjects: atRisk+notAtRisk+notManaging
     };
 };
 
@@ -173,18 +181,9 @@ async function getAnalysisTasks(user: user) {
     const ps = collection(db, "projects");
     const cutoff = new Date();
     cutoff.setDate(cutoff.getDate()-7);
-    const q1 = query(ps, where("managerusername", "==", user.username), where("complete","==",false), where("codeAnalysisDate", "<", cutoff), orderBy("codeAnalysisDate"));
-    const q2 = query(ps, where("developerusernames", "array-contains", user.username), where("complete","==",false), where("codeAnalysisDate", "<", cutoff), orderBy("codeAnalysisDate"));
-    const querySnapshot1 = await getDocs(q2);
-    querySnapshot1.forEach((project) => {
-        analysisTaskList.push({
-            projectID: project.id,
-            projectName: project.data().projectname,
-            text: "Run code analysis - Over a week since last analysis",
-        });
-    });
-    const querySnapshot2 = await getDocs(q1);
-    querySnapshot2.forEach((project) => {
+    const q = query(ps, where("managerusername", "==", user.username), where("complete","==",false), where("codeAnalysisDate", "<", cutoff), orderBy("codeAnalysisDate"));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((project) => {
         analysisTaskList.push({
             projectID: project.id,
             projectName: project.data().projectname,

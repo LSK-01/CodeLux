@@ -15,3 +15,15 @@ export const POST = (async ({ request }) => {
     console.log("Updated analysis score");
     return json({ success: true });
 }) satisfies RequestHandler;
+
+export const POST = (async ({ request }) => {
+    const data = await request.json();
+    const db = getFirestore(app);
+    const project = doc(db, "projects", data.projectID);
+    var complete = true
+    if (data.progress == "Complete"){
+        complete = false;
+    }
+    updateDoc(project, {"complete": complete});
+    return json({ success: true });
+}) satisfies RequestHandler;
