@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/routes/dashboard/DeadlinesBox.svelte</title>
+    <title>Code coverage report for src/routes/surveys/Form.svelte</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/routes/dashboard</a> DeadlinesBox.svelte</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/routes/surveys</a> Form.svelte</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>53/53</span>
+                <span class='fraction'>77/77</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>53/53</span>
+                <span class='fraction'>77/77</span>
             </div>
         
             
@@ -116,7 +116,30 @@
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -169,60 +192,106 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&lt;script lang='ts'&gt;
-	import '../styles.css';
-	export let deadlineList : any[number][string];
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">&lt;!-- https://svelte.dev/repl/7b05d57dcdc04f49be72844e4b2825b3?version=3.44.0 --&gt;
+&lt;script lang="ts"&gt;
+    import Radio from './Radio.svelte';
+	import "../styles.css";
 	import { goto } from "$app/navigation";
+	
+	export let options : any[number][string];    
+	export let questionData : any[];
+&nbsp;
+	let questions : string[] = questionData.map(a =&gt; a.question);
+&nbsp;
+	let formData = Array(questions.length);
+&nbsp;
+    //TODO: POST data back to database or however firebase works
+	const handleSubmit = () =&gt; {
+		console.log("Your form data =&gt; ",formData);
+	}
+&nbsp;
 &lt;/script&gt;
 &nbsp;
-&lt;div id='deadlinesBox'&gt;
-	&lt;h2&gt;Upcoming Deadlines&lt;/h2&gt;
-	&lt;div class='boxContents'&gt;
-		{#each deadlineList as entry}
-		&lt;button class='deadlineItem' on:click={()=&gt;{goto(`/project_overview?id=${entry.projectID}`)}}&gt;
-			&lt;span class="material-symbols-outlined"&gt;description&lt;/span&gt; 
-			&lt;div&gt;
-				&lt;h3&gt;{entry.projectName}&lt;/h3&gt;
-				&lt;p&gt;Due date: {entry.dueDate}&lt;/p&gt;
-			&lt;/div&gt;
-		&lt;/button&gt;
-      	{:else}
-		&lt;div class='deadlineItem'&gt;
-			&lt;h3&gt;No projects due&lt;h3&gt;
-		&lt;/div&gt;
-		{/each}
+&lt;form class="form-container" on:submit={handleSubmit} method="POST"&gt;
+	{#each questionData as { question, qid }, i}
+        &lt;div class="centered"&gt;
+            &lt;h1 class="qheading"&gt;
+                Question {i+1}
+            &lt;/h1&gt;
+            &lt;div class="padding"&gt;
+                &lt;Radio {options} name={qid} question={question} /&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;   
+	{/each}     
+	&lt;div class="message"&gt;
+		&lt;button  type="submit" class="btn submit"&gt;Submit survey&lt;/button&gt;
 	&lt;/div&gt;
-&lt;/div&gt;
+&lt;/form&gt;
 &nbsp;
 &lt;style&gt;
-	#deadlinesBox {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		padding: 10px;
-		background-color: var(--fg1);
+	.qheading {
+        font-weight: bold;
+        font-size: 24px;
+    }
+    .padding {
+        padding-top: 10px;
+    }
+&nbsp;
+	.centered{
 		border-radius: 10px;
-		box-shadow: var(--outset);
+		background-color: var(--fg1);
+		padding: 20px;
+		margin: 10px;
 	}
-&nbsp;
-	.deadlineItem {
-		display: flex;
-		align-items: center;
-		justify-content: flex-start;
-		gap: 10px;
-		background-color: var(--fg3);
+	.form-container {
+		background-color: rgba(255, 255, 255, 0.1);
+		border-radius: 10px;
+		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);
+		padding: 50px 20px;
+		text-align: center;
+		max-width: 100%;
+		width: 100%;
+		gap: 5px;
+	}
+	.btn{
+		background-color: #fca5a5;
 		padding: 10px;
-		border-radius: 5px;
-		text-align: left;
-		box-shadow: var(--outset);
+		margin-top: 0.5rem;
+		display: inline-block;
+		width: 200px;
+		font-weight: bold;
+		font-size: 20px;
+		border-radius: 10px;
+		cursor:pointer;
+		box-shadow: 0 10px 10px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.05);
 	}
-&nbsp;
-	button:hover {
-		background-color: var(--fg2);
+	.message{
+		text-align: center;
 	}
-&nbsp;
-&lt;/style&gt;
-&nbsp;</pre></td></tr></table></pre>
+&lt;/style&gt;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->

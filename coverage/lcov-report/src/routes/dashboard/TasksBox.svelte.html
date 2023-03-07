@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/routes/dashboard/DeadlinesBox.svelte</title>
+    <title>Code coverage report for src/routes/dashboard/TasksBox.svelte</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/routes/dashboard</a> DeadlinesBox.svelte</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/routes/dashboard</a> TasksBox.svelte</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>53/53</span>
+                <span class='fraction'>47/47</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>53/53</span>
+                <span class='fraction'>47/47</span>
             </div>
         
             
@@ -110,19 +110,7 @@
 <a name='L45'></a><a href='#L45'>45</a>
 <a name='L46'></a><a href='#L46'>46</a>
 <a name='L47'></a><a href='#L47'>47</a>
-<a name='L48'></a><a href='#L48'>48</a>
-<a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L48'></a><a href='#L48'>48</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -171,31 +159,27 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&lt;script lang='ts'&gt;
 	import '../styles.css';
-	export let deadlineList : any[number][string];
-	import { goto } from "$app/navigation";
+	export let taskList : any[number][string];
 &lt;/script&gt;
 &nbsp;
-&lt;div id='deadlinesBox'&gt;
-	&lt;h2&gt;Upcoming Deadlines&lt;/h2&gt;
+&lt;div id='tasksBox'&gt;
+	&lt;h2&gt;Tasks&lt;/h2&gt;
 	&lt;div class='boxContents'&gt;
-		{#each deadlineList as entry}
-		&lt;button class='deadlineItem' on:click={()=&gt;{goto(`/project_overview?id=${entry.projectID}`)}}&gt;
-			&lt;span class="material-symbols-outlined"&gt;description&lt;/span&gt; 
-			&lt;div&gt;
-				&lt;h3&gt;{entry.projectName}&lt;/h3&gt;
-				&lt;p&gt;Due date: {entry.dueDate}&lt;/p&gt;
-			&lt;/div&gt;
-		&lt;/button&gt;
-      	{:else}
-		&lt;div class='deadlineItem'&gt;
-			&lt;h3&gt;No projects due&lt;h3&gt;
+		{#each taskList as task}
+		&lt;a class='taskItem' href='/surveys/{task.projectID}'&gt;
+			&lt;h3&gt;{task.projectName}&lt;h3&gt;
+			&lt;p&gt;{task.text}&lt;p&gt;
+		&lt;/a&gt;
+		{:else}
+		&lt;div class='taskItem'&gt;
+			&lt;h3&gt;No tasks due&lt;h3&gt;
 		&lt;/div&gt;
 		{/each}
 	&lt;/div&gt;
 &lt;/div&gt;
 &nbsp;
 &lt;style&gt;
-	#deadlinesBox {
+	#tasksBox {
 		flex: 1;
 		display: flex;
 		flex-direction: column;
@@ -205,22 +189,20 @@
 		box-shadow: var(--outset);
 	}
 &nbsp;
-	.deadlineItem {
-		display: flex;
-		align-items: center;
-		justify-content: flex-start;
-		gap: 10px;
-		background-color: var(--fg3);
+	.taskItem {
+		background-color:var(--fg3);
 		padding: 10px;
 		border-radius: 5px;
-		text-align: left;
 		box-shadow: var(--outset);
 	}
 &nbsp;
-	button:hover {
+	a:hover {
 		background-color: var(--fg2);
 	}
 &nbsp;
+	.taskItem p {
+		text-indent: 20px;
+	}
 &lt;/style&gt;
 &nbsp;</pre></td></tr></table></pre>
 
