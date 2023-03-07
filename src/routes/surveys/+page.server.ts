@@ -1,6 +1,6 @@
 import { dev } from '$app/environment';
 import { app } from '../../hooks.server';
-import { getFirestore, collection, getDocs, doc, getDoc, addDoc, query, where, serverTimestamp } from 'firebase/firestore';
+import { getFirestore, collection, getDocs, doc, getDoc, addDoc, query, where, serverTimestamp, updateDoc, increment } from 'firebase/firestore';
 import type { PageServerLoad, Actions } from './$types';
 import type { user } from "../../user";
 import { redirect } from "@sveltejs/kit";
@@ -34,7 +34,7 @@ export const load: PageServerLoad = async ({cookies, url}) => {
         const querySnapshot1 = await getDocs(questionsRef);
         querySnapshot1.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
-            questions.push({ question: doc.data().question, qid: doc.data().id });
+            questions.push({ question: doc.data().question, metric: doc.data().smetric, qid: doc.data().id });
         });
     }
     else{
@@ -42,7 +42,7 @@ export const load: PageServerLoad = async ({cookies, url}) => {
         const querySnapshot2 = await getDocs(q);
             querySnapshot2.forEach((doc) => {
                 // doc.data() is never undefined for query doc snapshots
-                questions.push({ question: doc.data().question, qid: doc.data().id });
+                questions.push({ question: doc.data().question, metric: doc.data().smetric, qid: doc.data().id });
             });
     }
     returnArray.push(questions);
@@ -59,9 +59,28 @@ export const actions = {
         const answers : any[] = [];
         const projID = url.searchParams.get("id")!;
 
-        console.log(projID);
-        
+        //add numAnsweredMetricName and metricNameTotal: to project document
+        //make the object first
+        let fields = {};
+
+        for (const element of data.entries()) {
+            const metricname = element[0].split(":")[0].toUpperCase().replace(/ /g,'');
+            //@ts-ignore
+            fields[metricname] = Number(fields[metricname] ?? 0 + element[1]);
+            //@ts-ignore
+            fields[metricname + "Answered"] = fields[metricname + "Answered"] ?? 0 + 1;
+        }
+        console.log("ree: ", fields);
+        Object.keys(fields).forEach((key, index) => {
+            //@ts-ignore
+            fields[key] = increment(fields[key]);
+        });
+
         const db = getFirestore(app);
+
+        await updateDoc(doc(db, "projects", projID), fields)
+/*         console.log(projID);
+        
         for (const element of data.entries()) {
             answers.push({ qid: element[0], answer: element[1]});
         }
@@ -73,7 +92,7 @@ export const actions = {
             userid: user.uid,
             username: user.username,
           });
-        throw redirect(303, "/surveycomplete"); //might change this
+        throw redirect(303, "/surveycomplete"); //might change this */
     }
   } satisfies Actions;
 

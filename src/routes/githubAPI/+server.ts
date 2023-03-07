@@ -22,7 +22,6 @@ export const POST = (async ({ request }) => {
     auth: String(data.githubToken),
   });
 
-  console.log("poo");
   const baseTree = await octokit.request(
     "GET /repos/{owner}/{repo}/branches/main",
     {
@@ -52,12 +51,13 @@ export const POST = (async ({ request }) => {
   console.log("poo");
 
   const fileObjects = response.data.tree.filter(
+    //@ts-ignore
     (fileObj) => fileObj.type === "blob"
   );
 
   let filenames: string[] = [];
-  //@ts-ignore
   const filesBase64 = await Promise.all(
+    //@ts-ignore
     fileObjects.map(async (fileObj) => {
       filenames.push(fileObj.path.split("/").at(-1));
       return octokit.request("GET /repos/{owner}/{repo}/git/blobs/{file_sha}", {
