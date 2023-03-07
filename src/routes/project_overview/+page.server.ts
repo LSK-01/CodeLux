@@ -28,6 +28,7 @@ export const load: PageServerLoad = async ({cookies, url}) => {
         .toDate()
         .toLocaleString();
     const managerUsername = projectDoc.get("managerusername");
+    const custContactFrequency = projectDoc.get("customercontactfrequency");
     const githubLink = projectDoc.get("githublink");
     const projectType = projectDoc.get("projecttype");
     const devUsernames: string[] = [];
@@ -58,6 +59,7 @@ export const load: PageServerLoad = async ({cookies, url}) => {
             codeAnalysisScore: codeAnalysisScore,
             codeAnalysisDate: codeAnalysisDate,
             managerUsername: managerUsername,
+            custContactFrequency: custContactFrequency,
             githubLink: githubLink,
             devUsernames: devUsernames,
             progress: progress,
