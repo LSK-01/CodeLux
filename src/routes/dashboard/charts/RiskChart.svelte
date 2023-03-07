@@ -1,20 +1,20 @@
 <script lang='ts'>
-	import type { PageData } from "./$types";
+	import type { PageData } from "../$types";
     import Chart from 'chart.js/auto'
     import { onMount } from 'svelte';
 	export let data: PageData;
 
-    function drawTaskChart() {
-        const chartElement = document.getElementById('taskChart')!;
+    function drawRiskChart() {
+        const chartElement = document.getElementById('riskChart')!;
         new Chart(chartElement, {
             type: 'doughnut',
             data: {
-                labels: ["With tasks", "Without tasks"],
+                labels: ["At risk", "Not at risk"],
                 datasets: [{
-                    data: [data.withTasks, data.withoutTasks],
+                    data: [data.atRisk, data.notAtRisk],
                     borderWidth: 1,
                     backgroundColor: [
-                        '#fde047',
+                        '#ef4444',
                         '#22c55e'
                     ],
                     hoverOffset: 4
@@ -22,16 +22,12 @@
             },
             options: {
                 scales: {
-                    xAxes: [{
-                        gridLines: {
-                            display:false
-                        }
-                    }],
-                    yAxes: [{
-                        gridLines: {
-                            display:false
-                        }   
-                    }]
+                    x: {
+                        display: false
+                    },
+                    y: {
+                        display: false
+                    }
                 },
                 plugins: {
                     legend: {
@@ -45,10 +41,10 @@
     }
 
     onMount(() => {
-        drawTaskChart();
+        drawRiskChart();
     });
 </script>
 
 <div>
-    <canvas id="taskChart" width="150"></canvas>
+    <canvas id="riskChart" width="150"></canvas>
 </div>
