@@ -109,7 +109,7 @@
 			<span class="material-symbols-outlined">pending_actions</span> 
             <p>Due in {Math.round((data.project.deadline - new Date().valueOf())/86400000)} days</p> 
 			{/if}
-            <p>Due on {(data.project.deadline).toLocaleString()}</p>
+            <p>Due on {(data.project.deadline).toLocaleDateString()}</p>
         </div>
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined"> calendar_add_on</span>
