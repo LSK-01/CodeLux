@@ -41,7 +41,7 @@
     };
 
     const runAnalyser = async () => {
-        const response = await fetch('/code_analysis', {
+        const response = await fetch('/codeAnalysis', {
             method: "POST",
             body: JSON.stringify({
                 projectID: data.project.id,

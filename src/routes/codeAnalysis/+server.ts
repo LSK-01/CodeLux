@@ -1,5 +1,5 @@
 import { json } from "@sveltejs/kit";
-import type { RequestHandler } from "./$types";
+import type { RequestHandler } from "../codeAnalysis/$types";
 import { exec, execSync } from 'child_process';
 import fs from 'fs';
 
@@ -23,7 +23,7 @@ export const POST = ( async ({ request }) => {
     const projectType = "documentation";
     console.log("Starting analysis");
     // const cmd1 = "cd ./src/routes/githubAPI/projectCode/"+data.projectID+" & mega-linter-runner -f "+projectType+" -e 'JSON_REPORTER: true’  -e 'LOG_FILE=none' -e 'DISABLE_ERRORS=true' --remove-container";
-    const cmd1 = "cd ./src/routes/githubAPI/projectCode/"+data.projectID+" & copy ..\\..\\..\\code_analysis\\.mega-linter.yml . & mega-linter-runner -f "+projectType+" --remove-container";
+    const cmd1 = "cd ./src/routes/githubAPI/projectCode/"+data.projectID+" & copy ..\\..\\..\\codeAnalysis\\.mega-linter.yml . & mega-linter-runner -f "+projectType+" --remove-container";
     // execSync(cmd1, {stdio: 'inherit'});
     execSync(cmd1);
     console.log("Completed analysis");
