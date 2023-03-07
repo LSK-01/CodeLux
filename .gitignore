@@ -19,3 +19,5 @@ vite.config.ts
 package-lock.json
 .vscode
 src/routes/code_analysis/projectCode/*
+clover.xml
+coverage-final.json
