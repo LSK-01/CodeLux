@@ -87,15 +87,16 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
     let notAtRisk = querySnapshot2.data().count;
 
     const surveys = await getSurveys(user);
+    const tasks = await getTasks(user);
     return {
         atRisk: atRisk,
         notAtRisk: notAtRisk,
         withSurveys: surveys.length,
         withoutSurveys: (atRisk+notAtRisk) - surveys.length,
-        withTasks: 4,
-        withoutTasks: 4,
+        withTasks: tasks.length,
+        withoutTasks: (atRisk+notAtRisk) - tasks.length,
         surveyList: surveys,
-        taskList: await getTasks(),
+        taskList: tasks,
         deadlineList: await getDeadlines(user),
     };
 };
@@ -161,19 +162,36 @@ async function getSurveys(user : user) {
     return surveyList;
   }
 
-async function getTasks() {
+async function getTasks(user:user) {
     let taskList: any[] = [];
+    return taskList.concat(await getAnalysisTasks(user));
+}
+
+async function getAnalysisTasks(user: user) {
+    let analysisTaskList: any[] = [];
     const db = getFirestore(app);
-    const tasks = collection(db, "tasks");
-    const querySnapshot = await getDocs(tasks);
-    querySnapshot.forEach((task) => {
-        taskList.push({
-            projectID: task.data().projectID,
-            projectName: task.data().projectName,
-            text: task.data().text,
+    const ps = collection(db, "projects");
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate()-7);
+    const q1 = query(ps, where("managerusername", "==", user.username), where("complete","==",false), where("codeAnalysisDate", "<", cutoff), orderBy("codeAnalysisDate"));
+    const q2 = query(ps, where("developerusernames", "array-contains", user.username), where("complete","==",false), where("codeAnalysisDate", "<", cutoff), orderBy("codeAnalysisDate"));
+    const querySnapshot1 = await getDocs(q2);
+    querySnapshot1.forEach((project) => {
+        analysisTaskList.push({
+            projectID: project.id,
+            projectName: project.data().projectname,
+            text: "Run code analysis - Over a week since last analysis",
         });
     });
-    return taskList;
+    const querySnapshot2 = await getDocs(q1);
+    querySnapshot2.forEach((project) => {
+        analysisTaskList.push({
+            projectID: project.id,
+            projectName: project.data().projectname,
+            text: "Run code analysis - Over a week since last analysis",
+        });
+    });
+    return analysisTaskList;
 }
 
 async function getDeadlines(user: user) {
@@ -182,8 +200,6 @@ async function getDeadlines(user: user) {
     const ps = collection(db, "projects");
     const q1 = query(ps, where("managerusername", "==", user.username), where("complete","==",false), orderBy("deadline"));
     const q2 = query(ps, where("developerusernames", "array-contains", user.username), where("complete","==",false), orderBy("deadline"));
-    // const q1 = query(ps, where("complete", "==", false), orderBy("deadline"));
-    // const q2 = query(ps, where("complete", "==", false), orderBy("deadline"));
     const querySnapshot1 = await getDocs(q2);
     querySnapshot1.forEach((project) => {
         deadlineList.push({

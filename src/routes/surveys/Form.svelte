@@ -2,30 +2,21 @@
 <script lang="ts">
     import Radio from './Radio.svelte';
 	import "../styles.css";
-	import { goto } from "$app/navigation";
 	
 	export let options : any[number][string];    
 	export let questionData : any[];
-
-	let questions : string[] = questionData.map(a => a.question);
-
-	let formData = Array(questions.length);
-
-    //TODO: POST data back to database or however firebase works
-	const handleSubmit = () => {
-		console.log("Your form data => ",formData);
-	}
-
+	console.log('questionData', questionData);
 </script>
 
-<form class="form-container" on:submit={handleSubmit} method="POST">
-	{#each questionData as { question, qid }, i}
+<form class="form-container" method="POST">
+	{#each questionData as { question, metric, qid }, i}
         <div class="centered">
             <h1 class="qheading">
                 Question {i+1}
             </h1>
             <div class="padding">
-                <Radio {options} name={qid} question={question} />
+				<!-- name is as such because we can have multiple questions measuring the same metric -->
+                <Radio {options} name={metric + ":" + qid} question={question} />
             </div>
         </div>   
 	{/each}     

@@ -19,7 +19,8 @@ export const POST = (async ({ request }) => {
   obj.developerusernames = obj.developerusernames.split(",");
   obj.complete = false;
   obj.atRisk = false;
-  const docRef = await addDoc(collection(db, "projects"), obj);
+  obj.numCommits = 0;
+  await addDoc(collection(db, "projects"), obj);
 
   return json({ success: true });
 }) satisfies RequestHandler;
