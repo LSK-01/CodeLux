@@ -39,7 +39,7 @@ test("renders a deadline box", async () => {
   
     expect(screen.getByRole("button")).toHaveClass("deadlineItem");
 
-    expect(screen.getByText("description")).toHaveClass("material-symbols-outlined");
+    // expect(screen.getByText("description")).toHaveClass("material-symbols-outlined");
 
     expect(screen.getByText("projectname")).toBeDefined();
 

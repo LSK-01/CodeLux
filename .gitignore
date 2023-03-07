@@ -22,3 +22,4 @@ clover.xml
 coverage-final.json
 src/routes/githubAPI/projectCode
 src/routes/githubAPI/projectCode/*
+/coverage
