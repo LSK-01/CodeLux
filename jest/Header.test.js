@@ -1,7 +1,6 @@
 import { render, screen } from "@testing-library/svelte";
 import Header from "../src/routes/Header.svelte";
 import { page } from '$app/stores';
-import navItems from "../src/routes/Header.svelte";
 
 beforeEach(() => {
     page.set({
