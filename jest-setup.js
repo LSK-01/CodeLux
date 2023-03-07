@@ -13,3 +13,9 @@ global.google = {
         }
     }
   };
+global.user = {
+  email: 'test@gmail.com',
+  uid: 'UmImi8JtUuV6FubN9NCBTuTVhDn2',
+  username: 'test',
+  githubToken: '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'
+};
