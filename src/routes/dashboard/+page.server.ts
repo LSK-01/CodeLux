@@ -85,6 +85,13 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
     );
     const querySnapshot2 = await getCountFromServer(q2);
     let notAtRisk = querySnapshot2.data().count;
+    const q3 = query(
+        projects,
+        where("developerusernames", "array-contains", user.username), 
+        where("complete", "==", false)
+    );
+    const querySnapshot3 = await getCountFromServer(q3);
+    let notManaging = querySnapshot3.data().count;
 
     const surveys = await getSurveys(user);
     const tasks = await getTasks(user);
@@ -92,12 +99,13 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
         atRisk: atRisk,
         notAtRisk: notAtRisk,
         withSurveys: surveys.length,
-        withoutSurveys: (atRisk+notAtRisk) - surveys.length,
+        withoutSurveys: (atRisk+notAtRisk+notManaging) - surveys.length,
         withTasks: tasks.length,
-        withoutTasks: (atRisk+notAtRisk) - tasks.length,
+        withoutTasks: (atRisk+notAtRisk+notManaging) - tasks.length,
         surveyList: surveys,
         taskList: tasks,
         deadlineList: await getDeadlines(user),
+        totalProjects: atRisk+notAtRisk+notManaging
     };
 };
 

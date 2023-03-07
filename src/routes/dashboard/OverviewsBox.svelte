@@ -1,12 +1,11 @@
 <script lang='ts'>
-	import '../../styles.css';
-	import type { PageData } from "../$types";
+	import '../styles.css';
+	import type { PageData } from "./$types";
 	import { goto } from '$app/navigation';
-	import RiskChart from './RiskChart.svelte';
-	import SurveyChart from './SurveyChart.svelte';
-	import TaskChart from './TaskChart.svelte';
+	import RiskChart from './charts/RiskChart.svelte';
+	import SurveyChart from './charts/SurveyChart.svelte';
+	import TaskChart from './charts/TaskChart.svelte';
 	export let data: PageData;
-	const totalProjects = data.atRisk+data.notAtRisk;
 </script>
 
 <svelte:head>
@@ -21,7 +20,7 @@
 			<h3>Projects at risk</h3>
 			<div class='donutCell'>
 				<RiskChart data={data}/>
-				<p class="centerLabel">{data.atRisk}/{totalProjects}</p>
+				<p class="centerLabel">{data.atRisk}/{data.totalProjects}</p>
 			</div>
 		</button>
 		<button on:click={() => goto('/projects/surveysdue')} class='overviewItem'>
@@ -29,7 +28,7 @@
 			<h3>Projects with surveys due</h3>
 			<div class='donutCell'>
 				<SurveyChart data={data}/>
-				<p class="centerLabel">{data.withSurveys}/{totalProjects}</p>
+				<p class="centerLabel">{data.withSurveys}/{data.totalProjects}</p>
 			</div>
 		</button>
 		<button on:click={() => goto('/projects/tasksdue')} class='overviewItem'>
@@ -37,7 +36,7 @@
 			<h3>Projects with tasks due</h3>
 			<div class='donutCell'>
 				<TaskChart data={data}/>
-				<p class="centerLabel">{data.withTasks}/{totalProjects}</p>
+				<p class="centerLabel">{data.withTasks}/{data.totalProjects}</p>
 			</div>
 		</button>
 	</div>
