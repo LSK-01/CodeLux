@@ -3,6 +3,14 @@ import type { RequestHandler } from "../codeAnalysis/$types";
 import { exec, execSync } from 'child_process';
 import fs from 'fs';
 
+function runAnalysis(projectID:string, projectType:string) {
+    console.log("Starting analysis");
+    const cmd = "cd ./src/routes/githubAPI/projectCode/"+projectID+" & copy ..\\..\\..\\codeanalysis\\.mega-linter.yml . & mega-linter-runner -f "+projectType.toLowerCase()+" --remove-container";
+    // execSync(cmd1, {stdio: 'inherit'});
+    execSync(cmd);
+    console.log("Completed analysis");
+}
+
 async function processResults(projectID:string) {
     const fName = "./src/routes/githubAPI/projectCode/"+projectID+"/megalinter-reports/mega-linter-report.json";
     const results = JSON.parse(fs.readFileSync(fName, 'utf8'));
@@ -18,20 +26,20 @@ async function processResults(projectID:string) {
     return (Math.round(analysisScore * 100) / 100);
 }
 
-export const POST = ( async ({ request }) => {
-    const data = await request.json();
-    console.log("Starting analysis");
-    const cmd1 = "cd ./src/routes/githubAPI/projectCode/"+data.projectID+" & copy ..\\..\\..\\codeanalysis\\.mega-linter.yml . & mega-linter-runner -f "+data.projectType.toLowerCase()+" --remove-container";
-    execSync(cmd1, {stdio: 'inherit'});
-    // execSync(cmd1);
-    console.log("Completed analysis");
-    const analysisScore = await processResults(data.projectID);
-    const cmd2 = "rd /S /Q .\\src\\routes\\githubAPI\\projectCode\\"+data.projectID;
-    exec(cmd2, (error, stdout, stderr) => {
+async function deleteProjectFiles(projectID:string) {
+    const cmd = "rd /S /Q .\\src\\routes\\githubAPI\\projectCode\\"+projectID;
+    exec(cmd, (error, stdout, stderr) => {
         if (error !== null) {
              console.log(error);
         }
     });
     console.log("Deleted project files");
+}
+
+export const POST = ( async ({ request }) => {
+    const data = await request.json();
+    runAnalysis(data.projectID, data.projectType)
+    const analysisScore = await processResults(data.projectID);
+    deleteProjectFiles(data.projectID);
     return json({  success: true, analysisScore: analysisScore });
 }) satisfies RequestHandler;
