@@ -28,16 +28,6 @@
                     y: {
                         display: false
                     }
-                    // xAxes: [{
-                    //     gridLines: {
-                    //         display:false
-                    //     }
-                    // }],
-                    // yAxes: [{
-                    //     gridLines: {
-                    //         display:false
-                    //     }   
-                    // }]
                 },
                 plugins: {
                     legend: {
