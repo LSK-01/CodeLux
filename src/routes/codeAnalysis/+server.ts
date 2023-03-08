@@ -1,7 +1,6 @@
-import { json } from "@sveltejs/kit";
+import { json, type RequestHandler } from "@sveltejs/kit";
 import { exec, execSync } from 'child_process';
 import fs from 'fs';
-import type { RequestHandler } from "./$types";
 
 function runAnalysis(projectID:string, projectType:string) {
     console.log("Starting analysis");
