@@ -13,3 +13,4 @@ global.google = {
         }
     }
   };
+global.chart = jest.fn();

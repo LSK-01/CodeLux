@@ -13,27 +13,41 @@ function svelte(strings) {
   };
 
 test("exports data list", async () => {
-    const { component } = render(OverviewsBox, { data: [{
-        atRisk: 1,
-        notAtRisk: 2,
-        withSurveys: 3,
-        withoutSurveys: 4,
-        withTasks: 5,
-        withoutTasks: 6,
-    }] });
+    const { component } =   render(svelte`
+    <script>
+    import Chart from 'chart.js/auto';
+    import OverviewsBox from "../src/routes/dashboard/OverviewsBox.svelte";
+    </script>
+
+    <OverviewsBox data={[{
+      atRisk: 1,
+      notAtRisk: 2,
+      withSurveys: 3,
+      withoutSurveys: 4,
+      withTasks: 5,
+      withoutTasks: 6,
+    }]} />
+  `); 
 
     expect(component.data).toBeDefined();
 });
 
 test("displays titles correctly", async () => {
-  const { component } = render(OverviewsBox, { data: [{
+  const { component } =   render(svelte`
+  <script>
+  import Chart from 'chart.js/auto';
+  import OverviewsBox from "../src/routes/dashboard/OverviewsBox.svelte";
+  </script>
+
+  <OverviewsBox data={[{
     atRisk: 1,
     notAtRisk: 2,
     withSurveys: 3,
     withoutSurveys: 4,
     withTasks: 5,
     withoutTasks: 6,
-  }] }); 
+  }]} />
+`); 
   
   expect(screen.getByText("Overview")).toBeDefined();
 
@@ -47,14 +61,21 @@ test("displays titles correctly", async () => {
 })
 
 test("renders icons correctly", async () => {
-  const { component } = render(OverviewsBox, { data: [{
+  const { component } =   render(svelte`
+  <script>
+  import Chart from 'chart.js/auto';
+  import OverviewsBox from "../src/routes/dashboard/OverviewsBox.svelte";
+  </script>
+
+  <OverviewsBox data={[{
     atRisk: 1,
     notAtRisk: 2,
     withSurveys: 3,
     withoutSurveys: 4,
     withTasks: 5,
     withoutTasks: 6,
-  }] }); 
+  }]} />
+`);  
 
   expect(screen.getByText("error")).toHaveClass("material-symbols-outlined");
 
@@ -66,6 +87,7 @@ test("renders icons correctly", async () => {
 test("calculates chart labels correctly", async () => {
   render(svelte`
     <script>
+    import Chart from 'chart.js/auto';
     import OverviewsBox from "../src/routes/dashboard/OverviewsBox.svelte";
     </script>
 
@@ -85,6 +107,7 @@ test("calculates chart labels correctly", async () => {
 test("redirect works correctly", async () => {
   render(svelte`
     <script>
+    import Chart from 'chart.js/auto';
     import OverviewsBox from "../src/routes/dashboard/OverviewsBox.svelte";
     import { goto } from "$app/navigation";
     </script>
