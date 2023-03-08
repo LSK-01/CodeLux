@@ -20,7 +20,7 @@
 			<h3>Projects at risk</h3>
 			<div class='donutCell'>
 				<RiskChart data={data}/>
-				<p class="centerLabel">{data.atRisk}/{data.totalProjects}</p>
+				<p class="centerLabel">{data.atRisk}/{data.atRisk+data.notAtRisk}</p>
 			</div>
 		</button>
 		<button on:click={() => goto('/projects/surveysdue')} class='overviewItem'>
