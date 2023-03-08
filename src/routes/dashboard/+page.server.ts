@@ -174,8 +174,9 @@ async function getSurveys(user : user) {
   
       if (querySnapshot3.empty) {
         surveyList.push({
-          projectID: project.id,
-          manager: false
+            projectName: project.data().projectname,
+            projectID: project.id,
+            manager: false
         })
       }
     });
