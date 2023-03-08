@@ -82,6 +82,20 @@
         });
         invalidateAll();
     };
+
+    const toggleOutcome = async () => {
+        fetch('/project_overview/toggleOutcome', {
+            method: "POST",
+            body: JSON.stringify({
+                projectID: data.project.id,
+                outcome: data.project.outcome
+            }),
+            headers: {
+                "content-type": "application/json",
+            },
+        });
+        invalidateAll();
+    };
 </script>
 
 <svelte:head>
@@ -165,12 +179,23 @@
         </div>
         {#if data.user.username == data.project.managerUsername}
             <div class="projectOverviewItem">
-                {#if data.project.status == "At risk" || data.project.status == "Failure"}
+                {#if data.project.progress == "Not complete" && data.project.status == "At risk" || data.project.progress == "Complete" && data.project.outcome == "Failure"}
                     <span class="material-symbols-outlined bad">error</span>
                 {:else}
                     <span class="material-symbols-outlined good">check_circle</span>
                 {/if}
-                <p>Status: {data.project.status}</p>
+                {#if data.project.progress == "Not complete"}
+                    <p>Status: {data.project.status}</p>
+                {:else}
+                    <p>Outcome: {data.project.outcome}</p>
+                    <Button click={() => toggleOutcome()}>
+                        {#if data.project.outcome == 'Success'}
+                            Mark as failure
+                        {:else}
+                            Mark as success
+                        {/if}
+                    </Button>
+                {/if}
             </div>
         {/if}
     </div>

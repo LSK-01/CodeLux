@@ -35,17 +35,20 @@ export const load: PageServerLoad = async ({cookies, url}) => {
     for (const developer of projectDoc.get("developerusernames")) {
         devUsernames.push(developer);
     }
+
     var progress = "Not complete";
-    var status = "Not at risk";
     if (projectDoc.get("complete")) {
         progress = "Complete";
-        if (projectDoc.get("atRisk")) {
-            status = "Failure";
-        } else {
-            status = "Success";
-        }
-    } else if (projectDoc.get("atRisk")) {
+    }
+
+    var status = "Not at risk";
+    if (projectDoc.get("atRisk")) {
         status = "At risk";
+    }
+
+    var outcome = "Success";
+    if (!projectDoc.get("success")) {
+        outcome = "Failure";
     }
 
     return {
@@ -64,6 +67,7 @@ export const load: PageServerLoad = async ({cookies, url}) => {
             devUsernames: devUsernames,
             progress: progress,
             status: status,
+            outcome: outcome,
             projectType: projectType,
             id: projectID
         }
