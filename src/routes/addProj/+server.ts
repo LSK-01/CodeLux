@@ -22,7 +22,7 @@ export const POST = (async ({ request }) => {
   obj.numCommits = 0;
   obj.codeAnalysisScore = 0;
   obj.codeAnalysisDate = new Date();
-  await addDoc(collection(db, "projects"), obj);
+  const projectDoc = await addDoc(collection(db, "projects"), obj);
 
-  return json({ success: true });
+  return json({ success: true, projectID:  projectDoc.id});
 }) satisfies RequestHandler;

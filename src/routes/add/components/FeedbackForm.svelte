@@ -2,6 +2,7 @@
     import Tile from "./Tile.svelte";
     import Button from "../../Button.svelte";
     import "../../styles.css";
+    import { goto } from "$app/navigation";
 
     let text = "";
     let question_num = 0;
@@ -44,7 +45,6 @@
             questions_new[question_num].toLowerCase().replace(/\s/g, ""),
             text,
         ]);
-
         text = "";
 
         question_num += 1;
@@ -58,11 +58,13 @@
                 },
             });
 
-            const res = await response.json();
-            if (!res) {
+            const data = await response.json();
+            if (!data) {
                 alert("Issue adding the project");
+                handleReset();
             }
-            handleReset();
+            // handleReset();
+            goto(`/project_overview?id=${data.projectID}`);
         }
     };
 
