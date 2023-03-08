@@ -110,6 +110,14 @@
             <span class="material-symbols-outlined">pending_actions</span> 
 			{/if}
             <p>Due on {(data.project.deadline).toLocaleDateString()}</p>
+            <p>Progress: {data.project.progress}</p>
+            <Button click={() => toggleProgress()}>
+                {#if data.project.progress == "Complete"}
+                Mark as not complete
+                {:else}
+                Mark as complete
+                {/if}
+            </Button>
         </div>
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined"> calendar_add_on</span>
@@ -155,22 +163,16 @@
             <span class="material-symbols-outlined">connect_without_contact</span>
             <p>Customer contact frequency: {data.project.custContactFrequency} times per week</p>
         </div>
-        <div class="projectOverviewItem">
-            {#if data.project.status == "At risk" || data.project.status == "Failure"}
-                <span class="material-symbols-outlined bad">error</span>
-            {:else}
-                <span class="material-symbols-outlined good">check_circle</span>
-            {/if}
-            <p>Progress: {data.project.progress}</p>
-            <p>Status: {data.project.status}</p>
-            <Button click={() => toggleProgress()}>
-                {#if data.project.progress == "Complete"}
-                Mark as not complete
+        {#if data.user.username == data.project.managerUsername}
+            <div class="projectOverviewItem">
+                {#if data.project.status == "At risk" || data.project.status == "Failure"}
+                    <span class="material-symbols-outlined bad">error</span>
                 {:else}
-                Mark as complete
+                    <span class="material-symbols-outlined good">check_circle</span>
                 {/if}
-            </Button>
-        </div>
+                <p>Status: {data.project.status}</p>
+            </div>
+        {/if}
     </div>
 </div>
 
