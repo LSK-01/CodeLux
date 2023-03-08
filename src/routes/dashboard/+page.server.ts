@@ -174,8 +174,9 @@ async function getSurveys(user : user) {
   
       if (querySnapshot3.empty) {
         surveyList.push({
-          projectID: project.id,
-          manager: false
+            projectName: project.data().projectname,
+            projectID: project.id,
+            manager: false
         })
       }
     });
@@ -195,8 +196,9 @@ async function getAnalysisTasks(user: user) {
     cutoff.setDate(cutoff.getDate()-7);
     const q = query(ps, where("managerusername", "==", user.username), where("complete","==",false), where("codeAnalysisDate", "<", cutoff), orderBy("codeAnalysisDate"));
     const querySnapshot = await getDocs(q);
+    const currentTime = new Date().valueOf();
     querySnapshot.forEach((project) => {
-        const analysisAge = Math.round((new Date().valueOf() - project.data().codeAnalysisDate.toDate())/86400000)
+        const analysisAge = Math.round((currentTime - project.data().codeAnalysisDate.toDate())/86400000)
         analysisTaskList.push({
             projectID: project.id,
             projectName: project.data().projectname,
