@@ -5,14 +5,18 @@
 </script>
 
 <div id='deadlinesBox'>
-	<h2>Upcoming Deadlines</h2>
+	<h2>Deadlines</h2>
 	<div class='boxContents'>
 		{#each deadlineList as entry}
 		<button class='deadlineItem' on:click={()=>{goto(`/project_overview?id=${entry.projectID}`)}}>
+			{#if entry.deadline < new Date()}
+			<span class="material-symbols-outlined bad">pending_actions</span> 
+			{:else}
 			<span class="material-symbols-outlined">pending_actions</span> 
+			{/if}
 			<div>
 				<h3>{entry.projectName}</h3>
-				<p>Due date: {entry.dueDate}</p>
+				<p>Due on {(entry.deadline).toLocaleDateString()}</p>
 			</div>
 		</button>
       	{:else}
@@ -49,5 +53,9 @@
 	button:hover {
 		background-color: var(--fg2);
 	}
+
+	.bad {
+        color: #ef4444;
+    }
 
 </style>

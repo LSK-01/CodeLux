@@ -9,18 +9,19 @@
         new Chart(chartElement, {
             type: 'doughnut',
             data: {
-                labels: ["At risk", "Not at risk"],
+                labels: ["Not at risk", "At risk"],
                 datasets: [{
-                    data: [data.atRisk, data.notAtRisk],
+                    data: [data.notAtRisk, data.atRisk],
                     borderWidth: 1,
                     backgroundColor: [
-                        '#ef4444',
-                        '#22c55e'
+                        '#22c55e',
+                        '#ef4444'
                     ],
                     hoverOffset: 4
                 }]
             },
             options: {
+                radius: '96%',
                 scales: {
                     x: {
                         display: false

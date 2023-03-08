@@ -9,18 +9,19 @@
         new Chart(chartElement, {
             type: 'doughnut',
             data: {
-                labels: ["With tasks", "Without tasks"],
+                labels: ["Without tasks", "With tasks"],
                 datasets: [{
-                    data: [data.withTasks, data.withoutTasks],
-                    borderWidth: 1,
+                    data: [data.withoutTasks, data.withTasks],
+                    borderWidth: 0,
                     backgroundColor: [
-                        '#fde047',
-                        '#22c55e'
+                        '#22c55e',
+                        '#fde047'
                     ],
                     hoverOffset: 4
                 }]
             },
             options: {
+                radius: '96%',
                 scales: {
                     x: {
                         display: false

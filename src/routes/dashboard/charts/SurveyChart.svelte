@@ -9,18 +9,19 @@
         new Chart(chartElement, {
             type: 'doughnut',
             data: {
-                labels: ["With surveys", "Without surveys"],
+                labels: ["Without surveys", "With surveys"],
                 datasets: [{
-                    data: [data.withSurveys, data.withoutSurveys],
+                    data: [data.withoutSurveys, data.withSurveys],
                     borderWidth: 1,
                     backgroundColor: [
-                        '#3b82f6',
-                        '#22c55e'
+                        '#22c55e',
+                        '#3b82f6'
                     ],
                     hoverOffset: 4 
                 }]
             },
             options: {
+                radius: '96%',
                 scales: {
                     x: {
                         display: false
@@ -46,5 +47,5 @@
 </script>
 
 <div>
-    <canvas id="surveyChart" width="150"></canvas>
+    <canvas id="surveyChart" width="160"></canvas>
 </div>
