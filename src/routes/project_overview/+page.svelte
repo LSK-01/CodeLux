@@ -165,9 +165,11 @@
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined">terminal</span>
             <p>Project type: {data.project.projectType}</p>
-            <p>Code analysis score: {data.project.codeAnalysisScore}/100</p>
+            <p>Last code analysis score: {data.project.codeAnalysisScore}/100</p>
             <p>Last analysed: {data.project.codeAnalysisDate}</p>
-            <Button click={() => handleGetGit()}>Run code analysis</Button>
+            {#if data.project.progress == "Not complete"}
+                <Button click={() => handleGetGit()}>Run code analysis</Button>
+            {/if}
         </div>
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined">payments</span>
