@@ -1,4 +1,4 @@
-import { json, RequestHandler } from "@sveltejs/kit";
+import { json, type RequestHandler } from "@sveltejs/kit";
 import { app } from "../../../hooks.server";
 import {
     getFirestore,
