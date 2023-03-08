@@ -62,6 +62,10 @@
     /* justify-content: space-evenly; */
   }
 
+  button:hover {
+    background-color: var(--fg2);
+  }
+
   .righticon {
     position: absolute;
     right: 13%;
