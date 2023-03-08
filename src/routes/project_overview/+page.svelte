@@ -3,10 +3,8 @@
     import { goto } from "$app/navigation";
     import type { PageData } from "./$types";
     import Button from "../Button.svelte";
-    import { invalidate } from "$app/navigation";
-    import { page } from '$app/stores'
+    import { invalidateAll } from "$app/navigation";
     export let data: PageData;
-
     //redirects to dashboard - we then redirect back to the proj overview page in dashboard backend using state.
     const getToken = () => {
         if (browser) {
@@ -68,7 +66,7 @@
                 "content-type": "application/json",
             },
         });
-        invalidate("/project_overview?id="+data.project.id);
+        invalidateAll();
     };
 
     const toggleProgress = async () => {
@@ -82,7 +80,7 @@
                 "content-type": "application/json",
             },
         });
-        invalidate("/project_overview?id="+data.project.id);
+        invalidateAll();
     };
 </script>
 
@@ -102,12 +100,14 @@
     </div>
     <div class="boxContents">
         <div class="projectOverviewItem">
-            {#if data.project.deadline < new Date()}
+            {#if data.project.progress == "Not complete" && data.project.deadline < new Date()}
 			<span class="material-symbols-outlined bad">pending_actions</span> 
             <p class="bad">Overdue by {Math.round((new Date().valueOf() - data.project.deadline)/86400000)} days</p> 
-			{:else}
+			{:else if data.project.progress == "Not complete"}
 			<span class="material-symbols-outlined">pending_actions</span> 
             <p>Due in {Math.round((data.project.deadline - new Date().valueOf())/86400000)} days</p> 
+            {:else }
+            <span class="material-symbols-outlined">pending_actions</span> 
 			{/if}
             <p>Due on {(data.project.deadline).toLocaleDateString()}</p>
         </div>
@@ -116,25 +116,8 @@
             <p>Started on {data.project.startDate}</p>
         </div>
         <div class="projectOverviewItem">
-            <span class="material-symbols-outlined">terminal</span>
-            <p>Project type: {data.project.projectType}</p>
-            <p>Code analysis score: {data.project.codeAnalysisScore}/100</p>
-            <p>Last analysed: {data.project.codeAnalysisDate}</p>
-            <Button click={() => handleGetGit()}>Run code analysis</Button>
-
-        </div>
-        <div class="projectOverviewItem">
             <span class="material-symbols-outlined">support_agent</span>
             <p>Manager: {data.project.managerUsername}</p>
-        </div>
-        <div class="projectOverviewItem">
-            <span class="material-symbols-outlined">folder</span>
-            {#if data.user.githubToken === "" || data.user.githubToken === undefined}
-                <Button click={() => getToken()}>Authorize github access</Button>
-            {/if}
-            <form action={data.project.githubLink}>
-                <Button><input type="submit" value="Project Github link" /></Button>
-            </form>
         </div>
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined">groups</span>
@@ -147,6 +130,22 @@
             {:else}
                 <p>No developers</p>
             {/each}
+        </div>
+        <div class="projectOverviewItem">
+            <span class="material-symbols-outlined">folder</span>
+            {#if data.user.githubToken === "" || data.user.githubToken === undefined}
+                <Button click={() => getToken()}>Authorize github access</Button>
+            {/if}
+            <form action={data.project.githubLink}>
+                <Button><input type="submit" value="Project Github link" /></Button>
+            </form>
+        </div>
+        <div class="projectOverviewItem">
+            <span class="material-symbols-outlined">terminal</span>
+            <p>Project type: {data.project.projectType}</p>
+            <p>Code analysis score: {data.project.codeAnalysisScore}/100</p>
+            <p>Last analysed: {data.project.codeAnalysisDate}</p>
+            <Button click={() => handleGetGit()}>Run code analysis</Button>
         </div>
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined">payments</span>
