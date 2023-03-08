@@ -2,15 +2,11 @@ import { app } from "../../hooks.server";
 import {
     getFirestore,
     collection,
-    query,
     doc,
     getDoc,
-    updateDoc
 } from "firebase/firestore";
 import type { PageServerLoad } from "../login/$types";
 import type { user } from "../../user";
-import { json } from "@sveltejs/kit";
-import type { Actions, RequestHandler } from "./$types";
 
 export const load: PageServerLoad = async ({cookies, url}) => {
     const cookie = cookies.get("user")!;
@@ -24,7 +20,7 @@ export const load: PageServerLoad = async ({cookies, url}) => {
     const name = projectDoc.get("projectname");
     const desc = projectDoc.get("projectdescription");
     const deadline = projectDoc.get("deadline").toDate();
-    const startDate = projectDoc.get("startdate").toDate().toLocaleString();
+    const startDate = projectDoc.get("startdate").toDate().toLocaleDateString();
     const budget = Math.round(projectDoc.get("budget") * 100) / 100;
     const codeAnalysisScore = projectDoc.get("codeAnalysisScore") * 100;
     const codeAnalysisDate = projectDoc
@@ -32,6 +28,7 @@ export const load: PageServerLoad = async ({cookies, url}) => {
         .toDate()
         .toLocaleString();
     const managerUsername = projectDoc.get("managerusername");
+    const custContactFrequency = projectDoc.get("customercontactfrequency");
     const githubLink = projectDoc.get("githublink");
     const projectType = projectDoc.get("projecttype");
     const devUsernames: string[] = [];
@@ -62,6 +59,7 @@ export const load: PageServerLoad = async ({cookies, url}) => {
             codeAnalysisScore: codeAnalysisScore,
             codeAnalysisDate: codeAnalysisDate,
             managerUsername: managerUsername,
+            custContactFrequency: custContactFrequency,
             githubLink: githubLink,
             devUsernames: devUsernames,
             progress: progress,

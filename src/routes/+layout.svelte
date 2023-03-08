@@ -33,7 +33,7 @@
 
 <style>
 	main {
-		min-height: 90vh;
+		min-height: 89.2vh;
 	}
 </style>
 
