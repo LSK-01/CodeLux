@@ -47,6 +47,6 @@
     width: 100%;
     justify-content: space-evenly;
     gap: 10px;
-    height: 70vh;
+    min-height: 70vh;
   }
 </style>
