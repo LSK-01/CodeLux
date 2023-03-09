@@ -3,9 +3,10 @@ import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { app } from '../../hooks.server'
 import type { user } from '../../user';
 import type { PageServerLoad } from "./$types";
+import { redirect } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async ({cookies}) => {
-  cookies.delete('user');
+    cookies.delete('user');
 }
 
 export const actions = {
@@ -16,7 +17,7 @@ export const actions = {
         let password: string = data.get('password') as string;
     
         const auth = getAuth(app);
-        try{
+        try {
             const res = await createUserWithEmailAndPassword(auth, email, password);
             
             let user: user = {
@@ -27,12 +28,12 @@ export const actions = {
 
             cookies.set('user', JSON.stringify(user));
   
-            return {"success": true}
-        }
-        catch(err){
+            // return {"success": true}
+        } catch(err) {
             console.log("error:", err);
             return {"success": false}
         }
+        throw redirect(302, '/dashboard');
   }
 } satisfies Actions;
 
