@@ -1,12 +1,12 @@
 <footer>
-    <p>Pimp My Project</p>
+    <h3>Pimp My Project</h3>
 </footer>
 
 <style>
     footer {
         height: max-content;
         display: flex;
-		flex: 1;
+		flex: 0 1;
 		justify-content: space-between;
 		align-items: center;
 		border-radius: 10px 10px 0 0;

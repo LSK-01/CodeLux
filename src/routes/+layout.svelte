@@ -8,9 +8,10 @@
 	export let data: PageData;
 	let user = data.user;
 	let landing = ['about', 'login', 'signup'];
-	let customized = ['dashboard', 'projects', 'add', 'forms'];
+	let loggedIn = ['dashboard', 'projects', 'add', 'logout'];
 
-	$: navItems = customized.includes($page.url.pathname.slice(1)) ? customized : landing;
+	$: navItems = user == null ? landing : loggedIn ;
+	// $: navItems = loggedIn.includes($page.url.pathname.slice(1)) ? loggedIn : landing;
 </script>
 
 <svelte:head>
@@ -18,11 +19,7 @@
 </svelte:head>
 
 <div class="app">
-	{#if $page.url.pathname != '/dashboard'}
-	<Header navItems={navItems} />
-	{:else}
-	<Navbar user={user}/>
-	{/if} 
+	<Header navItems={navItems} user={user}/>
 
 	<main>
 		<slot/>
@@ -32,8 +29,16 @@
 </div>
 
 <style>
+	.app {
+		display: flex;
+		flex-direction: column;
+		min-height: 100vh;
+	}
+
 	main {
-		min-height: 89.2vh;
+		display: flex;
+		flex-direction: column;
+		flex: 1;
 	}
 </style>
 
