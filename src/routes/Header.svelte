@@ -1,5 +1,6 @@
 <script lang="ts">
     import { goto } from '$app/navigation';
+    import { page } from '$app/stores';
 	import type { user } from '../user';
 	import Button from './Button.svelte';
 	export let navItems: string[];
@@ -12,22 +13,22 @@
 
 <nav>
 	<h1>Pimp My Project</h1>
-	{#if user != null}
+	{#if !navItems.includes("login")}
 		<div id="userBox">
 			<span class="material-symbols-outlined">account_circle</span>
 			<h2>{user.username}</h2>
 		</div>
 	{/if}
 	{#each navItems as item}
-		{#if item=="projects"}
+		{#if item=="projects" && $page.url.pathname!="/projects/all"}
 		<Button click={() => goto('/projects/all')}><span class="material-symbols-outlined">format_list_bulleted</span>View projects</Button>
-		{:else if item=="add"}
+		{:else if item=="add"&& $page.url.pathname!="/add"}
 		<Button click={() => goto('/add')}><span class="material-symbols-outlined">add_circle</span>Add project</Button>
-		{:else if item=="login"}
+		{:else if item=="login" && $page.url.pathname!="/login"}
 		<Button click={() => goto('/login')}><span class="material-symbols-outlined">login</span>Log in</Button>
-		{:else if item=="signup"}
+		{:else if item=="signup" && $page.url.pathname!="/signup"}
 		<Button click={() => goto('/signup')}><span class="material-symbols-outlined">person_add</span>Sign up</Button>
-		{:else if item=="dashboard"}
+		{:else if item=="dashboard" && $page.url.pathname!="/dashboard"}
 		<Button click={() => goto('/dashboard')}><span class="material-symbols-outlined">dashboard</span>View dashboard</Button>
 		{:else if item=="logout"}
 		<Button click={() => goto('/login')}><span class="material-symbols-outlined">logout</span>Log out</Button> 
@@ -63,14 +64,5 @@
 
 	#userBox h2 {
 		margin: 0;
-	}
-
-	nav a {
-		color: var(--text);
-		text-decoration: none;
-		display: flex;
-		align-items: center;
-		justify-content: space-evenly;
-		gap: 5px;
 	}
 </style>
