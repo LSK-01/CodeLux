@@ -5,6 +5,10 @@ import type { user } from "../../user";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 import type { PageServerLoad } from "./$types";
 
+// export const load: PageServerLoad = async ({cookies}) => {
+//     cookies.set('user', "");
+// }
+
 export const actions = {
   default: async ({ cookies, request }) => {
     const auth = getAuth(app);

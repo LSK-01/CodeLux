@@ -4,6 +4,7 @@ import { getFirestore,collection, getDocs, query, orderBy, where, Timestamp } fr
 import { _getTasks } from '../../dashboard/+page.server';
 import type { PageServerLoad } from "../../login/$types";
 import type { user } from "../../../user";
+import { redirect } from '@sveltejs/kit';
 
 // we don't need any JS on this page, though we'll load
 // it in dev so that we get hot module replacement
@@ -14,7 +15,10 @@ export const csr = dev;
 export const prerender = true;
 
 export const load: PageServerLoad = async ({cookies, params}) => {
-    const cookie = cookies.get('user')!;
+    const cookie = cookies.get('user');
+    if (cookie == undefined) {
+        throw redirect(302, '/login');
+    }
 
     if (params.slug === 'all'){
         if (cookie == null) {

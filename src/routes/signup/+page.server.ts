@@ -4,6 +4,10 @@ import { app } from '../../hooks.server'
 import type { user } from '../../user';
 import type { PageServerLoad } from "./$types";
 
+export const load: PageServerLoad = async ({cookies}) => {
+  cookies.delete('user');
+}
+
 export const actions = {
   default: async ({cookies, request}) => {
 

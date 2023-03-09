@@ -16,19 +16,9 @@ import type { user } from "../../user";
 import { redirect } from "@sveltejs/kit";
 
 export const load: PageServerLoad = async ({ cookies, url }) => {
-    const cookie = cookies.get("user")!;
-    if (cookie == null) {
-        return {
-            atRisk: 0,
-            notAtRisk: 0,
-            withSurveys: 0,
-            withoutSurveys: 0,
-            withTasks: 0,
-            withoutTasks: 0,
-            surveyList: [],
-            taskList: {},
-            deadlineList: {},
-        };
+    const cookie = cookies.get('user');
+    if (cookie == undefined) {
+        throw redirect(302, '/login');
     }
     let user: user = JSON.parse(cookie);
 
