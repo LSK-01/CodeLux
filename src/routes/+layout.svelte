@@ -1,16 +1,14 @@
 <script lang='ts'>
 	import './styles.css';
-	import { page } from '$app/stores';
 	import Header from './Header.svelte';
-	import Navbar from './navbar/Navbar.svelte';
 	import Footer from './Footer.svelte';
 	import type { PageData } from "./$types";
+    import { page } from '$app/stores';
 	export let data: PageData;
 	let user = data.user;
 	let landing = ['about', 'login', 'signup'];
 	let loggedIn = ['dashboard', 'projects', 'add', 'logout'];
-
-	$: navItems = user == null ? landing : loggedIn ;
+	$: navItems = landing.includes($page.url.pathname.slice(1)) ? landing : loggedIn;
 	// $: navItems = loggedIn.includes($page.url.pathname.slice(1)) ? loggedIn : landing;
 </script>
 
