@@ -178,11 +178,8 @@
     #projectOverview {
         display: flex;
         flex-direction: column;
-        justify-content: space-evenly;
-        align-items: center;
-        flex-wrap: nowrap;
         gap: 10px;
-        min-height: 95vh;
+        flex: 1;
         margin: 10px 10vw;
         background-color: var(--fg1);
         border-radius: 10px;

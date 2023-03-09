@@ -15,8 +15,6 @@
   } else if (form?.success == false) {
     console.log("error when logging in");
   }
-
-
 </script>
 
 <svelte:head>

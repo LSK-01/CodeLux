@@ -11,6 +11,7 @@
 		height: fit-content;
         width: fit-content;
         padding: 10px;
+		gap: 5px;
         align-items: center;
 		border-radius: 10px;
 		background-color:var(--fg3);
