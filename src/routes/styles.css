@@ -12,6 +12,7 @@
 	--text: rgb(45, 52, 54);
 	--column-width: 42rem;
 	--column-margin-top: 4rem;
+	--speed: 250ms ease;
 	--outset: none;
 	--inset: none;
 	font-family: var(--font-body);

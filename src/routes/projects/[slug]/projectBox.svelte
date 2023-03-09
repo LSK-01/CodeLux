@@ -63,6 +63,7 @@
   }
 
   button:hover {
+    transition: background-color var(--speed);
     background-color: var(--fg2);
   }
 

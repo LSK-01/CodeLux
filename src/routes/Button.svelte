@@ -14,5 +14,10 @@
         align-items: center;
 		border-radius: 10px;
 		background-color:var(--fg3);
+		transition: background-color var(--speed);
+	}
+
+	button:hover {
+		background-color:var(--bg2);
 	}
 </style>
