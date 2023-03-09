@@ -74,6 +74,7 @@
 		align-items: center;
 		justify-content: center;
 		box-shadow: var(--outset);
+		transition: background-color var(--speed);
 	}
 
 	#riskIcon {

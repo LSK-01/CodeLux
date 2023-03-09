@@ -46,6 +46,7 @@
 		padding: 10px;
 		border-radius: 5px;
 		box-shadow: var(--outset);
+		transition: background-color var(--speed);
 	}
 
 	button:hover {
