@@ -24,14 +24,14 @@
 <div id="projectBox">
 
   <button class="boxContents" on:click={() => boxClick()}>
-    <span class="material-symbols-outlined"> description </span>
     <div class="projectInfo">
-      <h3>{name}</h3>
-      Due date: {date}
+      <span class="material-symbols-outlined"> description </span>
+      <div>
+        <h3>{name}</h3>
+        <p>Due date: {date}</p>
+      </div>
     </div>
-    <div class="righticon">
-      <span class="material-symbols-outlined">chevron_right</span>
-    </div>
+    <span class="material-symbols-outlined">chevron_right</span>
   </button>
 </div>
 
@@ -60,6 +60,7 @@
     width: 100%;
     align-items: center;
     box-shadow: var(--outset);
+    justify-content: space-between;
     /* justify-content: space-evenly; */
   }
 
@@ -68,8 +69,14 @@
     background-color: var(--fg2);
   }
 
-  .righticon {
+  .projectInfo{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  /* .righticon {
     position: absolute;
     right: 13%;
-  }
+  } */
 </style>

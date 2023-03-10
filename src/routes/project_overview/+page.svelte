@@ -225,7 +225,6 @@
         height: 0;
         flex: 1;
         gap: 10px;
-        align-items: stretch;
         border-radius: 5px;
         background-color: var(--fg1);
         box-shadow: var(--inset);
@@ -287,20 +286,9 @@
         font-size: 20px;
     }
 
-    /* @media (max-width: 720px) {
+    @media only screen and (max-width: 1200px) {
         .boxContents {
-            display: flex;
-            flex-direction: column;
-            flex-wrap: wrap;
-            width: 100%;
-            padding: 10px;
-
-            flex: 1;
-            gap: 10px;
-            align-items: stretch;
-            border-radius: 5px;
-            background-color: var(--fg1);
-            box-shadow: var(--inset);
+            flex-direction: row;
         }
-    } */
+    }
 </style>
