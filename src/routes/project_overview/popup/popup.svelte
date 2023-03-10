@@ -1,8 +1,6 @@
 <script lang='ts'>
     export let isOpen = false;
-    function open() {
-        isOpen = true;
-    }
+    export let popupMsgs:string[] = [];
     function close() {
         isOpen = false;
     }
@@ -10,24 +8,26 @@
 </script>
 
 {#if isOpen}
-<button>
-    <h2>Code analysis is under under way</h2>
-    <p>Analysis score will be updated when complete.</p>
-    <Button on:click={close}>Close</Button>
-</button>
+<div>
+    <h2>Running code analysis...</h2>
+    {#each popupMsgs as msg}
+        <p>{msg}</p>
+    {/each}
+    <Button click={()=>close()}>Close</Button>
+</div>
 {/if}
 
 <style>
-    button {
+    div {
         position: absolute;
         display: flex;
         flex-direction: column;
         align-items: center;
-        background-color: var(--fg3);
-        max-width: 30%;
-		border-radius: 10px;
-        margin: auto;
-		border: none;
+        background-color: var(--fg2);
+		border-radius: 5px;
+        gap: 10px;
 		padding: 10px;
+        border: 2px solid;
+        z-index: 2;
     }
 </style>

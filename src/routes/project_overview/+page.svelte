@@ -5,11 +5,9 @@
     import Button from "../Button.svelte";
     import { invalidateAll } from "$app/navigation";
     export let data: PageData;
-    import Popup from './popup/popup.svelte';
-    let isOpen = true;
-    function toggleOpen(){
-        isOpen = !isOpen;
-    }
+    import Popup from './popup/Popup.svelte';
+    var isOpen = false;
+    var popupMsgs:string[] = [];
     //redirects to dashboard - we then redirect back to the proj overview page in dashboard backend using state.
     const getToken = () => {
         if (browser) {
@@ -30,7 +28,8 @@
             alert("You did not add a GitHub link when adding this project.");
             return;
         }
-        toggleOpen();
+        isOpen = true;
+        popupMsgs.push("Fetching project files...");
         const response = await fetch('/githubAPI', {
             method: "POST",
             body: JSON.stringify({
@@ -42,11 +41,18 @@
                 "content-type": "application/json",
             },
         });
-        // const resJson = await response.json();
-        runAnalyser();
+        const res = await response.json();
+        popupMsgs.pop();
+        if (res.success) {
+            popupMsgs.push("Project files fetch successful.");
+            runAnalyser();
+        } else {
+            popupMsgs.push("Project files fetch unsuccessful.");
+        }
     };
 
     const runAnalyser = async () => {
+        popupMsgs.push("Analysing project code...");
         const response = await fetch('/codeAnalysis', {
             method: "POST",
             body: JSON.stringify({
@@ -57,12 +63,21 @@
                 "content-type": "application/json",
             },
         });
-        const analysisScore:number = (await response.json()).analysisScore;
-        updateScore(analysisScore);
+        const res = await response.json();
+        const analysisScore:number = res.analysisScore;
+        console.log(popupMsgs);
+        popupMsgs.pop();
+        if (res.success) {
+            popupMsgs.push("Code analysis successful.");
+            updateScore(analysisScore);
+        } else {
+            popupMsgs.push("Code analysis unsuccessful.");
+        }
     };
 
     const updateScore = async (analysisScore:number) => {
-        fetch('/project_overview/updateScore', {
+        popupMsgs.push("Updating analysis score...");
+        const response = await fetch('/project_overview/updateScore', {
             method: "POST",
             body: JSON.stringify({
                 projectID: data.project.id,
@@ -72,6 +87,15 @@
                 "content-type": "application/json",
             },
         });
+        const res = await response.json();
+        popupMsgs.pop()
+        if (res.success) {
+            popupMsgs.push("Analysis score update successful.");
+        } else {
+            popupMsgs.push("Analysis score update unsuccessful.");
+        }
+        isOpen = false;
+        await setTimeout(()=>{popupMsgs = []}, 5000);
         invalidateAll();
     };
 
@@ -104,7 +128,6 @@
         <span class="material-symbols-outlined">info</span>
         <h3>{data.project.desc}</h3>
     </div>
-    <Popup isOpen={isOpen}/>
     <div class="boxContents">
         <div class="projectOverviewItem">
             {#if data.project.progress == "Not complete" && data.project.deadline < new Date()}
@@ -141,13 +164,14 @@
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined">folder</span>
             {#if data.user.githubToken === "" || data.user.githubToken === undefined}
-                <Button click={() => getToken()}>Authorize github access</Button>
+                <Button click={() => getToken()}>Authorise GitHub access</Button>
             {/if}
             <form action={data.project.githubLink}>
-                <Button><input type="submit" value="Project Github link" /></Button>
+                <Button>Project GitHub link</Button>
             </form>
         </div>
         <div class="projectOverviewItem">
+            <Popup isOpen={isOpen} popupMsgs={popupMsgs}/>
             <span class="material-symbols-outlined">terminal</span>
             <p>Project type: {data.project.projectType}</p>
             <p>Code analysis score: {data.project.codeAnalysisScore}/100</p>
