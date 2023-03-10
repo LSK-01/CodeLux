@@ -70,11 +70,13 @@
     };
 
     const toggleProgress = async () => {
-        fetch('/project_overview/toggleProgress', {
+        await fetch('/project_overview/toggleProgress', {
             method: "POST",
             body: JSON.stringify({
                 projectID: data.project.id,
-                progress: data.project.progress
+                progress: data.project.progress,
+                success: data.predClass,
+                metrics: data.metrics
             }),
             headers: {
                 "content-type": "application/json",
@@ -84,7 +86,7 @@
     };
 
     const toggleOutcome = async () => {
-        fetch('/project_overview/toggleOutcome', {
+        await fetch('/project_overview/toggleOutcome', {
             method: "POST",
             body: JSON.stringify({
                 projectID: data.project.id,
@@ -96,6 +98,20 @@
         });
         invalidateAll();
     };
+    var features = data.features;
+
+    var items = Object.keys(features).map((key) => { return [key, features[key]] });
+
+    // Step - 2
+    // Sort the array based on the second element (i.e. the value)
+    items.sort(
+    (first, second) => { return second[1] - first[1] }
+    );
+
+    // Step - 3
+    // Obtain the list of keys in sorted order of the values.
+    var features = items.map(
+    (e) => { return e[0] }).slice(0,3);
 </script>
 
 <svelte:head>
@@ -127,9 +143,9 @@
             <p>Progress: {data.project.progress}</p>
             <Button click={() => toggleProgress()}>
                 {#if data.project.progress == "Complete"}
-                Mark as not complete
+                    Mark as not complete
                 {:else}
-                Mark as complete
+                    Mark as complete
                 {/if}
             </Button>
         </div>
@@ -175,31 +191,65 @@
             <span class="material-symbols-outlined">payments</span>
             <p>Budget: £{data.project.budget}</p>
         </div>
-        <div class="projectOverviewItem">
+        <!-- <div class="projectOverviewItem">
             <span class="material-symbols-outlined">connect_without_contact</span>
             <p>Customer contact frequency: {data.project.custContactFrequency} times per week</p>
-        </div>
+        </div> -->
         {#if data.user.username == data.project.managerUsername}
-            <div class="projectOverviewItem">
-                {#if data.project.progress == "Not complete" && data.project.status == "At risk" || data.project.progress == "Complete" && data.project.outcome == "Failure"}
-                    <span class="material-symbols-outlined bad">error</span>
-                {:else}
-                    <span class="material-symbols-outlined good">check_circle</span>
-                {/if}
-                {#if data.project.progress == "Not complete"}
-                    <p>Status: {data.project.status}</p>
-                {:else}
-                    <p>Outcome: {data.project.outcome}</p>
-                    <Button click={() => toggleOutcome()}>
-                        {#if data.project.outcome == 'Success'}
-                            Mark as failure
-                        {:else}
-                            Mark as success
-                        {/if}
-                    </Button>
-                {/if}
-            </div>
+        <div class="projectOverviewItem">
+            {#if data.project.progress == "Not complete" && data.project.status == "At risk" || data.project.progress == "Complete" && data.project.outcome == "Failure"}
+                <span class="material-symbols-outlined bad">error</span>
+            {:else}
+                <span class="material-symbols-outlined good">check_circle</span>
+            {/if}
+            <p>Progress: {data.project.progress}</p>
+            {#if data.project.progress == "Not complete"}
+                <p>Status: {data.project.status}</p>
+            {:else}
+                <p>Outcome: {data.project.outcome}</p>
+                <Button click={() => toggleOutcome()}>
+                    {#if data.project.outcome == 'Success'}
+                        Mark as failure
+                    {:else}
+                        Mark as success
+                    {/if}
+                </Button>
+            {/if}
+        </div>
         {/if}
+        <div class="projectOverviewItem">
+            <span class="material-symbols-outlined">comment</span>
+            <h2>Probability of project failure: {data.failureProbability.toFixed(3)}</h2>
+            <div class="suggestionList">
+                {#if data.noRisk == true}
+                    <p>Insufficient data to calculate risk!</p>
+                    <p>Complete survey and run risk analysis to get risk calculation </p>
+                {:else}
+                    <h2>Suggestions to reduce risk of project failure</h2>
+                    {#each features as feature, i}
+                        {i+1}.
+                        {#if feature == "budget"}
+                            <p>Increase budget</p>
+                        {:else if feature == "code_analysis"}
+                            <p>Improve code quality</p>
+                        {:else if feature == "customer_contact_frequency"}
+                            <p>Increase communication with customer</p>
+                        {:else if feature == "customer_satisfaction"}
+                            <p>Improve customer satisfaction</p>
+                        {:else if feature == "num_commits"}
+                            <p>Increase number of code commits</p>
+                        {:else if feature == "team_confidence"}
+                            <p>Increase team confidence</p>
+                        {:else if feature == "team_satisfaction"}
+                            <p>Increase team satisfaction</p>
+                        {:else if feature == "training"}
+                            <p>Increase training</p>
+                        {/if}
+                        <br>
+                    {/each}
+                {/if}     
+            </div>       
+        </div>
     </div>
 </div>
 
@@ -230,6 +280,11 @@
         box-shadow: var(--inset);
     }
 
+    .suggestionList {
+        align-items: center;
+        text-align: left;
+    }
+
     .projectOverviewItem {
         display: flex;
         flex-direction: column;
@@ -241,6 +296,7 @@
         justify-content: center;
         box-shadow: var(--outset);
         border-radius: 5px;
+        text-align: center;
     }
 
     .projectOverviewItem p {
