@@ -5,10 +5,11 @@
     import Button from "../Button.svelte";
     import { invalidateAll } from "$app/navigation";
     export let data: PageData;
-
-    import Popup from './popup.svelte';
-
-    let showPopup = false;
+    import Popup from './popup/popup.svelte';
+    let isOpen = true;
+    function toggleOpen(){
+        isOpen = !isOpen;
+    }
     //redirects to dashboard - we then redirect back to the proj overview page in dashboard backend using state.
     const getToken = () => {
         if (browser) {
@@ -29,6 +30,7 @@
             alert("You did not add a GitHub link when adding this project.");
             return;
         }
+        toggleOpen();
         const response = await fetch('/githubAPI', {
             method: "POST",
             body: JSON.stringify({
@@ -96,21 +98,13 @@
     <title>Project Overview</title>
 </svelte:head>
 
-<script>
-	import Modal from './Modal.svelte';
-
-	let showModal = false;
-</script>
-
-<button >
-	show modal
-</button>
 <div id="projectOverview">
     <h1>{data.project.name}</h1>
     <div class="boxContents" id="descBox">
         <span class="material-symbols-outlined">info</span>
         <h3>{data.project.desc}</h3>
     </div>
+    <Popup isOpen={isOpen}/>
     <div class="boxContents">
         <div class="projectOverviewItem">
             {#if data.project.progress == "Not complete" && data.project.deadline < new Date()}
