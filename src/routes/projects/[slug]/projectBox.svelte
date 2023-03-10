@@ -27,7 +27,7 @@
     <span class="material-symbols-outlined"> description </span>
     <div class="projectInfo">
       <h3>{name}</h3>
-      Due date: {date}
+      <p>Due date: {date}</p>
     </div>
     <div class="righticon">
       <span class="material-symbols-outlined">chevron_right</span>
