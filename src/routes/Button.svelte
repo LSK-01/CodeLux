@@ -16,5 +16,6 @@
 		border-radius: 10px;
 		background-color:var(--fg3);
 		box-shadow: var(--outset);
+		transition: background-color var(--speed);
 	}
 </style>
