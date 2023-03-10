@@ -145,7 +145,6 @@
 
     #wrapper {
         margin: 10px 10vw;
-        padding: 15px;
         border-radius: 10px;
     }
 </style>

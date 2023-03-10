@@ -16,19 +16,9 @@ import type { user } from "../../user";
 import { redirect } from "@sveltejs/kit";
 
 export const load: PageServerLoad = async ({ cookies, url }) => {
-    const cookie = cookies.get("user")!;
-    if (cookie == null) {
-        return {
-            atRisk: 0,
-            notAtRisk: 0,
-            withSurveys: 0,
-            withoutSurveys: 0,
-            withTasks: 0,
-            withoutTasks: 0,
-            surveyList: [],
-            taskList: {},
-            deadlineList: {},
-        };
+    const cookie = cookies.get('user');
+    if (cookie == undefined) {
+        throw redirect(302, '/login');
     }
     let user: user = JSON.parse(cookie);
 
@@ -69,6 +59,47 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
 
     const db = getFirestore(app);
     const projects = collection(db, "projects");
+
+    const q1 = query(
+        projects,
+        where("managerusername", "==", user.username), 
+        where("complete", "==", false)
+    );
+    const querySnapshot1 = await getCountFromServer(q1);
+    const totalManaging = querySnapshot1.data().count;
+
+    const q2 = query(
+        projects,
+        where("developerusernames", "array-contains", user.username), 
+        where("complete", "==", false)
+    );
+    const querySnapshot2 = await getCountFromServer(q2);
+    const totalNotManaging = querySnapshot2.data().count;
+
+    const totalProjects = totalManaging + totalNotManaging;
+
+    const surveys = await getSurveys(user);
+    const tasks = await _getTasks(user);
+    const atRisk = await getAtRisk(user);
+    
+    return {
+        atRisk: atRisk,
+        notAtRisk: totalManaging - atRisk,
+        withSurveys: surveys.length,
+        withoutSurveys: totalProjects - surveys.length,
+        withTasks: tasks.length,
+        withoutTasks: totalProjects - tasks.length,
+        surveyList: surveys,
+        taskList: tasks,
+        deadlineList: await getDeadlines(user),
+        totalProjects: totalProjects
+    };
+};
+
+async function getAtRisk(user: user){
+    let atRiskList: any[] = [];
+    const db = getFirestore(app);
+    const projects = collection(db, "projects");
     const q1 = query(
         projects,
         where("managerusername", "==", user.username),
@@ -77,37 +108,8 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
     );
     const querySnapshot1 = await getCountFromServer(q1);
     const atRisk = querySnapshot1.data().count;
-    const q2 = query(
-        projects,
-        where("managerusername", "==", user.username),
-        where("atRisk", "==", false),
-        where("complete", "==", false)
-    );
-    const querySnapshot2 = await getCountFromServer(q2);
-    const notAtRisk = querySnapshot2.data().count;
-    const q3 = query(
-        projects,
-        where("developerusernames", "array-contains", user.username), 
-        where("complete", "==", false)
-    );
-    const querySnapshot3 = await getCountFromServer(q3);
-    const notManaging = querySnapshot3.data().count;
-
-    const surveys = await getSurveys(user);
-    const tasks = await _getTasks(user);
-    return {
-        atRisk: atRisk,
-        notAtRisk: notAtRisk,
-        withSurveys: surveys.length,
-        withoutSurveys: (atRisk+notAtRisk+notManaging) - surveys.length,
-        withTasks: tasks.length,
-        withoutTasks: (atRisk+notAtRisk+notManaging) - tasks.length,
-        surveyList: surveys,
-        taskList: tasks,
-        deadlineList: await getDeadlines(user),
-        totalProjects: atRisk+notAtRisk+notManaging
-    };
-};
+    return atRisk
+}
 
 async function getSurveys(user : user) {
     let surveyList: any[] = [];
@@ -162,8 +164,9 @@ async function getSurveys(user : user) {
   
       if (querySnapshot3.empty) {
         surveyList.push({
-          projectID: project.id,
-          manager: false
+            projectName: project.data().projectname,
+            projectID: project.id,
+            manager: false
         })
       }
     });
@@ -183,8 +186,9 @@ async function getAnalysisTasks(user: user) {
     cutoff.setDate(cutoff.getDate()-7);
     const q = query(ps, where("managerusername", "==", user.username), where("complete","==",false), where("codeAnalysisDate", "<", cutoff), orderBy("codeAnalysisDate"));
     const querySnapshot = await getDocs(q);
+    const currentTime = new Date().valueOf();
     querySnapshot.forEach((project) => {
-        const analysisAge = Math.round((new Date().valueOf() - project.data().codeAnalysisDate.toDate())/86400000)
+        const analysisAge = Math.round((currentTime - project.data().codeAnalysisDate.toDate())/86400000)
         analysisTaskList.push({
             projectID: project.id,
             projectName: project.data().projectname,

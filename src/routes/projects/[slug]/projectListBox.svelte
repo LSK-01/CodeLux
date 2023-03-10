@@ -11,7 +11,9 @@
 		{#each projectData as { id, projectName, dueDate } }
         	<ProjectBox name={projectName} date={dueDate} id={id} />
 		{:else}
-			No projects found
+			<div class='projectListItem placeholder'>
+				No projects found
+			</div>
       	{/each}	
 	</div>
 </div>
@@ -39,4 +41,12 @@
 		justify-content: space-evenly;
 	}
 
+	.projectListItem {
+		padding: 10px;
+		border-radius: 5px;
+		background-color: var(--fg3);
+	}
+	.placeholder {
+		box-shadow: none;
+	}
 </style>

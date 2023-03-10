@@ -7,18 +7,18 @@
   import { browser } from "$app/environment";
   import "../styles.css";
 
-  export let form: ActionData;
+  // export let form: ActionData;
 
-  if (form?.success == true) {
-	if(browser){
-		goto("/dashboard");
-	}
-  }
+  // if (form?.success == true) {
+	// if(browser){
+	// 	goto("/dashboard");
+	// }
+  // }
 </script>
 
 
 <svelte:head>
-  <title>Home</title>
+  <title>Sign up</title>
 </svelte:head>
 
 <div class="title">
@@ -29,7 +29,7 @@
   <section class="flex flex-col justify-center items-center flex-1 gap-5">
     <Input type="email" name="email" placeholder="Email" />
     <Input type="password" name="password" placeholder="Password" />
-    <Button on:click={()=>{goto("/dashboard")}}>Sign Up</Button>
+    <Button on:click={()=>{goto("/dashboard")}}>Sign up</Button>
   </section>
 </form>
 

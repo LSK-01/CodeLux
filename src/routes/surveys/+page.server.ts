@@ -16,7 +16,10 @@ export const load: PageServerLoad = async ({cookies, url}) => {
     let returnArray : any[] = [];
     let questions : any[] = [];
 
-    const cookie = cookies.get("user")!;
+    const cookie = cookies.get('user');
+    if (cookie == undefined) {
+        throw redirect(302, '/login');
+    }
     const user: user = JSON.parse(cookie);
     const db = getFirestore(app);
 
@@ -64,11 +67,11 @@ export const actions = {
         let fields = {};
 
         for (const element of data.entries()) {
-            const metricname = element[0].split(":")[0].toUpperCase().replace(/ /g,'');
+            const metricname = element[0].split(":")[0].toLowerCase().replace(/ /g,'_');
             //@ts-ignore
             fields[metricname] = Number(fields[metricname] ?? 0 + element[1]);
             //@ts-ignore
-            fields[metricname + "Answered"] = fields[metricname + "Answered"] ?? 0 + 1;
+            fields[metricname + "_answered"] = fields[metricname + "_answered"] ?? 0 + 1;
         }
         console.log("ree: ", fields);
         Object.keys(fields).forEach((key, index) => {
@@ -78,7 +81,7 @@ export const actions = {
 
         const db = getFirestore(app);
 
-        await updateDoc(doc(db, "projects", projID), fields)
+        await updateDoc(doc(db, "projects", projID), {metrics: fields})
 /*         console.log(projID);
         
         for (const element of data.entries()) {
