@@ -20,7 +20,7 @@
 			</div>
 		</button>
       	{:else}
-		<div class='deadlineItem'>
+		<div class='deadlineItem placeholder'>
 			<h3>No projects due<h3>
 		</div>
 		{/each}
@@ -48,6 +48,11 @@
 		border-radius: 5px;
 		text-align: left;
 		box-shadow: var(--outset);
+		transition: background-color var(--speed);
+	}
+
+	.placeholder {
+		box-shadow: none;
 	}
 
 	button:hover {
@@ -57,5 +62,4 @@
 	.bad {
         color: #ef4444;
     }
-
 </style>

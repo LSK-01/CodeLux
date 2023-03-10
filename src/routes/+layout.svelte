@@ -1,16 +1,15 @@
 <script lang='ts'>
 	import './styles.css';
-	import { page } from '$app/stores';
 	import Header from './Header.svelte';
-	import Navbar from './navbar/Navbar.svelte';
 	import Footer from './Footer.svelte';
 	import type { PageData } from "./$types";
+    import { page } from '$app/stores';
 	export let data: PageData;
 	let user = data.user;
 	let landing = ['about', 'login', 'signup'];
-	let customized = ['dashboard', 'projects', 'add', 'surveys'];
-
-	$: navItems = customized.includes($page.url.pathname.slice(1)) ? customized : landing;
+	let loggedIn = ['dashboard', 'projects', 'add', 'logout'];
+	$: navItems = landing.includes($page.url.pathname.slice(1)) ? landing : loggedIn;
+	// $: navItems = loggedIn.includes($page.url.pathname.slice(1)) ? loggedIn : landing;
 </script>
 
 <svelte:head>
@@ -18,11 +17,7 @@
 </svelte:head>
 
 <div class="app">
-	{#if $page.url.pathname != '/dashboard'}
-	<Header navItems={navItems} />
-	{:else}
-	<Navbar user={user}/>
-	{/if} 
+	<Header navItems={navItems} user={user}/>
 
 	<main>
 		<slot/>
@@ -32,8 +27,16 @@
 </div>
 
 <style>
+	.app {
+		display: flex;
+		flex-direction: column;
+		min-height: 100vh;
+	}
+
 	main {
-		min-height: 89.2vh;
+		display: flex;
+		flex-direction: column;
+		flex: 1;
 	}
 </style>
 

@@ -9,10 +9,10 @@
 <style>
   .tile {
     background-color: var(--fg1);
-    color: #333;
-    border-radius: 15px;
+    color: var(--text);
+    box-shadow: var(--outset);
+    border-radius: 10px;
     padding: 40px 50px;
-    margin: 20px 0;
     position: relative;
   }
 </style>

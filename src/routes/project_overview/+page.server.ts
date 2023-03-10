@@ -7,9 +7,13 @@ import {
 } from "firebase/firestore";
 import type { PageServerLoad } from "../login/$types";
 import type { user } from "../../user";
+import { redirect } from "@sveltejs/kit";
 
 export const load: PageServerLoad = async ({cookies, url}) => {
-    const cookie = cookies.get("user")!;
+    const cookie = cookies.get('user');
+    if (cookie == undefined) {
+        throw redirect(302, '/login');
+    }
     const user: user = JSON.parse(cookie);
     const db = getFirestore(app);
     

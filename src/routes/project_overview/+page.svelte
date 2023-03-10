@@ -207,15 +207,13 @@
     #projectOverview {
         display: flex;
         flex-direction: column;
-        justify-content: space-evenly;
-        align-items: center;
-        flex-wrap: nowrap;
         gap: 10px;
-        min-height: 95vh;
+        flex: 1;
         margin: 10px 10vw;
         background-color: var(--fg1);
         border-radius: 10px;
         padding: 10px;
+        box-shadow: var(--outset);
     }
 
     .boxContents {
@@ -242,6 +240,7 @@
         flex: 1;
         align-items: center;
         justify-content: center;
+        box-shadow: var(--outset);
         border-radius: 5px;
     }
 
@@ -287,4 +286,21 @@
     .userBox span {
         font-size: 20px;
     }
+
+    /* @media (max-width: 720px) {
+        .boxContents {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            width: 100%;
+            padding: 10px;
+
+            flex: 1;
+            gap: 10px;
+            align-items: stretch;
+            border-radius: 5px;
+            background-color: var(--fg1);
+            box-shadow: var(--inset);
+        }
+    } */
 </style>

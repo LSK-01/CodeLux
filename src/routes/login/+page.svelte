@@ -8,19 +8,18 @@
 
   export let form: ActionData;
 
-  if (form?.success == true) {
-    if (browser) {
-      goto("/dashboard");
-    }
-  } else if (form?.success == false) {
+  // if (form?.success == true) {
+  //   if (browser) {
+  //     goto("/dashboard");
+  //   }
+  // } else 
+  if (form?.success == false) {
     console.log("error when logging in");
   }
-
-
 </script>
 
 <svelte:head>
-  <title>Login</title>
+  <title>Log in</title>
 </svelte:head>
 
 <div class="title">
@@ -29,9 +28,9 @@
 
 <form method="POST">
   <section class="flex flex-col justify-center items-center flex-1 gap-5">
-    <Input type="text" name="email" placeholder="Email" />
+    <Input type="email" name="email" placeholder="Email" />
     <Input type="password" name="password" placeholder="Password" />
-    <Button>Login</Button>
+    <Button>Log in</Button>
   </section>
 </form>
 
