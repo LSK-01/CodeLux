@@ -20,7 +20,7 @@
 			<h3>Take survey for {survey.projectName}</h3>
 			</button>
 		{:else}
-		<div class='surveyItem'>
+		<div class='surveyItem placeholder'>
 			<h3>No surveys due<h3>
 		</div>
 		{/each}
@@ -47,6 +47,10 @@
 		border-radius: 5px;
 		box-shadow: var(--outset);
 		transition: background-color var(--speed);
+	}
+	
+	.placeholder {
+		box-shadow: none;
 	}
 
 	button:hover {

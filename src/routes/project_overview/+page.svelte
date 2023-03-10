@@ -184,6 +184,7 @@
         background-color: var(--fg1);
         border-radius: 10px;
         padding: 10px;
+        box-shadow: var(--outset);
     }
 
     .boxContents {
@@ -210,6 +211,7 @@
         flex: 1;
         align-items: center;
         justify-content: center;
+        box-shadow: var(--outset);
         border-radius: 5px;
     }
 
