@@ -112,6 +112,8 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
     features: res.features,
     failureProbability: res.classification[0],
     predClass: res.predicted_class,
-    noRisk: noRisk
+    noRisk: noRisk,
+    //for retraining
+    metrics: aiMetrics
   };
 };

@@ -74,7 +74,9 @@
             method: "POST",
             body: JSON.stringify({
                 projectID: data.project.id,
-                progress: data.project.progress
+                progress: data.project.progress,
+                success: data.predClass,
+                metrics: data.metrics
             }),
             headers: {
                 "content-type": "application/json",
