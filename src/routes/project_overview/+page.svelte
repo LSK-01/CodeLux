@@ -5,6 +5,10 @@
     import Button from "../Button.svelte";
     import { invalidateAll } from "$app/navigation";
     export let data: PageData;
+
+    import Popup from './popup.svelte';
+
+    let showPopup = false;
     //redirects to dashboard - we then redirect back to the proj overview page in dashboard backend using state.
     const getToken = () => {
         if (browser) {
@@ -92,6 +96,15 @@
     <title>Project Overview</title>
 </svelte:head>
 
+<script>
+	import Modal from './Modal.svelte';
+
+	let showModal = false;
+</script>
+
+<button >
+	show modal
+</button>
 <div id="projectOverview">
     <h1>{data.project.name}</h1>
     <div class="boxContents" id="descBox">
