@@ -3,7 +3,8 @@ import { app } from "../../../hooks.server";
 import {
     getFirestore,
     doc,
-    updateDoc
+    updateDoc,
+    Timestamp
 } from "firebase/firestore";
 
 export const POST = (async ({ request }) => {
@@ -14,6 +15,9 @@ export const POST = (async ({ request }) => {
     if (data.progress == 'Complete') {
         complete = false;
     }
-    updateDoc(project, {"complete": complete}) 
+    else{
+        //if they are completing the project also write whetehr success/failure to the db, and the end date
+    }
+    updateDoc(project, {"complete": complete, "enddate": Timestamp.now()}) 
     return json({ success: true });
 }) satisfies RequestHandler;

@@ -151,10 +151,10 @@
             <span class="material-symbols-outlined">payments</span>
             <p>Budget: £{data.project.budget}</p>
         </div>
-        <div class="projectOverviewItem">
+        <!-- <div class="projectOverviewItem">
             <span class="material-symbols-outlined">connect_without_contact</span>
             <p>Customer contact frequency: {data.project.custContactFrequency} times per week</p>
-        </div>
+        </div> -->
         <div class="projectOverviewItem">
             {#if data.project.status == "At risk" || data.project.status == "Failure"}
                 <span class="material-symbols-outlined bad">error</span>
