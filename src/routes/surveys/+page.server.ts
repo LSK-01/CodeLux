@@ -16,7 +16,10 @@ export const load: PageServerLoad = async ({cookies, url}) => {
     let returnArray : any[] = [];
     let questions : any[] = [];
 
-    const cookie = cookies.get("user")!;
+    const cookie = cookies.get('user');
+    if (cookie == undefined) {
+        throw redirect(302, '/login');
+    }
     const user: user = JSON.parse(cookie);
     const db = getFirestore(app);
 

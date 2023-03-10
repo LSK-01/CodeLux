@@ -35,18 +35,18 @@
 <style>
   #dashboard {
     display: flex;
-    min-height: 100vh;
+    flex-direction: column;
+    flex: 1;
     justify-content: space-evenly;
     margin: 10px 10vw;
     gap: 10px;
+    height: 100%;
     flex-wrap: wrap;
   }
 
   #dashboard div {
     display: flex;
-    width: 100%;
-    justify-content: space-evenly;
     gap: 10px;
-    height: 70vh;
+    flex: 1;
   }
 </style>

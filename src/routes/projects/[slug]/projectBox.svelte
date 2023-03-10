@@ -59,6 +59,7 @@
     text-align: left;
     width: 100%;
     align-items: center;
+    box-shadow: var(--outset);
     /* justify-content: space-evenly; */
   }
 

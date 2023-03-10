@@ -4,7 +4,7 @@ export const load: PageServerLoad = async ({cookies, params}) => {
     const cookie = cookies.get('user')!;
     if (cookie == null) {
         return {
-            user: {},
+            user: null,
         }
     }
     const user = JSON.parse(cookie);

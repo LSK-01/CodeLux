@@ -16,7 +16,7 @@
 			</div>
 		</button>
 		{:else}
-		<div class='taskItem'>
+		<div class='taskItem placeholder'>
 			<h3>No tasks due<h3>
 		</div>
 		{/each}
@@ -44,6 +44,11 @@
 		border-radius: 5px;
 		text-align: left;
 		box-shadow: var(--outset);
+		transition: background-color var(--speed);
+	}
+
+	.placeholder {
+		box-shadow: none;
 	}
 
 	button:hover {

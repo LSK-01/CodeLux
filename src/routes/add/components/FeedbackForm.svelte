@@ -87,8 +87,10 @@
                 </select>
             {:else if questions_new[question_num] == "Start Date" || questions_new[question_num] == "Deadline"}
                 <input type="date" bind:value={text}>
-            {:else if questions_new[question_num] == "Budget" || questions_new[question_num] == "Customer Contact Frequency"}
+            {:else if questions_new[question_num] == "Budget"}
                 <input type="number" min="0" step="0.01" bind:value={text} placeholder="Answer here"/>
+            {:else if questions_new[question_num] == "Customer Contact Frequency"}
+                <input type="number" min="0" step="0.01" bind:value={text} placeholder="Answer here (per week)"/>
             {:else if questions_new[question_num] == "Github Link"}
                 <input type="url" bind:value={text} placeholder="Answer here"/>
             {:else}
@@ -141,7 +143,6 @@
 
     #wrapper {
         margin: 10px 10vw;
-        padding: 15px;
         border-radius: 10px;
     }
 </style>
