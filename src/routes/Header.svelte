@@ -21,8 +21,8 @@
 	{/if}
 	{#each navItems as item}
 		{#if item=="projects" && $page.url.pathname!="/projects/all"}
-		<Button click={() => goto('/projects/all')}><span class="material-symbols-outlined">format_list_bulleted</span>View projects</Button>
-		{:else if item=="add"&& $page.url.pathname!="/add"}
+		<Button click={() => goto('/projects/all')}><span class="material-symbols-outlined">format_list_bulleted</span>View all projects</Button>
+		{:else if item=="add" && $page.url.pathname!="/add"}
 		<Button click={() => goto('/add')}><span class="material-symbols-outlined">add_circle</span>Add project</Button>
 		{:else if item=="login" && $page.url.pathname!="/login"}
 		<Button click={() => goto('/login')}><span class="material-symbols-outlined">login</span>Log in</Button>
