@@ -28,7 +28,7 @@ export const POST = (async ({ request }) => {
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       //@ts-ignore
-      resp[doc.id] = doc.data().metrics;
+      resp[doc.data().projectname] = doc.data().metrics;
     });
   } else if (
     data.hasOwnProperty("success") &&
@@ -45,7 +45,7 @@ export const POST = (async ({ request }) => {
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       //@ts-ignore
-      resp[doc.id] = doc.data().metrics;
+      resp[doc.data().projectname] = doc.data().metrics;
     });
   }
 
