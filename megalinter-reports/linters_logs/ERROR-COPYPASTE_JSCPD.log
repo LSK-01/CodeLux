@@ -1,0 +1,175 @@
+Results of jscpd linter (version 3.5.3)
+See documentation on https://megalinter.io/7411316caa2897b3839af1834e5fd8ebd5b7b81e/descriptors/copypaste_jscpd/
+-----------------------------------------------
+
+❌ [ERROR] for workspace /tmp/lint
+Linter raw log:
+Clone found (typescript):
+ - .svelte-kit/types/src/routes/projects/[slug]/proxy+page.server.ts [91:15 - 97:6] (6 lines, 90 tokens)
+   .svelte-kit/types/src/routes/projects/[slug]/proxy+page.server.ts [82:15 - 88:5]
+
+Clone found (typescript):
+ - .svelte-kit/types/src/routes/projects/[slug]/proxy+page.server.ts [100:15 - 108:15] (8 lines, 102 tokens)
+   .svelte-kit/types/src/routes/projects/[slug]/proxy+page.server.ts [82:15 - 90:15]
+
+Clone found (typescript):
+ - .svelte-kit/types/src/routes/projects/[slug]/proxy+page.server.ts [109:15 - 117:12] (8 lines, 100 tokens)
+   .svelte-kit/types/src/routes/projects/[slug]/proxy+page.server.ts [82:15 - 99:6]
+
+Clone found (typescript):
+ - .svelte-kit/types/src/routes/projects/[slug]/proxy+page.server.ts [122:19 - 127:6] (5 lines, 86 tokens)
+   .svelte-kit/types/src/routes/projects/[slug]/proxy+page.server.ts [72:15 - 77:8]
+
+Clone found (typescript):
+ - .svelte-kit/types/src/routes/projects/[slug]/proxy+page.server.ts [128:9 - 151:26] (23 lines, 271 tokens)
+   .svelte-kit/types/src/routes/projects/[slug]/proxy+page.server.ts [80:11 - 121:18]
+
+Clone found (typescript):
+ - .svelte-kit/types/src/routes/projects/[slug]/proxy+page.server.ts [206:15 - 217:12] (11 lines, 101 tokens)
+   .svelte-kit/types/src/routes/projects/[slug]/proxy+page.server.ts [183:15 - 195:6]
+
+Clone found (typescript):
+ - .svelte-kit/types/src/routes/surveys/proxy+page.server.ts [47:15 - 52:12] (5 lines, 69 tokens)
+   .svelte-kit/types/src/routes/surveys/proxy+page.server.ts [39:15 - 44:5]
+
+Clone found (typescript):
+ - .svelte-kit/types/src/routes/surveys/$types.d.ts [5:11 - 12:15] (7 lines, 303 tokens)
+   .svelte-kit/types/src/routes/projects/[slug]/$types.d.ts [5:19 - 12:18]
+
+Clone found (typescript):
+ - .svelte-kit/types/src/routes/surveys/$types.d.ts [17:5 - 22:2] (5 lines, 185 tokens)
+   .svelte-kit/types/src/routes/projects/[slug]/$types.d.ts [17:8 - 22:2]
+
+Clone found (typescript):
+ - .svelte-kit/types/src/routes/surveycomplete/$types.d.ts [5:18 - 12:15] (7 lines, 295 tokens)
+   .svelte-kit/types/src/routes/projects/[slug]/$types.d.ts [5:19 - 12:21]
+
+Clone found (typescript):
+ - .svelte-kit/types/src/routes/signup/$types.d.ts [5:10 - 22:2] (17 lines, 598 tokens)
+   .svelte-kit/types/src/routes/projects/[slug]/$types.d.ts [5:19 - 22:2]
+
+Clone found (typescript):
+ - .svelte-kit/types/src/routes/project_overview/$types.d.ts [5:20 - 22:2] (17 lines, 580 tokens)
+   .svelte-kit/types/src/routes/projects/[slug]/$types.d.ts [5:19 - 22:2]
+
+Clone found (typescript):
+ - .svelte-kit/types/src/routes/login/$types.d.ts [5:9 - 22:2] (17 lines, 598 tokens)
+   .svelte-kit/types/src/routes/projects/[slug]/$types.d.ts [5:19 - 22:2]
+
+Clone found (typescript):
+ - .svelte-kit/types/src/routes/dashboard/proxy+page.server.ts [14:1 - 20:7] (6 lines, 96 tokens)
+   .svelte-kit/types/src/routes/project_overview/proxy+page.server.ts [3:2 - 9:7]
+
+Clone found (typescript):
+ - .svelte-kit/types/src/routes/dashboard/proxy+page.server.ts [157:15 - 170:6] (13 lines, 134 tokens)
+   .svelte-kit/types/src/routes/dashboard/proxy+page.server.ts [137:15 - 150:5]
+
+Clone found (typescript):
+ - .svelte-kit/types/src/routes/dashboard/$types.d.ts [5:13 - 22:2] (17 lines, 580 tokens)
+   .svelte-kit/types/src/routes/projects/[slug]/$types.d.ts [5:19 - 22:2]
+
+Clone found (typescript):
+ - .svelte-kit/types/src/routes/add/$types.d.ts [5:7 - 22:2] (17 lines, 598 tokens)
+   .svelte-kit/types/src/routes/projects/[slug]/$types.d.ts [5:19 - 22:2]
+
+Clone found (typescript):
+ - .svelte-kit/types/src/routes/about/$types.d.ts [5:9 - 15:2] (10 lines, 334 tokens)
+   .svelte-kit/types/src/routes/projects/[slug]/$types.d.ts [5:19 - 15:2]
+
+Clone found (typescript):
+ - src/routes/projects/[slug]/+page.server.ts [1:1 - 17:2] (16 lines, 150 tokens)
+   .svelte-kit/types/src/routes/projects/[slug]/proxy+page.server.ts [2:1 - 18:2]
+
+Clone found (typescript):
+ - src/routes/projects/[slug]/+page.server.ts [17:2 - 235:2] (218 lines, 2433 tokens)
+   .svelte-kit/types/src/routes/projects/[slug]/proxy+page.server.ts [18:2 - 236:2]
+
+Clone found (typescript):
+ - .svelte-kit/types/src/routes/$types.d.ts [5:4 - 12:17] (7 lines, 301 tokens)
+   .svelte-kit/types/src/routes/projects/[slug]/$types.d.ts [5:19 - 12:7]
+
+Clone found (typescript):
+ - .svelte-kit/types/src/routes/$types.d.ts [17:2 - 26:17] (9 lines, 243 tokens)
+   .svelte-kit/types/src/routes/projects/[slug]/$types.d.ts [13:11 - 22:13]
+
+Clone found (typescript):
+ - src/routes/surveys/+page.server.ts [1:1 - 15:2] (14 lines, 150 tokens)
+   .svelte-kit/types/src/routes/surveys/proxy+page.server.ts [2:1 - 16:2]
+
+Clone found (typescript):
+ - src/routes/surveys/+page.server.ts [15:2 - 100:2] (85 lines, 823 tokens)
+   .svelte-kit/types/src/routes/surveys/proxy+page.server.ts [16:2 - 101:2]
+
+Clone found (typescript):
+ - src/routes/signup/+page.server.ts [8:2 - 38:2] (30 lines, 295 tokens)
+   .svelte-kit/types/src/routes/signup/proxy+page.server.ts [9:2 - 39:2]
+
+Clone found (typescript):
+ - src/routes/project_overview/+page.server.ts [7:2 - 119:2] (112 lines, 1006 tokens)
+   .svelte-kit/types/src/routes/project_overview/proxy+page.server.ts [8:2 - 120:2]
+
+Clone found (typescript):
+ - src/routes/login/+page.server.ts [1:1 - 9:2] (8 lines, 112 tokens)
+   .svelte-kit/types/src/routes/login/proxy+page.server.ts [2:1 - 10:2]
+
+Clone found (typescript):
+ - src/routes/login/+page.server.ts [9:2 - 48:2] (39 lines, 392 tokens)
+   .svelte-kit/types/src/routes/login/proxy+page.server.ts [10:2 - 49:2]
+
+Clone found (typescript):
+ - src/routes/dashboard/+page.server.ts [1:1 - 18:2] (17 lines, 112 tokens)
+   .svelte-kit/types/src/routes/dashboard/proxy+page.server.ts [2:1 - 19:2]
+
+Clone found (typescript):
+ - src/routes/dashboard/+page.server.ts [13:1 - 19:7] (6 lines, 90 tokens)
+   src/routes/project_overview/+page.server.ts [2:2 - 8:7]
+
+Clone found (typescript):
+ - src/routes/dashboard/+page.server.ts [18:2 - 230:2] (212 lines, 2107 tokens)
+   .svelte-kit/types/src/routes/dashboard/proxy+page.server.ts [19:2 - 231:2]
+
+Clone found (typescript):
+ - src/routes/add/+page.server.ts [4:2 - 16:2] (12 lines, 114 tokens)
+   .svelte-kit/types/src/routes/add/proxy+page.server.ts [5:2 - 17:2]
+
+Clone found (css):
+ - src/output.css [469:2 - 516:11] (47 lines, 313 tokens)
+   src/output.css [422:2 - 469:11]
+
+Clone found (javascript):
+ - jest/OverviewsBox.test.js [28:28 - 38:7] (10 lines, 91 tokens)
+   jest/OverviewsBox.test.js [15:20 - 25:10]
+
+Clone found (javascript):
+ - jest/OverviewsBox.test.js [49:26 - 59:8] (10 lines, 94 tokens)
+   jest/OverviewsBox.test.js [15:20 - 38:11]
+
+Clone found (javascript):
+ - jest/DeadlinesBox.test.js [3:46 - 15:24] (12 lines, 84 tokens)
+   jest/OverviewsBox.test.js [3:46 - 15:20]
+
+┌────────────┬────────────────┬─────────────┬──────────────┬──────────────┬──────────────────┬───────────────────┐
+│ Format     │ Files analyzed │ Total lines │ Total tokens │ Clones found │ Duplicated lines │ Duplicated tokens │
+├────────────┼────────────────┼─────────────┼──────────────┼──────────────┼──────────────────┼───────────────────┤
+│ typescript │ 46             │ 2371        │ 27752        │ 32           │ 984 (41.5%)      │ 13448 (48.46%)    │
+├────────────┼────────────────┼─────────────┼──────────────┼──────────────┼──────────────────┼───────────────────┤
+│ latex      │ 1              │ 28          │ 1071         │ 0            │ 0 (0%)           │ 0 (0%)            │
+├────────────┼────────────────┼─────────────┼──────────────┼──────────────┼──────────────────┼───────────────────┤
+│ haskell    │ 5              │ 396         │ 4332         │ 0            │ 0 (0%)           │ 0 (0%)            │
+├────────────┼────────────────┼─────────────┼──────────────┼──────────────┼──────────────────┼───────────────────┤
+│ javascript │ 20             │ 968         │ 7536         │ 3            │ 32 (3.31%)       │ 269 (3.57%)       │
+├────────────┼────────────────┼─────────────┼──────────────┼──────────────┼──────────────────┼───────────────────┤
+│ css        │ 2              │ 846         │ 3681         │ 1            │ 47 (5.56%)       │ 313 (8.5%)        │
+├────────────┼────────────────┼─────────────┼──────────────┼──────────────┼──────────────────┼───────────────────┤
+│ Total:     │ 74             │ 4609        │ 44372        │ 36           │ 1063 (23.06%)    │ 14030 (31.62%)    │
+└────────────┴────────────────┴─────────────┴──────────────┴──────────────┴──────────────────┴───────────────────┘
+Found 36 clones.
+HTML report saved to /tmp/lint/megalinter-reports/copy-paste/html/
+ERROR: jscpd found too many duplicates (23.06%) over threshold (0%)
+Error: ERROR: jscpd found too many duplicates (23.06%) over threshold (0%)
+    at ThresholdReporter.report (/node-deps/node_modules/@jscpd/finder/dist/reporters/threshold.js:12:19)
+    at /node-deps/node_modules/@jscpd/finder/dist/in-files-detector.js:82:26
+    at Array.forEach (<anonymous>)
+    at /node-deps/node_modules/@jscpd/finder/dist/in-files-detector.js:81:28
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+
