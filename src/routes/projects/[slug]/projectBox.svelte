@@ -33,7 +33,7 @@
       <span class="material-symbols-outlined">chevron_right</span>
 
     </div>
-    <span class="material-symbols-outlined">chevron_right</span>
+    <!-- <span class="material-symbols-outlined">chevron_right</span> -->
   </button>
 </div>
 
