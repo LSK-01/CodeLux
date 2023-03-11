@@ -6,6 +6,10 @@ import { redirect, type Actions } from "@sveltejs/kit";
 
 export const actions: Actions = {
     default: async ({ cookies, request, url }) => {
+        //@ts-ignore
+        const data = await streamToString(request.body);
+        console.log("csv: ", data)
+        //console.log('csv: ', Buffer.from( new Uint8Array(data) ).toString())
         
     }
 
