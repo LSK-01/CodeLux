@@ -44,15 +44,16 @@
         const res = await response.json();
         popupMsgs.pop();
         if (res.success) {
-            popupMsgs.push("Project files fetch successful.");
+            popupMsgs = [...popupMsgs, "Project files fetch successful."];
             runAnalyser();
         } else {
-            popupMsgs.push("Project files fetch unsuccessful.");
+            popupMsgs = [...popupMsgs, "Project files fetch unsuccessful."];
         }
+
     };
 
     const runAnalyser = async () => {
-        popupMsgs.push("Analysing project code...");
+        popupMsgs = [...popupMsgs, "Analysing project code..."];
         const response = await fetch('/codeAnalysis', {
             method: "POST",
             body: JSON.stringify({
@@ -65,18 +66,17 @@
         });
         const res = await response.json();
         const analysisScore:number = res.analysisScore;
-        console.log(popupMsgs);
         popupMsgs.pop();
         if (res.success) {
-            popupMsgs.push("Code analysis successful.");
+            popupMsgs = [...popupMsgs, "Code analysis successful."];
             updateScore(analysisScore);
         } else {
-            popupMsgs.push("Code analysis unsuccessful.");
+            popupMsgs = [...popupMsgs, "Code analysis unsuccessful."];
         }
     };
 
     const updateScore = async (analysisScore:number) => {
-        popupMsgs.push("Updating analysis score...");
+        popupMsgs = [...popupMsgs, "Updating analysis score..."];
         const response = await fetch('/project_overview/updateScore', {
             method: "POST",
             body: JSON.stringify({
@@ -90,14 +90,15 @@
         const res = await response.json();
         popupMsgs.pop()
         if (res.success) {
-            popupMsgs.push("Analysis score update successful.");
+            popupMsgs = [...popupMsgs, "Analysis score update successful."];
         } else {
-            popupMsgs.push("Analysis score update unsuccessful.");
+            popupMsgs = [...popupMsgs, "Analysis score update unsuccessful."];
         }
-        isOpen = false;
-        await setTimeout(()=>{popupMsgs = []}, 5000);
+        setTimeout(()=>{
+            popupMsgs = [];
+            isOpen = false;
+        }, 5000);
         invalidateAll();
-        console.log(popupMsgs);
     };
 
     const toggleProgress = async () => {

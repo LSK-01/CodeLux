@@ -56,7 +56,6 @@ export const POST = ( async ({ request }) => {
     const data = await request.json();
     const res1 = await runAnalysis(data.projectID, data.projectType)
     const res2 = await processResults(data.projectID);
-    const analysisScore = res2.analysisScore;
     deleteProjectFiles(data.projectID);
-    return json({  success: res1&&res2, analysisScore: analysisScore });
+    return json({  success: res1&&res2, analysisScore: res2.analysisScore });
 }) satisfies RequestHandler;
