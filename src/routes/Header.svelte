@@ -19,6 +19,7 @@
 			<h2>{user.username}</h2>
 		</div>
 	{/if}
+	<div id="btns">
 	{#each navItems as item}
 		{#if item=="projects" && $page.url.pathname!="/projects/all"}
 		<Button click={() => goto('/projects/all')}><span class="material-symbols-outlined">format_list_bulleted</span>View all projects</Button>
@@ -35,6 +36,10 @@
 		{/if}
 		<!-- <a href="/{item.toLowerCase()}" class="hover:text-red-400 {$page.url.pathname == "/" + item.toLowerCase() ? "text-red-300": ""}">{item.toUpperCase()}</a> -->
 	{/each}
+	</div>
+	<button id="menuBtn">
+		<span class="material-symbols-outlined">menu</span>
+	</button>
 </nav>
 
 
@@ -62,7 +67,33 @@
 		padding: 10px;
 	}
 
+	#btns {
+		gap: 10px;
+	}
+
 	#userBox h2 {
 		margin: 0;
+	}
+
+	#menuBtn span {
+		font-size: 30px;
+	}
+
+	@media screen and (max-width: 880px) {
+		#btns {
+			display: none;
+		}
+		#menuBtn {
+			display: flex;
+		}
+	}
+
+	@media screen and (min-width: 880px) {
+		#btns {
+			display: flex;
+		}
+		#menuBtn {
+			display: none;
+		}
 	}
 </style>

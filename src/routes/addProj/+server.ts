@@ -17,11 +17,12 @@ export const POST = (async ({ request }) => {
   obj.startdate = new Date(obj.startdate);
   obj.developerusernames = obj.developerusernames.split(",");
   obj.complete = false;
+  obj.success = true;
   obj.atRisk = false;
   obj.numCommits = 0;
   obj.codeAnalysisScore = 0;
   obj.codeAnalysisDate = new Date();
-  await addDoc(collection(db, "projects"), obj);
+  const projectDoc = await addDoc(collection(db, "projects"), obj);
 
-  return json({ success: true });
+  return json({ success: true, projectID:  projectDoc.id});
 }) satisfies RequestHandler;

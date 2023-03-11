@@ -10,6 +10,7 @@ export interface project {
   deadline: string;
   type: string;
   atRisk?: boolean;
+  success?: boolean;
   complete?: boolean;
   codeAnalysisScore: number;
   codeAnalysisDate: string;

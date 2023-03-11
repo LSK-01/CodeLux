@@ -5,6 +5,9 @@
     import Button from "../Button.svelte";
     import { invalidateAll } from "$app/navigation";
     export let data: PageData;
+    import Popup from './popup/Popup.svelte';
+    var isOpen = false;
+    var popupMsgs:string[] = [];
     //redirects to dashboard - we then redirect back to the proj overview page in dashboard backend using state.
     const getToken = () => {
         if (browser) {
@@ -25,6 +28,8 @@
             alert("You did not add a GitHub link when adding this project.");
             return;
         }
+        isOpen = true;
+        popupMsgs.push("Fetching project files...");
         const response = await fetch('/githubAPI', {
             method: "POST",
             body: JSON.stringify({
@@ -36,11 +41,19 @@
                 "content-type": "application/json",
             },
         });
-        // const resJson = await response.json();
-        runAnalyser();
+        const res = await response.json();
+        popupMsgs.pop();
+        if (res.success) {
+            popupMsgs = [...popupMsgs, "Project files fetch successful."];
+            runAnalyser();
+        } else {
+            popupMsgs = [...popupMsgs, "Project files fetch unsuccessful."];
+        }
+
     };
 
     const runAnalyser = async () => {
+        popupMsgs = [...popupMsgs, "Analysing project code..."];
         const response = await fetch('/codeAnalysis', {
             method: "POST",
             body: JSON.stringify({
@@ -51,12 +64,20 @@
                 "content-type": "application/json",
             },
         });
-        const analysisScore:number = (await response.json()).analysisScore;
-        updateScore(analysisScore);
+        const res = await response.json();
+        const analysisScore:number = res.analysisScore;
+        popupMsgs.pop();
+        if (res.success) {
+            popupMsgs = [...popupMsgs, "Code analysis successful."];
+            updateScore(analysisScore);
+        } else {
+            popupMsgs = [...popupMsgs, "Code analysis unsuccessful."];
+        }
     };
 
     const updateScore = async (analysisScore:number) => {
-        fetch('/project_overview/updateScore', {
+        popupMsgs = [...popupMsgs, "Updating analysis score..."];
+        const response = await fetch('/project_overview/updateScore', {
             method: "POST",
             body: JSON.stringify({
                 projectID: data.project.id,
@@ -66,11 +87,22 @@
                 "content-type": "application/json",
             },
         });
+        const res = await response.json();
+        popupMsgs.pop()
+        if (res.success) {
+            popupMsgs = [...popupMsgs, "Analysis score update successful."];
+        } else {
+            popupMsgs = [...popupMsgs, "Analysis score update unsuccessful."];
+        }
+        setTimeout(()=>{
+            popupMsgs = [];
+            isOpen = false;
+        }, 5000);
         invalidateAll();
     };
 
     const toggleProgress = async () => {
-        fetch('/project_overview/toggleProgress', {
+        await fetch('/project_overview/toggleProgress', {
             method: "POST",
             body: JSON.stringify({
                 projectID: data.project.id,
@@ -83,9 +115,24 @@
                 "content-type": "application/json",
             },
         });
-        invalidateAll();
+        data.project.progress = data.project.progress == "Complete" ? "Not complete" : "Complete";
+
+        //invalidateAll();
     };
 
+    const toggleOutcome = async () => {
+        await fetch('/project_overview/toggleOutcome', {
+            method: "POST",
+            body: JSON.stringify({
+                projectID: data.project.id,
+                outcome: data.project.outcome
+            }),
+            headers: {
+                "content-type": "application/json",
+            },
+        });
+        invalidateAll();
+    };
     var features = data.features;
 
     var items = Object.keys(features).map((key) => { return [key, features[key]] });
@@ -128,6 +175,14 @@
             <span class="material-symbols-outlined">pending_actions</span> 
 			{/if}
             <p>Due on {(data.project.deadline).toLocaleDateString()}</p>
+            <p>Progress: {data.project.progress}</p>
+            <Button click={() => toggleProgress()}>
+                {#if data.project.progress == "Complete"}
+                    Mark as not complete
+                {:else}
+                    Mark as complete
+                {/if}
+            </Button>
         </div>
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined"> calendar_add_on</span>
@@ -140,31 +195,45 @@
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined">groups</span>
             <p>Developers:</p>
-            {#each data.project.devUsernames as devUsername}
-                <div class="userBox">
-                    <span class="material-symbols-outlined">person</span>
-                    <p>{devUsername}</p>
-                </div>
-            {:else}
-                <p>No developers</p>
-            {/each}
+            <ul class="suggestionList">
+                {#each data.project.devUsernames as devUsername}
+                    <li class="userBox">
+                        <span class="material-symbols-outlined">person</span>
+                        <p>{devUsername}</p>
+                    </li>
+                {:else}
+                    <li>No developers</li>
+                {/each}
+            </ul> 
         </div>
+        <!-- <div class="projectOverviewItem">
+            <span class="material-symbols-outlined">folder</span>
+            
+            <form action={data.project.githubLink}>
+                <Button>Project GitHub link</Button>
+            </form>
+        </div> -->
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined">folder</span>
-            {#if data.user.githubToken === "" || data.user.githubToken === undefined}
-                <Button click={() => getToken()}>Authorize github access</Button>
-            {/if}
-            <form action={data.project.githubLink}>
-                <Button><input type="submit" value="Project Github link" /></Button>
+            <p>Upload CSV files to train the model</p>
+            <form action="/upload" method="POST" enctype="multipart/form-data">
+                <input type="file" name="file" id="file" accept=".csv" />
+                <input type="hidden" name="projectID" value={data.project.id} />
+                <Button>Upload</Button>
             </form>
         </div>
         <div class="projectOverviewItem">
+            <Popup isOpen={isOpen} popupMsgs={popupMsgs}/>
             <span class="material-symbols-outlined">terminal</span>
             <p>Project type: {data.project.projectType}</p>
-            <p>Code analysis score: {data.project.codeAnalysisScore}/100</p>
+            <p>Last code analysis score: {data.project.codeAnalysisScore}/100</p>
             <p>Last analysed: {data.project.codeAnalysisDate}</p>
+            {#if data.user.githubToken === "" || data.user.githubToken === undefined}
+                <Button click={() => getToken()}>Authorise GitHub access</Button>
             
-            <Button click={() => handleGetGit()}>Run code analysis</Button>
+            {:else if data.project.progress == "Not complete"}
+                <Button click={() => handleGetGit()}>Run code analysis</Button>
+            {/if}
         </div>
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined">payments</span>
@@ -174,55 +243,58 @@
             <span class="material-symbols-outlined">connect_without_contact</span>
             <p>Customer contact frequency: {data.project.custContactFrequency} times per week</p>
         </div> -->
+        {#if data.user.username == data.project.managerUsername}
         <div class="projectOverviewItem">
-            {#if data.project.status == "At risk" || data.project.status == "Failure"}
+            {#if data.project.progress == "Not complete" && data.project.status == "At risk" || data.project.progress == "Complete" && data.project.outcome == "Failure"}
                 <span class="material-symbols-outlined bad">error</span>
             {:else}
                 <span class="material-symbols-outlined good">check_circle</span>
             {/if}
-            <p>Progress: {data.project.progress}</p>
-            <p>Status: {data.project.status}</p>
-            <Button click={() => toggleProgress()}>
-                {#if data.project.progress == "Complete"}
-                Mark as not complete
-                {:else}
-                Mark as complete
-                {/if}
-            </Button>
+            {#if data.project.progress == "Not complete"}
+                <p>Status: {data.project.status}</p>
+            {:else}
+                <p>Outcome: {data.project.outcome}</p>
+                <Button click={() => toggleOutcome()}>
+                    {#if data.project.outcome == 'Success'}
+                        Mark as failure
+                    {:else}
+                        Mark as success
+                    {/if}
+                </Button>
+            {/if}
         </div>
+        {/if}
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined">comment</span>
             <h2>Probability of project failure: {data.failureProbability.toFixed(3)}</h2>
-            <div class="list">
             {#if data.noRisk == true}
-                Insufficient data to calculate risk!
-                <br>
-                Complete survey and run risk analysis to get risk calculation  
+                <p>Insufficient data to calculate risk!</p>
+                <p>Complete survey and run risk analysis to get risk calculation.</p>
             {:else}
-            <h2>Suggestions to reduce risk of project failure</h2>
-            {#each features as feature, i}
-                {i+1}.
-                {#if feature == "budget"}
-                    Increase budget
-                {:else if feature == "code_analysis"}
-                    Improve code quality
-                {:else if feature == "customer_contact_frequency"}
-                    Increase communication with customer
-                {:else if feature == "customer_satisfaction"}
-                    Improve customer satisfaction
-                {:else if feature == "num_commits"}
-                    Increase number of code commits
-                {:else if feature == "team_confidence"}
-                    Increase team confidence
-                {:else if feature == "team_satisfaction"}
-                    Increase team satisfaction
-                {:else if feature == "training"}
-                    Increase training
-                {/if}
-                <br>
-            {/each}
+                <h2>Suggestions to reduce risk of project failure</h2>
+                <ul class="suggestionList">
+                    {#each features as feature, i}
+                        {i+1}.
+                        {#if feature == "budget"}
+                            <li>Increase budget</li>
+                        {:else if feature == "code_analysis"}
+                            <li>Improve code quality</li>
+                        {:else if feature == "customer_contact_frequency"}
+                            <li>Increase communication with customer</li>
+                        {:else if feature == "customer_satisfaction"}
+                            <li>Improve customer satisfaction</li>
+                        {:else if feature == "num_commits"}
+                            <li>Increase number of code commits</li>
+                        {:else if feature == "team_confidence"}
+                            <li>Increase team confidence</li>
+                        {:else if feature == "team_satisfaction"}
+                            <li>Increase team satisfaction</li>
+                        {:else if feature == "training"}
+                            <li>Increase training</li>
+                        {/if}
+                    {/each}
+                </ul> 
             {/if}     
-            </div>       
         </div>
     </div>
 </div>
@@ -249,13 +321,12 @@
         height: 0;
         flex: 1;
         gap: 10px;
-        align-items: stretch;
         border-radius: 5px;
         background-color: var(--fg1);
         box-shadow: var(--inset);
     }
 
-    .list {
+    .suggestionList {
         text-align: left;
     }
 
@@ -314,5 +385,11 @@
 
     .userBox span {
         font-size: 20px;
+    }
+
+    @media only screen and (max-width: 1200px) {
+        .boxContents {
+            flex-direction: row;
+        }
     }
 </style>
