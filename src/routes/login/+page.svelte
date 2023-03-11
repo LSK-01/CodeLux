@@ -28,6 +28,7 @@
 <div id='logInBox'>
   <div class="title">
     <h1 class=" text-7xl">CodeLux</h1>
+    <h1>Log in</h1>
   </div>
   {#if errorMsg != ""}
     <div id='errorBox'>

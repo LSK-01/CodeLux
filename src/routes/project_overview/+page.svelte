@@ -247,8 +247,10 @@
                 <p>Outcome: {data.project.outcome}</p>
                 <Button click={() => toggleOutcome()}>
                     {#if data.project.outcome == 'Success'}
+                        <span class="material-symbols-outlined bad">error</span>
                         Mark as failure
                     {:else}
+                        <span class="material-symbols-outlined good">check_circle</span>
                         Mark as success
                     {/if}
                 </Button>

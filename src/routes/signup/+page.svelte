@@ -10,7 +10,7 @@
   let errorMsg = "";
 
   if (form && !form?.success) {
-    errorMsg = "There was an error signing in.";
+    errorMsg = "There was an error signing up.";
   }
 </script>
 
@@ -21,6 +21,7 @@
 <div id='signUpBox'>
   <div class="title">
     <h1 class=" text-7xl">CodeLux</h1>
+    <h1>Sign up</h1>
   </div>
   {#if errorMsg != ""}
     <div id='errorBox'>
