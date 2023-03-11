@@ -181,15 +181,11 @@
                 {/each}
             </ul> 
         </div>
-        <!-- <div class="projectOverviewItem">
+        <div class="projectOverviewItem">
             <span class="material-symbols-outlined">folder</span>
-            
             <form action={data.project.githubLink}>
                 <Button>Project GitHub link</Button>
             </form>
-        </div> -->
-        <div class="projectOverviewItem">
-            <span class="material-symbols-outlined">folder</span>
             <p>Upload CSV files to train the model</p>
             <form action="/upload" method="POST" enctype="multipart/form-data">
                 <input type="file" name="file" id="file" accept=".csv" />
