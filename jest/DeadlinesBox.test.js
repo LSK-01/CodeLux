@@ -21,7 +21,7 @@ test("exports deadline list", async () => {
 test("renders a deadline box", async () => {
     render(DeadlinesBox,{ props: { deadlineList: [] } });
   
-    expect(screen.getByText("Upcoming Deadlines")).toBeDefined();
+    expect(screen.getByText("Deadlines")).toBeDefined();
 });
 
 test("renders an empty deadline box", async () => {
@@ -31,11 +31,18 @@ test("renders an empty deadline box", async () => {
 });
 
 test("renders a deadline box", async () => {
-    render(DeadlinesBox,{ props: { deadlineList: [{
-        projectID: "id",
-        projectName: "projectname",
-        dueDate: "2002",
-    }] } });
+    render(svelte`
+    <script>
+    import DeadlinesBox from "../src/routes/dashboard/DeadlinesBox.svelte";
+    import { goto } from "$app/navigation";
+    </script>
+
+    <DeadlinesBox deadlineList={[{
+      projectID: "id",
+      projectName: "projectname",
+      deadline: new Date('2023-03-15T00:00:00.000Z'),
+  }]} />
+  `); 
   
     expect(screen.getByRole("button")).toHaveClass("deadlineItem");
 
@@ -43,7 +50,7 @@ test("renders a deadline box", async () => {
 
     expect(screen.getByText("projectname")).toBeDefined();
 
-    expect(screen.getByText("Due date: 2002")).toBeDefined();
+    expect(screen.getByText("Due on 15/03/2023")).toBeDefined();
 });
 
 test("redirect works correctly", async () => {
@@ -56,7 +63,7 @@ test("redirect works correctly", async () => {
       <DeadlinesBox deadlineList={[{
         projectID: "id",
         projectName: "projectname",
-        dueDate: "2002",
+        deadline: new Date('2023-03-15T00:00:00.000Z'),
     }]} />
     `);    
 
