@@ -8,7 +8,7 @@ import {
   query,
   where,
   orderBy,
-  limit
+  limit,
 } from "firebase/firestore";
 
 export const POST = (async ({ request }) => {
@@ -22,13 +22,19 @@ export const POST = (async ({ request }) => {
     //return metrcis+ids for all projects with this name
     const q = query(
       collection(db, "projects"),
-      where("projectname", "==", data.projectname)
+      where("projectname", "==", data.projectName)
     );
-    
+
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      //@ts-ignore
-      resp[doc.data().projectname] = doc.data().metrics;
+      const document = doc.data();
+      if (document.complete) {
+        //@ts-ignore
+        resp[document.projectname] = {
+          ...document.smetrics,
+          success: document.success,
+        };
+      }
     });
   } else if (
     data.hasOwnProperty("success") &&
@@ -45,9 +51,9 @@ export const POST = (async ({ request }) => {
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       //@ts-ignore
-      resp[doc.data().projectname] = doc.data().metrics;
+      resp[doc.data().projectname] = doc.data().smetrics;
     });
   }
 
-  return json(JSON.stringify(resp))
+  return json(JSON.stringify(resp));
 }) satisfies RequestHandler;
