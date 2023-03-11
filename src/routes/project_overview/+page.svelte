@@ -5,8 +5,9 @@
     import Button from "../Button.svelte";
     import { invalidateAll } from "$app/navigation";
     export let data: PageData;
-    import Popup from './popup/Popup.svelte';
+    import Popup from './popup/popup.svelte';
     var openPopup = false;
+    var popupSuccess = true;
     var popupMsgs:string[] = [];
     //redirects to dashboard - we then redirect back to the proj overview page in dashboard backend using state.
     const getToken = () => {
@@ -47,7 +48,9 @@
             popupMsgs = [...popupMsgs, "Project files fetch successful."];
             runAnalyser();
         } else {
+            popupSuccess = false;
             popupMsgs = [...popupMsgs, "Project files fetch unsuccessful."];
+            setTimeout(()=>{popupMsgs = []}, 5000);
         }
     };
 
@@ -64,14 +67,14 @@
             },
         });
         const res = await response.json();
-        const analysisScore:number = res.analysisScore;
         popupMsgs.pop();
         if (res.success) {
             popupMsgs = [...popupMsgs, "Code analysis successful.", "Analysis score update successful."];
         } else {
+            popupSuccess = false;
             popupMsgs = [...popupMsgs, "Code analysis unsuccessful."];
         }
-        setTimeout(()=>{popupMsgs = [];}, 5000);
+        setTimeout(()=>{popupMsgs = []}, 5000);
         invalidateAll();
     };
 
@@ -121,6 +124,8 @@
     // Obtain the list of keys in sorted order of the values.
     var features = items.map(
     (e) => { return e[0] }).slice(0,3);
+
+    let files: any;
 </script>
 
 <svelte:head>
@@ -186,14 +191,24 @@
             <form action={data.project.githubLink}>
                 <Button>Project GitHub link</Button>
             </form>
-            <p>Upload CSV files to train the model</p>
-            <form method="POST" enctype="multipart/form-data">
-                <input type="file" name="file" id="file" accept=".csv" />
+        </div>
+        <div class="projectOverviewItem">
+            <span class="material-symbols-outlined">upload_file</span>
+            <form method="POST" enctype="multipart/form-data" id='csvForm'>
+                <p>Upload CSV files to train the model</p>
+                <input type="file" bind:files name="file" id="file" accept=".csv"/>
+                <label for="file">
+                {#if files}
+                    {[...files][0].name}
+                {:else}
+                    Choose a file
+                {/if}
+                </label>
                 <Button>Upload</Button>
             </form>
         </div>
         <div class="projectOverviewItem">
-            <Popup isOpen={openPopup} popupMsgs={popupMsgs}/>
+            <Popup isOpen={openPopup} bind:popupMsgs success={popupSuccess}/>
             <span class="material-symbols-outlined">terminal</span>
             <p>Project type: {data.project.projectType}</p>
             <p>Last code analysis score: {data.project.codeAnalysisScore}/100</p>
@@ -316,6 +331,41 @@
     .projectOverviewItem p {
         display: flex;
         text-align: center;
+    }
+
+    #csvForm {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        gap: 5px;
+    }
+
+    #csvForm input {
+       width: fit-content;
+    }
+
+    #file {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+
+    #file + label {
+	    cursor: pointer; /* "hand" cursor */
+        display: flex;
+		justify-content: space-evenly;
+		height: fit-content;
+        width: fit-content;
+        padding: 10px;
+		gap: 5px;
+        align-items: center;
+		border-radius: 10px;
+		background-color:var(--fg3);
+		box-shadow: var(--outset);
     }
 
     #descBox {
