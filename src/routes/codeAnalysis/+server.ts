@@ -5,14 +5,28 @@ import fs from 'fs';
 function runAnalysis(projectID:string, projectType:string) {
     console.log("Starting analysis");
     const cmd = "cd ./src/routes/githubAPI/projectCode/"+projectID+" & copy ..\\..\\..\\codeanalysis\\.mega-linter.yml . & mega-linter-runner -f "+projectType.toLowerCase()+" --remove-container";
-    // execSync(cmd1, {stdio: 'inherit'});
-    execSync(cmd);
+    try {
+        // execSync(cmd, {stdio: 'inherit'});
+        execSync(cmd);
+    } catch (err){
+        return false;
+    };
     console.log("Completed analysis");
+    return true;
 }
 
 async function processResults(projectID:string) {
     const fName = "./src/routes/githubAPI/projectCode/"+projectID+"/megalinter-reports/mega-linter-report.json";
-    const results = JSON.parse(fs.readFileSync(fName, 'utf8'));
+    var res;
+    try {
+        res = JSON.parse(fs.readFileSync(fName, 'utf8'));
+    } catch (err){
+        return {
+            success: false,
+            analysisScore: 0
+        }
+    };
+    const results = res;
     var errorCount = 0
     var linterCount = 0;
     for (const linter of results.linters){   
@@ -22,14 +36,17 @@ async function processResults(projectID:string) {
     const analysisScore = linterCount / errorCount;
     console.log("Processed results");
     console.log("Analysis score: "+analysisScore);
-    return (Math.round(analysisScore * 100) / 100);
+    return {
+        success: true,
+        analysisScore: (Math.round(analysisScore * 100) / 100)
+    }
 }
 
 async function deleteProjectFiles(projectID:string) {
     const cmd = "rd /S /Q .\\src\\routes\\githubAPI\\projectCode\\"+projectID;
     exec(cmd, (error, stdout, stderr) => {
         if (error !== null) {
-             console.log(error);
+            console.log(error);
         }
     });
     console.log("Deleted project files");
@@ -37,8 +54,8 @@ async function deleteProjectFiles(projectID:string) {
 
 export const POST = ( async ({ request }) => {
     const data = await request.json();
-    runAnalysis(data.projectID, data.projectType)
-    const analysisScore = await processResults(data.projectID);
+    const res1 = await runAnalysis(data.projectID, data.projectType)
+    const res2 = await processResults(data.projectID);
     deleteProjectFiles(data.projectID);
-    return json({  success: true, analysisScore: analysisScore });
+    return json({  success: res1&&res2, analysisScore: res2.analysisScore });
 }) satisfies RequestHandler;

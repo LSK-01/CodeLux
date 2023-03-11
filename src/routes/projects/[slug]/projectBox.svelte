@@ -25,11 +25,13 @@
 
   <button class="boxContents" on:click={() => boxClick()}>
     <div class="projectInfo">
-      <span class="material-symbols-outlined"> description </span>
-      <div>
-        <h3>{name}</h3>
-        <p>Due date: {date}</p>
-      </div>
+
+      <h3>{name}</h3>
+      <p>Due date: {date}</p>
+    </div>
+    <div class="righticon">
+      <span class="material-symbols-outlined">chevron_right</span>
+
     </div>
     <span class="material-symbols-outlined">chevron_right</span>
   </button>
