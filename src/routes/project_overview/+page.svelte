@@ -76,6 +76,11 @@
     };
 
     const toggleProgress = async () => {
+        // tturn metrics into array values first
+        for (let key in data.metrics) {
+            //@ts-ignore
+            data.metrics[key] = [data.metrics[key]];
+        }
         await fetch('/project_overview/toggleProgress', {
             method: "POST",
             body: JSON.stringify({
