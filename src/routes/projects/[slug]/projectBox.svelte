@@ -25,15 +25,13 @@
 
   <button class="boxContents" on:click={() => boxClick()}>
     <div class="projectInfo">
-
-      <h3>{name}</h3>
-      <p>Due date: {date}</p>
+      <span class="material-symbols-outlined">task</span>
+      <div>
+        <h3>{name}</h3>
+        <p>Due date: {date}</p>
+      </div>
     </div>
-    <div class="righticon">
-      <span class="material-symbols-outlined">chevron_right</span>
-
-    </div>
-    <!-- <span class="material-symbols-outlined">chevron_right</span> -->
+    <span class="material-symbols-outlined">chevron_right</span>
   </button>
 </div>
 
@@ -53,7 +51,6 @@
     flex: 1 0;
     display: flex;
     flex-direction: row;
-    padding: 5px 0;
     border-radius: 5px;
     background-color: var(--fg3);
     gap: 10px;
@@ -71,7 +68,7 @@
     background-color: var(--fg2);
   }
 
-  .projectInfo{
+  .projectInfo {
     display: flex;
     align-items: center;
     gap: 15px;
