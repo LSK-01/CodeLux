@@ -44,15 +44,11 @@ async function processResults(projectID:string) {
 
 async function deleteProjectFiles(projectID:string) {
     const cmd = "rd /S /Q .\\src\\routes\\githubAPI\\projectCode\\"+projectID;
-    try {
-        exec(cmd, (error, stdout, stderr) => {
-            if (error !== null) {
-                console.log(error);
-            }
-        });
-    } catch (err){
-        return false;
-    };
+    exec(cmd, (error, stdout, stderr) => {
+        if (error !== null) {
+            console.log(error);
+        }
+    });
     console.log("Deleted project files");
 }
 
@@ -61,6 +57,6 @@ export const POST = ( async ({ request }) => {
     const res1 = await runAnalysis(data.projectID, data.projectType)
     const res2 = await processResults(data.projectID);
     const analysisScore = res2.analysisScore;
-    const res3 = await deleteProjectFiles(data.projectID);
-    return json({  success: res1&&res2&&res3, analysisScore: analysisScore });
+    deleteProjectFiles(data.projectID);
+    return json({  success: res1&&res2, analysisScore: analysisScore });
 }) satisfies RequestHandler;

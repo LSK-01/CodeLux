@@ -97,6 +97,7 @@
         isOpen = false;
         await setTimeout(()=>{popupMsgs = []}, 5000);
         invalidateAll();
+        console.log(popupMsgs);
     };
 
     const toggleProgress = async () => {
