@@ -81,7 +81,7 @@ export const actions = {
 
         const db = getFirestore(app);
 
-        await updateDoc(doc(db, "projects", projID), {metrics: fields})
+        await updateDoc(doc(db, "projects", projID), {smetrics: fields})
 /*         console.log(projID);
         
         for (const element of data.entries()) {

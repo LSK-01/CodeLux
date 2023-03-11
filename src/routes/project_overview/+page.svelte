@@ -74,7 +74,9 @@
             method: "POST",
             body: JSON.stringify({
                 projectID: data.project.id,
-                progress: data.project.progress
+                progress: data.project.progress,
+                success: data.predClass,
+                metrics: data.metrics
             }),
             headers: {
                 "content-type": "application/json",
@@ -82,6 +84,21 @@
         });
         invalidateAll();
     };
+
+    var features = data.features;
+
+    var items = Object.keys(features).map((key) => { return [key, features[key]] });
+
+    // Step - 2
+    // Sort the array based on the second element (i.e. the value)
+    items.sort(
+    (first, second) => { return second[1] - first[1] }
+    );
+
+    // Step - 3
+    // Obtain the list of keys in sorted order of the values.
+    var features = items.map(
+    (e) => { return e[0] }).slice(0,3);
 </script>
 
 <svelte:head>
@@ -151,10 +168,10 @@
             <span class="material-symbols-outlined">payments</span>
             <p>Budget: £{data.project.budget}</p>
         </div>
-        <div class="projectOverviewItem">
+        <!-- <div class="projectOverviewItem">
             <span class="material-symbols-outlined">connect_without_contact</span>
             <p>Customer contact frequency: {data.project.custContactFrequency} times per week</p>
-        </div>
+        </div> -->
         <div class="projectOverviewItem">
             {#if data.project.status == "At risk" || data.project.status == "Failure"}
                 <span class="material-symbols-outlined bad">error</span>
@@ -170,6 +187,40 @@
                 Mark as complete
                 {/if}
             </Button>
+        </div>
+        <div class="projectOverviewItem">
+            <span class="material-symbols-outlined">comment</span>
+            <h2>Probability of project failure: {data.failureProbability.toFixed(3)}</h2>
+            <div class="list">
+            {#if data.noRisk == true}
+                Insufficient data to calculate risk!
+                <br>
+                Complete survey and run risk analysis to get risk calculation  
+            {:else}
+            <h2>Suggestions to reduce risk of project failure</h2>
+            {#each features as feature, i}
+                {i+1}.
+                {#if feature == "budget"}
+                    Increase budget
+                {:else if feature == "code_analysis"}
+                    Improve code quality
+                {:else if feature == "customer_contact_frequency"}
+                    Increase communication with customer
+                {:else if feature == "customer_satisfaction"}
+                    Improve customer satisfaction
+                {:else if feature == "num_commits"}
+                    Increase number of code commits
+                {:else if feature == "team_confidence"}
+                    Increase team confidence
+                {:else if feature == "team_satisfaction"}
+                    Increase team satisfaction
+                {:else if feature == "training"}
+                    Increase training
+                {/if}
+                <br>
+            {/each}
+            {/if}     
+            </div>       
         </div>
     </div>
 </div>
@@ -202,6 +253,10 @@
         box-shadow: var(--inset);
     }
 
+    .list {
+        text-align: left;
+    }
+
     .projectOverviewItem {
         display: flex;
         flex-direction: column;
@@ -213,6 +268,7 @@
         justify-content: center;
         box-shadow: var(--outset);
         border-radius: 5px;
+        text-align: center;
     }
 
     .projectOverviewItem p {

@@ -13,7 +13,6 @@ export const POST = (async ({ request }) => {
 
   //format object
   obj.budget = Number(obj.budget);
-  obj.customercontactfrequency = Number(obj.customercontactfrequency);
   obj.deadline = new Date(obj.deadline);
   obj.startdate = new Date(obj.startdate);
   obj.developerusernames = obj.developerusernames.split(",");
