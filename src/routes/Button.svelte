@@ -18,4 +18,8 @@
 		box-shadow: var(--outset);
 		transition: background-color var(--speed);
 	}
+
+	button:hover {
+		background-color:var(--bg2);
+	}
 </style>
