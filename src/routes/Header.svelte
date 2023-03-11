@@ -75,8 +75,8 @@
 		margin: 0;
 	}
 
-	#menuBtn{
-		font-size: 10px;
+	#menuBtn span {
+		font-size: 30px;
 	}
 
 	@media screen and (max-width: 880px) {
