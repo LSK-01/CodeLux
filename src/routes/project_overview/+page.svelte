@@ -174,9 +174,7 @@
         </div>
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined">folder</span>
-            {#if data.user.githubToken === "" || data.user.githubToken === undefined}
-                <Button click={() => getToken()}>Authorize github access</Button>
-            {/if}
+  
             <form action={data.project.githubLink}>
                 <Button><input type="submit" value="Project Github link" /></Button>
             </form>
@@ -186,7 +184,9 @@
             <p>Project type: {data.project.projectType}</p>
             <p>Last code analysis score: {data.project.codeAnalysisScore}/100</p>
             <p>Last analysed: {data.project.codeAnalysisDate}</p>
-            {#if data.project.progress == "Not complete"}
+            {#if data.user.githubToken === "" || data.user.githubToken === undefined}
+                <Button click={() => getToken()}>Authorise GitHub access</Button>
+            {:else if data.project.progress == "Not complete" && data.user.githubToken != "" && data.user.githubToken === undefined}
                 <Button click={() => handleGetGit()}>Run code analysis</Button>
             {/if}
         </div>
