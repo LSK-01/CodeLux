@@ -160,14 +160,16 @@
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined">groups</span>
             <p>Developers:</p>
-            {#each data.project.devUsernames as devUsername}
-                <div class="userBox">
-                    <span class="material-symbols-outlined">person</span>
-                    <p>{devUsername}</p>
-                </div>
-            {:else}
-                <p>No developers</p>
-            {/each}
+            <ul class="suggestionList">
+                {#each data.project.devUsernames as devUsername}
+                    <li class="userBox">
+                        <span class="material-symbols-outlined">person</span>
+                        <p>{devUsername}</p>
+                    </li>
+                {:else}
+                    <li>No developers</li>
+                {/each}
+            </ul> 
         </div>
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined">folder</span>
@@ -202,7 +204,6 @@
             {:else}
                 <span class="material-symbols-outlined good">check_circle</span>
             {/if}
-            <p>Progress: {data.project.progress}</p>
             {#if data.project.progress == "Not complete"}
                 <p>Status: {data.project.status}</p>
             {:else}
@@ -220,35 +221,34 @@
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined">comment</span>
             <h2>Probability of project failure: {data.failureProbability.toFixed(3)}</h2>
-            <div class="suggestionList">
-                {#if data.noRisk == true}
-                    <p>Insufficient data to calculate risk!</p>
-                    <p>Complete survey and run risk analysis to get risk calculation </p>
-                {:else}
-                    <h2>Suggestions to reduce risk of project failure</h2>
+            {#if data.noRisk == true}
+                <p>Insufficient data to calculate risk!</p>
+                <p>Complete survey and run risk analysis to get risk calculation.</p>
+            {:else}
+                <h2>Suggestions to reduce risk of project failure</h2>
+                <ul class="suggestionList">
                     {#each features as feature, i}
                         {i+1}.
                         {#if feature == "budget"}
-                            <p>Increase budget</p>
+                            <li>Increase budget</li>
                         {:else if feature == "code_analysis"}
-                            <p>Improve code quality</p>
+                            <li>Improve code quality</li>
                         {:else if feature == "customer_contact_frequency"}
-                            <p>Increase communication with customer</p>
+                            <li>Increase communication with customer</li>
                         {:else if feature == "customer_satisfaction"}
-                            <p>Improve customer satisfaction</p>
+                            <li>Improve customer satisfaction</li>
                         {:else if feature == "num_commits"}
-                            <p>Increase number of code commits</p>
+                            <li>Increase number of code commits</li>
                         {:else if feature == "team_confidence"}
-                            <p>Increase team confidence</p>
+                            <li>Increase team confidence</li>
                         {:else if feature == "team_satisfaction"}
-                            <p>Increase team satisfaction</p>
+                            <li>Increase team satisfaction</li>
                         {:else if feature == "training"}
-                            <p>Increase training</p>
+                            <li>Increase training</li>
                         {/if}
-                        <br>
                     {/each}
-                {/if}     
-            </div>       
+                </ul> 
+            {/if}     
         </div>
     </div>
 </div>
@@ -281,7 +281,6 @@
     }
 
     .suggestionList {
-        align-items: center;
         text-align: left;
     }
 
