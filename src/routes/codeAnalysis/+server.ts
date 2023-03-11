@@ -13,8 +13,8 @@ function runAnalysis(projectID:string, projectType:string) {
     console.log("Starting analysis");
     const cmd = "cd ./src/routes/githubAPI/projectCode/"+projectID+" & copy ..\\..\\..\\codeanalysis\\.mega-linter.yml . & mega-linter-runner -f "+projectType.toLowerCase()+" --remove-container";
     try {
-        // execSync(cmd, {stdio: 'inherit'});
-        execSync(cmd);
+        execSync(cmd, {stdio: 'inherit'});
+        // execSync(cmd);
     } catch (err){
         return false;
     };
