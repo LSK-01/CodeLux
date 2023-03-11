@@ -9,9 +9,8 @@ export const POST = (async ({ request }) => {
   var complete = true;
   if (data.progress == "Complete") {
     complete = false;
-  } else {
-    //if they are completing the project also write whetehr success/failure to the db (done), and the end date(done)
-    //also send stuff for retraining here
+  } else if (!data.noRisk) {
+    //send this project for retraining the model
     const response = await fetch(
       "https://cs261-backend-7r5ljue3ha-no.a.run.app/retrain",
       {
@@ -27,6 +26,8 @@ export const POST = (async ({ request }) => {
     const poo = await response.json();
     console.log("retrain resp: ", poo);
   }
+  //if they are completing the project also write whether success/failure to the db, and the end date
+
   updateDoc(project, {
     complete: complete,
     enddate: Timestamp.now(),

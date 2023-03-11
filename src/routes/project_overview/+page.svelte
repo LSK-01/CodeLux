@@ -76,7 +76,8 @@
                 projectID: data.project.id,
                 progress: data.project.progress,
                 success: data.predClass,
-                metrics: data.metrics
+                metrics: data.metrics,
+                noRisk: data.noRisk
             }),
             headers: {
                 "content-type": "application/json",
@@ -162,6 +163,7 @@
             <p>Project type: {data.project.projectType}</p>
             <p>Code analysis score: {data.project.codeAnalysisScore}/100</p>
             <p>Last analysed: {data.project.codeAnalysisDate}</p>
+            
             <Button click={() => handleGetGit()}>Run code analysis</Button>
         </div>
         <div class="projectOverviewItem">
