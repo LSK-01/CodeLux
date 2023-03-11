@@ -83,7 +83,9 @@
                 "content-type": "application/json",
             },
         });
-        invalidateAll();
+        data.project.progress = data.project.progress == "Complete" ? "Not complete" : "Complete";
+
+        //invalidateAll();
     };
 
     var features = data.features;
