@@ -20,12 +20,10 @@ export const actions: Actions = {
     //create 2d array
     const metrics = {};
     //first element in splitted is the metric keys
-    const keys = splitted[0].split(",")
-    console.log("keys, ", keys)
-    keys.forEach(key => {
-       
-        metrics[key] = [];
-        
+    const keys = splitted[0].split(",");
+    console.log("keys, ", keys);
+    keys.forEach((key) => {
+      metrics[key] = [];
     });
 
     for (let i = 1; i < splitted.length; i++) {
@@ -36,24 +34,27 @@ export const actions: Actions = {
       }
     }
 
-    console.log("metrics obj: ", JSON.stringify({
+    console.log(
+      "metrics obj: ",
+      JSON.stringify({
         metrics: metrics,
-      }))
+      })
+    );
 
     const response = await fetch(
-        "https://cs261-backend-7r5ljue3ha-no.a.run.app/retrain",
-        {
-          method: "POST",
-          body: JSON.stringify({
-            metrics: metrics,
-          }),
-          headers: {
-            "content-type": "application/json",
-          },
-        }
-      );
-      const poo = await response.json();
-      console.log("retrain resp: ", poo);
+      "https://cs261-backend-7r5ljue3ha-no.a.run.app/retrain",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          metrics: metrics,
+        }),
+        headers: {
+          "content-type": "application/json",
+        },
+      }
+    );
+    const poo = await response.json();
+    console.log("retrain resp: ", poo);
   },
 };
 
@@ -62,8 +63,9 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
   if (cookie == undefined) {
     throw redirect(302, "/login");
   }
+  console.log("cunt");
   const user: user = JSON.parse(cookie);
-
+  console.log("cunt2");
   const db = getFirestore(app);
 
   const projectID = url.searchParams.get("id")!;
@@ -123,7 +125,7 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
     //@ts-ignore
 
     aiMetrics["num_commits"] = projectDoc.get("numCommits");
-
+    console.log('aimetrics: ', aiMetrics)
     //query AI backend for stuff
     const response = await fetch(
       "https://cs261-backend-7r5ljue3ha-no.a.run.app/classify",
