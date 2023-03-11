@@ -48,6 +48,12 @@ test("renders questions correctly", async () => {
 
     await fireEvent.click(screen.getAllByRole("button")[0]);
     expect(screen.getByText("Project Type")).toBeDefined();
+    await userEvent.selectOptions(screen.getByTestId('listbox'),["Ruby"]);
+    // await userEvent.click(screen.getByText('Ruby'));
+    expect(screen.getByText('Ruby')).toBeDefined();
+    expect(screen.getByText('Ruby').selected).toBe(true);
+    expect(screen.getByText('All').selected).toBe(false);
+    expect(screen.getByText('Ci_light').selected).toBe(false);
     expect(screen.getAllByRole("option")).toHaveLength(15);
 
     await fireEvent.click(screen.getAllByRole("button")[0]);
@@ -62,13 +68,6 @@ test("renders questions correctly", async () => {
     expect(screen.getByText("Github Link")).toBeDefined();
     const urlComponent = screen.getByPlaceholderText('Answer here');
     expect(urlComponent.type).toEqual("url");
-
-    await fireEvent.click(screen.getAllByRole("button")[0]);
-    expect(screen.getByText("Customer Contact Frequency")).toBeDefined();
-    const ccfComponent = screen.getByPlaceholderText('Answer here');
-    expect(ccfComponent.type).toEqual("number");
-    await userEvent.type(ccfComponent, "test");
-    expect(screen.queryByText("test")).not.toBeInTheDocument();
 
     await fireEvent.click(screen.getAllByRole("button")[0]);
     expect(screen.getByText("Budget")).toBeDefined();

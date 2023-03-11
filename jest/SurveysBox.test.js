@@ -59,6 +59,7 @@ test("redirect works correctly", async () => {
   render(svelte`
     <script>
     import { goto } from "$app/navigation";
+
     import SurveysBox from "../src/routes/dashboard/SurveysBox.svelte";
     </script>
 
@@ -68,4 +69,6 @@ test("redirect works correctly", async () => {
   const clickable = (screen.getByRole("button"));
 
   expect(clickable).toHaveClass('surveyItem');
+
+  userEvent.click(clickable);
 })
