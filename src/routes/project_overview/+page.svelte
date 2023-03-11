@@ -191,9 +191,8 @@
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined">folder</span>
             <p>Upload CSV files to train the model</p>
-            <form action="/upload" method="POST" enctype="multipart/form-data">
+            <form method="POST" enctype="multipart/form-data">
                 <input type="file" name="file" id="file" accept=".csv" />
-                <input type="hidden" name="projectID" value={data.project.id} />
                 <Button>Upload</Button>
             </form>
         </div>
@@ -366,4 +365,5 @@
             flex-direction: row;
         }
     }
+
 </style>
