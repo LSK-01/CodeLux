@@ -108,7 +108,8 @@
                 projectID: data.project.id,
                 progress: data.project.progress,
                 success: data.predClass,
-                metrics: data.metrics
+                metrics: data.metrics,
+                noRisk: data.noRisk
             }),
             headers: {
                 "content-type": "application/json",
