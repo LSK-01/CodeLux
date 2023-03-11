@@ -8,7 +8,7 @@ import { goto } from '$app/navigation';
 </svelte:head>
 
 <div class="title">
-	<h1 class=" text-7xl">Pimp my Project</h1>
+	<h1 class=" text-7xl">CodeLux</h1>
 </div>
 <section class=" flex justify-center items-center flex-col gap-5">
     <Button click={() => goto('/login')}>Log in</Button>
