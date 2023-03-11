@@ -5,6 +5,9 @@
 	import RiskChart from './charts/RiskChart.svelte';
 	import SurveyChart from './charts/SurveyChart.svelte';
 	import TaskChart from './charts/TaskChart.svelte';
+	import BlankChart from './charts/BlankChart.svelte';
+	import BlankChart2 from './charts/BlankChart2.svelte';
+	import BlankChart3 from './charts/BlankChart3.svelte';
 	export let data: PageData;
 </script>
 
@@ -19,7 +22,11 @@
 			<span class="material-symbols-outlined" id='riskIcon'>error</span>
 			<h3>Projects at risk</h3>
 			<div class='donutCell'>
-				<RiskChart data={data}/>
+				{#if data.atRisk+data.notAtRisk>0}
+					<RiskChart data={data}/>
+				{:else}
+					<BlankChart/>
+				{/if}
 				<p class="centerLabel">{data.atRisk}/{data.atRisk+data.notAtRisk}</p>
 			</div>
 		</button>
@@ -27,7 +34,11 @@
 			<span class="material-symbols-outlined" id='surveyIcon'>quiz</span>
 			<h3>Projects with surveys due</h3>
 			<div class='donutCell'>
-				<SurveyChart data={data}/>
+				{#if data.totalProjects>0}
+					<SurveyChart data={data}/>
+				{:else}
+					<BlankChart2/>
+				{/if}
 				<p class="centerLabel">{data.withSurveys}/{data.totalProjects}</p>
 			</div>
 		</button>
@@ -35,7 +46,11 @@
 			<span class="material-symbols-outlined" id='taskIcon'>assignment</span>
 			<h3>Projects with tasks due</h3>
 			<div class='donutCell'>
-				<TaskChart data={data}/>
+				{#if data.totalProjects>0}
+					<TaskChart data={data}/>
+				{:else}
+					<BlankChart3/>
+				{/if}
 				<p class="centerLabel">{data.withTasks}/{data.totalProjects}</p>
 			</div>
 		</button>
@@ -52,6 +67,7 @@
 		background-color: var(--fg1);
 		border-radius: 10px;
 		box-shadow: var(--outset);
+		z-index: 0;
 	}
 
 	.overviewItem:hover{
