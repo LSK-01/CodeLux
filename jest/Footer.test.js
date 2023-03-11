@@ -4,5 +4,5 @@ import Footer from "../src/routes/Footer.svelte";
 test("renders footer correctly", async () => {
     render(Footer);
 
-    expect(screen.getByText("Pimp My Project")).toBeDefined();
+    expect(screen.getByText("CodeLux")).toBeDefined();
 })
