@@ -12,12 +12,12 @@ import fs from 'fs';
 function runAnalysis(projectID:string, projectType:string) {
     console.log("Starting analysis");
     const cmd = "cd ./src/routes/githubAPI/projectCode/"+projectID+" & copy ..\\..\\..\\codeanalysis\\.mega-linter.yml . & mega-linter-runner -f "+projectType.toLowerCase()+" --remove-container";
-    try {
+    // try {
         execSync(cmd, {stdio: 'inherit'});
         // execSync(cmd);
-    } catch (err){
-        return false;
-    };
+    // } catch (err){
+    //     return false;
+    // };
     console.log("Completed analysis");
     return true;
 }
@@ -25,14 +25,14 @@ function runAnalysis(projectID:string, projectType:string) {
 async function processResults(projectID:string) {
     const fName = "./src/routes/githubAPI/projectCode/"+projectID+"/megalinter-reports/mega-linter-report.json";
     var res;
-    try {
+    // try {
         res = JSON.parse(fs.readFileSync(fName, 'utf8'));
-    } catch (err){
-        return {
-            success: false,
-            analysisScore: 0
-        }
-    };
+    // } catch (err){
+    //     return {
+    //         success: false,
+    //         analysisScore: 0
+    //     }
+    // };
     const results = res;
     var errorCount = 0
     var linterCount = 0;
@@ -50,15 +50,15 @@ async function processResults(projectID:string) {
 }
 
 async function updateScore(projectID:string, analysisScore:number){
-    try {
+    // try {
         const db = getFirestore(app);
         const project = doc(db, "projects", projectID);
-        updateDoc(project, {"codeAnalysisScore": analysisScore, "codeAnalysisDate": new Date()}) 
-    } catch (err){
-        return {
-            success: false,
-        }
-    };
+        await updateDoc(project, {"codeAnalysisScore": analysisScore, "codeAnalysisDate": new Date()}) 
+    // } catch (err){
+    //     return {
+    //         success: false,
+    //     }
+    // };
     console.log("Updated analysis score");
     return { success: true };
 };
