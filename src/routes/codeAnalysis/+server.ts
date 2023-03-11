@@ -14,7 +14,7 @@ function runAnalysis(projectID: string, projectType: string) {
     projectType.toLowerCase() +
     " --remove-container";
   try {
-    execSync(cmd, { stdio: "inherit" });
+    // execSync(cmd, { stdio: "inherit" });
     execSync(cmd);
   } catch (err) {
     return false;

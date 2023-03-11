@@ -247,8 +247,10 @@
                 <p>Outcome: {data.project.outcome}</p>
                 <Button click={() => toggleOutcome()}>
                     {#if data.project.outcome == 'Success'}
+                        <span class="material-symbols-outlined bad">error</span>
                         Mark as failure
                     {:else}
+                        <span class="material-symbols-outlined good">check_circle</span>
                         Mark as success
                     {/if}
                 </Button>
@@ -413,7 +415,7 @@
         font-size: 20px;
     }
 
-    @media only screen and (max-width: 1200px) {
+    @media only screen and (max-width: 1500px) {
         .boxContents {
             flex-direction: row;
         }
