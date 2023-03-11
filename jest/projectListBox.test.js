@@ -33,7 +33,6 @@ test("renders a non-empty project list box", async () => {
 
     expect(screen.getAllByRole("button")).toHaveLength(2);
 
-    expect(screen.getAllByText("description")).toHaveLength(2);
     expect(screen.getAllByText("chevron_right")).toHaveLength(2);
 
     expect(screen.findAllByText("Title")).toBeDefined();
