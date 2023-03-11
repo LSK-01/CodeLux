@@ -6,7 +6,7 @@
     import { page } from '$app/stores';
 	export let data: PageData;
 	let user = data.user;
-	let landing = ['about', 'login', 'signup'];
+	let landing = ['', 'about', 'login', 'signup'];
 	let loggedIn = ['dashboard', 'projects', 'add', 'logout'];
 	$: navItems = landing.includes($page.url.pathname.slice(1)) ? landing : loggedIn;
 	// $: navItems = loggedIn.includes($page.url.pathname.slice(1)) ? loggedIn : landing;

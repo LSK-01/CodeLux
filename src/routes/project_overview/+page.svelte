@@ -5,6 +5,9 @@
     import Button from "../Button.svelte";
     import { invalidateAll } from "$app/navigation";
     export let data: PageData;
+    import Popup from './popup/Popup.svelte';
+    var isOpen = false;
+    var popupMsgs:string[] = [];
     //redirects to dashboard - we then redirect back to the proj overview page in dashboard backend using state.
     const getToken = () => {
         if (browser) {
@@ -25,6 +28,8 @@
             alert("You did not add a GitHub link when adding this project.");
             return;
         }
+        isOpen = true;
+        popupMsgs.push("Fetching project files...");
         const response = await fetch('/githubAPI', {
             method: "POST",
             body: JSON.stringify({
@@ -36,11 +41,19 @@
                 "content-type": "application/json",
             },
         });
-        // const resJson = await response.json();
-        runAnalyser();
+        const res = await response.json();
+        popupMsgs.pop();
+        if (res.success) {
+            popupMsgs = [...popupMsgs, "Project files fetch successful."];
+            runAnalyser();
+        } else {
+            popupMsgs = [...popupMsgs, "Project files fetch unsuccessful."];
+        }
+
     };
 
     const runAnalyser = async () => {
+        popupMsgs = [...popupMsgs, "Analysing project code..."];
         const response = await fetch('/codeAnalysis', {
             method: "POST",
             body: JSON.stringify({
@@ -51,12 +64,20 @@
                 "content-type": "application/json",
             },
         });
-        const analysisScore:number = (await response.json()).analysisScore;
-        updateScore(analysisScore);
+        const res = await response.json();
+        const analysisScore:number = res.analysisScore;
+        popupMsgs.pop();
+        if (res.success) {
+            popupMsgs = [...popupMsgs, "Code analysis successful."];
+            updateScore(analysisScore);
+        } else {
+            popupMsgs = [...popupMsgs, "Code analysis unsuccessful."];
+        }
     };
 
     const updateScore = async (analysisScore:number) => {
-        fetch('/project_overview/updateScore', {
+        popupMsgs = [...popupMsgs, "Updating analysis score..."];
+        const response = await fetch('/project_overview/updateScore', {
             method: "POST",
             body: JSON.stringify({
                 projectID: data.project.id,
@@ -66,6 +87,17 @@
                 "content-type": "application/json",
             },
         });
+        const res = await response.json();
+        popupMsgs.pop()
+        if (res.success) {
+            popupMsgs = [...popupMsgs, "Analysis score update successful."];
+        } else {
+            popupMsgs = [...popupMsgs, "Analysis score update unsuccessful."];
+        }
+        setTimeout(()=>{
+            popupMsgs = [];
+            isOpen = false;
+        }, 5000);
         invalidateAll();
     };
 
@@ -83,7 +115,9 @@
                 "content-type": "application/json",
             },
         });
-        invalidateAll();
+        data.project.progress = data.project.progress == "Complete" ? "Not complete" : "Complete";
+
+        //invalidateAll();
     };
 
     const toggleOutcome = async () => {
@@ -174,19 +208,25 @@
         </div>
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined">folder</span>
-  
             <form action={data.project.githubLink}>
-                <Button><input type="submit" value="Project Github link" /></Button>
+                <Button>Project GitHub link</Button>
+            </form>
+            <p>Upload CSV files to train the model</p>
+            <form action="/upload" method="POST" enctype="multipart/form-data">
+                <input type="file" name="file" id="file" accept=".csv" />
+                <input type="hidden" name="projectID" value={data.project.id} />
+                <Button>Upload</Button>
             </form>
         </div>
         <div class="projectOverviewItem">
+            <Popup isOpen={isOpen} popupMsgs={popupMsgs}/>
             <span class="material-symbols-outlined">terminal</span>
             <p>Project type: {data.project.projectType}</p>
             <p>Last code analysis score: {data.project.codeAnalysisScore}/100</p>
             <p>Last analysed: {data.project.codeAnalysisDate}</p>
             {#if data.user.githubToken === "" || data.user.githubToken === undefined}
                 <Button click={() => getToken()}>Authorise GitHub access</Button>
-            {:else if data.project.progress == "Not complete" && data.user.githubToken != "" && data.user.githubToken === undefined}
+            {:else if data.project.progress == "Not complete"}
                 <Button click={() => handleGetGit()}>Run code analysis</Button>
             {/if}
         </div>

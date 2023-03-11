@@ -1,27 +1,26 @@
 <script lang='ts'>
-	import type { PageData } from "../$types";
     import Chart from 'chart.js/auto'
     import { onMount } from 'svelte';
-	export let data: PageData;
 
-    function drawRiskChart() {
-        const chartElement = document.getElementById('riskChart')!;
+    function drawBlankChart() {
+        const chartElement = document.getElementById('blankChart3')!;
         new Chart(chartElement, {
             type: 'doughnut',
             data: {
-                labels: ["Not at risk", "At risk"],
+                labels: [""],
                 datasets: [{
-                    data: [data.notAtRisk, data.atRisk],
-                    borderWidth: 1,
-                    backgroundColor: [
-                        '#22c55e',
-                        '#ef4444'
-                    ],
-                    hoverOffset: 4
+                    data: [1],
+                    borderWidth: 0,
+                    backgroundColor: ['#ddd'],
+                    hoverOffset: 0
                 }]
             },
             options: {
                 radius: '96%',
+                events: [],
+                animations:{
+                    animateRotate: false,
+                },
                 scales: {
                     x: {
                         display: false
@@ -42,10 +41,10 @@
     }
 
     onMount(() => {
-        drawRiskChart();
+        drawBlankChart();
     });
 </script>
 
 <div>
-    <canvas id="riskChart" width="150"></canvas>
+    <canvas id="blankChart3" width="150"></canvas>
 </div>
