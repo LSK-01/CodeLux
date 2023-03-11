@@ -140,3 +140,11 @@ button:focus:not(:focus-visible) {
 	background-color: var(--fg1);
 	box-shadow: var(--inset);
 }
+
+.bad {
+	color: #ef4444;
+}
+
+.good {
+	color: #22c55e;
+}
