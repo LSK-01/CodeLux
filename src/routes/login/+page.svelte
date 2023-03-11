@@ -23,7 +23,7 @@
 </svelte:head>
 
 <div class="title">
-  <h1 class=" text-7xl">Pimp my Project</h1>
+  <h1 class=" text-7xl">CodeLux</h1>
 </div>
 
 <form method="POST">

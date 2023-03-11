@@ -12,7 +12,7 @@
 </svelte:head>
 
 <nav>
-	<h1>Pimp My Project</h1>
+	<h1>CodeLux</h1>
 	{#if !navItems.includes("login")}
 		<div id="userBox">
 			<span class="material-symbols-outlined">account_circle</span>
