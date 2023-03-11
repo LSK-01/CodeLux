@@ -189,6 +189,15 @@
             </form>
         </div> -->
         <div class="projectOverviewItem">
+            <span class="material-symbols-outlined">folder</span>
+            <p>Upload CSV files to train the model</p>
+            <form action="/upload" method="POST" enctype="multipart/form-data">
+                <input type="file" name="file" id="file" accept=".csv" />
+                <input type="hidden" name="projectID" value={data.project.id} />
+                <Button>Upload</Button>
+            </form>
+        </div>
+        <div class="projectOverviewItem">
             <Popup isOpen={openPopup} popupMsgs={popupMsgs}/>
             <span class="material-symbols-outlined">terminal</span>
             <p>Project type: {data.project.projectType}</p>
@@ -196,7 +205,6 @@
             <p>Last analysed: {data.project.codeAnalysisDate}</p>
             {#if data.user.githubToken === "" || data.user.githubToken === undefined}
                 <Button click={() => getToken()}>Authorise GitHub access</Button>
-            
             {:else if data.project.progress == "Not complete"}
                 <Button click={() => handleGetGit()}>Run code analysis</Button>
             {/if}
