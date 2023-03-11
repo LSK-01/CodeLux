@@ -76,7 +76,11 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
   const desc = projectDoc.get("projectdescription");
   const deadline = projectDoc.get("deadline").toDate();
   const startDate = projectDoc.get("startdate").toDate().toLocaleDateString();
-  const smetrics = projectDoc.get("smetrics");
+
+  const metricsDocRef = doc(db, "projects", "metrics:" + projectID)
+  const metricsDoc = await getDoc(metricsDocRef)
+  const smetrics = metricsDoc.data()
+
   const budget = Math.round(projectDoc.get("budget") * 100) / 100;
   const codeAnalysisScore = projectDoc.get("codeAnalysisScore") * 100;
   const codeAnalysisDate = projectDoc
