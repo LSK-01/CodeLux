@@ -6,8 +6,6 @@
   import DeadlinesBox from "./DeadlinesBox.svelte";
   import type { PageData } from "./$types";
   export let data: PageData;
-  import Button from "../Button.svelte";
-
 </script>
 
 <svelte:head>
@@ -37,6 +35,7 @@
 
   #dashboard div {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
     flex: 1;
   }

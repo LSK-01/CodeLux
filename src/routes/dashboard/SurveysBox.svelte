@@ -41,6 +41,8 @@
 	.surveyItem {
 		display: flex;
 		flex-direction: row;
+		text-align: left;
+		align-items: center;
 		gap: 10px;
 		background-color:var(--fg3);
 		padding: 10px;
