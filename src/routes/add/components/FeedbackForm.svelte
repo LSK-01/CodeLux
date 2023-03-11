@@ -82,7 +82,7 @@
 
         <form>
             {#if questions_new[question_num] == "Project Type"}
-                <select bind:value={text}>
+                <select bind:value={text} data-testid="listbox">
                     {#each projectTypes as type}
                         <option value={type}>{type}</option>
                     {/each}
