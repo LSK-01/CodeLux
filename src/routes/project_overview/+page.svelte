@@ -413,7 +413,7 @@
         font-size: 20px;
     }
 
-    @media only screen and (max-width: 1200px) {
+    @media only screen and (max-width: 1500px) {
         .boxContents {
             flex-direction: row;
         }
