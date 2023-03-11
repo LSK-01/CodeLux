@@ -16,7 +16,7 @@
 			</div>
 		</button>
 		{:else}
-		<div class='taskItem'>
+		<div class='taskItem placeholder'>
 			<h3>No tasks due<h3>
 		</div>
 		{/each}

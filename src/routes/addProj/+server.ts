@@ -17,6 +17,7 @@ export const POST = (async ({ request }) => {
   obj.startdate = new Date(obj.startdate);
   obj.developerusernames = obj.developerusernames.split(",");
   obj.complete = false;
+  obj.success = true;
   obj.atRisk = false;
   obj.numCommits = 0;
   obj.codeAnalysisScore = 0;

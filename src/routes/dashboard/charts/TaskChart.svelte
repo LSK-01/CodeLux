@@ -12,7 +12,7 @@
                 labels: ["Without tasks", "With tasks"],
                 datasets: [{
                     data: [data.withoutTasks, data.withTasks],
-                    borderWidth: 0,
+                    borderWidth: 1,
                     backgroundColor: [
                         '#22c55e',
                         '#fde047'
