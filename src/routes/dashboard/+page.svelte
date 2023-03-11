@@ -8,14 +8,6 @@
   export let data: PageData;
   import Button from "../Button.svelte";
 
-  const getNumCommits = async () => {
-	const response = await fetch('/getNumCommits', {
-            method: "POST",
-            headers: {
-                "content-type": "application/json",
-            },
-        });
-  };
 </script>
 
 <svelte:head>
@@ -29,7 +21,6 @@
     <SurveysBox surveyList={data.surveyList} />
     <TasksBox taskList={data.taskList} />
   </div>
-  <Button click={getNumCommits}>get num comimts</Button>
 </div>
 
 <style>
