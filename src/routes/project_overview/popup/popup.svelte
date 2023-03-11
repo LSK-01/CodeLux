@@ -1,6 +1,7 @@
 <script lang='ts'>
     export let isOpen = false;
     export let popupMsgs: string[];
+    export let success = true;
     import Button from "../../Button.svelte";
     function close() {
         isOpen = false;
@@ -13,11 +14,19 @@
     {#each popupMsgs as msg}
         <p>{msg}</p>
     {:else}
-        <span class="material-symbols-outlined good">check_circle</span>
-        <p>Code analysis successfully complete.</p>
-        <Button click={()=>close()}>
-            <span class="material-symbols-outlined">close</span>
-        </Button>
+        {#if success}
+            <span class="material-symbols-outlined good">check_circle</span>
+            <p>Code analysis successfully complete.</p>
+            <Button click={()=>close()}>
+                <span class="material-symbols-outlined">close</span>
+            </Button>
+        {:else}
+            <span class="material-symbols-outlined bad">error</span>
+            <p>Code analysis failed.</p>
+            <Button click={()=>close()}>
+                <span class="material-symbols-outlined">close</span>
+            </Button>
+        {/if}
     {/each}
 </div>
 {/if}
@@ -29,7 +38,7 @@
         flex-direction: column;
         align-items: center;
         background-color: var(--fg2);
-		border-radius: 10px;
+		border-radius: 5px;
         gap: 10px;
 		padding: 10px;
         flex: 1;

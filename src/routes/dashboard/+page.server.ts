@@ -208,7 +208,6 @@ async function getDeadlines(user: user) {
     const q2 = query(ps, 
         where("developerusernames", "array-contains", user.username), 
         where("complete","==",false), 
-        where("deadline","<",new Date()), 
         orderBy("deadline"));
     const querySnapshot1 = await getDocs(q2);
     querySnapshot1.forEach((project) => {
