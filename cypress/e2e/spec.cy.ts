@@ -142,11 +142,11 @@
 
       cy.get("input[placeholder=Password]").type("password123")
 
-      cy.contains('Login').dblclick()
+      cy.contains('Log in').dblclick()
 
       cy.login("cypress@email.com","password123")
       
-      cy.contains('Add project').click()
+      cy.contains('Add project').dblclick()
 
       cy.url().should('eq', 'http://localhost:5173/add')
 
@@ -182,10 +182,6 @@
 
       cy.contains('Send').click()
 
-      cy.get("input").type("1000")
-
-      cy.contains('Send').click()
-
       cy.get("input").type("2023-10-10")
 
       cy.contains('Send').click()
@@ -194,9 +190,7 @@
 
       cy.contains('Send').click()
 
-      cy.contains("DASHBOARD").click()
-
-      cy.contains(testname).click()
+      cy.contains(testname).should('exist');
     })
 
   })
