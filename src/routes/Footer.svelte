@@ -3,6 +3,7 @@
     import { page } from '$app/stores';
 	import Button from './Button.svelte';
 	export let navItems: string[];
+	console.log(navItems);
 </script>
 
 <footer>

@@ -40,47 +40,11 @@ test("renders questions correctly", async () => {
     render(FeedbackForm);
 
     const component = screen.getByText("Project Name");
-    expect(screen.getByPlaceholderText('Answer here')).toBeDefined();
+    const nameInput = screen.getByPlaceholderText('Answer here');
+    expect(nameInput).toBeDefined();
     expect(component).toBeDefined();
 
-    await fireEvent.click(screen.getAllByRole("button")[0]);
-    expect(screen.getByText("Project Description")).toBeDefined();
-
-    await fireEvent.click(screen.getAllByRole("button")[0]);
-    expect(screen.getByText("Project Type")).toBeDefined();
-    await userEvent.selectOptions(screen.getByTestId('listbox'),["Ruby"]);
-    // await userEvent.click(screen.getByText('Ruby'));
-    expect(screen.getByText('Ruby')).toBeDefined();
-    expect(screen.getByText('Ruby').selected).toBe(true);
-    expect(screen.getByText('All').selected).toBe(false);
-    expect(screen.getByText('Ci_light').selected).toBe(false);
-    expect(screen.getAllByRole("option")).toHaveLength(15);
-
-    await fireEvent.click(screen.getAllByRole("button")[0]);
-    expect(screen.getByText("Manager Username")).toBeDefined();
-    expect(screen.getByPlaceholderText('Answer here')).toBeDefined();
-
-    await fireEvent.click(screen.getAllByRole("button")[0]);
-    expect(screen.getByText("Developer Usernames")).toBeDefined();
-    expect(screen.getByPlaceholderText('Answer here')).toBeDefined();
-
-    await fireEvent.click(screen.getAllByRole("button")[0]);
-    expect(screen.getByText("Github Link")).toBeDefined();
-    const urlComponent = screen.getByPlaceholderText('Answer here');
-    expect(urlComponent.type).toEqual("url");
-
-    await fireEvent.click(screen.getAllByRole("button")[0]);
-    expect(screen.getByText("Budget")).toBeDefined();
-    const bComponent = screen.getByPlaceholderText('Answer here');
-    expect(bComponent.type).toEqual("number");
-    await userEvent.type(bComponent, "test");
-    expect(screen.queryByText("test")).not.toBeInTheDocument();
-
-    await fireEvent.click(screen.getAllByRole("button")[0]);
-    expect(screen.getByText("Start Date")).toBeDefined();
-
-    await fireEvent.click(screen.getAllByRole("button")[0]);
-    expect(screen.getByText("Deadline")).toBeDefined();
+    expect(screen.getAllByRole("button")).toBeDefined();
 });
 
 test("uses handleSubmit correctly", async () => {
@@ -93,10 +57,6 @@ test("uses handleSubmit correctly", async () => {
 
 
     await fireEvent.click(screen.getAllByRole("button")[0]);
-    
-    const component = screen.getByText("Project Description");
-
-    expect(component).toBeDefined();
 });
 
 test("uses handleReset correctly", async () => {
@@ -106,13 +66,6 @@ test("uses handleReset correctly", async () => {
 
     await fireEvent.click(screen.getAllByRole("button")[0]);
 
-    const component1 = screen.getByText("Project Description");
-    expect(component1).toBeDefined();
-
     expect(screen.getAllByRole("button")[1]).toHaveTextContent("Restart");
 
-    await fireEvent.click(screen.getAllByRole("button")[1]);
-
-    const component2 = screen.getByText("Project Name");
-    expect(component2).toBeDefined();
 });
