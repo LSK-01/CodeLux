@@ -88,12 +88,6 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
     .toDate()
     .toLocaleString();
   const managerUsername = projectDoc.get("managerusername");
-  const githubLink = projectDoc.get("githublink");
-  const projectType = projectDoc.get("projecttype");
-  const devUsernames: string[] = [];
-  for (const developer of projectDoc.get("developerusernames")) {
-    devUsernames.push(developer);
-  }
   var progress = "Not complete";
   if (projectDoc.get("complete")) {
     progress = "Complete";
@@ -156,6 +150,13 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
       "predictedclass: ",
       res.predicted_class
     );
+  }
+
+  const githubLink = projectDoc.get("githublink");
+  const projectType = projectDoc.get("projecttype");
+  const devUsernames: string[] = [];
+  for (const developer of projectDoc.get("developerusernames")) {
+    devUsernames.push(developer);
   }
 
   return {

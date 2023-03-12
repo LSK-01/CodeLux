@@ -70,14 +70,4 @@
     text-align: center;
     border-radius: 10px;
   } */
-
-  @media screen and (max-width: 880px) {
-      #signUpBox {
-        width: 100%;
-      }
-
-      .title {
-        padding: 0px;
-      }
-	}
 </style>

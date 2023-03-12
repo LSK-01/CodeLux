@@ -2,7 +2,6 @@
 	import '../styles.css';
 	export let deadlineList : any[number][string];
 	import { goto } from "$app/navigation";
-	const currentDate = new Date();
 </script>
 
 <div id='deadlinesBox'>
@@ -10,7 +9,7 @@
 	<div class='boxContents'>
 		{#each deadlineList as entry}
 		<button class='deadlineItem' on:click={()=>{goto(`/project_overview?id=${entry.projectID}`)}}>
-			{#if entry.deadline < currentDate}
+			{#if entry.deadline < new Date()}
 			<span class="material-symbols-outlined bad">pending_actions</span> 
 			{:else}
 			<span class="material-symbols-outlined">pending_actions</span> 
@@ -63,5 +62,4 @@
 	.bad {
         color: #ef4444;
     }
-
 </style>
