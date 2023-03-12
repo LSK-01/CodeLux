@@ -111,7 +111,7 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
   };
 
   let noRisk = true;
-  if (smetrics) {
+  if (smetrics!.training != undefined) {
     noRisk = false;
     for (let key in smetrics) {
       if (key.endsWith("answered")) {
