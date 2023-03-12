@@ -1,6 +1,6 @@
 import { dev } from '$app/environment';
 import { app } from '../../../hooks.server';
-import { getFirestore,collection, getDocs, query, orderBy, where, Timestamp } from 'firebase/firestore';
+import { getFirestore,collection, getDocs, query, orderBy, where, Timestamp, doc, getDoc } from 'firebase/firestore';
 import { _getTasks } from '../../dashboard/+page.server';
 import type { PageServerLoad } from "../../login/$types";
 import type { user } from "../../../user";
@@ -171,15 +171,18 @@ async function getProjectsWithSurveysDue(user: user){
     const weekOldTimestamp = Timestamp.fromMillis(currentTime.toMillis() - 604800000);
   
     querySnapshot6.forEach(async (project) => {
-      const q8 = query(
+        const docRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
+        const lastAnsweredSurvey = docSnap.data()![project.id];
+/*       const q8 = query(
         surveyAnswers,
         where("userid","==", user.uid),
         where("projectid","==", project.id),
         where("time",">", weekOldTimestamp),
       ); //if this is not empty a survey has been taken in the last seven days so DON'T generate survey for it
-      const querySnapshot8 = await getDocs(q8);
+      const querySnapshot8 = await getDocs(q8); */
   
-      if (querySnapshot8.empty) {
+/*       if (querySnapshot8.empty) {
         projects.push({
             id: project.id,
             projectName: project.data().projectname, 
@@ -188,7 +191,17 @@ async function getProjectsWithSurveysDue(user: user){
             month: "numeric",
             day: "numeric",
             }), managerBool: true})
-        };
+        }; */
+        if (lastAnsweredSurvey == undefined || lastAnsweredSurvey < weekOldTimestamp) {
+            projects.push({
+                id: project.id,
+                projectName: project.data().projectname, 
+                dueDate: project.data().deadline.toDate().toLocaleString("en-GB",{
+                year: "numeric",
+                month: "numeric",
+                day: "numeric",
+                }), managerBool: true})
+          }
     });
 
     const querySnapshot7 = await getDocs(q7);
