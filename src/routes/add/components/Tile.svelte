@@ -1,7 +1,9 @@
 <script lang="ts">
+  // Import global styles
   import "../../styles.css";
 </script>
 
+<!-- Use the default slot to display the contents of the tile -->
 <div class="tile">
   <slot></slot>
 </div>

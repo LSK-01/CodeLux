@@ -8,6 +8,7 @@
 <div id='projectListBox'>
     <h2>{title}</h2>
 	<div class='boxContents'>
+		<!-- Render each project in list -->
 		{#each projectData as { id, projectName, dueDate } }
         	<ProjectBox name={projectName} date={dueDate} id={id} />
 		{:else}

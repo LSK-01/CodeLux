@@ -3,6 +3,7 @@
     import { goto } from '$app/navigation';
 </script>
 
+<!-- Show this page after survey finished  -->
 <div class="restricted">
     <div id="outerContainer">
         <div class="container">

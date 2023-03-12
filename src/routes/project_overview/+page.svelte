@@ -9,7 +9,8 @@
     var openPopup = false;
     var popupSuccess = true;
     var popupMsgs:string[] = [];
-    //redirects to dashboard - we then redirect back to the proj overview page in dashboard backend using state.
+
+    // Redirects to dashboard - we then redirect back to the project overview page in dashboard backend using state.
     const getToken = () => {
         if (browser) {
             //get the OAuth token for the user
@@ -24,13 +25,17 @@
         }
     };
 
+    // Function to get github repo data
     const handleGetGit = async () => {
+        // Check if github link exists for project
         if (data.project.githubLink === "") {
             alert("You did not add a GitHub link when adding this project.");
             return;
         }
         openPopup = true;
         popupMsgs.push("Fetching project files...");
+
+        // Get data from github api
         const response = await fetch('/githubAPI', {
             method: "POST",
             body: JSON.stringify({
@@ -42,8 +47,12 @@
                 "content-type": "application/json",
             },
         });
+
         const res = await response.json();
+
         popupMsgs.pop();
+
+        // Show popup messages
         if (res.success) {
             popupMsgs = [...popupMsgs, "Project files fetch successful."];
             runAnalyser();
@@ -54,8 +63,10 @@
         }
     };
 
+    // Function to analyse project code
     const runAnalyser = async () => {
         popupMsgs = [...popupMsgs, "Analysing project code..."];
+
         const response = await fetch('/codeAnalysis', {
             method: "POST",
             body: JSON.stringify({
@@ -66,24 +77,31 @@
                 "content-type": "application/json",
             },
         });
+
         const res = await response.json();
+
         popupMsgs.pop();
+
         if (res.success) {
             popupMsgs = [...popupMsgs, "Code analysis successful.", "Analysis score update successful."];
         } else {
             popupSuccess = false;
             popupMsgs = [...popupMsgs, "Code analysis unsuccessful."];
         }
+
         setTimeout(()=>{popupMsgs = []}, 5000);
+
         invalidateAll();
     };
 
+    // Function to toggle progess
     const toggleProgress = async () => {
-        // tturn metrics into array values first
+        // Turn metrics into array values first
         for (let key in data.metrics) {
             //@ts-ignore
             data.metrics[key] = [data.metrics[key]];
         }
+
         await fetch('/project_overview/toggleProgress', {
             method: "POST",
             body: JSON.stringify({
@@ -97,11 +115,11 @@
                 "content-type": "application/json",
             },
         });
-        data.project.progress = data.project.progress == "Complete" ? "Not complete" : "Complete";
 
-        //invalidateAll();
+        data.project.progress = data.project.progress == "Complete" ? "Not complete" : "Complete";
     };
 
+    // Function to toggle outcome
     const toggleOutcome = async () => {
         await fetch('/project_overview/toggleOutcome', {
             method: "POST",
@@ -149,9 +167,11 @@
     </div>
     <div class="boxContents">
         <div class="projectOverviewItem">
+            <!-- If project overdue -->
             {#if data.project.progress == "Not complete" && data.project.deadline < new Date()}
 			<span class="material-symbols-outlined bad">pending_actions</span> 
             <p class="bad">Overdue by {Math.round((new Date().valueOf() - data.project.deadline)/86400000)} days</p> 
+            <!-- If project not overdue -->
 			{:else if data.project.progress == "Not complete"}
 			<span class="material-symbols-outlined">pending_actions</span> 
             <p>Due in {Math.round((data.project.deadline - new Date().valueOf())/86400000)} days</p> 
@@ -181,6 +201,7 @@
             <span class="material-symbols-outlined">groups</span>
             <p>Developers:</p>
             <ul class="suggestionList">
+                <!-- Show each developer -->
                 {#each data.project.devUsernames as devUsername}
                     <li class="userBox">
                         <span class="material-symbols-outlined">person</span>
@@ -198,6 +219,7 @@
             </form>
         </div>
         <div class="projectOverviewItem">
+            <!-- Allows CSV file upload -->
             <span class="material-symbols-outlined">upload_file</span>
             <form method="POST" enctype="multipart/form-data" id='csvForm'>
                 <p>Upload CSV files to train the model</p>
@@ -228,10 +250,6 @@
             <span class="material-symbols-outlined">payments</span>
             <p>Budget: £{data.project.budget}</p>
         </div>
-        <!-- <div class="projectOverviewItem">
-            <span class="material-symbols-outlined">connect_without_contact</span>
-            <p>Customer contact frequency: {data.project.custContactFrequency} times per week</p>
-        </div> -->
         {#if data.user.username == data.project.managerUsername}
         <div class="projectOverviewItem">
             {#if data.project.progress == "Not complete" && data.project.status == "At risk" || data.project.progress == "Complete" && data.project.outcome == "Failure"}

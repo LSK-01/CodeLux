@@ -7,7 +7,9 @@
 <div id='tasksBox'>
 	<h2>Tasks</h2>
 	<div class='boxContents'>
+		<!-- Render box for each project with task due -->
 		{#each taskList as task}
+		<!-- Redirects user to project overview page -->
 		<button class='taskItem' on:click={()=>{goto(`/project_overview?id=${task.projectID}`)}}>
 			<span class="material-symbols-outlined">assignment</span> 
 			<div>
@@ -16,6 +18,7 @@
 			</div>
 		</button>
 		{:else}
+		<!-- Render this if no projects in list -->
 		<div class='taskItem placeholder'>
 			<h3>No tasks due<h3>
 		</div>

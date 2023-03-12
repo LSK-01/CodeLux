@@ -3,5 +3,6 @@
 </script>
 
 <main>
+	<!-- Render feedback form component on page -->
 	<FeedbackForm />
 </main>

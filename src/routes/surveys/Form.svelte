@@ -1,14 +1,13 @@
-<!-- https://svelte.dev/repl/7b05d57dcdc04f49be72844e4b2825b3?version=3.44.0 -->
 <script lang="ts">
     import Radio from './Radio.svelte';
 	import "../styles.css";
 	
 	export let options : any[number][string];    
 	export let questionData : any[];
-	console.log('questionData', questionData);
 </script>
 
 <form class="form-container" method="POST">
+	<!-- Render each question -->
 	{#each questionData as { question, metric, qid }, i}
         <div class="centered">
             <h1 class="qheading">

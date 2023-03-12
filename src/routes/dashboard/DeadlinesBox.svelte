@@ -8,19 +8,22 @@
 <div id='deadlinesBox'>
 	<h2>Deadlines</h2>
 	<div class='boxContents'>
+		<!-- Render each project with deadline if list not empty-->
 		{#each deadlineList as entry}
-		<button class='deadlineItem' on:click={()=>{goto(`/project_overview?id=${entry.projectID}`)}}>
-			{#if entry.deadline < currentDate}
-			<span class="material-symbols-outlined bad">pending_actions</span> 
-			{:else}
-			<span class="material-symbols-outlined">pending_actions</span> 
-			{/if}
-			<div>
-				<h3>{entry.projectName}</h3>
-				<p>Due on {(entry.deadline).toLocaleDateString()}</p>
-			</div>
-		</button>
+			<!-- When box is clicked, it redirects the user to the project overview -->
+			<button class='deadlineItem' on:click={()=>{goto(`/project_overview?id=${entry.projectID}`)}}>
+				{#if entry.deadline < currentDate}
+				<span class="material-symbols-outlined bad">pending_actions</span> 
+				{:else}
+				<span class="material-symbols-outlined">pending_actions</span> 
+				{/if}
+				<div>
+					<h3>{entry.projectName}</h3>
+					<p>Due on {(entry.deadline).toLocaleDateString()}</p>
+				</div>
+			</button>
       	{:else}
+		<!-- Display this if list is empty -->
 		<div class='deadlineItem placeholder'>
 			<h3>No projects due<h3>
 		</div>

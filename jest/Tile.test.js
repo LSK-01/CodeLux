@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/svelte";
-
 import { compile } from "svelte/compiler";
 
+// Allows Jest to use Svelte compiler
 function svelte(strings) {
   return eval(
     compile(
