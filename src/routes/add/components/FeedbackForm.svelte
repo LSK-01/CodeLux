@@ -18,7 +18,7 @@
         "Start Date",
         "Deadline",
     ];
-    let projectTypes = [
+    const projectTypes = [
         "All",
         "Ci_light",
         "Cupcake",

@@ -6,7 +6,7 @@
     import { invalidateAll } from "$app/navigation";
     export let data: PageData;
     import Popup from './popup/popup.svelte';
-    var openPopup = false;
+    var openPopup:boolean;
     var popupSuccess = true;
     var popupMsgs:string[] = [];
     //redirects to dashboard - we then redirect back to the proj overview page in dashboard backend using state.
@@ -201,7 +201,7 @@
             <span class="material-symbols-outlined">upload_file</span>
             <form method="POST" enctype="multipart/form-data" id='csvForm'>
                 <p>Upload CSV files to train the model</p>
-                <input type="file" bind:files name="file" id="file" accept=".csv"/>
+                <input type="file" bind:files name="file" id="file" accept=".csv" required/>
                 <label for="file">
                 {#if files}
                     {[...files][0].name}
@@ -213,7 +213,7 @@
             </form>
         </div>
         <div class="projectOverviewItem">
-            <Popup isOpen={openPopup} bind:popupMsgs success={popupSuccess}/>
+            <Popup bind:openPopup bind:popupMsgs success={popupSuccess}/>
             <span class="material-symbols-outlined">terminal</span>
             <p>Project type: {data.project.projectType}</p>
             <p>Last code analysis score: {data.project.codeAnalysisScore}/100</p>
@@ -305,16 +305,16 @@
 
     .boxContents {
         display: flex;
-        flex-direction: column;
         flex-wrap: wrap;
+        flex-direction: row;
         width: 100%;
         padding: 10px;
-        height: 0;
         flex: 1;
         gap: 10px;
         border-radius: 5px;
         background-color: var(--fg1);
         box-shadow: var(--inset);
+        text-align: center;
     }
 
     .suggestionList {
@@ -327,12 +327,13 @@
         background-color: var(--fg2);
         padding: 10px;
         gap: 5px;
-        flex: 1;
+        max-width:100%;
+        max-height:100%;
         align-items: center;
         justify-content: center;
         box-shadow: var(--outset);
         border-radius: 5px;
-        text-align: center;
+        flex: 1 0 auto;
     }
 
     .projectOverviewItem p {
@@ -362,7 +363,7 @@
     }
 
     #file + label {
-	    cursor: pointer; /* "hand" cursor */
+	    cursor: pointer;
         display: flex;
 		justify-content: space-evenly;
 		height: fit-content;
@@ -412,11 +413,4 @@
     .userBox span {
         font-size: 20px;
     }
-
-    @media only screen and (max-width: 1500px) {
-        .boxContents {
-            flex-direction: row;
-        }
-    }
-
 </style>
