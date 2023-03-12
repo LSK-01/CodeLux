@@ -63,8 +63,8 @@ export const POST = (async ({ request }) => {
   })
 
   let commentsArr: string[] = []
-  //@ts-ignore
-  comments.data.forEach(obj => {
+  
+  comments.data.forEach((obj:any) => {
     commentsArr.push(obj.body)
   });
 
@@ -122,8 +122,7 @@ export const POST = (async ({ request }) => {
 
   let filenames: string[] = [];
   const filesBase64 = await Promise.all(
-    //@ts-ignore
-    fileObjects.map(async (fileObj) => {
+    fileObjects.map(async (fileObj:any) => {
       filenames.push(fileObj.path.split("/").at(-1));
       return octokit.request("GET /repos/{owner}/{repo}/git/blobs/{file_sha}", {
         owner: username,

@@ -6,7 +6,6 @@ import { redirect, type Actions } from "@sveltejs/kit";
 
 export const actions: Actions = {
   default: async ({ cookies, request, url }) => {
-    //@ts-ignore
     // Get the CSV data from the request body and convert to a string
     const data = await request.arrayBuffer();
     const csv = Buffer.from(new Uint8Array(data)).toString();
@@ -109,7 +108,7 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
     outcome = "Failure";
   }
 
-  const aiMetrics = {};
+  const aiMetrics: any = {};
   let res = {
     features: {},
     classification: [0, 0],
@@ -122,18 +121,13 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
     for (let key in smetrics) {
       if (key.endsWith("answered")) {
         const metricName = key.substring(0, key.lastIndexOf("_"));
-        //@ts-ignore
         aiMetrics[metricName] = smetrics[metricName] / smetrics[key];
       }
     }
     // Add code analysis and budget and num commits, non soft metrics
-    //@ts-ignore
     aiMetrics["code_analysis"] = codeAnalysisScore;
-    //@ts-ignore
     aiMetrics["budget"] = budget;
-    //@ts-ignore
     aiMetrics["num_commits"] = projectDoc.get("numCommits");
-    //@ts-ignore
     aiMetrics["commit_sentiment"] = projectDoc.get("sentiAnal");
     // Query AI backend
     const response = await fetch(
