@@ -7,23 +7,28 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 import { doc, getFirestore, updateDoc } from "firebase/firestore";
 
+// Get filename
 const __filename = fileURLToPath(import.meta.url);
+
+// Get directory name
 const __dirname = dirname(__filename);
 
+
 export const POST = (async ({ request }) => {
+  // Get data
   const data = await request.json();
-  console.log("data", data);
-  //github links always have the form username/repo
+
+  // Github links always have the form username/repo
   const githubInfo = data.link.split("/").slice(-2);
   const username = githubInfo[0];
   const repo = githubInfo[1];
-  console.log("username and repo ", username, repo, data.githubToken);
 
+  // Initialise Octokit
   const octokit = new Octokit({
     auth: String(data.githubToken),
   });
 
-  //first get number of commits
+  // First get number of commits
   const commits = await octokit.request(
     "GET /repos/{owner}/{repo}/commits?per_page={per_page}",
     {
@@ -36,16 +41,17 @@ export const POST = (async ({ request }) => {
     }
   );
 
-  //get the 'last page' link
+  // Get the 'last page' link
   const linkHeader = commits.headers.link!;
   const link = linkHeader.substring(
     linkHeader.lastIndexOf("<") + 1,
     linkHeader.lastIndexOf(">")
   );
-  //get page=xyz
+
+  // Get page=xyz
   const numCommits = Number(link.substring(link.lastIndexOf("=") + 1));
-  console.log("numcommits", numCommits);
-  //wrirte to the db
+
+  // Write to the db
   const db = getFirestore(app);
   const docref = doc(db, "projects", data.id);
 
@@ -63,9 +69,8 @@ export const POST = (async ({ request }) => {
       },
     }
   );
-  console.log("json", baseTree);
 
-  //contains all repo files (they will be of type 'blob')
+  // Contains all repo files (they will be of type 'blob')
   const response = await octokit.request(
     "GET /repos/{owner}/{repo}/git/trees/{treesha}?recursive=1",
     {
@@ -78,8 +83,7 @@ export const POST = (async ({ request }) => {
     }
   );
 
-  //filter everything which istn a file
-  console.log("poo");
+  // Filter everything which isn't a file
 
   const fileObjects = response.data.tree.filter(
     //@ts-ignore
@@ -102,7 +106,6 @@ export const POST = (async ({ request }) => {
     })
   );
 
-  console.log("poo");
   fs.mkdirSync(__dirname + "/projectCode/" + data.id, { recursive: true });
   for (let i = 0; i < filesBase64.length; i++) {
     fs.writeFile(

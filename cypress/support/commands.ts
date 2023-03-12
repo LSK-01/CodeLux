@@ -16,6 +16,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+// Custom cypress commands to allow firebase auth to work during tests
 Cypress.Commands.add('login', (email, password) => { 
     return signInWithEmailAndPassword(auth, email, password);
  })

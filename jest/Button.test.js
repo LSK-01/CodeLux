@@ -1,8 +1,8 @@
 import { fireEvent, render, screen } from "@testing-library/svelte";
-import userEvent from "@testing-library/user-event";
 import Button from "../src/routes/Button.svelte";
 import { compile } from "svelte/compiler";
 
+// Allows Jest to use Svelte compiler
 function svelte(strings) {
   return eval(
     compile(
@@ -47,7 +47,3 @@ test("triggers an event when clicked", () => {
 
 	expect(mock).toHaveBeenCalled();
 });
-
-
-//how to test slot
-//https://dockyard.com/blog/2022/06/09/testing-svelte-component-slots

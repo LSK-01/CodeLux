@@ -9,11 +9,7 @@
   export let form: ActionData;
   let errorMsg = "";
 
-  // if (form?.success == true) {
-  //   if (browser) {
-  //     goto("/dashboard");
-  //   }
-  // } else 
+  // Show error if login unsuccessful
   if (form && form?.success == false) {
     errorMsg = "Email or password was incorrect.";
     console.log("error when logging in");
@@ -30,12 +26,14 @@
     <h1 class=" text-7xl">CodeLux</h1>
     <h1>Log in</h1>
   </div>
+  <!-- Show error message if applicable -->
   {#if errorMsg != ""}
     <div id='errorBox'>
       <span class="material-symbols-outlined">error</span>
       <p>{errorMsg}<p>
     </div>
   {/if}
+  <!-- Log in form -->
   <form method="POST">
     <section class="flex flex-col justify-center items-center flex-1 gap-5">
       <Input type="email" name="email" placeholder="Email" />

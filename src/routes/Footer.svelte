@@ -9,6 +9,7 @@
     <h3>CodeLux</h3>
 	<div id='btns'>
 	{#each navItems as item}
+		<!-- Render each item with correct redirect -->
 		{#if item=="projects" && $page.url.pathname!="/projects/all"}
 			<Button click={() => goto('/projects/all')}><span class="material-symbols-outlined">format_list_bulleted</span></Button>
 		{:else if item=="add" && $page.url.pathname!="/add"}
@@ -22,7 +23,6 @@
 		{:else if item=="logout"}
 			<Button click={() => goto('/login')}><span class="material-symbols-outlined">logout</span></Button> 
 		{/if}
-	<!-- <a href="/{item.toLowerCase()}" class="hover:text-red-400 {$page.url.pathname == "/" + item.toLowerCase() ? "text-red-300": ""}">{item.toUpperCase()}</a> -->
 	{/each}
 	</div>
 </footer>

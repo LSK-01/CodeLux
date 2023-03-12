@@ -1,38 +1,41 @@
 import { dev } from '$app/environment';
 import { app } from '../../hooks.server';
-import { getFirestore, collection, getDocs, doc, getDoc, addDoc, query, where, serverTimestamp, updateDoc, increment } from 'firebase/firestore';
+import { getFirestore, collection, getDocs, doc, getDoc, addDoc, query, where, serverTimestamp, updateDoc, increment, Timestamp } from 'firebase/firestore';
 import type { PageServerLoad, Actions } from './$types';
 import type { user } from "../../user";
 import { redirect } from "@sveltejs/kit";
-
-
-// we don't need any JS on this page, though we'll load
-// it in dev so that we get hot module replacement
-export const csr = dev;
-
-export const prerender = false;
 
 export const load: PageServerLoad = async ({cookies, url}) => {
     let returnArray : any[] = [];
     let questions : any[] = [];
 
+    // Get cookie
     const cookie = cookies.get('user');
+
+    // Redirect user to login if cookie undefined
     if (cookie == undefined) {
         throw redirect(302, '/login');
     }
+
+    // Get user from JSON data
     const user: user = JSON.parse(cookie);
+
+    // Get firestore instance
     const db = getFirestore(app);
 
+    // Get project info from database
     const projID = url.searchParams.get("id")!;
     const project = doc(db, "projects", projID);
     const projectDoc = await getDoc(project);
-    //check if user is manager or employee for the project
+
+    // Check if user is manager or employee for the project
     let managerUsername = projectDoc.get("managerusername");
 
     returnArray.push(projectDoc.get("projectname"));
 
     const questionsRef = collection(db, 'surveyquestions');
 
+    // Get correct questions for user
     if (managerUsername === user.username){
         const querySnapshot1 = await getDocs(questionsRef);
         querySnapshot1.forEach((doc) => {
@@ -55,15 +58,22 @@ export const load: PageServerLoad = async ({cookies, url}) => {
 
 export const actions = {
     default: async ({ cookies, request, url }) => {
+        // Get data
         const data = await request.formData();
+
+        // Get cookie
         const cookie = cookies.get('user')!;
 
+        // Get user from JSON
         const user = JSON.parse(cookie);
+
         const answers : any[] = [];
+
+        // Get project ID from url
         const projID = url.searchParams.get("id")!;
 
-        //add numAnsweredMetricName and metricNameTotal: to project document
-        //make the object first
+        // Add numAnsweredMetricName and metricNameTotal: to project document
+        // Make the object first
         let fields = {};
 
         for (const element of data.entries()) {
@@ -73,7 +83,6 @@ export const actions = {
             //@ts-ignore
             fields[metricname + "_answered"] = fields[metricname + "_answered"] ?? 0 + 1;
         }
-        console.log("ree: ", fields);
         Object.keys(fields).forEach((key, index) => {
             //@ts-ignore
             fields[key] = increment(fields[key]);
@@ -81,22 +90,12 @@ export const actions = {
 
         const db = getFirestore(app);
 
+        // Add metric data to database
         await updateDoc(doc(db, "projects", "metrics:" + projID), fields)
+
+        // Update users document
+        await updateDoc(doc(db, "users", user.uid), { [projID]: Timestamp.now() });
         throw redirect(303, "/surveycomplete");
-/*         console.log(projID);
-        
-        for (const element of data.entries()) {
-            answers.push({ qid: element[0], answer: element[1]});
-        }
-        console.log(answers);
-        await addDoc(collection(db,"surveyanswers"), {
-            projectid : projID,
-            time: serverTimestamp(),
-            answers: answers,
-            userid: user.uid,
-            username: user.username,
-          });
-        throw redirect(303, "/surveycomplete"); //might change this */
     }
   } satisfies Actions;
 

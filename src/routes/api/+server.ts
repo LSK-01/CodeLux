@@ -12,14 +12,16 @@ import {
 } from "firebase/firestore";
 
 export const POST = (async ({ request }) => {
+  // Wait for JSON datta
   const data = await request.json();
-  console.log("data", data);
+  // Get Firestore instance
   const db = getFirestore(app);
+  // Initialise empty response
   const resp = {};
-  // data will contain either a project name or a 'success' field t/f, along with a numProjects field
-  //we either query db for the project and return metrics, or query db for first x number of successful /failed projects
+  // Data will contain either a project name or a 'success' field t/f, along with a numProjects field
+  // We either query db for the project and return metrics, or query db for first x number of successful /failed projects
   if (data.hasOwnProperty("projectName")) {
-    //return metrcis+ids for all projects with this name
+    // Return metrics + ids for all projects with this name
     const q = query(
       collection(db, "projects"),
       where("projectname", "==", data.projectName)
@@ -40,7 +42,7 @@ export const POST = (async ({ request }) => {
     data.hasOwnProperty("success") &&
     data.hasOwnProperty("numProjects")
   ) {
-    //return first x number of successful/failed projects
+    // Return first x number of successful/failed projects
     const q = query(
       collection(db, "projects"),
       where("success", "==", data.success),

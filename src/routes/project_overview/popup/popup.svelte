@@ -4,11 +4,14 @@
     export let popupMsgs: string[];
     export let success = true;
     import Button from "../../Button.svelte";
+
+    // Function to close popup
     function close() {
         openPopup = false;
     }
 </script>
 
+<!-- Show popup if open -->
 {#if openPopup}
 <div id="bg">
     <div id="popUp">

@@ -11,6 +11,7 @@
 	export let data: PageData;
 </script>
 
+<!-- Import icons -->
 <svelte:head>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 </svelte:head>
@@ -18,9 +19,11 @@
 <div id='overviewsBox'>
 	<h2>Overview</h2>
 	<div class='boxContents'>
+		<!-- When clicked, takes user to at risk projects page -->
 		<button on:click={() => goto('/projects/atrisk')} class='overviewItem'>
 			<span class="material-symbols-outlined" id='riskIcon'>error</span>
 			<h3>Projects at risk</h3>
+			<!-- Render charts -->
 			<div class='donutCell'>
 				{#if data.atRisk+data.notAtRisk>0}
 					<RiskChart data={data}/>
@@ -30,10 +33,12 @@
 				<p class="centerLabel">{data.atRisk}/{data.atRisk+data.notAtRisk}</p>
 			</div>
 		</button>
+		<!-- When clicked, takes user to projects with surveys page -->
 		<button on:click={() => goto('/projects/surveysdue')} class='overviewItem'>
 			<span class="material-symbols-outlined" id='surveyIcon'>quiz</span>
 			<h3>Projects with surveys due</h3>
 			<div class='donutCell'>
+				<!-- Render charts -->
 				{#if data.totalProjects>0}
 					<SurveyChart data={data}/>
 				{:else}
@@ -42,10 +47,12 @@
 				<p class="centerLabel">{data.withSurveys}/{data.totalProjects}</p>
 			</div>
 		</button>
+		<!-- When clicked, takes user to projects with tasks due page -->
 		<button on:click={() => goto('/projects/tasksdue')} class='overviewItem'>
 			<span class="material-symbols-outlined" id='taskIcon'>assignment</span>
 			<h3>Projects with tasks due</h3>
 			<div class='donutCell'>
+				<!-- Render charts -->
 				{#if data.totalProjects>0}
 					<TaskChart data={data}/>
 				{:else}

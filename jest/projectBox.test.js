@@ -1,5 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/svelte";
-import userEvent from "@testing-library/user-event";
+import { render, screen } from "@testing-library/svelte";
 import projectBox from "../src/routes/projects/[slug]/projectBox.svelte";
 
 test("renders a list box", async () => {

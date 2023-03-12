@@ -1,8 +1,9 @@
-import { fireEvent, render, screen } from "@testing-library/svelte";
+import { render, screen } from "@testing-library/svelte";
 import userEvent from "@testing-library/user-event";
 import SurveysBox from "../src/routes/dashboard/SurveysBox.svelte";
 import { compile } from "svelte/compiler";
 
+// Allows Jest to use Svelte compiler
 function svelte(strings) {
   return eval(
     compile(

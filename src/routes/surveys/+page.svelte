@@ -7,11 +7,13 @@
 	import Form from './Form.svelte';
 	export let data;
 
+	// Get project name from data
 	const projectName : string = data.post[0];
 
+	// Get questions from data
 	const questionData : any[] = data.post[1];
 
-
+	// Likert scale options
     const options = [{
 		value: 0,
 		label: "Strongly\n disagree",
@@ -45,16 +47,11 @@
 
 <style>
     @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
-    /* .container{
-		width: calc(80%);
-        padding-bottom: 20px;
-    }	 */
 
 	.container {
 		display: flex;
 		flex-direction: column;
 		min-height: 90vh;
-		/* justify-content: space-evenly; */
 		padding: 0 10vw;
 		flex: 1;
 		margin: 5px 0;

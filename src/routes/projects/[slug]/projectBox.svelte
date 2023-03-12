@@ -5,6 +5,7 @@
   export let date: string;
   export let id: string;
 
+  // Function to redirect user to correct project
   function boxClick() {
     goto(`/project_overview?id=${id}`);
   }
@@ -36,18 +37,11 @@
 </div>
 
 <style>
-/*   a.fill-div {
-    display: block;
-    height: 100%;
-    width: 100%;
-    text-decoration: none;
-  } */
   .material-symbols-outlined {
     font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
   }
 
   .boxContents {
-    /* height: 75px; */
     flex: 1 0;
     display: flex;
     flex-direction: row;
@@ -60,7 +54,6 @@
     align-items: center;
     box-shadow: var(--outset);
     justify-content: space-between;
-    /* justify-content: space-evenly; */
   }
 
   button:hover {
@@ -74,8 +67,4 @@
     gap: 15px;
   }
 
-  /* .righticon {
-    position: absolute;
-    right: 13%;
-  } */
 </style>

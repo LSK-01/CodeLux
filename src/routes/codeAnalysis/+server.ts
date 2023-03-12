@@ -81,7 +81,7 @@ async function deleteProjectFiles(projectID: string) {
 }
 
 export const POST = (async ({ request }) => {
-    const data = await request.json();
+  const data = await request.json();
     const analysed = await runAnalysis(data.projectID, data.projectType);
     if (analysed) {
         const processed = await processResults(data.projectID);
@@ -93,15 +93,14 @@ export const POST = (async ({ request }) => {
             return json({  success: false })
         }
     } else {
-        return json({ success: false })
+        return json({success: false})
     } 
-  // const db = getFirestore(app);
-  // const docref = doc(db, "projects", data.projectID);
+/*   const db = getFirestore(app);
+  const docref = doc(db, "projects", data.projectID);
 
-  // await updateDoc(docref, {
-  //   codeAnalysisScore: 0.83,
-  //   codeAnalysisDate: new Date(),
-  // });
+  await updateDoc(docref, {
+    codeAnalysisScore: 0.83,
+  });
 
-  return json({ success: true });
+  return json({ success: true });  */
 }) satisfies RequestHandler;

@@ -1,16 +1,15 @@
-<!-- https://codepen.io/mr-t77/pen/jRzmMZ -->
 
 <script lang="ts">
   export let options : any[number][string];
   export let question : string;
   export let name : string;
-  // export let userSelected : number;
 </script>  
 
 <fieldset>
 <div class="centered">
     <div class="padding">{question}</div>
     <ul class='likert'>
+      <!-- Render each option -->
       {#each options as { value, label }}
         <li>
           <input type="radio" class="likert" name={name} value={value}>

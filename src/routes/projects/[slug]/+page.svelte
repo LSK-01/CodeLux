@@ -17,6 +17,7 @@
 </script>
 
 <div id="container">
+    <!-- Render project boxes -->
     <ProjectListBox title={ title } projectData={ projectData }/>
 </div>
 

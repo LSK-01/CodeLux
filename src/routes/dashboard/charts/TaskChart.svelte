@@ -4,8 +4,12 @@
     import { onMount } from 'svelte';
 	export let data: PageData;
 
+    // Function to draw task chart
     function drawTaskChart() {
+        // Get task chart element
         const chartElement = document.getElementById('taskChart')!;
+
+        // Initialise task chart
         new Chart(chartElement, {
             type: 'doughnut',
             data: {
@@ -41,6 +45,7 @@
         });
     }
 
+    // Draw task chart on mount
     onMount(() => {
         drawTaskChart();
     });
