@@ -2,8 +2,12 @@
     import Chart from 'chart.js/auto'
     import { onMount } from 'svelte';
 
+    // Function to draw blank chart
     function drawBlankChart() {
+        // Get chart element
         const chartElement = document.getElementById('blankChart3')!;
+
+        // Initialise new chart
         new Chart(chartElement, {
             type: 'doughnut',
             data: {
@@ -40,6 +44,7 @@
         });
     }
 
+    // Draw chart on component mount
     onMount(() => {
         drawBlankChart();
     });

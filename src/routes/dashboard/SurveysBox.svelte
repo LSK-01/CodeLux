@@ -4,6 +4,7 @@
 
 	export let surveyList: any[number][string];
 
+	// Redirects user to correct survey page
 	function boxClick(id : string) {
     	goto(`/surveys?id=${id}`);
   	}
@@ -12,6 +13,7 @@
 <div id='surveysBox'>
 	<h2>Surveys</h2>
 	<div class='boxContents'>
+		<!-- Render survey box for each project -->
 		{#each surveyList as survey} 
 			<button class='surveyItem' on:click={() => boxClick(survey.projectID)}>
 			<span class="material-symbols-outlined">
@@ -20,6 +22,7 @@
 			<h3>Take survey for {survey.projectName}</h3>
 			</button>
 		{:else}
+		<!-- Render this if no projects in list -->
 		<div class='surveyItem placeholder'>
 			<h3>No surveys due<h3>
 		</div>

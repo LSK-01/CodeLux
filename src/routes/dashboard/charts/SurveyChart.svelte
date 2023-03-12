@@ -4,8 +4,12 @@
     import { onMount } from 'svelte';
 	export let data: PageData;
 
+    // Draw survey chart
     function drawSurveyChart() {
+        // Get survey chart element
         const chartElement = document.getElementById('surveyChart')!;
+
+        // Initialise chart
         new Chart(chartElement, {
             type: 'doughnut',
             data: {
@@ -41,6 +45,7 @@
         });
     }
 
+    // Draw chart on mount
     onMount(() => {
         drawSurveyChart();
     });

@@ -8,13 +8,16 @@
     export let data: PageData;
 </script>
 
+<!-- Display title -->
 <svelte:head>
     <title>Dashboard</title>
 </svelte:head>
 
 <div id="dashboard">
+    <!-- Render overviews box -->
     <OverviewsBox {data} />
     <div>
+        <!-- Render other boxes -->
         <DeadlinesBox deadlineList={data.deadlineList} />
         <SurveysBox surveyList={data.surveyList} />
         <TasksBox taskList={data.taskList} />

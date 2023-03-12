@@ -4,8 +4,12 @@
     import { onMount } from 'svelte';
 	export let data: PageData;
 
+    // Draw risk chart
     function drawRiskChart() {
+        // Get chart element
         const chartElement = document.getElementById('riskChart')!;
+
+        // Initialise new chart
         new Chart(chartElement, {
             type: 'doughnut',
             data: {
@@ -41,6 +45,7 @@
         });
     }
 
+    // Draw risk chart on mount 
     onMount(() => {
         drawRiskChart();
     });
