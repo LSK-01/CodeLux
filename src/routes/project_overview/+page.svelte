@@ -194,9 +194,8 @@
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined">folder</span>
             <form action={data.project.githubLink}>
-                <Button>Project GitHub link</Button>
+                <Button>Go to project GitHub</Button>
             </form>
-
         </div>
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined">upload_file</span>
@@ -210,8 +209,7 @@
                     Choose a file
                 {/if}
                 </label>
-
-                <Button>Upload</Button>
+                <Button><span class="material-symbols-outlined">upload</span>Upload</Button>
             </form>
         </div>
         <div class="projectOverviewItem">

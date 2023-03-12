@@ -23,7 +23,7 @@
 		<slot/>
 	</main>
 
-	<Footer/>
+	<Footer navItems={navItems}/>
 </div>
 
 <style>
@@ -37,6 +37,12 @@
 		display: flex;
 		flex-direction: column;
 		flex: 1;
+	}
+
+	@media screen and (max-width: 880px) {
+		main {
+			margin-bottom: 65px;
+		}
 	}
 </style>
 
