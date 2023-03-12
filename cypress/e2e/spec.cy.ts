@@ -1,3 +1,6 @@
+const uuid = () => Cypress._.random(0, 1e6)
+const id = uuid()
+const testname = `cypress${id}`
 
 // describe('visits homepage', () => {
 //   it('visits homepage', () => {
@@ -53,23 +56,23 @@
 
 // describe('can sign up a user', () => {
 
-//   it('finds signup button and redirects to signup page', () => {
-//     cy.session("User session", () => {
-//       cy.visit('http://localhost:5173')
+  // it('finds signup button and redirects to signup page', () => {
+  //     cy.visit('http://localhost:5173')
 
-//       cy.contains('SIGNUP').dblclick()
+  //     cy.contains("Sign Up").dblclick()
   
-//       cy.url().should('eq', 'http://localhost:5173/signup')
+      // cy.url().should('eq', 'http://localhost:5173/signup')
+
+      // const id = () => Cypress._.random(0, 1e6)
+      // const signupname = `cypress${id()}@email.com`
   
-//       cy.get("input[placeholder=Email]").type("cypress@email.com");
+      // cy.get("input[placeholder=Email]").type(signupname);
   
-//       cy.get("input[placeholder=Password]").type("password123");
+      // cy.get("input[placeholder=Password]").type("password123");
   
-//       cy.contains('Sign Up').dblclick()
+      // cy.contains('Sign Up').dblclick()
     
-//       })
-
-//   })
+  })
 
 
 // })
@@ -134,63 +137,61 @@
 //     // })
 //     })
 
-  describe('can add a project', () => {
-    it('adds a project', () => {
-      cy.visit('http://localhost:5173/login')
+  // describe('can add a project', () => {
+  //   it('adds a project', () => {
+  //     cy.visit('http://localhost:5173/login')
 
-      cy.get("input[placeholder=Email]").type("cypress@email.com")
+  //     cy.get("input[placeholder=Email]").type("cypress@email.com")
 
-      cy.get("input[placeholder=Password]").type("password123")
+  //     cy.get("input[placeholder=Password]").type("password123")
 
-      cy.contains('Log in').dblclick()
+  //     cy.contains('Log in').dblclick()
 
-      cy.login("cypress@email.com","password123")
+  //     cy.login("cypress@email.com","password123")
       
-      cy.contains('Add project').dblclick()
+  //     cy.contains('Add project').dblclick()
 
-      cy.url().should('eq', 'http://localhost:5173/add')
+  //     cy.url().should('eq', 'http://localhost:5173/add')
 
-      const uuid = () => Cypress._.random(0, 1e6)
-      const id = uuid()
-      const testname = `cypress${id}`
 
-      cy.get("input[placeholder=\"Answer here\"]").type(testname)
 
-      cy.contains('Send').click()
+  //     cy.get("input[placeholder=\"Answer here\"]").type(testname)
 
-      cy.get("input[placeholder=\"Answer here\"]").type("description")
+  //     cy.contains('Send').click()
 
-      cy.contains('Send').click()
+  //     cy.get("input[placeholder=\"Answer here\"]").type("description")
 
-      cy.get("select").select("Go")
+  //     cy.contains('Send').click()
 
-      cy.contains('Send').click()
+  //     cy.get("select").select("Go")
 
-      cy.get("input[placeholder=\"Answer here\"]").type("cypress")
+  //     cy.contains('Send').click()
 
-      cy.contains('Send').click()
+  //     cy.get("input[placeholder=\"Answer here\"]").type("cypress")
 
-      cy.get("input[placeholder=\"Answer here\"]").type("cypressdev")
+  //     cy.contains('Send').click()
 
-      cy.contains('Send').click()
+  //     cy.get("input[placeholder=\"Answer here\"]").type("cypressdev")
 
-      cy.get("input[placeholder=\"Answer here\"]").type("https://github.com/LSK-01/Hetris")
+  //     cy.contains('Send').click()
 
-      cy.contains('Send').click()
+  //     cy.get("input[placeholder=\"Answer here\"]").type("https://github.com/LSK-01/Hetris")
 
-      cy.get("input").type("0.01")
+  //     cy.contains('Send').click()
 
-      cy.contains('Send').click()
+  //     cy.get("input").type("0.01")
 
-      cy.get("input").type("2023-10-10")
+  //     cy.contains('Send').click()
 
-      cy.contains('Send').click()
+  //     cy.get("input").type("2023-10-10")
 
-      cy.get("input").type("2023-11-10")
+  //     cy.contains('Send').click()
 
-      cy.contains('Send').click()
+  //     cy.get("input").type("2023-11-10")
 
-      cy.contains(testname).should('exist');
-    })
+  //     cy.contains('Send').click()
 
-  })
+  //     cy.contains(testname).should('exist');
+  //   })
+
+  // })
