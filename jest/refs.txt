@@ -1,1 +1,0 @@
-https://dockyard.com/blog/2022/01/27/how-to-set-up-jest-in-a-sveltekit-app

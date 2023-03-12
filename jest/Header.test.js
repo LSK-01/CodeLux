@@ -5,6 +5,8 @@ import userEvent from "@testing-library/user-event";
 import { page } from '$app/stores';
 import { compile } from "svelte/compiler";
 
+// Allows Jest to use Svelte compiler
+
 function svelte(strings) {
   return eval(
     compile(
@@ -14,6 +16,7 @@ function svelte(strings) {
   );
 };
 
+// Set url before each test
 beforeEach(() => {
     page.set({
       url: new URL('https://localhost:5173')

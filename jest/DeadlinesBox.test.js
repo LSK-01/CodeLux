@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 import DeadlinesBox from "../src/routes/dashboard/DeadlinesBox.svelte";
 import { compile } from "svelte/compiler";
 
+// Allows Jest to use Svelte compiler
 function svelte(strings) {
     return eval(
       compile(
@@ -45,8 +46,6 @@ test("renders a deadline box", async () => {
   `); 
   
     expect(screen.getByRole("button")).toHaveClass("deadlineItem");
-
-    // expect(screen.getByText("description")).toHaveClass("material-symbols-outlined");
 
     expect(screen.getByText("projectname")).toBeDefined();
 

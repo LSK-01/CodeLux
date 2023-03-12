@@ -1,6 +1,5 @@
 import { render, screen } from "@testing-library/svelte";
 import Input from "../src/routes/Input.svelte";
-import { page } from '$app/stores';
 
 test("renders an input", async () => {
     render(Input, { props: { type:"text", name:"email", placeholder:"Email" } });

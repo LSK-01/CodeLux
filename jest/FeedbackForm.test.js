@@ -1,9 +1,9 @@
 import { fireEvent, render, screen } from "@testing-library/svelte";
-import userEvent from "@testing-library/user-event";
-import FeedbackForm, { handleReset } from "../src/routes/add/components/FeedbackForm.svelte";
+import FeedbackForm from "../src/routes/add/components/FeedbackForm.svelte";
 
 let emit;
 
+// Allows form to be checked properly
 beforeAll(() => {
   ({ emit } = window._virtualConsole);
 });
