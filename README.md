@@ -3,7 +3,7 @@
 ## Instructions
 1. Navigate to the root directory of the application run `npm run dev` in a console and wait for the localhost to run a server.
 2. Await the link to the server found in the console.
-3. Connect to the server in any popular web browser that is upto date. Google Chrome and Firefox are recommended.
+3. Connect to the server in any popular web browser that is up to date. Google Chrome and Firefox are recommended.
 
 ## Additional guidance
 - It is advised to create a project after signing up to access the various features of the application. A project can be added by pressing the 'add project' button in the navigation bar.
