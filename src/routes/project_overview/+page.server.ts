@@ -12,16 +12,11 @@ export const actions: Actions = {
     const splitted = csv.split(/\r?\n/);
     splitted.splice(0, 4);
     splitted.splice(splitted.length - 2, 2);
-    console.log("splited: ", splitted);
-    splitted.forEach((element) => {
-      console.log("cunt, ", element.split(","));
-    });
 
     //create 2d array
     const metrics = {};
     //first element in splitted is the metric keys
     const keys = splitted[0].split(",");
-    console.log("keys, ", keys);
     keys.forEach((key) => {
       metrics[key] = [];
     });
@@ -33,13 +28,6 @@ export const actions: Actions = {
         metrics[field].push(Number(values[j]));
       }
     }
-
-    console.log(
-      "metrics obj: ",
-      JSON.stringify({
-        metrics: metrics,
-      })
-    );
 
     const response = await fetch(
       "https://cs261-backend-7r5ljue3ha-no.a.run.app/retrain",
@@ -53,8 +41,6 @@ export const actions: Actions = {
         },
       }
     );
-    const poo = await response.json();
-    console.log("retrain resp: ", poo);
   },
 };
 
@@ -63,9 +49,7 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
   if (cookie == undefined) {
     throw redirect(302, "/login");
   }
-  console.log("cunt");
   const user: user = JSON.parse(cookie);
-  console.log("cunt2");
   const db = getFirestore(app);
 
   const projectID = url.searchParams.get("id")!;
@@ -135,7 +119,6 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
     //@ts-ignore
 
     aiMetrics["num_commits"] = projectDoc.get("numCommits");
-    console.log('aimetrics: ', aiMetrics)
     //query AI backend for stuff
     const response = await fetch(
       "https://cs261-backend-7r5ljue3ha-no.a.run.app/classify",
@@ -148,14 +131,6 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
       }
     );
     res = await response.json();
-    console.log(
-      "classification (prob of risk): ",
-      res.classification[0],
-      "features: ",
-      res.features,
-      "predictedclass: ",
-      res.predicted_class
-    );
   }
 
   return {

@@ -13,7 +13,6 @@ import {
 
 export const POST = (async ({ request }) => {
   const data = await request.json();
-  console.log("data", data);
   const db = getFirestore(app);
   const resp = {};
   // data will contain either a project name or a 'success' field t/f, along with a numProjects field

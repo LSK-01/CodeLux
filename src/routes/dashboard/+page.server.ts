@@ -54,7 +54,6 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
         await setDoc(doc(db, "users", user.uid), {
             githubToken: token,
         });
-        console.log("here! ", state);
         throw redirect(303, "/project_overview?id=" + state);
     }
 

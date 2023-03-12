@@ -66,7 +66,6 @@ export const actions = {
             //@ts-ignore
             fields[metricname + "_answered"] = fields[metricname + "_answered"] ?? 0 + 1;
         }
-        console.log("ree: ", fields);
         Object.keys(fields).forEach((key, index) => {
             //@ts-ignore
             fields[key] = increment(fields[key]);
@@ -79,20 +78,6 @@ export const actions = {
         //update users document
         await updateDoc(doc(db, "users", user.uid), { [projID]: Timestamp.now() });
         throw redirect(303, "/surveycomplete");
-/*         console.log(projID);
-        
-        for (const element of data.entries()) {
-            answers.push({ qid: element[0], answer: element[1]});
-        }
-        console.log(answers);
-        await addDoc(collection(db,"surveyanswers"), {
-            projectid : projID,
-            time: serverTimestamp(),
-            answers: answers,
-            userid: user.uid,
-            username: user.username,
-          });
-        throw redirect(303, "/surveycomplete"); //might change this */
     }
   } satisfies Actions;
 

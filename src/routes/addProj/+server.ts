@@ -5,7 +5,6 @@ import { app } from "../../hooks.server";
 
 export const POST = (async ({ request }) => {
   const answers = await request.json();
-  console.log("answetrse", answers);
   const db = getFirestore(app);
 
   //@ts-ignore

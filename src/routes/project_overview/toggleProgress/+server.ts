@@ -23,8 +23,6 @@ export const POST = (async ({ request }) => {
         },
       }
     );
-    const poo = await response.json();
-    console.log("retrain resp: ", poo);
   }
   //if they are completing the project also write whether success/failure to the db, and the end date
 

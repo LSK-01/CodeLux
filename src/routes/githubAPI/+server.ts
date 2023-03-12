@@ -12,12 +12,10 @@ const __dirname = dirname(__filename);
 
 export const POST = (async ({ request }) => {
   const data = await request.json();
-  console.log("data", data);
   //github links always have the form username/repo
   const githubInfo = data.link.split("/").slice(-2);
   const username = githubInfo[0];
   const repo = githubInfo[1];
-  console.log("username and repo ", username, repo, data.githubToken);
 
   const octokit = new Octokit({
     auth: String(data.githubToken),
@@ -44,7 +42,6 @@ export const POST = (async ({ request }) => {
   );
   //get page=xyz
   const numCommits = Number(link.substring(link.lastIndexOf("=") + 1));
-  console.log("numcommits", numCommits);
   //wrirte to the db
   const db = getFirestore(app);
   const docref = doc(db, "projects", data.id);
@@ -63,7 +60,6 @@ export const POST = (async ({ request }) => {
       },
     }
   );
-  console.log("json", baseTree);
 
   //contains all repo files (they will be of type 'blob')
   const response = await octokit.request(
@@ -79,7 +75,6 @@ export const POST = (async ({ request }) => {
   );
 
   //filter everything which istn a file
-  console.log("poo");
 
   const fileObjects = response.data.tree.filter(
     //@ts-ignore
@@ -102,7 +97,6 @@ export const POST = (async ({ request }) => {
     })
   );
 
-  console.log("poo");
   fs.mkdirSync(__dirname + "/projectCode/" + data.id, { recursive: true });
   for (let i = 0; i < filesBase64.length; i++) {
     fs.writeFile(

@@ -5,7 +5,6 @@
 	
 	export let options : any[number][string];    
 	export let questionData : any[];
-	console.log('questionData', questionData);
 </script>
 
 <form class="form-container" method="POST">

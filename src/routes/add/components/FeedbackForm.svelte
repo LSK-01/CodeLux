@@ -13,8 +13,7 @@
         "Manager Username",
         "Developer Usernames",
         "Github Link",
-/*         "Customer Contact Frequency",
- */        "Budget",
+        "Budget",
         "Start Date",
         "Deadline",
     ];
@@ -63,7 +62,6 @@
                 alert("Issue adding the project");
                 handleReset();
             }
-            // handleReset();
             goto(`/project_overview?id=${data.projectID}`);
         }
     };
