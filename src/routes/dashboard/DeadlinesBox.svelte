@@ -63,4 +63,5 @@
 	.bad {
         color: #ef4444;
     }
+
 </style>
