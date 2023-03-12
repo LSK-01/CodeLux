@@ -1,16 +1,9 @@
 import { dev } from '$app/environment';
 import { app } from '../../hooks.server';
-import { getFirestore, collection, getDocs, doc, getDoc, addDoc, query, where, serverTimestamp, updateDoc, increment } from 'firebase/firestore';
+import { getFirestore, collection, getDocs, doc, getDoc, addDoc, query, where, serverTimestamp, updateDoc, increment, Timestamp } from 'firebase/firestore';
 import type { PageServerLoad, Actions } from './$types';
 import type { user } from "../../user";
 import { redirect } from "@sveltejs/kit";
-
-
-// we don't need any JS on this page, though we'll load
-// it in dev so that we get hot module replacement
-export const csr = dev;
-
-export const prerender = false;
 
 export const load: PageServerLoad = async ({cookies, url}) => {
     let returnArray : any[] = [];
@@ -82,6 +75,9 @@ export const actions = {
         const db = getFirestore(app);
 
         await updateDoc(doc(db, "projects", "metrics:" + projID), fields)
+
+        //update users document
+        await updateDoc(doc(db, "users", user.uid), { [projID]: Timestamp.now() });
         throw redirect(303, "/surveycomplete");
 /*         console.log(projID);
         

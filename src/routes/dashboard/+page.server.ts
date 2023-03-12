@@ -9,7 +9,8 @@ import {
     setDoc,
     doc,
     orderBy,
-    Timestamp
+    Timestamp,
+    getDoc
 } from "firebase/firestore";
 import type { PageServerLoad } from "../login/$types";
 import type { user } from "../../user";
@@ -128,21 +129,25 @@ async function getSurveys(user : user) {
     );
     const querySnapshot1 = await getDocs(q1);
   
-    const surveyAnswers = collection(db,"surveyanswers");
-  
+/*     const surveyAnswers = collection(db,"surveyanswers");
+ */  
     const currentTime = Timestamp.now();
     const weekOldTimestamp = Timestamp.fromMillis(currentTime.toMillis() - 604800000);
-  
+
+
+
     querySnapshot1.forEach(async (project) => {
-      const q3 = query(
-        surveyAnswers,
+        const docRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
+        const lastAnsweredSurvey = docSnap.data()![project.id];
+/*       const q3 = query(
+        "users",
         where("userid","==", user.uid),
         where("projectid","==", project.id),
         where("time",">", weekOldTimestamp),
-      ); //if this is not empty a survey has been taken in the last seven days so DON'T generate survey for it
-      const querySnapshot3 = await getDocs(q3);
-  
-      if (querySnapshot3.empty) {
+      ); //if this is not empty a survey has been taken in the last seven days so DON'T generate survey for it */
+
+      if (lastAnsweredSurvey == undefined || lastAnsweredSurvey < weekOldTimestamp) {
         surveyList.push({
           projectName: project.data().projectname,
           projectID: project.id,
@@ -154,15 +159,18 @@ async function getSurveys(user : user) {
     const querySnapshot2 = await getDocs(q2);
 
     querySnapshot2.forEach(async (project) => {
-      const q3 = query(
+        const docRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
+        const lastAnsweredSurvey = docSnap.data()![project.id];
+/*       const q3 = query(
         surveyAnswers,
         where("userid","==", user.uid),
         where("projectid","==", project.id),
         where("time",">", weekOldTimestamp),
       ); //if this is not empty a survey has been taken in the last seven days so DON'T generate survey for it
-      const querySnapshot3 = await getDocs(q3);
+      const querySnapshot3 = await getDocs(q3); */
   
-      if (querySnapshot3.empty) {
+      if (lastAnsweredSurvey == undefined || lastAnsweredSurvey < weekOldTimestamp) {
         surveyList.push({
             projectName: project.data().projectname,
             projectID: project.id,

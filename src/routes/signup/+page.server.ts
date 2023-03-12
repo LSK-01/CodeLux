@@ -4,6 +4,7 @@ import { app } from '../../hooks.server'
 import type { user } from '../../user';
 import type { PageServerLoad } from "./$types";
 import { redirect } from '@sveltejs/kit';
+import { doc, getFirestore, setDoc } from 'firebase/firestore';
 
 export const load: PageServerLoad = async ({cookies}) => {
     cookies.delete('user');
@@ -28,11 +29,14 @@ export const actions = {
 
             cookies.set('user', JSON.stringify(user));
   
-            // return {"success": true}
+            //create user document
+            const db = getFirestore(app);
+            await setDoc(doc(db, "users", res.user.uid), {});
         } catch(err) {
             console.log("error:", err);
             return {"success": false}
         }
+        
         throw redirect(302, '/dashboard');
   }
 } satisfies Actions;
