@@ -209,7 +209,7 @@
                     Choose a file
                 {/if}
                 </label>
-                <Button>Upload</Button>
+                <Button><span class="material-symbols-outlined">upload</span>Upload</Button>
             </form>
         </div>
         <div class="projectOverviewItem">

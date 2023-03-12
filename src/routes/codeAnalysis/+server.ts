@@ -24,13 +24,13 @@ function runAnalysis(projectID: string, projectType: string) {
 }
 
 async function processResults(projectID: string) {
-  const fName =
+  const path =
     "./src/routes/githubAPI/projectCode/" +
     projectID +
     "/megalinter-reports/mega-linter-report.json";
   var res;
   try {
-    res = JSON.parse(fs.readFileSync(fName, "utf8"));
+    res = JSON.parse(fs.readFileSync(path, "utf8"));
   } catch (err) {
     return {
       success: false,
@@ -82,11 +82,9 @@ async function deleteProjectFiles(projectID: string) {
 
 export const POST = (async ({ request }) => {
     const data = await request.json();
-  /* const data = await request.json();
     const analysed = await runAnalysis(data.projectID, data.projectType);
-    var processed = { success: false, analysisScore: 0};
     if (analysed) {
-        processed = await processResults(data.projectID);
+        const processed = await processResults(data.projectID);
         if (processed.success) {
             const updated = await updateScore(data.projectID, processed.analysisScore);
             deleteProjectFiles(data.projectID);
@@ -95,14 +93,15 @@ export const POST = (async ({ request }) => {
             return json({  success: false })
         }
     } else {
-        return json({success: false, analysisScore: processed.analysisScore})
-    } */
-  const db = getFirestore(app);
-  const docref = doc(db, "projects", data.projectID);
+        return json({ success: false })
+    } 
+  // const db = getFirestore(app);
+  // const docref = doc(db, "projects", data.projectID);
 
-  await updateDoc(docref, {
-    codeAnalysisScore: 0.83,
-  });
+  // await updateDoc(docref, {
+  //   codeAnalysisScore: 0.83,
+  //   codeAnalysisDate: new Date(),
+  // });
 
   return json({ success: true });
 }) satisfies RequestHandler;
