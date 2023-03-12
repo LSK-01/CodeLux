@@ -16,7 +16,7 @@ export const POST = (async ({ request }) => {
       {
         method: "POST",
         body: JSON.stringify({
-          metrics: { ...data.metrics, success: data.success },
+          metrics: { ...data.metrics, success: [data.success] },
         }),
         headers: {
           "content-type": "application/json",

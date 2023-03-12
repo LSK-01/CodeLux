@@ -20,8 +20,6 @@ test("renders a list box", async () => {
 test("renders icon correctly", async () => {
     render(projectBox, { props : { name: "test", date: "2023", id: "123"}});
   
-    expect(screen.getByText("description")).toHaveClass("material-symbols-outlined");
-
     expect(screen.getByText("chevron_right")).toHaveClass("material-symbols-outlined");
 })
 

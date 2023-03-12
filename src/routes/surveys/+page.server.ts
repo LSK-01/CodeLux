@@ -81,7 +81,8 @@ export const actions = {
 
         const db = getFirestore(app);
 
-        await updateDoc(doc(db, "projects", projID), {smetrics: fields})
+        await updateDoc(doc(db, "projects", "metrics:" + projID), fields)
+        throw redirect(303, "/surveycomplete");
 /*         console.log(projID);
         
         for (const element of data.entries()) {

@@ -1,5 +1,5 @@
 <footer>
-    <h3>Pimp My Project</h3>
+    <h3>CodeLux</h3>
 </footer>
 
 <style>

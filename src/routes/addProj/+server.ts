@@ -1,6 +1,6 @@
 import { error, json } from "@sveltejs/kit";
 import type { RequestHandler } from "./$types";
-import { collection, addDoc, getFirestore } from "firebase/firestore";
+import { collection, addDoc, getFirestore, setDoc, doc } from "firebase/firestore";
 import { app } from "../../hooks.server";
 
 export const POST = (async ({ request }) => {
@@ -23,6 +23,6 @@ export const POST = (async ({ request }) => {
   obj.codeAnalysisScore = 0;
   obj.codeAnalysisDate = new Date();
   const projectDoc = await addDoc(collection(db, "projects"), obj);
-
+  await setDoc(doc(db, "projects", "metrics:" + projectDoc.id), {})
   return json({ success: true, projectID:  projectDoc.id});
 }) satisfies RequestHandler;
