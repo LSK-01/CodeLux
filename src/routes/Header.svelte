@@ -22,24 +22,21 @@
 	<div id="btns">
 	{#each navItems as item}
 		{#if item=="projects" && $page.url.pathname!="/projects/all"}
-		<Button click={() => goto('/projects/all')}><span class="material-symbols-outlined">format_list_bulleted</span>View all projects</Button>
+			<Button click={() => goto('/projects/all')}><span class="material-symbols-outlined">format_list_bulleted</span>View all projects</Button>
 		{:else if item=="add" && $page.url.pathname!="/add"}
-		<Button click={() => goto('/add')}><span class="material-symbols-outlined">add_circle</span>Add project</Button>
+			<Button click={() => goto('/add')}><span class="material-symbols-outlined">add_circle</span>Add project</Button>
 		{:else if item=="login" && $page.url.pathname!="/login"}
-		<Button click={() => goto('/login')}><span class="material-symbols-outlined">login</span>Log in</Button>
+			<Button click={() => goto('/login')}><span class="material-symbols-outlined">login</span>Log in</Button>
 		{:else if item=="signup" && $page.url.pathname!="/signup"}
-		<Button click={() => goto('/signup')}><span class="material-symbols-outlined">person_add</span>Sign up</Button>
+			<Button click={() => goto('/signup')}><span class="material-symbols-outlined">person_add</span>Sign up</Button>
 		{:else if item=="dashboard" && $page.url.pathname!="/dashboard"}
-		<Button click={() => goto('/dashboard')}><span class="material-symbols-outlined">dashboard</span>View dashboard</Button>
+			<Button click={() => goto('/dashboard')}><span class="material-symbols-outlined">dashboard</span>View dashboard</Button>
 		{:else if item=="logout"}
-		<Button click={() => goto('/login')}><span class="material-symbols-outlined">logout</span>Log out</Button> 
+			<Button click={() => goto('/login')}><span class="material-symbols-outlined">logout</span>Log out</Button> 
 		{/if}
-		<!-- <a href="/{item.toLowerCase()}" class="hover:text-red-400 {$page.url.pathname == "/" + item.toLowerCase() ? "text-red-300": ""}">{item.toUpperCase()}</a> -->
+	<!-- <a href="/{item.toLowerCase()}" class="hover:text-red-400 {$page.url.pathname == "/" + item.toLowerCase() ? "text-red-300": ""}">{item.toUpperCase()}</a> -->
 	{/each}
 	</div>
-	<button id="menuBtn">
-		<span class="material-symbols-outlined">menu</span>
-	</button>
 </nav>
 
 
@@ -68,6 +65,7 @@
 	}
 
 	#btns {
+		display: flex;
 		gap: 10px;
 	}
 
@@ -75,24 +73,8 @@
 		margin: 0;
 	}
 
-	#menuBtn span {
-		font-size: 30px;
-	}
-
 	@media screen and (max-width: 880px) {
 		#btns {
-			display: none;
-		}
-		#menuBtn {
-			display: flex;
-		}
-	}
-
-	@media screen and (min-width: 880px) {
-		#btns {
-			display: flex;
-		}
-		#menuBtn {
 			display: none;
 		}
 	}

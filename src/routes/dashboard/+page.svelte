@@ -1,42 +1,46 @@
 <script lang="ts">
-  import "../styles.css";
-  import OverviewsBox from "./OverviewsBox.svelte";
-  import TasksBox from "./TasksBox.svelte";
-  import SurveysBox from "./SurveysBox.svelte";
-  import DeadlinesBox from "./DeadlinesBox.svelte";
-  import type { PageData } from "./$types";
-  export let data: PageData;
+    import "../styles.css";
+    import OverviewsBox from "./OverviewsBox.svelte";
+    import TasksBox from "./TasksBox.svelte";
+    import SurveysBox from "./SurveysBox.svelte";
+    import DeadlinesBox from "./DeadlinesBox.svelte";
+    import type { PageData } from "./$types";
+    export let data: PageData;
 </script>
 
 <svelte:head>
-  <title>Dashboard</title>
+    <title>Dashboard</title>
 </svelte:head>
 
 <div id="dashboard">
-  <OverviewsBox {data} />
-  <div>
-    <DeadlinesBox deadlineList={data.deadlineList} />
-    <SurveysBox surveyList={data.surveyList} />
-    <TasksBox taskList={data.taskList} />
-  </div>
+    <OverviewsBox {data} />
+    <div>
+        <DeadlinesBox deadlineList={data.deadlineList} />
+        <SurveysBox surveyList={data.surveyList} />
+        <TasksBox taskList={data.taskList} />
+    </div>
 </div>
 
 <style>
-  #dashboard {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    justify-content: space-evenly;
-    margin: 10px 10vw;
-    gap: 10px;
-    height: 100%;
-    flex-wrap: wrap;
-  }
+    #dashboard {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        margin: 10px 10vw;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
 
-  #dashboard div {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    flex: 1;
-  }
+    #dashboard div {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        flex: 1;
+    }
+
+    @media screen and (max-width: 880px) {
+        #dashboard div {
+            flex-direction: column;
+        }
+    }
 </style>

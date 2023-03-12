@@ -72,4 +72,14 @@
     padding: 10px;
     gap: 5px;
   }
+
+  @media screen and (max-width: 880px) {
+      #logInBox {
+        width: 100%;
+      }
+
+      .title {
+        padding: 0px;
+      }
+	}
 </style>

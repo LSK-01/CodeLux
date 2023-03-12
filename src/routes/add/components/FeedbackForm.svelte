@@ -80,7 +80,7 @@
             <h2>{questions_new[question_num]}</h2>
         </header>
 
-        <form>
+        <form on:submit|preventDefault={handleSubmit}>
             {#if questions_new[question_num] == "Project Type"}
                 <select bind:value={text} data-testid="listbox">
                     {#each projectTypes as type}
@@ -90,17 +90,17 @@
             {:else if questions_new[question_num] == "Start Date" || questions_new[question_num] == "Deadline"}
                 <input type="date" bind:value={text}>
             {:else if questions_new[question_num] == "Budget"}
-                <input type="number" min="0" step="0.01" bind:value={text} placeholder="Answer here"/>
+                <input type="number" min="0" step="0.01" bind:value={text} placeholder="Answer here" required/>
 <!--             {:else if questions_new[question_num] == "Customer Contact Frequency"}
                 <input type="number" min="0" step="0.01" bind:value={text} placeholder="Answer here (per week)"/> -->
             {:else if questions_new[question_num] == "Github Link"}
-                <input type="url" bind:value={text} placeholder="Answer here"/>
+                <input type="url" bind:value={text} placeholder="Answer here" required/>
             {:else}
-                <input type="text" bind:value={text} placeholder="Answer here"/>
+                <input type="text" bind:value={text} placeholder="Answer here" required/>
             {/if}
             <br />
             <div class="buttonContainer">
-                <Button click={handleSubmit}>Send</Button>
+                <Button>Send</Button>
                 <Button click={handleReset}>Restart</Button>
             </div>
         </form>
