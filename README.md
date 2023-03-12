@@ -1,8 +1,9 @@
 # CodeLux README (Group 20)
  
 ## Instructions
-1. Navigate to the root directory of the application run `npm run dev` in a console and wait for the localhost to run a server.
-2. Await the link to the server found in the console.
+0. Navigate to the root directory of the application, run `npm install`
+1. Run `npm run dev`
+2. Await the localhost link printed in the console
 3. Connect to the server in any popular web browser that is up to date. Google Chrome and Firefox are recommended.
 
 ## Additional guidance
