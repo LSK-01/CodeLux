@@ -1,4 +1,4 @@
-# CodeLux README (Group 20)
+# CodeLux (Group 20)
  
 ## Instructions
 0. Navigate to the root directory of the application, run `npm install`
