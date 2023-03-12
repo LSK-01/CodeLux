@@ -1,3 +1,4 @@
+// Project interface
 export interface project {
   projectName: string;
   description: string;
