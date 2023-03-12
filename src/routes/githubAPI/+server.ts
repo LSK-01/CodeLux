@@ -68,13 +68,25 @@ export const POST = (async ({ request }) => {
     commentsArr.push(obj.body)
   });
 
+  //get a senti anal score from the backend
+  const sentiScoreRes = await fetch(
+    "https://cs261-backend-7r5ljue3ha-no.a.run.app/sentiment",
+    {
+      method: "POST",
+      body: JSON.stringify({ sentiment: commentsArr }),
+      headers: {
+        "content-type": "application/json",
+      },
+    }
+  );
+  const sentiScore = await sentiScoreRes.json();
   //Write to the db
   const db = getFirestore(app);
   const docref = doc(db, "projects", data.id);
 
   await updateDoc(docref, {
     numCommits: numCommits,
-    latestComments: commentsArr
+    sentiAnal: sentiScore.average_sentiment
   });
 
   const baseTree = await octokit.request(

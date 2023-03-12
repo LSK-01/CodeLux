@@ -25,7 +25,7 @@ export const POST = (async ({ request }) => {
   obj.numCommits = 0;
   obj.codeAnalysisScore = 0;
   obj.codeAnalysisDate = new Date();
-  obj.latestComments = []
+  obj.sentiAnal = 0
   const projectDoc = await addDoc(collection(db, "projects"), obj);
 
   // Adding the document to the 'projects' collection in Firestore
