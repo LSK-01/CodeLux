@@ -19,7 +19,8 @@
         "Start Date",
         "Deadline",
     ]; // Array of project questions
-    let projectTypes = [
+    
+    const projectTypes = [
         "All",
         "Ci_light",
         "Cupcake",
