@@ -3,14 +3,21 @@ import { app } from "../../../hooks.server";
 import { getFirestore, doc, updateDoc, Timestamp } from "firebase/firestore";
 
 export const POST = (async ({ request }) => {
+  // Get data
   const data = await request.json();
+
+  // Get firestore instance
   const db = getFirestore(app);
+
+  // Get project
   const project = doc(db, "projects", data.projectID);
+
   var complete = true;
+
   if (data.progress == "Complete") {
     complete = false;
   } else if (!data.noRisk) {
-    //send this project for retraining the model
+    // Send this project for retraining the model
     const response = await fetch(
       "https://cs261-backend-7r5ljue3ha-no.a.run.app/retrain",
       {
@@ -24,7 +31,7 @@ export const POST = (async ({ request }) => {
       }
     );
   }
-  //if they are completing the project also write whether success/failure to the db, and the end date
+  // If they are completing the project also write whether success/failure to the db, and the end date
 
   updateDoc(project, {
     complete: complete,

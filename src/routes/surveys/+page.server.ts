@@ -9,23 +9,33 @@ export const load: PageServerLoad = async ({cookies, url}) => {
     let returnArray : any[] = [];
     let questions : any[] = [];
 
+    // Get cookie
     const cookie = cookies.get('user');
+
+    // Redirect user to login if cookie undefined
     if (cookie == undefined) {
         throw redirect(302, '/login');
     }
+
+    // Get user from JSON data
     const user: user = JSON.parse(cookie);
+
+    // Get firestore instance
     const db = getFirestore(app);
 
+    // Get project info from database
     const projID = url.searchParams.get("id")!;
     const project = doc(db, "projects", projID);
     const projectDoc = await getDoc(project);
-    //check if user is manager or employee for the project
+
+    // Check if user is manager or employee for the project
     let managerUsername = projectDoc.get("managerusername");
 
     returnArray.push(projectDoc.get("projectname"));
 
     const questionsRef = collection(db, 'surveyquestions');
 
+    // Get correct questions for user
     if (managerUsername === user.username){
         const querySnapshot1 = await getDocs(questionsRef);
         querySnapshot1.forEach((doc) => {
@@ -48,15 +58,22 @@ export const load: PageServerLoad = async ({cookies, url}) => {
 
 export const actions = {
     default: async ({ cookies, request, url }) => {
+        // Get data
         const data = await request.formData();
+
+        // Get cookie
         const cookie = cookies.get('user')!;
 
+        // Get user from JSON
         const user = JSON.parse(cookie);
+
         const answers : any[] = [];
+
+        // Get project ID from url
         const projID = url.searchParams.get("id")!;
 
-        //add numAnsweredMetricName and metricNameTotal: to project document
-        //make the object first
+        // Add numAnsweredMetricName and metricNameTotal: to project document
+        // Make the object first
         let fields = {};
 
         for (const element of data.entries()) {
@@ -73,9 +90,10 @@ export const actions = {
 
         const db = getFirestore(app);
 
+        // Add metric data to database
         await updateDoc(doc(db, "projects", "metrics:" + projID), fields)
 
-        //update users document
+        // Update users document
         await updateDoc(doc(db, "users", user.uid), { [projID]: Timestamp.now() });
         throw redirect(303, "/surveycomplete");
     }

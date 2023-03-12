@@ -7,20 +7,25 @@ import { redirect, type Actions } from "@sveltejs/kit";
 export const actions: Actions = {
   default: async ({ cookies, request, url }) => {
     //@ts-ignore
+    // Get the CSV data from the request body and convert to a string
     const data = await request.arrayBuffer();
     const csv = Buffer.from(new Uint8Array(data)).toString();
+
+    // Split the CSV by new line and remove the first 4 and last 2 lines
     const splitted = csv.split(/\r?\n/);
     splitted.splice(0, 4);
     splitted.splice(splitted.length - 2, 2);
 
-    //create 2d array
+    // Create 2d array
     const metrics = {};
-    //first element in splitted is the metric keys
+    // First element in splitted is the metric keys
     const keys = splitted[0].split(",");
+    // For each key, create an empty array in the metrics object
     keys.forEach((key) => {
       metrics[key] = [];
     });
 
+    // Loop through the remaining lines and add each value to the corresponding metric array
     for (let i = 1; i < splitted.length; i++) {
       const values = splitted[i].split(",");
       for (let j = 0; j < values.length; j++) {
@@ -29,6 +34,7 @@ export const actions: Actions = {
       }
     }
 
+    // Send a POST request to API to retrain the model with the new metrics data
     const response = await fetch(
       "https://cs261-backend-7r5ljue3ha-no.a.run.app/retrain",
       {
@@ -45,22 +51,32 @@ export const actions: Actions = {
 };
 
 export const load: PageServerLoad = async ({ cookies, url }) => {
+  // Get cookie
   const cookie = cookies.get("user");
+
+  // Redirect user to login if cookie undefined
   if (cookie == undefined) {
     throw redirect(302, "/login");
   }
+
+  // Get user
   const user: user = JSON.parse(cookie);
+
+  // Get firestore instance
   const db = getFirestore(app);
 
+  // Get project params
   const projectID = url.searchParams.get("id")!;
   const project = doc(db, "projects", projectID);
   const projectDoc = await getDoc(project);
 
+  // Get project data
   const name = projectDoc.get("projectname");
   const desc = projectDoc.get("projectdescription");
   const deadline = projectDoc.get("deadline").toDate();
   const startDate = projectDoc.get("startdate").toDate().toLocaleDateString();
 
+  // Get project metrics
   const metricsDocRef = doc(db, "projects", "metrics:" + projectID)
   const metricsDoc = await getDoc(metricsDocRef)
   const smetrics = metricsDoc.data()
@@ -110,7 +126,7 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
         aiMetrics[metricName] = smetrics[metricName] / smetrics[key];
       }
     }
-    //add code analysis and budget and num comits, non soft metrics
+    // Add code analysis and budget and num commits, non soft metrics
     //@ts-ignore
     aiMetrics["code_analysis"] = codeAnalysisScore;
     //@ts-ignore
@@ -119,7 +135,7 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
     //@ts-ignore
 
     aiMetrics["num_commits"] = projectDoc.get("numCommits");
-    //query AI backend for stuff
+    // Query AI backend
     const response = await fetch(
       "https://cs261-backend-7r5ljue3ha-no.a.run.app/classify",
       {

@@ -9,6 +9,7 @@
   export let form: ActionData;
   let errorMsg = "";
 
+  // Show error message
   if (form && !form?.success) {
     errorMsg = "There was an error signing up.";
   }

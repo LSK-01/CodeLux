@@ -7,21 +7,28 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 import { doc, getFirestore, updateDoc } from "firebase/firestore";
 
+// Get filename
 const __filename = fileURLToPath(import.meta.url);
+
+// Get directory name
 const __dirname = dirname(__filename);
 
+
 export const POST = (async ({ request }) => {
+  // Get data
   const data = await request.json();
-  //github links always have the form username/repo
+
+  // Github links always have the form username/repo
   const githubInfo = data.link.split("/").slice(-2);
   const username = githubInfo[0];
   const repo = githubInfo[1];
 
+  // Initialise Octokit
   const octokit = new Octokit({
     auth: String(data.githubToken),
   });
 
-  //first get number of commits
+  // First get number of commits
   const commits = await octokit.request(
     "GET /repos/{owner}/{repo}/commits?per_page={per_page}",
     {
@@ -34,15 +41,17 @@ export const POST = (async ({ request }) => {
     }
   );
 
-  //get the 'last page' link
+  // Get the 'last page' link
   const linkHeader = commits.headers.link!;
   const link = linkHeader.substring(
     linkHeader.lastIndexOf("<") + 1,
     linkHeader.lastIndexOf(">")
   );
-  //get page=xyz
+
+  // Get page=xyz
   const numCommits = Number(link.substring(link.lastIndexOf("=") + 1));
-  //wrirte to the db
+
+  // Write to the db
   const db = getFirestore(app);
   const docref = doc(db, "projects", data.id);
 
@@ -61,7 +70,7 @@ export const POST = (async ({ request }) => {
     }
   );
 
-  //contains all repo files (they will be of type 'blob')
+  // Contains all repo files (they will be of type 'blob')
   const response = await octokit.request(
     "GET /repos/{owner}/{repo}/git/trees/{treesha}?recursive=1",
     {
@@ -74,7 +83,7 @@ export const POST = (async ({ request }) => {
     }
   );
 
-  //filter everything which istn a file
+  // Filter everything which isn't a file
 
   const fileObjects = response.data.tree.filter(
     //@ts-ignore

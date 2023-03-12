@@ -9,7 +9,6 @@
 	let landing = ['', 'about', 'login', 'signup'];
 	let loggedIn = ['dashboard', 'projects', 'add', 'logout'];
 	$: navItems = landing.includes($page.url.pathname.slice(1)) ? landing : loggedIn;
-	// $: navItems = loggedIn.includes($page.url.pathname.slice(1)) ? loggedIn : landing;
 </script>
 
 <svelte:head>
