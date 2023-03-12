@@ -93,14 +93,14 @@ export const POST = (async ({ request }) => {
             return json({  success: false })
         }
     } else {
-        return json({success: false, analysisScore: processed.analysisScore})
-    }
+        return json({success: false})
+    } 
 /*   const db = getFirestore(app);
   const docref = doc(db, "projects", data.projectID);
 
   await updateDoc(docref, {
     codeAnalysisScore: 0.83,
-  }); 
+  });
 
-  return json({ success: true }); */
+  return json({ success: true });  */
 }) satisfies RequestHandler;
