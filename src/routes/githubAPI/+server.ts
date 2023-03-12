@@ -32,8 +32,8 @@ export const POST = (async ({ request }) => {
   const commits = await octokit.request(
     "GET /repos/{owner}/{repo}/commits?per_page={per_page}",
     {
-      owner: "LSK-01",
-      repo: "CS261",
+      owner: username,
+      repo: repo,
       per_page: 1,
       headers: {
         "X-GitHub-Api-Version": "2022-11-28",
@@ -50,13 +50,31 @@ export const POST = (async ({ request }) => {
 
   // Get page=xyz
   const numCommits = Number(link.substring(link.lastIndexOf("=") + 1));
+  console.log("numcommits", numCommits);
 
-  // Write to the db
+  //then get latest 10 commit messages
+  const comments = await octokit.request('GET /repos/{owner}/{repo}/comments?per_page={per_page}', {
+    owner: username,
+    repo: repo,
+    per_page:10,
+    headers: {
+      'X-GitHub-Api-Version': '2022-11-28'
+    }
+  })
+
+  let commentsArr: string[] = []
+  //@ts-ignore
+  comments.data.forEach(obj => {
+    commentsArr.push(obj.body)
+  });
+
+  //Write to the db
   const db = getFirestore(app);
   const docref = doc(db, "projects", data.id);
 
   await updateDoc(docref, {
-    numCommits: numCommits
+    numCommits: numCommits,
+    latestComments: commentsArr
   });
 
   const baseTree = await octokit.request(
