@@ -10,6 +10,7 @@
 </script>
 
 {#if openPopup}
+<div id="bg">
     <div id="popUp">
         <h2>Running code analysis...</h2>
         {#if popupMsgs.length > 0}
@@ -30,21 +31,38 @@
         </Button>
         {/each}
     </div>
+</div>
 {/if}
 
 <style>
+    #bg {
+        position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(6px);
+        z-index: 1;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        height:100%;
+        width:100%;
+    }
+
     #popUp {
         position: absolute;
         display: flex;
         flex-direction: column;
         align-items: center;
+        width: fit-content;
         background-color: var(--fg2);
-        border-radius: 5px;
+        border-radius: 10px;
         gap: 10px;
         padding: 10px;
         flex: 1;
         border: 2px solid;
-        z-index: 1;
+        z-index: 2;
     }
 
     #popUp > span {
