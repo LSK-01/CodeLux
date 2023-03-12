@@ -77,6 +77,7 @@ export const actions = {
         await updateDoc(doc(db, "projects", "metrics:" + projID), fields)
 
         //update users document
+        console.log('updating user document: ', user.uid, projID)
         await updateDoc(doc(db, "users", user.uid), { [projID]: Timestamp.now() });
         throw redirect(303, "/surveycomplete");
 /*         console.log(projID);
