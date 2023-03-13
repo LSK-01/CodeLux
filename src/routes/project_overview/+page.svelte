@@ -98,7 +98,6 @@
     const toggleProgress = async () => {
         // Turn metrics into array values first
         for (let key in data.metrics) {
-            //@ts-ignore
             data.metrics[key] = [data.metrics[key]];
         }
 
@@ -133,7 +132,7 @@
         });
         invalidateAll();
     };
-    var features = data.features;
+    var features: any = data.features;
 
     var items = Object.keys(features).map((key) => { return [key, features[key]] });
 
@@ -145,7 +144,7 @@
 
     // Step - 3
     // Obtain the list of keys in sorted order of the values.
-    var features = items.map(
+    var features: any = items.map(
     (e) => { return e[0] }).slice(0,3);
 
     let files: any;

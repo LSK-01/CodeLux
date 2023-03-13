@@ -25,9 +25,10 @@ export const POST = (async ({ request }) => {
   obj.numCommits = 0;
   obj.codeAnalysisScore = 0;
   obj.codeAnalysisDate = new Date();
-  
-  // Adding the document to the 'projects' collection in Firestore
+  obj.sentiAnal = 0
   const projectDoc = await addDoc(collection(db, "projects"), obj);
+
+  // Adding the document to the 'projects' collection in Firestore
   await setDoc(doc(db, "projects", "metrics:" + projectDoc.id), {})
 
   // Returning the response in JSON format

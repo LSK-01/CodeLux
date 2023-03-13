@@ -32,8 +32,8 @@ export const POST = (async ({ request }) => {
   const commits = await octokit.request(
     "GET /repos/{owner}/{repo}/commits?per_page={per_page}",
     {
-      owner: "LSK-01",
-      repo: "CS261",
+      owner: username,
+      repo: repo,
       per_page: 1,
       headers: {
         "X-GitHub-Api-Version": "2022-11-28",
@@ -50,13 +50,43 @@ export const POST = (async ({ request }) => {
 
   // Get page=xyz
   const numCommits = Number(link.substring(link.lastIndexOf("=") + 1));
+  console.log("numcommits", numCommits);
 
-  // Write to the db
+  //then get latest 10 commit messages
+  const comments = await octokit.request('GET /repos/{owner}/{repo}/comments?per_page={per_page}', {
+    owner: username,
+    repo: repo,
+    per_page:10,
+    headers: {
+      'X-GitHub-Api-Version': '2022-11-28'
+    }
+  })
+
+  let commentsArr: string[] = []
+  
+  comments.data.forEach((obj:any) => {
+    commentsArr.push(obj.body)
+  });
+
+  //get a senti anal score from the backend
+  const sentiScoreRes = await fetch(
+    "https://cs261-backend-7r5ljue3ha-no.a.run.app/sentiment",
+    {
+      method: "POST",
+      body: JSON.stringify({ sentiment: commentsArr }),
+      headers: {
+        "content-type": "application/json",
+      },
+    }
+  );
+  const sentiScore = await sentiScoreRes.json();
+  //Write to the db
   const db = getFirestore(app);
   const docref = doc(db, "projects", data.id);
 
   await updateDoc(docref, {
-    numCommits: numCommits
+    numCommits: numCommits,
+    sentiAnal: sentiScore.average_sentiment
   });
 
   const baseTree = await octokit.request(
@@ -92,8 +122,7 @@ export const POST = (async ({ request }) => {
 
   let filenames: string[] = [];
   const filesBase64 = await Promise.all(
-    //@ts-ignore
-    fileObjects.map(async (fileObj) => {
+    fileObjects.map(async (fileObj:any) => {
       filenames.push(fileObj.path.split("/").at(-1));
       return octokit.request("GET /repos/{owner}/{repo}/git/blobs/{file_sha}", {
         owner: username,

@@ -6,7 +6,6 @@ import { redirect, type Actions } from "@sveltejs/kit";
 
 export const actions: Actions = {
   default: async ({ cookies, request, url }) => {
-    //@ts-ignore
     // Get the CSV data from the request body and convert to a string
     const data = await request.arrayBuffer();
     const csv = Buffer.from(new Uint8Array(data)).toString();
@@ -17,7 +16,7 @@ export const actions: Actions = {
     splitted.splice(splitted.length - 2, 2);
 
     // Create 2d array
-    const metrics = {};
+    const metrics: any = {};
     // First element in splitted is the metric keys
     const keys = splitted[0].split(",");
     // For each key, create an empty array in the metrics object
@@ -77,9 +76,9 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
   const startDate = projectDoc.get("startdate").toDate().toLocaleDateString();
 
   // Get project metrics
-  const metricsDocRef = doc(db, "projects", "metrics:" + projectID)
-  const metricsDoc = await getDoc(metricsDocRef)
-  const smetrics = metricsDoc.data()
+  const metricsDocRef = doc(db, "projects", "metrics:" + projectID);
+  const metricsDoc = await getDoc(metricsDocRef);
+  const smetrics = metricsDoc.data();
 
   const budget = Math.round(projectDoc.get("budget") * 100) / 100;
   const codeAnalysisScore = projectDoc.get("codeAnalysisScore") * 100;
@@ -109,7 +108,7 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
     outcome = "Failure";
   }
 
-  const aiMetrics = {};
+  const aiMetrics: any = {};
   let res = {
     features: {},
     classification: [0, 0],
@@ -122,19 +121,14 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
     for (let key in smetrics) {
       if (key.endsWith("answered")) {
         const metricName = key.substring(0, key.lastIndexOf("_"));
-        //@ts-ignore
         aiMetrics[metricName] = smetrics[metricName] / smetrics[key];
       }
     }
     // Add code analysis and budget and num commits, non soft metrics
-    //@ts-ignore
     aiMetrics["code_analysis"] = codeAnalysisScore;
-    //@ts-ignore
-
     aiMetrics["budget"] = budget;
-    //@ts-ignore
-
     aiMetrics["num_commits"] = projectDoc.get("numCommits");
+    aiMetrics["commit_sentiment"] = projectDoc.get("sentiAnal");
     // Query AI backend
     const response = await fetch(
       "https://cs261-backend-7r5ljue3ha-no.a.run.app/classify",

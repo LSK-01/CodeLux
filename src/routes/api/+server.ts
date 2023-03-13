@@ -49,10 +49,9 @@ export const POST = (async ({ request }) => {
       orderBy("enddate", "desc"),
       limit(data.numProjects)
     );
-    const resp = {};
+    const resp: any = {};
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      //@ts-ignore
       resp[doc.data().projectname] = doc.data().smetrics;
     });
   }
