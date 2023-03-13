@@ -273,6 +273,7 @@
             {/if}
         </div>
         {/if}
+        {#if data.project.progress == "Not complete"}
         <div class="projectOverviewItem">
             <span class="material-symbols-outlined">comment</span>
             <h2>Probability of project failure: {data.failureProbability.toFixed(3)}</h2>
@@ -305,6 +306,7 @@
                 </ul> 
             {/if}     
         </div>
+        {/if}
     </div>
 </div>
 
